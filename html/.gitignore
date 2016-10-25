@@ -1,6 +1,6 @@
 .buildpath
 .project
-configure.php
+/configure.php
 /templates_c
 /includes/loginpass.txt
 .sharedentries
