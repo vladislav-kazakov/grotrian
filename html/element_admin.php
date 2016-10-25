@@ -1,0 +1,43 @@
+<?
+require_once("configure.php");
+require_once("includes/elementlist.php");
+require_once("includes/atom.php");
+
+if(isset($_POST['action']) && (isset($_POST['element_id']) || isset($_POST['atom_id']))){
+	$element_id = $_POST['element_id'];
+	$atom_id = $_POST['atom_id'];
+	$action=$_POST['action'];
+	$atom = new Atom();	
+	$element = new ElementList();	
+	switch ($action){	
+			case "saveElement": {				
+				$element->Save($_POST);	
+				//print_r($_POST);			
+			}
+			
+			case "createAtom": {				
+				$atom->Create($element_id);					
+				echo $atom->GetProperty('ID'); break;							
+			}
+			
+			case "deleteAtom": {				
+				$atom->Delete($element_id,$atom_id);
+				echo $atom->GetProperty('ID'); break;
+			}
+			
+			case "saveAtom": {				
+				$atom->Save($_POST);				
+				//print_r($_POST);							
+			}
+			
+			case "makeDiagramm": {				
+				$atom->makeDiagramm($_POST);				
+				//print_r($_POST);	
+				break;						
+			}
+			
+			
+		}
+	}
+
+?>
