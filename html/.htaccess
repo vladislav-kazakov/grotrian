@@ -1,5 +1,9 @@
 AddDefaultCharset utf8
+
 RewriteEngine on
+
+# disallow access to git and svn directories
+RedirectMatch 404 /\.(svn|git)(/|$)
 
 RewriteCond %{HTTP_HOST} ^asd.nsu.ru$ [OR]
 RewriteCond %{HTTP_HOST} ^www.asd.nsu.ru$
