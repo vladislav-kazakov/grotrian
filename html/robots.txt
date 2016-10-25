@@ -1,0 +1,13 @@
+User-agent: *
+Disallow: /action/
+Disallow: /ADDON/*
+Disallow: /cache/
+Disallow: /css/*
+Disallow: /images/*
+Disallow: /includes/*
+Disallow: /js/
+Disallow: /templates/*
+Disallow: /counter/
+Disallow: /import/
+Host: grotrian.nsu.ru
+Sitemap: http://grotrian.nsu.ru/sitemap.xml

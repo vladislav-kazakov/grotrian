@@ -1,0 +1,46 @@
+#positionSlider{
+	left:20px; width: 960px;
+	}
+
+#scaleSliderContainer{
+	padding-left:1020px;
+	font-size: 62.5%;
+	}
+	
+#spectrum{
+	float:left;padding-left:20px;
+	}
+
+#positionMaxValue{
+	float: right;
+	}
+	
+#positionMinValue{
+	padding-left:0px;
+	}
+	
+#spectrum{
+	width:960px; height:100px;
+	}
+	
+#bottomslider{
+	padding-top:10px;
+	font-size: 62.5%;
+	}
+	
+#scaleValue{
+	font-size:12px;
+	color:#f6931f; 
+	font-weight:bold;
+}
+
+test{
+	z-index:1000;	
+}
+
+.ruler{
+ width: 995px;
+ font-size:12px;
+ color:#f6931f; 
+ font-weight:bold;
+}

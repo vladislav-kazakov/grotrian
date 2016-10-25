@@ -1,0 +1,14 @@
+This repository holds "node software" for VAMDC, which provides the tools
+for running data services according to the standards defined by 
+http://www.vamdc.eu
+
+Documentation at http://vamdc-nodesoftware.rtfd.org
+
+The directories in this repository contain:
+
+vamdctap/   The library that all the nodes use.
+nodes/      The different VAMDC nodes that run with this software.
+imptools/   The import tools for reading data into a database.
+doc/        Documentation, run "make html" inside to build it.
+static/     Static files like CSS, template and the like.
+other/      Some scripts, data verification and legacy code.

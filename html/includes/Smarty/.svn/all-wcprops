@@ -1,0 +1,95 @@
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/aparted/grotrian/!svn/ver/1/www/includes/Smarty
+END
+debug.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/aparted/grotrian/!svn/ver/1/www/includes/Smarty/debug.tpl
+END
+ChangeLog
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/aparted/grotrian/!svn/ver/1/www/includes/Smarty/ChangeLog
+END
+RELEASE_NOTES
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/aparted/grotrian/!svn/ver/1/www/includes/Smarty/RELEASE_NOTES
+END
+QUICK_START
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/aparted/grotrian/!svn/ver/1/www/includes/Smarty/QUICK_START
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/aparted/grotrian/!svn/ver/1/www/includes/Smarty/README
+END
+Config_File.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/aparted/grotrian/!svn/ver/1/www/includes/Smarty/Config_File.class.php
+END
+BUGS
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/aparted/grotrian/!svn/ver/1/www/includes/Smarty/BUGS
+END
+Smarty_Compiler.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/aparted/grotrian/!svn/ver/1/www/includes/Smarty/Smarty_Compiler.class.php
+END
+TODO
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/aparted/grotrian/!svn/ver/1/www/includes/Smarty/TODO
+END
+INSTALL
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/aparted/grotrian/!svn/ver/1/www/includes/Smarty/INSTALL
+END
+FAQ
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/aparted/grotrian/!svn/ver/1/www/includes/Smarty/FAQ
+END
+Smarty.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/aparted/grotrian/!svn/ver/1/www/includes/Smarty/Smarty.class.php
+END
+NEWS
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/aparted/grotrian/!svn/ver/1/www/includes/Smarty/NEWS
+END
+COPYING.lib
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/aparted/grotrian/!svn/ver/1/www/includes/Smarty/COPYING.lib
+END
+.sharedentries
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/aparted/grotrian/!svn/ver/3/www/includes/Smarty/.sharedentries
+END

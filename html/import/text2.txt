@@ -1,0 +1,325 @@
+<link rel="stylesheet" type="text/css" href="css/main.css">	
+</head>
+
+<body class="periodictable">
+	<div id="wrapper">		
+		<div class="element_picker">					
+			<div class="newperiodic">
+				<div class="empty" style="left:0px; margin-top:0px;">&nbsp;</div>
+				<div class="empty" style="left:26px; margin-top:0px;"><div class="head">1</div></div>    
+
+				<div class="empty" style="left:0px; margin-top:26px;"><div class="head">1</div></div>
+
+				<div class="empty" style="left:52px; margin-top:0px;"><div class="head">2</div></div>    
+
+				<div class="empty" style="left:0px; margin-top:52px;"><div class="head">2</div></div>
+
+				<div class="empty" style="left:78px; margin-top:0px;"><div class="head">3</div></div>    
+
+				<div class="empty" style="left:0px; margin-top:78px;"><div class="head">3</div></div>
+
+				<div class="empty" style="left:104px; margin-top:0px;"><div class="head">4</div></div>    
+
+				<div class="empty" style="left:0px; margin-top:104px;"><div class="head">4</div></div>
+
+				<div class="empty" style="left:130px; margin-top:0px;"><div class="head">5</div></div>    
+
+				<div class="empty" style="left:0px; margin-top:130px;"><div class="head">5</div></div>
+
+				<div class="empty" style="left:156px; margin-top:0px;"><div class="head">6</div></div>    
+
+				<div class="empty" style="left:0px; margin-top:156px;"><div class="head">6</div></div>
+
+				<div class="empty" style="left:182px; margin-top:0px;"><div class="head">7</div></div>    
+
+				<div class="empty" style="left:0px; margin-top:182px;"><div class="head">7</div></div>
+
+				<div class="empty" style="left:208px; margin-top:0px;"><div class="head">8</div></div>    
+
+				<div class="empty" style="left:0px; margin-top:208px;"><div class="head">8</div></div>
+
+				<div class="empty" style="left:234px; margin-top:0px;"><div class="head">9</div></div>    
+
+				<div class="empty" style="left:260px; margin-top:0px;"><div class="head">10</div></div>    
+
+				<div class="empty" style="left:286px; margin-top:0px;"><div class="head">11</div></div>    
+
+				<div class="empty" style="left:312px; margin-top:0px;"><div class="head">12</div></div>    
+
+				<div class="empty" style="left:338px; margin-top:0px;"><div class="head">13</div></div>    
+
+				<div class="empty" style="left:364px; margin-top:0px;"><div class="head">14</div></div>    
+
+				<div class="empty" style="left:390px; margin-top:0px;"><div class="head">15</div></div>    
+
+				<div class="empty" style="left:416px; margin-top:0px;"><div class="head">16</div></div>    
+
+				<div class="empty" style="left:442px; margin-top:0px;"><div class="head">17</div></div>    
+
+				<div class="empty" style="left:468px; margin-top:0px;"><div class="head">18</div></div>    			
+				<div class="empty" style="width:85px; left:0px; margin-top:240px;"><div class="head"></div>Лантаноиды</div>
+				<div class="empty" style="width:85px; left:0px; margin-top:266px;"><div class="head">Актиноиды</div></div>
+				<div class="empty" style="width:85px; left:0px; margin-top:292px;"><div class="head">Суперактиноиды</div></div>			<span style="display:none;">29</span>
+
+				<div class="onm pick" style="left:26px; margin-top:26px;"><input type="hidden" name="elemid" ><span class="pnum">1</span><span class="pname">T</span></div>
+				<div class="onm pick" style="left:468px; margin-top:266px;"><input type="hidden" name="elemid" ><span class="pname_head">T</span></div> 			<div class="onm pick" style="left:26px; margin-top:26px;"><input type="hidden" name="elemid" ><span class="pnum">1</span><span class="pname">D</span></div>
+				<div class="onm pick" style="left:468px; margin-top:240px;"><input type="hidden" name="elemid" ><span class="pname_head">D</span></div> 
+				<div class="sact pick" style="left:112px; margin-top:292px;"><input type="hidden" name="elemid" ><span class="pnum">122</span><span class="pname">Ubb</span></div> 
+
+				<div class="sact pick" style="left:86px; margin-top:292px;"><input type="hidden" name="elemid" ><span class="pnum">121</span><span class="pname">Ubu</span></div> 
+				<div class="aem pick" style="left:52px; margin-top:208px;"><input type="hidden" name="elemid" ><span class="pnum">120</span><span class="pname">Ubn</span></div>
+
+				<div class="am pick" style="left:26px; margin-top:208px;"><input type="hidden" name="elemid" ><span class="pnum">119</span><span class="pname">Uue</span></div>
+
+				<div class="nb pick" style="left:468px; margin-top:182px;"><input type="hidden" name="elemid" ><span class="pnum">118</span><span class="pname">Uuo</span></div>
+
+				<div class="hl pick" style="left:442px; margin-top:182px;"><input type="hidden" name="elemid" ><span class="pnum">117</span><span class="pname">Uus</span></div>
+
+				<div class="om pick" style="left:416px; margin-top:182px;"><input type="hidden" name="elemid" ><span class="pnum">116</span><span class="pname">Lv</span></div>
+
+				<div class="om pick" style="left:390px; margin-top:182px;"><input type="hidden" name="elemid" ><span class="pnum">115</span><span class="pname">Uup</span></div>
+
+				<div class="om pick" style="left:364px; margin-top:182px;"><input type="hidden" name="elemid" ><span class="pnum">114</span><span class="pname">Fl</span></div>
+
+				<div class="om pick" style="left:338px; margin-top:182px;"><input type="hidden" name="elemid" ><span class="pnum">113</span><span class="pname">Uut</span></div>
+
+				<div class="tm pick" style="left:312px; margin-top:182px;"><input type="hidden" name="elemid" ><span class="pnum">112</span><span class="pname">Cn</span></div>
+
+				<div class="tm pick" style="left:286px; margin-top:182px;"><input type="hidden" name="elemid" ><span class="pnum">111</span><span class="pname">Rg</span></div>
+
+				<div class="tm pick" style="left:260px; margin-top:182px;"><input type="hidden" name="elemid" ><span class="pnum">110</span><span class="pname">Ds</span></div>
+
+				<div class="tm pick" style="left:234px; margin-top:182px;"><input type="hidden" name="elemid" ><span class="pnum">109</span><span class="pname">Mt</span></div>
+
+				<div class="tm pick" style="left:208px; margin-top:182px;"><input type="hidden" name="elemid" ><span class="pnum">108</span><span class="pname">Hs</span></div>
+
+				<div class="tm pick" style="left:182px; margin-top:182px;"><input type="hidden" name="elemid" ><span class="pnum">107</span><span class="pname">Bh</span></div>
+
+				<div class="tm pick" style="left:156px; margin-top:182px;"><input type="hidden" name="elemid" ><span class="pnum">106</span><span class="pname">Sg</span></div>
+
+				<div class="tm pick" style="left:130px; margin-top:182px;"><input type="hidden" name="elemid" ><span class="pnum">105</span><span class="pname">Db</span></div>
+
+				<div class="tm pick" style="left:104px; margin-top:182px;"><input type="hidden" name="elemid" ><span class="pnum">104</span><span class="pname">Rf</span></div>
+
+				<div class="act pick" style="left:78px; margin-top:182px;"><input type="hidden" name="elemid" ><span class="pnum">103</span><span class="pname">Lr</span></div>			<div class="act pick" style="left:424px; margin-top:266px;"><input type="hidden" name="elemid" ><span class="pnum">103</span><span class="pname">Lr</span></div> 
+				<div class="act pick" style="left:78px; margin-top:182px;"><input type="hidden" name="elemid" ><span class="pnum">102</span><span class="pname">No</span></div>			<div class="act pick" style="left:398px; margin-top:266px;"><input type="hidden" name="elemid" ><span class="pnum">102</span><span class="pname">No</span></div> 
+				<div class="act pick" style="left:78px; margin-top:182px;"><input type="hidden" name="elemid" ><span class="pnum">101</span><span class="pname">Md</span></div>			<div class="act pick" style="left:372px; margin-top:266px;"><input type="hidden" name="elemid" ><span class="pnum">101</span><span class="pname">Md</span></div> 
+				<div class="act pick" style="left:78px; margin-top:182px;"><input type="hidden" name="elemid" ><span class="pnum">100</span><span class="pname">Fm</span></div>			<div class="act pick" style="left:346px; margin-top:266px;"><input type="hidden" name="elemid" ><span class="pnum">100</span><span class="pname">Fm</span></div> 
+				<div class="act pick" style="left:78px; margin-top:182px;"><input type="hidden" name="elemid" ><span class="pnum">99</span><span class="pname">Es</span></div>			<div class="act pick" style="left:320px; margin-top:266px;"><input type="hidden" name="elemid" ><span class="pnum">99</span><span class="pname">Es</span></div> 
+				<div class="act pick" style="left:78px; margin-top:182px;"><input type="hidden" name="elemid" ><span class="pnum">98</span><span class="pname">Cf</span></div>			<div class="act pick" style="left:294px; margin-top:266px;"><input type="hidden" name="elemid" ><span class="pnum">98</span><span class="pname">Cf</span></div> 
+				<div class="act pick" style="left:78px; margin-top:182px;"><input type="hidden" name="elemid" ><span class="pnum">97</span><span class="pname">Bk</span></div>			<div class="act pick" style="left:268px; margin-top:266px;"><input type="hidden" name="elemid" ><span class="pnum">97</span><span class="pname">Bk</span></div> 
+				<div class="act pick" style="left:78px; margin-top:182px;"><input type="hidden" name="elemid" ><span class="pnum">96</span><span class="pname">Cm</span></div>			<div class="act pick" style="left:242px; margin-top:266px;"><input type="hidden" name="elemid" ><span class="pnum">96</span><span class="pname">Cm</span></div> 
+				<div class="act pick" style="left:78px; margin-top:182px;"><input type="hidden" name="elemid" ><span class="pnum">95</span><span class="pname">Am</span></div>			<div class="act pick" style="left:216px; margin-top:266px;"><input type="hidden" name="elemid" ><span class="pnum">95</span><span class="pname">Am</span></div> 
+				<div class="act pick" style="left:78px; margin-top:182px;"><input type="hidden" name="elemid" ><span class="pnum">94</span><span class="pname">Pu</span></div>			<div class="act pick" style="left:190px; margin-top:266px;"><input type="hidden" name="elemid" ><span class="pnum">94</span><span class="pname">Pu</span></div> 
+				<div class="act pick" style="left:78px; margin-top:182px;"><input type="hidden" name="elemid" ><span class="pnum">93</span><span class="pname">Np</span></div>			<div class="act pick" style="left:164px; margin-top:266px;"><input type="hidden" name="elemid" ><span class="pnum">93</span><span class="pname">Np</span></div> 
+				<div class="act pick" style="left:78px; margin-top:182px;"><input type="hidden" name="elemid" ><span class="pnum">92</span><span class="pname">U</span></div>			<div class="act pick" style="left:138px; margin-top:266px;"><input type="hidden" name="elemid" ><span class="pnum">92</span><span class="pname">U</span></div> 
+				<div class="act pick" style="left:78px; margin-top:182px;"><input type="hidden" name="elemid" ><span class="pnum">91</span><span class="pname">Pa</span></div>			<div class="act pick" style="left:112px; margin-top:266px;"><input type="hidden" name="elemid" ><span class="pnum">91</span><span class="pname">Pa</span></div> 
+				<div class="act pick" style="left:78px; margin-top:182px;"><input type="hidden" name="elemid" ><span class="pnum">90</span><span class="pname">Th</span></div>			<div class="act pick" style="left:86px; margin-top:266px;"><input type="hidden" name="elemid" ><span class="pnum">90</span><span class="pname">Th</span></div> 
+				<div class="act pick" style="left:78px; margin-top:182px;"><input type="hidden" name="elemid" ><span class="pnum">89</span><span class="pname">Ac</span></div>
+
+				<div class="aem pick" style="left:52px; margin-top:182px;"><input type="hidden" name="elemid" ><span class="pnum">88</span><span class="pname">Ra</span></div>
+
+				<div class="am pick" style="left:26px; margin-top:182px;"><input type="hidden" name="elemid" ><span class="pnum">87</span><span class="pname">Fr</span></div>
+
+				<div class="nb pick" style="left:468px; margin-top:156px;"><input type="hidden" name="elemid" ><span class="pnum">86</span><span class="pname">Rn</span></div>
+
+				<div class="hl pick" style="left:442px; margin-top:156px;"><input type="hidden" name="elemid" ><span class="pnum">85</span><span class="pname">At</span></div>
+
+				<div class="mo pick" style="left:416px; margin-top:156px;"><input type="hidden" name="elemid" ><span class="pnum">84</span><span class="pname">Po</span></div>
+
+				<div class="om pick" style="left:390px; margin-top:156px;"><input type="hidden" name="elemid" ><span class="pnum">83</span><span class="pname">Bi</span></div>
+
+				<div class="om pick" style="left:364px; margin-top:156px;"><input type="hidden" name="elemid" ><span class="pnum">82</span><span class="pname">Pb</span></div>
+
+				<div class="om pick" style="left:338px; margin-top:156px;"><input type="hidden" name="elemid" ><span class="pnum">81</span><span class="pname">Tl</span></div>
+
+				<div class="tm pick" style="left:312px; margin-top:156px;"><input type="hidden" name="elemid" ><span class="pnum">80</span><span class="pname">Hg</span></div>
+
+				<div class="tm pick" style="left:286px; margin-top:156px;"><input type="hidden" name="elemid" ><span class="pnum">79</span><span class="pname">Au</span></div>
+
+				<div class="tm pick" style="left:260px; margin-top:156px;"><input type="hidden" name="elemid" ><span class="pnum">78</span><span class="pname">Pt</span></div>
+
+				<div class="tm pick" style="left:234px; margin-top:156px;"><input type="hidden" name="elemid" ><span class="pnum">77</span><span class="pname">Ir</span></div>
+
+				<div class="tm pick" style="left:208px; margin-top:156px;"><input type="hidden" name="elemid" ><span class="pnum">76</span><span class="pname">Os</span></div>
+
+				<div class="tm pick" style="left:182px; margin-top:156px;"><input type="hidden" name="elemid" ><span class="pnum">75</span><span class="pname">Re</span></div>
+
+				<div class="tm pick" style="left:156px; margin-top:156px;"><input type="hidden" name="elemid" ><span class="pnum">74</span><span class="pname">W</span></div>
+
+				<div class="tm pick" style="left:130px; margin-top:156px;"><input type="hidden" name="elemid" ><span class="pnum">73</span><span class="pname">Ta</span></div>
+
+				<div class="tm pick" style="left:104px; margin-top:156px;"><input type="hidden" name="elemid" ><span class="pnum">72</span><span class="pname">Hf</span></div>
+
+				<div class="lan pick" style="left:78px; margin-top:156px;"><input type="hidden" name="elemid" ><span class="pnum">71</span><span class="pname">Lu</span></div>
+
+				<div class="lan pick" style="left:424px; margin-top:240px;"><input type="hidden" name="elemid" ><span class="pnum">71</span><span class="pname">Lu</span></div> 
+
+				<div class="lan pick" style="left:78px; margin-top:156px;"><input type="hidden" name="elemid" ><span class="pnum">70</span><span class="pname">Yb</span></div>
+
+				<div class="lan pick" style="left:398px; margin-top:240px;"><input type="hidden" name="elemid" ><span class="pnum">70</span><span class="pname">Yb</span></div> 
+
+				<div class="lan pick" style="left:78px; margin-top:156px;"><input type="hidden" name="elemid" ><span class="pnum">69</span><span class="pname">Tm</span></div>
+
+				<div class="lan pick" style="left:372px; margin-top:240px;"><input type="hidden" name="elemid" ><span class="pnum">69</span><span class="pname">Tm</span></div> 
+
+				<div class="lan pick" style="left:78px; margin-top:156px;"><input type="hidden" name="elemid" ><span class="pnum">68</span><span class="pname">Er</span></div>
+
+				<div class="lan pick" style="left:346px; margin-top:240px;"><input type="hidden" name="elemid" ><span class="pnum">68</span><span class="pname">Er</span></div> 
+
+				<div class="lan pick" style="left:78px; margin-top:156px;"><input type="hidden" name="elemid" ><span class="pnum">67</span><span class="pname">Ho</span></div>
+
+				<div class="lan pick" style="left:320px; margin-top:240px;"><input type="hidden" name="elemid" ><span class="pnum">67</span><span class="pname">Ho</span></div> 
+
+				<div class="lan pick" style="left:78px; margin-top:156px;"><input type="hidden" name="elemid" ><span class="pnum">66</span><span class="pname">Dy</span></div>
+
+				<div class="lan pick" style="left:294px; margin-top:240px;"><input type="hidden" name="elemid" ><span class="pnum">66</span><span class="pname">Dy</span></div> 
+
+				<div class="lan pick" style="left:78px; margin-top:156px;"><input type="hidden" name="elemid" ><span class="pnum">65</span><span class="pname">Tb</span></div>
+
+				<div class="lan pick" style="left:268px; margin-top:240px;"><input type="hidden" name="elemid" ><span class="pnum">65</span><span class="pname">Tb</span></div> 
+
+				<div class="lan pick" style="left:78px; margin-top:156px;"><input type="hidden" name="elemid" ><span class="pnum">64</span><span class="pname">Gd</span></div>
+
+				<div class="lan pick" style="left:242px; margin-top:240px;"><input type="hidden" name="elemid" ><span class="pnum">64</span><span class="pname">Gd</span></div> 
+
+				<div class="lan pick" style="left:78px; margin-top:156px;"><input type="hidden" name="elemid" ><span class="pnum">63</span><span class="pname">Eu</span></div>
+
+				<div class="lan pick" style="left:216px; margin-top:240px;"><input type="hidden" name="elemid" ><span class="pnum">63</span><span class="pname">Eu</span></div> 
+
+				<div class="lan pick" style="left:78px; margin-top:156px;"><input type="hidden" name="elemid" ><span class="pnum">62</span><span class="pname">Sm</span></div>
+
+				<div class="lan pick" style="left:190px; margin-top:240px;"><input type="hidden" name="elemid" ><span class="pnum">62</span><span class="pname">Sm</span></div> 
+
+				<div class="lan pick" style="left:78px; margin-top:156px;"><input type="hidden" name="elemid" ><span class="pnum">61</span><span class="pname">Pm</span></div>
+
+				<div class="lan pick" style="left:164px; margin-top:240px;"><input type="hidden" name="elemid" ><span class="pnum">61</span><span class="pname">Pm</span></div> 
+
+				<div class="lan pick" style="left:78px; margin-top:156px;"><input type="hidden" name="elemid" ><span class="pnum">60</span><span class="pname">Nd</span></div>
+
+				<div class="lan pick" style="left:138px; margin-top:240px;"><input type="hidden" name="elemid" ><span class="pnum">60</span><span class="pname">Nd</span></div> 
+
+				<div class="lan pick" style="left:78px; margin-top:156px;"><input type="hidden" name="elemid" ><span class="pnum">59</span><span class="pname">Pr</span></div>
+
+				<div class="lan pick" style="left:112px; margin-top:240px;"><input type="hidden" name="elemid" ><span class="pnum">59</span><span class="pname">Pr</span></div> 
+
+				<div class="lan pick" style="left:78px; margin-top:156px;"><input type="hidden" name="elemid" ><span class="pnum">58</span><span class="pname">Ce</span></div>
+
+				<div class="lan pick" style="left:86px; margin-top:240px;"><input type="hidden" name="elemid" ><span class="pnum">58</span><span class="pname">Ce</span></div> 
+
+				<div class="lan pick" style="left:78px; margin-top:156px;"><input type="hidden" name="elemid" ><span class="pnum">57</span><span class="pname">La</span></div>
+
+				<div class="aem pick" style="left:52px; margin-top:156px;"><input type="hidden" name="elemid" ><span class="pnum">56</span><span class="pname">Ba</span></div>
+
+				<div class="am pick" style="left:26px; margin-top:156px;"><input type="hidden" name="elemid" ><span class="pnum">55</span><span class="pname">Cs</span></div>
+
+				<div class="nb pick" style="left:468px; margin-top:130px;"><input type="hidden" name="elemid" ><span class="pnum">54</span><span class="pname">Xe</span></div>
+
+				<div class="hl pick" style="left:442px; margin-top:130px;"><input type="hidden" name="elemid" ><span class="pnum">53</span><span class="pname">I</span></div>
+
+				<div class="mo pick" style="left:416px; margin-top:130px;"><input type="hidden" name="elemid" ><span class="pnum">52</span><span class="pname">Te</span></div>
+
+				<div class="mo pick" style="left:390px; margin-top:130px;"><input type="hidden" name="elemid" ><span class="pnum">51</span><span class="pname">Sb</span></div>
+
+				<div class="om pick" style="left:364px; margin-top:130px;"><input type="hidden" name="elemid" ><span class="pnum">50</span><span class="pname">Sn</span></div>
+
+				<div class="om pick" style="left:338px; margin-top:130px;"><input type="hidden" name="elemid" ><span class="pnum">49</span><span class="pname">In</span></div>
+
+				<div class="tm pick" style="left:312px; margin-top:130px;"><input type="hidden" name="elemid" ><span class="pnum">48</span><span class="pname">Cd</span></div>
+
+				<div class="tm pick" style="left:286px; margin-top:130px;"><input type="hidden" name="elemid" ><span class="pnum">47</span><span class="pname">Ag</span></div>
+
+				<div class="tm pick" style="left:260px; margin-top:130px;"><input type="hidden" name="elemid" ><span class="pnum">46</span><span class="pname">Pd</span></div>
+
+				<div class="tm pick" style="left:234px; margin-top:130px;"><input type="hidden" name="elemid" ><span class="pnum">45</span><span class="pname">Rh</span></div>
+
+				<div class="tm pick" style="left:208px; margin-top:130px;"><input type="hidden" name="elemid" ><span class="pnum">44</span><span class="pname">Ru</span></div>
+
+				<div class="tm pick" style="left:182px; margin-top:130px;"><input type="hidden" name="elemid" ><span class="pnum">43</span><span class="pname">Tc</span></div>
+
+				<div class="tm pick" style="left:156px; margin-top:130px;"><input type="hidden" name="elemid" ><span class="pnum">42</span><span class="pname">Mo</span></div>
+
+				<div class="tm pick" style="left:130px; margin-top:130px;"><input type="hidden" name="elemid" ><span class="pnum">41</span><span class="pname">Nb</span></div>
+
+				<div class="tm pick" style="left:104px; margin-top:130px;"><input type="hidden" name="elemid" ><span class="pnum">40</span><span class="pname">Zr</span></div>
+
+				<div class="tm pick" style="left:78px; margin-top:130px;"><input type="hidden" name="elemid" ><span class="pnum">39</span><span class="pname">Y</span></div>
+
+				<div class="aem pick" style="left:52px; margin-top:130px;"><input type="hidden" name="elemid" ><span class="pnum">38</span><span class="pname">Sr</span></div>
+
+				<div class="am pick" style="left:26px; margin-top:130px;"><input type="hidden" name="elemid" ><span class="pnum">37</span><span class="pname">Rb</span></div>
+
+				<div class="nb pick" style="left:468px; margin-top:104px;"><input type="hidden" name="elemid" ><span class="pnum">36</span><span class="pname">Kr</span></div>
+
+				<div class="hl pick" style="left:442px; margin-top:104px;"><input type="hidden" name="elemid" ><span class="pnum">35</span><span class="pname">Br</span></div>
+
+				<div class="onm pick" style="left:416px; margin-top:104px;"><input type="hidden" name="elemid" ><span class="pnum">34</span><span class="pname">Se</span></div>
+
+				<div class="mo pick" style="left:390px; margin-top:104px;"><input type="hidden" name="elemid" ><span class="pnum">33</span><span class="pname">As</span></div>
+
+				<div class="mo pick" style="left:364px; margin-top:104px;"><input type="hidden" name="elemid" ><span class="pnum">32</span><span class="pname">Ge</span></div>
+
+				<div class="om pick" style="left:338px; margin-top:104px;"><input type="hidden" name="elemid" ><span class="pnum">31</span><span class="pname">Ga</span></div>
+
+				<div class="tm pick" style="left:312px; margin-top:104px;"><input type="hidden" name="elemid" ><span class="pnum">30</span><span class="pname">Zn</span></div>
+
+				<div class="tm pick" style="left:286px; margin-top:104px;"><input type="hidden" name="elemid" ><span class="pnum">29</span><span class="pname">Cu</span></div>
+
+				<div class="tm pick" style="left:260px; margin-top:104px;"><input type="hidden" name="elemid" ><span class="pnum">28</span><span class="pname">Ni</span></div>
+
+				<div class="tm pick" style="left:234px; margin-top:104px;"><input type="hidden" name="elemid" ><span class="pnum">27</span><span class="pname">Co</span></div>
+
+				<div class="tm pick" style="left:208px; margin-top:104px;"><input type="hidden" name="elemid" ><span class="pnum">26</span><span class="pname">Fe</span></div>
+
+				<div class="tm pick" style="left:182px; margin-top:104px;"><input type="hidden" name="elemid" ><span class="pnum">25</span><span class="pname">Mn</span></div>
+
+				<div class="tm pick" style="left:156px; margin-top:104px;"><input type="hidden" name="elemid" ><span class="pnum">24</span><span class="pname">Cr</span></div>
+
+				<div class="tm pick" style="left:130px; margin-top:104px;"><input type="hidden" name="elemid" ><span class="pnum">23</span><span class="pname">V</span></div>
+
+				<div class="tm pick" style="left:104px; margin-top:104px;"><input type="hidden" name="elemid" ><span class="pnum">22</span><span class="pname">Ti</span></div>
+
+				<div class="tm pick" style="left:78px; margin-top:104px;"><input type="hidden" name="elemid" ><span class="pnum">21</span><span class="pname">Sc</span></div>
+
+				<div class="aem pick" style="left:52px; margin-top:104px;"><input type="hidden" name="elemid" ><span class="pnum">20</span><span class="pname">Ca</span></div>
+
+				<div class="am pick" style="left:26px; margin-top:104px;"><input type="hidden" name="elemid" ><span class="pnum">19</span><span class="pname">K</span></div>
+
+				<div class="nb pick" style="left:468px; margin-top:78px;"><input type="hidden" name="elemid" ><span class="pnum">18</span><span class="pname">Ar</span></div>
+
+				<div class="hl pick" style="left:442px; margin-top:78px;"><input type="hidden" name="elemid" ><span class="pnum">17</span><span class="pname">Cl</span></div>
+
+				<div class="onm pick" style="left:416px; margin-top:78px;"><input type="hidden" name="elemid" ><span class="pnum">16</span><span class="pname">S</span></div>
+
+				<div class="onm pick" style="left:390px; margin-top:78px;"><input type="hidden" name="elemid" ><span class="pnum">15</span><span class="pname">P</span></div>
+
+				<div class="mo pick" style="left:364px; margin-top:78px;"><input type="hidden" name="elemid" ><span class="pnum">14</span><span class="pname">Si</span></div>
+
+				<div class="om pick" style="left:338px; margin-top:78px;"><input type="hidden" name="elemid" ><span class="pnum">13</span><span class="pname">Al</span></div>
+
+				<div class="aem pick" style="left:52px; margin-top:78px;"><input type="hidden" name="elemid" ><span class="pnum">12</span><span class="pname">Mg</span></div>
+
+				<div class="am pick" style="left:26px; margin-top:78px;"><input type="hidden" name="elemid" ><span class="pnum">11</span><span class="pname">Na</span></div>
+
+				<div class="nb pick" style="left:468px; margin-top:52px;"><input type="hidden" name="elemid" ><span class="pnum">10</span><span class="pname">Ne</span></div>
+
+				<div class="hl pick" style="left:442px; margin-top:52px;"><input type="hidden" name="elemid" ><span class="pnum">9</span><span class="pname">F</span></div>
+
+				<div class="onm pick" style="left:416px; margin-top:52px;"><input type="hidden" name="elemid" ><span class="pnum">8</span><span class="pname">O</span></div>
+
+				<div class="onm pick" style="left:390px; margin-top:52px;"><input type="hidden" name="elemid" ><span class="pnum">7</span><span class="pname">N</span></div>
+
+				<div class="onm pick" style="left:364px; margin-top:52px;"><input type="hidden" name="elemid" ><span class="pnum">6</span><span class="pname">C</span></div>
+
+				<div class="mo pick" style="left:338px; margin-top:52px;"><input type="hidden" name="elemid" ><span class="pnum">5</span><span class="pname">B</span></div>
+
+				<div class="aem pick" style="left:52px; margin-top:52px;"><input type="hidden" name="elemid" ><span class="pnum">4</span><span class="pname">Be</span></div>
+
+				<div class="am pick" style="left:26px; margin-top:52px;"><input type="hidden" name="elemid" ><span class="pnum">3</span><span class="pname">Li</span></div>
+
+				<div class="nb pick" style="left:468px; margin-top:26px;"><input type="hidden" name="elemid" ><span class="pnum">2</span><span class="pname">He</span></div>
+
+				<div class="onm pick" style="left:26px; margin-top:26px;"><input type="hidden" name="elemid" ><span class="pnum">1</span><span class="pname">H</span></div>
+			</div>			
+		</div>
+	</div>

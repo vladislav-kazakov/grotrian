@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/aparted/grotrian/!svn/ver/1/www/includes/Smarty/unit_test/configs
+END
+globals_double_quotes.conf
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/aparted/grotrian/!svn/ver/1/www/includes/Smarty/unit_test/configs/globals_double_quotes.conf
+END
+globals_single_quotes.conf
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/aparted/grotrian/!svn/ver/1/www/includes/Smarty/unit_test/configs/globals_single_quotes.conf
+END
+.sharedentries
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/aparted/grotrian/!svn/ver/3/www/includes/Smarty/unit_test/configs/.sharedentries
+END
