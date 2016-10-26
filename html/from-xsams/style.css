@@ -1,0 +1,110 @@
+body {
+    margin:0;
+}
+form {
+    width:1000px;
+    margin:20px auto;
+}
+#err {
+    color:red;
+    width:1000px;
+    margin:0 auto;
+}
+#wrapper {
+    position:relative;
+    height:150px;
+    overflow:auto;
+    width:1000px;
+    margin:0 auto;
+}
+#end {
+    float:right;
+}
+#center {
+    position:absolute;
+    left:485px;
+}
+#text {
+    position:absolute;
+    font-size:20px;
+    color:#fff;
+}
+svg {
+    background:#000;
+    height:120px;
+}
+#ruler, #meters {
+    width:1000px;
+    position:relative;
+    height:30px;
+    margin:0 auto;
+}
+#ruler {
+    font-size:30px;
+}
+#meters {
+    font-size:20px;
+}
+#ruler span, #meters span {
+    position:absolute;
+}
+
+#map {
+    margin-top:30px;
+    position: relative;
+    width:1000px;
+    margin:0 auto;
+}
+#preview {
+    position:relative;
+    height:150px;
+    overflow:auto;
+    width:1000px;
+    margin:30px auto;
+}
+#map svg {
+    width:100%;
+}
+#map_now {
+    position:absolute;
+    top:0;
+    left:0;
+    height:120px;
+    background: rgba(0, 191, 255, 0.4);
+}
+#zoom_container {
+    text-align: center;
+}
+#zoom_container input {
+    padding:5px;
+    border:none;
+    background: #428BCA;
+    border:1px solid #357EBD;
+    border-radius: 4px;
+    color:#fff;
+    cursor:pointer;
+}
+#zoom_container input.active {
+    background: #3071A9;
+    border: 1px solid #285E8E;
+}
+#toolbar {
+    width:650px;
+    height:100px;
+    padding:10px;
+    margin:0 auto;
+    background:#eee;
+    border-radius:6px;
+}
+#toolbar div {
+    float:left;
+    margin-right:20px;
+}
+#filter {
+    margin:20px;
+}
+#line_info {
+    height:70px;
+    width:1000px;
+    margin:10px auto 0 auto;
+}

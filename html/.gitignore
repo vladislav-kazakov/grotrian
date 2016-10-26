@@ -1,0 +1,10 @@
+.buildpath
+.project
+/configure.php
+/templates_c
+/includes/loginpass.txt
+.sharedentries
+.svn
+
+.mozilla
+cgi-bin
