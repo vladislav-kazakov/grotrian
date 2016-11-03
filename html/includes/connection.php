@@ -28,7 +28,7 @@ Class Connection
 	}
 
 
-	function GetSQLString($str)
+	static function GetSQLString($str)
 	{
 		return "'".mssql_escape_string($str)."'";
 	}
