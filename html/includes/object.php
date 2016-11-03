@@ -16,7 +16,7 @@ class Object
 		}
 		else if (!is_null($statement))
 		{
-			$this->LoadFromSQL($data, $statement);
+			$this->LoadFromSQLWithStatement($data, $statement);
 		}
 		else
 		{
@@ -43,7 +43,7 @@ class Object
 	}
 
 	// LoadFromSQL
-	function LoadFromSQL($query, $statement)
+	function LoadFromSQLWithStatement($query, $statement)
 	{
 		$data = $statement->FetchRow($query);
 		$this->properties = is_array($data) ? $data : array();

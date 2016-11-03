@@ -12,16 +12,6 @@
 	require_once("includes/spectrum.php");
 	require_once("includes/user.class.php");
 
-	///last-modified header generation
-	$self_time = date("D, d M Y") . ", 00:00:00";
-	$requested_time = strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']);
-	if($self_time == $requested_time)
-	{
-		Header("{$_SERVER['SERVER_PROTOCOL']} 304 Not Modified");
-		exit(); 
-	}
-
-	header("Last-Modified: " . $self_time . " GMT"); 
 	// require_once("includes/counter.php");
 	// $counter = new Counter;
 	// $counter->Create();
@@ -324,14 +314,14 @@
 	    	//Уровни
 	    	$level_list = new LevelList;
 	    	// отдаём в смарти число уровней
-	    	$level_count = $level_list->LoadCount($element_id);
+	    	$level_count = $level_list->LoadCount();
 	    	$smarty->assign('level_count', $level_count);
 	    	
 	    	
 	    	//Переходы
 	    	$transition_list = new TransitionList;
 	    	// отдаём в смарти число переходов
-	    	$transition_count = $transition_list->LoadCount($element_id);
+	    	$transition_count = $transition_list->LoadCount();
 	    	$smarty->assign('transition_count', $transition_count);
 	    	
     		$page_type=$l10n->locale."/index.tpl"; 

@@ -23,7 +23,7 @@ Class Connection
 
 	function &CreateStatement($resultType = MSSQL_ASSOC)
 	{
-		$stmt =& new Statement($this->_dbLink, $resultType);
+		$stmt = new Statement($this->_dbLink, $resultType);
 		return $stmt;
 	}
 

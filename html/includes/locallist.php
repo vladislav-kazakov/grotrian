@@ -23,7 +23,7 @@ class LocalList extends ObjectsList
 	// LoadFromSQL
 	function LoadFromSQL($query)
 	{
-		ObjectsList::LoadFromSQL($query, GetStatement());
+		ObjectsList::LoadFromSQLWithStatement($query, GetStatement());
 	}
 
 	function GetCounter()

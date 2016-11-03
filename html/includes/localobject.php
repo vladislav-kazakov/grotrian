@@ -19,7 +19,7 @@ class LocalObject extends Object
 	
 	function LoadFromSQL($query)
 	{
-		Object::LoadFromSQL($query, GetStatement());
+		Object::LoadFromSQLWithStatement($query, GetStatement());
 	}
 
 }

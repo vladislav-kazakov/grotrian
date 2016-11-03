@@ -16,7 +16,7 @@ class ObjectsList
 		}
 		else
 		{
-			$this->LoadFromSQL($data, $statement);
+			$this->LoadFromSQLWithStatement($data, $statement);
 		}
 		$this->counter = 0;
 	}
@@ -28,7 +28,7 @@ class ObjectsList
 	}
 
 	// LoadFromSQL
-	function LoadFromSQL($query, $statement)
+	function LoadFromSQLWithStatement($query, $statement)
 	{
 		$this->items = $statement->FetchList($query);
 	}

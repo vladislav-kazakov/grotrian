@@ -42,9 +42,9 @@ class Statement
 		{
 			$this->_numRows = mssql_num_rows($result);
 			if (is_null($resultType))
-				$retVal =& new RecordSet($result, $this->_resultType);
+				$retVal = new RecordSet($result, $this->_resultType);
 			else
-				$retVal =& new RecordSet($result, $resultType);
+				$retVal = new RecordSet($result, $resultType);
 		}
 		else
 		{
