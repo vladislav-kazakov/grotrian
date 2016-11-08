@@ -30,8 +30,8 @@ if(isset($_POST['action']) && (isset($_POST['element_id']) || isset($_POST['atom
 				//print_r($_POST);							
 			}
 			
-			case "makeDiagramm": {				
-				$atom->makeDiagramm($_POST);				
+			case "makeDiagram": {				
+				$atom->makeDiagram($_POST);				
 				//print_r($_POST);	
 				break;						
 			}

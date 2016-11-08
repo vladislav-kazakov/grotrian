@@ -68,7 +68,8 @@ ul li {
 li.menu_elements,
 li.menu_levels,
 li.menu_transitions,
-li.menu_diagrams
+li.menu_diagrams,
+li.menu_spectra
 {
 	padding: 0;
 }
@@ -607,7 +608,9 @@ padding:0;
 .transitions li.menu_transitions a,
 .levels li.menu_levels a,
 .diagrams li.menu_diagrams a,
-.diagramm li.menu_diagrams a,
+.diagram li.menu_diagrams a,
+.spectra li.menu_spectra a,
+.spectrum li.menu_spectra a,
 .element li.menu_elements a,
 .elements li.menu_elements a
 {
@@ -616,7 +619,7 @@ color:#FFFFFF;
 }
 
 #menu_primary{
-	*width:540px;
+	*width:560px;
 }
 
 #menu_secondary{		
@@ -771,7 +774,7 @@ li.act #parent_link{
 	padding: 2px 4px;
 }
 
-.new_diagramm{
+.new_diagram{
 	background:none;
 }
 

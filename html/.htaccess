@@ -12,6 +12,9 @@ RewriteRule (.*)$ http://grotrian.nsu.ru/$1 [R=301,L]
 
 RewriteRule ^counter[/]?$ counter.php
 
+RewriteBase /
+RewriteRule  ^(.*)diagramm(.*)$  $1diagram$2  [R=301,L]
+
 RewriteRule ^(admin)/([a-zA-Z]+)/([a-zA-Z]+)/([0-9_-]+)/([0-9_-]+)/([a-zA-Z]+)/([0-9_-]+)[/]?$ index.php?interface=admin&lang=$2&pagetype=$3&element_id=$4&attribute1=$5&attribute2=$6&attribute3=$7 [L]
 RewriteRule ^(admin)/([a-zA-Z]+)/([a-zA-Z]+)/([0-9_-]+)/([0-9_-]+)/([a-zA-Z]+)[/]?$ index.php?interface=admin&lang=$2&pagetype=$3&element_id=$4&attribute1=$5&attribute2=$6 [L]
 RewriteRule ^(admin)/([a-zA-Z]+)/([a-zA-Z]+)/([0-9_-]+)/([0-9_-]+)[/]?$ index.php?interface=admin&lang=$2&pagetype=$3&element_id=$4&attribute1=$4 [L]

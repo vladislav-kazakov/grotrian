@@ -164,14 +164,14 @@
 				<form id="inputAtomDiagramForm" action="">
 					<input type="hidden" id="element_id" name="element_id" value="{#$atom.ELEMENT_ID#}"/>
 					<input type="hidden" id="atom_id" name="atom_id" value="{#$layout_element_id#}"/>
-					<input type="hidden" name="action" value="makeDiagramm"/> 
+					<input type="hidden" name="action" value="makeDiagram"/>
         	     	<h4>Пределы</h4>				
 						<textarea rows="6" cols="115" id="atomLimits">{#$atom.LIMITS#}</textarea>
         	     	<p>&nbsp;</p>
         	     	<h4>Разрывы</h4>				
 					<textarea rows="6" cols="115" id="atomBreaks">{#$atom.BREAKS#}</textarea>
 					<p>&nbsp;</p>
-					<input class="button white" id="makeDiagramm" value="Построить диаграмму" type="button"/>	
+					<input class="button white" id="makeDiagram" value="Построить диаграмму" type="button"/>
 				</form>
 								
 				 

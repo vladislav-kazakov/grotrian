@@ -64,13 +64,15 @@
 					<li class="menu_elements"><input type="hidden" name="section" value="element" /><a href="/{#$locale#}/element/{#$layout_element_id#}">{#$l10n.Elements#}</a></li>  
 					<li class="menu_levels"><input type="hidden" name="section" value="levels" /><a href="/{#$locale#}/levels/{#$layout_element_id#}">{#$l10n.Levels#}</a></li>
 					<li class="menu_transitions"><input type="hidden" name="section" value="transitions" /><a href="/{#$locale#}/transitions/{#$layout_element_id#}">{#$l10n.Transitions#}</a></li>  
-					<li class="menu_diagrams"><input type="hidden" name="section" value="diagramm" /><a href="/{#$locale#}/diagramm/{#$layout_element_id#}">{#$l10n.Charts#}</a></li> 
-				{#else#}
+					<li class="menu_diagrams"><input type="hidden" name="section" value="diagram" /><a href="/{#$locale#}/diagram/{#$layout_element_id#}">{#$l10n.Charts#}</a></li>
+					<li class="menu_spectra"><input type="hidden" name="section" value="spectrum" /><a href="/{#$locale#}/spectrum/{#$layout_element_id#}">{#$l10n.Spectra#}</a></li>
+					{#else#}
 					<li class="menu_elements"><input type="hidden" name="section" value="element" /><a href="/{#$locale#}/element/">{#$l10n.Elements#}</a></li>
 					<li class="menu_levels"><input type="hidden" name="section" value="levels" /><a href="/{#$locale#}/levels/">{#$l10n.Levels#}</a></li>
 					<li class="menu_transitions"><input type="hidden" name="section" value="transitions" /><a href="/{#$locale#}/transitions/">{#$l10n.Transitions#}</a></li>
-					<li class="menu_diagrams"><input type="hidden" name="section" value="diagramm" /><a href="/{#$locale#}/element/">{#$l10n.Charts#}</a></li> 
-				{#/if#}                                              
+					<li class="menu_diagrams"><input type="hidden" name="section" value="diagram" /><a href="/{#$locale#}/element/">{#$l10n.Charts#}</a></li>
+					<li class="menu_spectra"><input type="hidden" name="section" value="spectrum" /><a href="/{#$locale#}/spectrum/">{#$l10n.Spectra#}</a></li>
+				{#/if#}
 				</ul>
 			</div>
 			<div id="menu_secondary">

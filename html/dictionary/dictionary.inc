@@ -10,20 +10,23 @@ $dictionary = array (
 	///
 	'Charts'=>array('ru'=>'Диаграммы','en'=>'Charts'),
 	///
+	'Spectra'=>array('ru'=>'Спектры','en'=>'Spectra'),
+	///
 	///Title entries 
 	'Atomic_levels_title'=>array('ru'=>'Уровни атома','en'=>'Atomic levels'),
 	'Grotrian_Charts_title'=>array('ru'=>'Диаграмма Гротриана','en'=>'Grotrian Charts'),
+	'Spectrogram_title'=>array('ru'=>'Спектрограмма','en'=>'Spectrograms'),
 	'Atomic_transitions_title'=>array('ru'=>'Переходы атома','en'=>'Atomic transitions'),
 	'element_description_title'=>array('ru'=>'Описание элемента','en'=>'Element description'),
 	'Project_team_title'=>array('ru'=>'Коллектив проекта','en'=>'Project team'),	
 	'Sponsors_title'=>array('ru'=>'Спонсоры','en'=>'Sponsors'),
 	'Awards_title'=>array('ru'=>'Награды','en'=>'Awards'),
 	'Bibliography_title'=>array('ru'=>'Библиография','en'=>'Bibliography'),
-	'element_description_title'=>array('ru'=>'Описание элемента','en'=>'Element description'),
 	'About_project_title'=>array('ru'=>'О проекте','en'=>'About project'),
 	'Other_resources_for_atomic_spectroscopy_title'=>array('ru'=>'Другие ресурсы по атомной спектроскопии','en'=>'Other resources for atomic spectroscopy'),
 	'Periodic_Table_title'=>array('ru'=>'Периодическая таблица элементов','en'=>'Periodic table of the elements'),
 	///title entries end
+
 	'ions'=>array('ru'=>'ионы','en'=>'ions'),
 	'Data_filter'=>array('ru'=>'Фильтр Значений','en'=>'Data filter'),
 	'from'=>array('ru'=>'от','en'=>'from'),
@@ -39,13 +42,16 @@ $dictionary = array (
 	'view'=>array('ru'=>'Посмотреть','en'=>'view'),
 	'levels'=>array('ru'=>'уровней','en'=>'levels'),
 	'transitions'=>array('ru'=>'переходов','en'=>'transitions'),
-	'Grotrian_Charts'=>array('ru'=>'Диаграмма Гротриана','en'=>'Grotrian Charts'),
+	'Grotrian_Charts'=>array('ru'=>'Диаграмма Гротриана','en'=>'Grotrian Chart'),
+	'Spectrogram'=>array('ru'=>'Спектрограмма','en'=>'Spectrogram'),
 	'To_view_a_chart_you_need'=>array('ru'=>'Для просмотра диаграммы в IE версий 6-8 необходим','en'=>'To view a chart in IE6-IE8, you need'),
 	'Novosibirsk_State_University'=>array('ru'=>'Новосибирский Государственный Университет','en'=>'Novosibirsk State University'),
-	'Institute_of_Automation_and_Electrometry'=>array('ru'=>'Институт автоматики и электрометрии СО РАН','en'=>'Institute of Automation and Electrometry'),
+	'Institute_of_Automation_and_Electrometry'=>array('ru'=>'Институт автоматики и электрометрии СО РАН','en'=>'Institute of Automation and Electrometry SB RAS'),
 	'Technical_support'=>array('ru'=>'Программная и техническая поддержка','en'=>'Technical support'),
 	'Multimedia_Center_of_NSU'=>array('ru'=>'Мультимедиа центр НГУ','en'=>'Multimedia Center of NSU'),
-	'Certificate_of_goverment_database_registration'=>array('ru'=>'Свидетельство о государственной регистрации базы данных','en'=>'Certificate of goverment database registration'),
+	'Certificate_of_goverment_database_registration'=>array('ru'=>'Свидетельство о государственной регистрации базы данных','en'=>'State registration certifiacate of database'),
+	'Reference_on_this_resource'=>array('ru'=>'Ссылка на этот ресурс','en'=>'Reference on this resource'),
+	'BibTex_Citation'=>array('ru'=>'Ссылка BibTex','en'=>'BibTex Citation'),
 	'About_project'=>array('ru'=>'О проекте','en'=>'About project'),
 	'Hydrogen'=>array('ru'=>'Водород','en'=>'Hydrogen'),
 	'Atomic_levels'=>array('ru'=>'Уровни атома','en'=>'Atomic levels'),
@@ -73,13 +79,11 @@ $dictionary = array (
 	'Wavelength'=>array('ru'=>'Длина волны','en'=>'Wavelength'),	
 	'Intensity'=>array('ru'=>'Интенсивность','en'=>'Intensity'),	
 	'sec'=>array('ru'=>'сек','en'=>'sec'),	
-	'Grotrian_Charts'=>array('ru'=>'Диаграмма Гротриана','en'=>'Grotrian Charts'),	
-	'Atomic_charts'=>array('ru'=>'Диаграмма атома','en'=>'Atomic charts'),	
+	'Atomic_charts'=>array('ru'=>'Диаграмма атома','en'=>'Atomic charts'),
 	'Open_in_new_window'=>array('ru'=>'Открыть в новом окне','en'=>'Open in new window'),
 	'Other_resources_for_atomic_spectroscopy'=>array('ru'=>'Другие ресурсы по атомной спектроскопии','en'=>'Other resources for atomic spectroscopy'),
 	'Articles'=>array('ru'=>'Статьи','en'=>'Articles'),
-	'Open_in_new_window'=>array('ru'=>'Открыть в новом окне','en'=>'Open in new window'),
-	'Project_team'=>array('ru'=>'Коллектив проекта','en'=>'Project team'),	
+	'Project_team'=>array('ru'=>'Коллектив проекта','en'=>'Project team'),
 	'Sponsors'=>array('ru'=>'Спонсоры','en'=>'Sponsors'),
 	'Awards'=>array('ru'=>'Награды','en'=>'Awards'),
 	'Bibliography'=>array('ru'=>'Библиография','en'=>'Bibliography'),
@@ -90,6 +94,12 @@ $dictionary = array (
 	'MinLength'=>array('ru'=>'Минимум','en'=>'Minimal'),
 	'MaxLength'=>array('ru'=>'Максимум','en'=>'Maximum'),
 	'Center'=>array('ru'=>'Центр','en'=>'Central'),
+	'BarChart'=>array('ru'=>'Гистограмма','en'=>'Bar chart'),
+	'Sensibility'=>array('ru'=>'Чувствительность','en'=>'Sensibility'),
+	'Compare'=>array('ru'=>'Сравнить','en'=>'Compare'),
+	'No_transitions'=>array('ru'=>'Невозможно построить диаграмму: для данного элемента пока не введено ни одного перехода','en'=>"Chart can't be built: no transitions for this element yet"),
+	'Load_file'=>array('ru'=>'Загрузите файл или выберите из списка','en'=>"Load file or select one from list"),
+
 	'Admin'=>array('ru'=>'Администрирование','en'=>'Administration'),
 	'Serie'=>array('ru'=>'Серия','en'=>'Serie'),
 	'Jvalue'=>array('ru'=>'Значение J','en'=>'J value'),
@@ -98,14 +108,7 @@ $dictionary = array (
 	'Search'=>array('ru'=>'Поиск','en'=>'Search'),
 	'Superactinide'=>array('ru'=>'Суперактиноиды','en'=>'Superactinide'),
 	'Show_database_filling'=>array('ru'=>'Показать степень наполнения базы данных по нейтральным атомам','en'=>'Show database filling'),
-	'Periodic_Table'=>array('ru'=>'Периодическая таблица элементов','en'=>'Periodic table of the elements'),
-
-
-	'Bibliography'=>array('ru'=>'Библиография','en'=>'Bibliography'),
-
-
-
-	'to'=>array('ru'=>'до','en'=>'to')
+	'Periodic_Table'=>array('ru'=>'Периодическая таблица элементов','en'=>'Periodic table of the elements')
 
 );
 			$elemet_types=array(

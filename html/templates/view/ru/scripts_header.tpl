@@ -53,7 +53,7 @@
 				</script>
 								 					
 			{#/if#}
-			
+
 			{# if $bodyclass=="element" #}
 				<link rel="stylesheet" type="text/css" href="/js/ui/themes/smoothness/jquery.ui.all.css" />
 				<link rel="stylesheet" type="text/css" href="/js/ui/themes/smoothness/jquery.ui.slider.css" />
@@ -118,6 +118,6 @@
 								 					
 			{#/if#}
 			
- 		{# if $bodyclass=="diagramm"#}
+ 		{# if $bodyclass=="diagram"#}
 	   											 					
 		{#/if#}			

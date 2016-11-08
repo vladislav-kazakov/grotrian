@@ -164,25 +164,25 @@ if(isset($_REQUEST['pagetype'])){
 
     	}    	
 
-    	case "diagramm": {
+    	case "diagram": {
     		//указываем имя шаблона и название страницы    		
-			$page_type="view_diagramm.tpl"; 
+			$page_type="view_diagram.tpl"; 
     		$head="Grotrian_Charts";
     		$title="Grotrian_Charts";
     		$headline="Atomic_charts";
-    		$bodyclass="diagramm";
+    		$bodyclass="diagram";
     		$header_type="header.tpl";
     		$footer_type="footer.tpl";
     		break;
     	}
 
-	    case "newdiagramm": {
+	    case "newdiagram": {
     		//указываем имя шаблона и название страницы    		
-			$page_type="view_new_diagramm.tpl"; 
+			$page_type="view_new_diagram.tpl"; 
     		$head="Grotrian_Charts";
     		$title="Grotrian_Charts";
     		$headline="Atomic_charts";
-    		$bodyclass="new_diagramm";
+    		$bodyclass="new_diagram";
     		$header_type="top_header.tpl";
     		$footer_type="bottom_footer.tpl";
     		break;

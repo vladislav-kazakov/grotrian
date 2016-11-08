@@ -89,13 +89,13 @@
 					      		<li class="menu_elements"><input type="hidden" name="section" value="element" /><a href="/{#$interface#}/{#$locale#}/element/{#$layout_element_id#}">{#$l10n.Elements#}</a></li>  
 					      		<li class="menu_levels"><input type="hidden" name="section" value="levels" /><a href="/{#$interface#}/{#$locale#}/levels/{#$layout_element_id#}">{#$l10n.Levels#}</a></li>
                            		<li class="menu_transitions"><input type="hidden" name="section" value="transitions" /><a href="/{#$interface#}/{#$locale#}/transitions/{#$layout_element_id#}">{#$l10n.Transitions#}</a></li>  
-					      		<li class="menu_diagrams"><input type="hidden" name="section" value="diagramm" /><a href="/{#$interface#}/{#$locale#}/diagramm/{#$layout_element_id#}">{#$l10n.Charts#}</a></li> 
+					      		<li class="menu_diagrams"><input type="hidden" name="section" value="diagram" /><a href="/{#$interface#}/{#$locale#}/diagram/{#$layout_element_id#}">{#$l10n.Charts#}</a></li>
 
 							{#else#}
 								<li class="menu_elements"><input type="hidden" name="section" value="element" /><a href="/{#$interface#}/{#$locale#}/element/">{#$l10n.Elements#}</a></li>
 								<li class="menu_levels"><input type="hidden" name="section" value="levels" /><a href="/{#$interface#}/{#$locale#}/levels/">{#$l10n.Levels#}</a></li>
 								<li class="menu_transitions"><input type="hidden" name="section" value="transitions" /><a href="/{#$interface#}/{#$locale#}/transitions/">{#$l10n.Transitions#}</a></li>
-								<li class="menu_diagrams"><input type="hidden" name="section" value="diagramm" /><a href="/{#$interface#}/{#$locale#}/element/">{#$l10n.Charts#}</a></li> 
+								<li class="menu_diagrams"><input type="hidden" name="section" value="diagram" /><a href="/{#$interface#}/{#$locale#}/element/">{#$l10n.Charts#}</a></li>
 							{#/if#}                                              
 						</ul>
 					</div>

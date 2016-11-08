@@ -118,6 +118,6 @@
 								 					
 			{#/if#}
 			
- 		{# if $bodyclass=="diagramm"#}
+ 		{# if $bodyclass=="diagram"#}
 	   											 					
 		{#/if#}			

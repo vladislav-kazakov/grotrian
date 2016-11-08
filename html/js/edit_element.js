@@ -67,9 +67,9 @@ $(document).ready(function() {
 		} else alert('Невозможная степень ионизации');
 	});
 	
-	$("#makeDiagramm").click(function(){		
+	$("#makeDiagram").click(function(){		
 		
-		var str = "action=makeDiagramm";
+		var str = "action=makeDiagram";
 		str+="&atom_id="+$("#atom_id").val();
 		str+="&atomLimits="+$("#atomLimits").val();
 		str+="&atomBreaks="+$("#atomBreaks").val()

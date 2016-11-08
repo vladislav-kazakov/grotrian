@@ -51,7 +51,7 @@
 
 	{#/if#}
 
-	{# if $bodyclass=="element"#}                                                                   
+	{# if $bodyclass=="spectrum" || $bodyclass=="element"#}
 	<link rel="stylesheet" type="text/css" href="/css/spectrum2.css" />
 	<script type="text/javascript" src="/js/spectrum2/init.js"></script>
 	{# if $pagetype == "compare" #}
@@ -71,6 +71,7 @@
 				init(spectr_list_uploaded, 2);
 				$('#filter').die('click');
 				$('#filter').live('click', function() {
+
 					init(spectr_list);
 					init(spectr_list_uploaded, 2);
 				});
@@ -118,7 +119,7 @@
 	{#/if#}
 
 	{#*Вот эти файлы пока не надо вставлять в диаграммы, временно закомментил*#}
-	{# if $bodyclass=="diagramm"#}
+	{# if $bodyclass=="diagram"#}
 	<!--script type="text/javascript" src="/js/grotrian_chart.js"></script>
 	<script type="text/javascript" src="/js/jquery.svg.js"></script-->
 		{#/if#}		

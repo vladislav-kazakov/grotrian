@@ -3177,7 +3177,7 @@ if(isset($_GET['element_id']))
 	}
 	}
 	else
-  $xml->load('diagramm.xml');
+  $xml->load('diagram.xml');
 
 	$xsl = new DOMDocument;
 	$xsl->load('xmemo_before_lemma.xsl');

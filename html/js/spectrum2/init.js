@@ -13,13 +13,18 @@ function get_zoom() {
     return zoom ? zoom : 1;
 }
 
-function init_ruler(zoom, max, n) {
+function init_ruler(zoom, min, max, n) {
     var $wrapper = $('#svg_wrapper' + n),
     max = max * zoom / 10,
-    ruler = "<svg style='width:" + max + "px' id='ruler'>";
+    min = min * zoom / 10,
+    ruler = "<svg style='width:" + (max-min) + "px' id='ruler'>";
 
-    for (i = 0; i <= max; i+= 100) {
-        ruler += "<line x1='" + (!i ? i + 2 : (i == max ? i -2 : i)) + "' y1='0' x2='" + (!i ? i + 2 : (i == max ? i -2 : i)) + "' y2='30' stroke-width='2' stroke='rgb(0, 0, 0)'></line><text x='" + (i == max ? i - 45 : i - 2) + "' y='43' fill='black'>" + (i * 10 / zoom) + "</text>";
+    rulerMin = Math.ceil(min/100)*100; // round minimum to hundreds in less side
+    for (var j = 0; j < max - min; j+= 100) {
+        var i = j + rulerMin-min; // i - pixels on ruler
+        var rulerValue =  (i+min) * 10 / zoom;
+        ruler += "<line x1='" + (!i ? i + 2 : (i == max ? i -2 : i)) + "' y1='0' x2='" + (!i ? i + 2 : (i == max ? i -2 : i)) + "' y2='30' stroke-width='2' stroke='rgb(0, 0, 0)'></line>";
+        if (j <= max - min - 100) ruler += "<text x='" + (i == max ? i - 45 : i + 5 - 2) + "' y='26' fill='black'>" + rulerValue + "</text>";
     }
 
     $wrapper.append(ruler);
@@ -29,6 +34,7 @@ function init(waves, n) {
     // console.log(waves);
     var n = n ? '_' + n : '',
     zoom = get_zoom(),
+    barchart = $('#barchart').hasClass('active'),
     max = Number($('#max').val()),
     min = Number($('#min').val()),
     isDrag = 0,
@@ -39,31 +45,78 @@ function init(waves, n) {
     str = "<svg class='svg' id='svg" + n + "' draggable='true'>" + (is_experimental ? "<path stroke='white' stroke-width='1' d='M 0,120 L" : ''),
     map_str = "<svg id='map_svg" + n + "'>" + (is_experimental ? "<path stroke='white' stroke-width='1' d='M 0,120 L" : ''),
     $preview = $('#preview'),
-    map_now = max / 10000,
+//    minRuler = Math.floor(min/100)*100, // round minimum to hundreds in less side
+//    maxRuler = Math.ceil(max/100)*100, // round minimum to hundreds in less side
+    map_now = (max - min) / 10000,
     $map_now = $('#map_now');
 
     if (is_experimental)
     	var perc = Math.max.apply(null, Object.keys(waves).map(function(key) { return waves[key];})) / 100;
     id = 1;
-    lines_intensity = new Array();
-    max_intensity = 0;
-    for (var key in waves) {
-        temp = key;
-        re = /\s*-\s*/
-        split = temp.split(re);
-        l = Number(split[0]);
-        i = Number(split[1]);
-        if (l > min && l < max) {
-           str += is_experimental ? ' ' + (l * zoom) + ',' + (121 - (1.2 * waves[key] / perc)) : "<line id='"+ id +"' l='" + l + "'  x1='" + (l / 10 * zoom) + "' y1='0' x2='" + (l / 10 * zoom) + "' y2='120' stroke-width='1' stroke='" + waves[key] + "'></line>";
-           map_str += is_experimental ? ' ' + (l / map_now) + ',' + (120 - (1.2 * waves[key] / perc)) : "<line id='full-"+ id +"' x1='" + (l / 10 / map_now) + "' y1='0' x2='" + (l / 10 / map_now) + "' y2='120' stroke-width='1' stroke='" + waves[key] + "'></line>";
-           lines_intensity[id] = i;
-           id++;
-           if(i > max_intensity)
-            max_intensity = i;
-            // $("#info_intensity #value").attr("max",max_intensity);
-            // $("#info_intensity #value").val(max_intensity);
+    var _lines_intensity = new Array();
+    var _max_intensity = 0;
+
+    if (n == '')
+    {
+        for (var key in waves) {
+            temp = key;
+            re = /\s*-\s*/
+            split = temp.split(re);
+            l = Number(split[0]);
+            i = Number(split[1]);
+            if (l > min && l < max) {
+                if (i > _max_intensity)
+                    _max_intensity = i;
+            }
+        }
+        for (var key in waves) {
+            temp = key;
+            re = /\s*-\s*/
+            split = temp.split(re);
+            l = Number(split[0]);
+            i = Number(split[1]);
+
+            if (l > min && l < max) {
+                str += "<line id='" + id + "' l='" + l + "'  x1='" + ((l - min)/ 10 * zoom) + "' y1='" + (barchart ? 120 - i / _max_intensity * 120 : 0) + "' x2='" + ((l-min) / 10 * zoom) + "' y2='120' stroke-width='1' stroke='" + waves[key] + "'></line>";
+                map_str +="<line id='full-" + id + "' x1='" + ((l - min) / 10 / map_now) + "' y1='" + (barchart ? 120 - i / _max_intensity * 120 : 0) + "' x2='" + ((l-min) / 10 / map_now) + "' y2='120' stroke-width='1' stroke='" + waves[key] + "'></line>";
+                _lines_intensity[id] = i;
+                id++;
+                if (i > _max_intensity)
+                    _max_intensity = i;
+                // $("#info_intensity #value").attr("max",max_intensity);
+                // $("#info_intensity #value").val(max_intensity);
+            }
+        }
+        lines_intensity = _lines_intensity;
+        max_intensity = _max_intensity;
     }
-}
+    else{
+        for (var key in waves) {
+            l = Number(key) *10;
+            i = Number(waves[key]);
+            if (l > min && l < max) {
+                if (i > _max_intensity)
+                    _max_intensity = i;
+            }
+        }
+        for (var key in waves) {
+            l = Number(key) * 10;
+            i = Number(waves[key]);
+            if (l > min && l < max) {
+                str += ' ' + ((l-min)/10 * zoom) + ',' + (121 - (1.2 * waves[key] / perc));
+                map_str += ' ' + ((l-min)/10 / map_now ) + ',' + (120 - (1.2 * waves[key] / perc));
+                _lines_intensity[id] = i;
+                id++;
+                if (i > _max_intensity)
+                    _max_intensity = i;
+                // $("#info_intensity #value").attr("max",max_intensity);
+                // $("#info_intensity #value").val(max_intensity);
+            }
+        }
+        lines_intensity_2 = _lines_intensity;
+        max_intensity_2 = _max_intensity;
+    }
+
 // $("#range_intensity").ionRangeSlider({
 //     type: "double",
 //     grid: true,
@@ -86,18 +139,18 @@ if (!n) {
 
 $wrapper.prepend(str + (is_experimental ? "'>" : '') + "</svg>");
 
-init_ruler(zoom, max, n);
+init_ruler(zoom, min, max, n);
 
 $preview.prepend(map_str + (is_experimental ? "'>" : '') + "</svg>");
 
-$map_now.css('width', 1000 / map_now / zoom + 'px');
+$map_now.css('width', Math.min(1000/ map_now / zoom, 1000) + 'px');
 
 $('#svg_wrapper .svg line').hover( 
     function() {
         var l = $(this).attr('l');
 
         $('#line_info').empty();
-        $('#line_info').append('Длина волны: <b>' + l + '</b>');
+        $('#line_info').append('Wave length: <b>' + l + '</b>');
         $(this).attr('stroke-width', 2);
     },
     function() {
@@ -112,7 +165,9 @@ $wrapper.scroll(function() {
 
 var $svg = $('#svg' + n);
 
-$svg.css('width', max * zoom / 10 + 'px');
+//$map.css('width', (max-min) * zoom / 10 + 'px');
+
+$svg.css('width', (max-min) * zoom / 10 + 'px');
 
 $svg.mousemove(function(event) {
     if (isDrag) {
@@ -145,6 +200,10 @@ $('#zoom_container input').live('click',function() {
     if (this.className == 'base')
        $('#zoom_container input.base').removeClass('active');
    $(this).toggleClass('active');
+});
+
+$('#barchart').live('click',function() {
+    $(this).toggleClass('active');
 });
 
 $(document).ready(function() {

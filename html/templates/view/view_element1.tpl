@@ -81,7 +81,7 @@
 			{#if ($element.LIMITS != "")#}
 				<p>&nbsp;</p>		
 					<h4>{#$l10n.Grotrian_Charts#}</h4>           
-			 		<a class="nav" target="_blank" href="/{#$locale#}/newdiagramm/{#$layout_element_id#}">[{#$l10n.view#}]</a><br/><b>{#$l10n.To_view_a_chart#} <a href="http://www.adobe.com/svg/viewer/install/main.html" target="_blank">{#$l10n.To_view_a_chart_you_need#} Adobe SVG Viewer</a></b>			
+			 		<a class="nav" target="_blank" href="/{#$locale#}/newdiagram/{#$layout_element_id#}">[{#$l10n.view#}]</a><br/><b>{#$l10n.To_view_a_chart#} <a href="http://www.adobe.com/svg/viewer/install/main.html" target="_blank">{#$l10n.To_view_a_chart_you_need#} Adobe SVG Viewer</a></b>
 			{#/if#}
 			
 			

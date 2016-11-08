@@ -39,7 +39,7 @@ SELECT TOP 1 ID FROM ATOMS WHERE ID_ELEMENT=".$element_id." ORDER BY IONIZATION 
 		$this->LoadFromSQL($query);
 	}
 	
-	function makeDiagramm($post)
+	function makeDiagram($post)
 	{		
 		$query = "UPDATE ATOMS SET [LIMITS] = '".$post['atomLimits']."' , [BREAKS] =  '".$post['atomBreaks']."' , [CHANGED]= 1  WHERE ID = ".$post['atom_id'];
 		//$query = "UPDATE ATOMS SET [CHANGED]= 1 WHERE ID = 2899";

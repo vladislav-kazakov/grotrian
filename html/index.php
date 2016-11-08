@@ -118,25 +118,25 @@
 	switch ($pagetype) 
 	{	
 		case "element": {
-		
+
 			// 	берём массив переходов	
 			$transition_list->LoadWithLevels($element_id);
-			$transitions=$transition_list->GetItemsArray();
-			// берём json объект длин волн и отдаём его в смарти
-			$spectrum= new Spectrum();			
-			$smarty->assign('spectrum_json',$spectrum->getSpectraSVG($transitions,0,1599900000));
+			$transitions = $transition_list->GetItemsArray();
 
-    		$page_type="view_element.tpl"; 
-    		$head="element_description";
-    		$title="element_description";
-    		$headline="element_description";
-    		$bodyclass="element"; 
-    		$header_type="header.tpl";
-    		$footer_type="footer.tpl";
+			$page_type = "view_element.tpl";
+			$head = "element_description";
+			$title = "element_description";
+			$headline = "element_description";
+			$bodyclass = "element";
+			$header_type = "header.tpl";
+			$footer_type = "footer.tpl";
 
-			
-			if (isset($_POST['export']))                                   
+
+			if (isset($_POST['export'])) {
+				$spectrum = new Spectrum();
+				$smarty->assign('spectrum_json', $spectrum->getSpectraSVG($transitions, 0, 1599900000));
 				$spectrum->export($transitions, $elname);
+			}
     		
     		break;
     	}
@@ -166,11 +166,11 @@
 			
 			$smarty->assign('spectrum_json_uploaded', $spectrum_json_uploaded);  
 
-    		$page_type="compare_element.tpl"; 
-    		$head="element_description";
-    		$title="element_description";
-    		$headline="element_description";
-    		$bodyclass="element"; 
+    		$page_type="compare_element.tpl";
+			$head="Spectrogram";
+			$title="Spectrogram";
+			$headline="Spectrogram";
+			$bodyclass="spectrum";
     		$header_type="header.tpl";
     		$footer_type="footer.tpl";
 
@@ -238,18 +238,34 @@
 
     	}    	
 
-    	case "diagramm": {
+    	case "diagram": {
     		//указываем имя шаблона и название страницы    		
-			$page_type="view_diagramm.tpl"; 
+			$page_type="view_diagram.tpl"; 
     		$head="Grotrian_Charts";
     		$title="Grotrian_Charts";
     		$headline="Atomic_charts";
-    		$bodyclass="diagramm";
+    		$bodyclass="diagram";
     		$header_type="header.tpl";
     		$footer_type="footer.tpl";
     		break;
     	}
-    	
+
+		case "spectrum": {
+			$transition_list->LoadWithLevels($element_id);
+			$transitions=$transition_list->GetItemsArray();
+			// берём json объект длин волн и отдаём его в смарти
+			$spectrum= new Spectrum();
+			$smarty->assign('spectrum_json',$spectrum->getSpectraSVG($transitions,0,1599900000));
+			//указываем имя шаблона и название страницы
+			$page_type="view_spectrum.tpl";
+			$head="Spectrogram";
+			$title="Spectrogram";
+			$headline="Spectrogram";
+			$bodyclass="spectrum";
+			$header_type="header.tpl";
+			$footer_type="footer.tpl";
+			break;
+		}
 	    case "chart": {
 	    	$level_list->Load($element_id);
 	    	$smarty->assign('level_list',json_encode($level_list->GetItemsArray()));
@@ -262,7 +278,7 @@
     		$head="Grotrian_Charts";
     		$title="Grotrian_Charts";
     		$headline="Atomic_charts";
-    		$bodyclass="diagramm";
+    		$bodyclass="diagram";
     		$header_type="header.tpl";
     		$footer_type="footer.tpl";
 
@@ -270,13 +286,13 @@
     		break;
     	}
 
-	    case "newdiagramm": {
+	    case "newdiagram": {
     		//указываем имя шаблона и название страницы    		
-			$page_type="view_new_diagramm.tpl"; 
+			$page_type="view_new_diagram.tpl"; 
     		$head="Grotrian_Charts";
     		$title="Grotrian_Charts";
     		$headline="Atomic_charts";
-    		$bodyclass="new_diagramm";
+    		$bodyclass="new_diagram";
     		$header_type="top_header.tpl";
     		$footer_type="footer.tpl";
     		break;
@@ -490,7 +506,10 @@
 		$smarty->assign('interface',$l10n->interface);
 		$smarty->assign('locale',$l10n->locale);		
 		$smarty->assign('l10n',$localDictionary);
-		
+
+		$smarty->assign('cur_en_date', date("F j, Y"));
+		$smarty->assign('cur_year', date("Y"));
+
 		if(isset($head))$smarty->assign('head',$localDictionary[$head]);
 		// var_dump($localDictionary);
 		//if(isset($title))$smarty->assign("title",$localDictionary[$title]);
