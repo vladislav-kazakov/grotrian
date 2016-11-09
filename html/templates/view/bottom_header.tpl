@@ -84,7 +84,7 @@
 								<li><a href="/ru/">Описание</a></li>									
 								<li><a href="/ru/team/">Коллектив</a></li>
 								<li><a href="/ru/articles/">Публикации</a></li>									
-								<li><a href="/ru/sponsors/">Спонсоры</a></li>
+<!--								<li><a href="/ru/sponsors/">Спонсоры</a></li> -->
 								<li><a href="/ru/awards/">Награды</a></li>
 							</ul>
 						</li>

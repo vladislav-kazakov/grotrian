@@ -6,7 +6,7 @@
 				<input type='file' name='file' id='file'>
 				<select name='standard_file' id='standard_file'>
 					<option value=0>---
-					<option value=1>Спектр ртутной лампы
+					<option value=1>{#$l10n.Mercury_lamp_spectrum#}
 				</select>
 			</form>  
 				  	<div>

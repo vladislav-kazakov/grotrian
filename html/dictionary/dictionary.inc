@@ -13,6 +13,7 @@ $dictionary = array (
 	'Spectra'=>array('ru'=>'Спектры','en'=>'Spectra'),
 	///
 	///Title entries 
+	'Articles_title'=>array('ru'=>'Публикации','en'=>'Articles'),
 	'Atomic_levels_title'=>array('ru'=>'Уровни атома','en'=>'Atomic levels'),
 	'Grotrian_Charts_title'=>array('ru'=>'Диаграмма Гротриана','en'=>'Grotrian Charts'),
 	'Spectrogram_title'=>array('ru'=>'Спектрограмма','en'=>'Spectrograms'),
@@ -99,7 +100,7 @@ $dictionary = array (
 	'Compare'=>array('ru'=>'Сравнить','en'=>'Compare'),
 	'No_transitions'=>array('ru'=>'Невозможно построить диаграмму: для данного элемента пока не введено ни одного перехода','en'=>"Chart can't be built: no transitions for this element yet"),
 	'Load_file'=>array('ru'=>'Загрузите файл или выберите из списка','en'=>"Load file or select one from list"),
-
+	'Mercury_lamp_spectrum'=>array('ru'=>'Спектр ртутной лампы', 'en'=>'Mercury lamp spectrum'),
 	'Admin'=>array('ru'=>'Администрирование','en'=>'Administration'),
 	'Serie'=>array('ru'=>'Серия','en'=>'Serie'),
 	'Jvalue'=>array('ru'=>'Значение J','en'=>'J value'),
