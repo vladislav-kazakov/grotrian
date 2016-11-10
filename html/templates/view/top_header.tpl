@@ -6,7 +6,7 @@
 			<link rel="shortcut icon" type="image/x-icon" href="/images/icon_blue.ico" />
 			<link rel="stylesheet" type="text/css" href="/css/reset.css" />
 			<link rel="stylesheet" type="text/css" href="/css/text.css" />
-			<link rel="stylesheet" type="text/css" href="/css/960.css" />
+			<link rel="stylesheet" type="text/css" href="/css/960.css?v2" />
 			<link rel="stylesheet" type="text/css" href="/css/main.css" />
 			<link rel="stylesheet" type="text/css" href="/css/dropdown/dropdown.css" media="screen"  />
 			<link rel="stylesheet" type="text/css" href="/css/dropdown/themes/grotrian/default.advanced.css" media="screen" />
