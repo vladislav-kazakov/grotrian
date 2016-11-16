@@ -117,7 +117,6 @@
 							
 							<li><a href="/{#$interface#}/ru/bibliography/">Библиография</a></li>
 							<li><a href="/{#$interface#}/ru/links/">Ссылки</a></li>
-							<li><a href="/old_index.php">Старая версия</a></li>			
 						</ul>
 					{#/if#}
 					
@@ -129,7 +128,7 @@
 								</ul>
 							</li>
 							<li><a href="/{#$interface#}/en/links/">Links</a></li>
-							<li><a href="http://asdb.nsu.ru/lemma/default.aspx?db=GROTRIAN&amp;int=ENGLISH_VIEW&amp;class=CMAINVIEW&amp;templ=MAIN" >Old version</a></li>			
+
 						</ul>
 					{#/if#} 	
 				

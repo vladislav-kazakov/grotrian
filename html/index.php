@@ -58,7 +58,7 @@
 		if ($ions)	{
 			//получаем им€ элемента
 			$elname=$ions[0]['ELNAME'];		
-			
+
 			//получаем массив типов элементов(из словар€) и загон€ем его в smarty()			
 			
 			$smarty->assign('elemet_types', $elemet_types);
@@ -67,7 +67,10 @@
 			$atom = new Atom;
 			$atom->Load($element_id);
 			
-			$atom_sys=$atom->GetAllProperties();
+			$atom_sys = $atom->GetAllProperties();
+			$atom_name = $elname;
+			if ($atom_name !='H' && $atom_name !='D' && $atom_name !='T' )
+				$atom_name .= ' ' . numberToRoman(intval($atom_sys['IONIZATION']) + 1);
 			$smarty->assign('atom', $atom_sys);
 			
 			$ichi = '1S/'.$elname;
@@ -514,12 +517,13 @@
 		// var_dump($localDictionary);
 		//if(isset($title))$smarty->assign("title",$localDictionary[$title]);
 		// var_dump($title . '_title');
-		if(isset($title))$smarty->assign("title",$localDictionary[$title . '_title'] . (isset($elname)?(" Ч ". $elname):("")));
+		if(isset($title))$smarty->assign("title",$localDictionary[$title . '_title'] . (isset($elname)?(" Ч ". $atom_name):("")));
 		
 		if(isset($headline))$smarty->assign('headline',$localDictionary[$headline]);		
 		
 		if (isset($element_id)) $smarty->assign('layout_element_id',$element_id);	
 		if (isset($elname)) $smarty->assign('layout_element_name',$elname);
+		if (isset($elname)) $smarty->assign('atom_name', $atom_name);
 		if (isset($ions)) $smarty->assign('ions',$ions);
 		
 		if (isset($bodyclass))	$smarty->assign("bodyclass",$bodyclass);

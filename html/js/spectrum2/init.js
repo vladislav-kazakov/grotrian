@@ -17,7 +17,7 @@ function init_ruler(zoom, min, max, n) {
     var $wrapper = $('#svg_wrapper' + n),
     max = max * zoom / 10,
     min = min * zoom / 10,
-    ruler = "<svg style='width:" + (max-min) + "px' id='ruler'>";
+    ruler = "<svg width='" + (max-min) + "' height='30' id='ruler' style='background-color:white;'>";
 
     rulerMin = Math.ceil(min/100)*100; // round minimum to hundreds in less side
     for (var j = 0; j < max - min; j+= 100) {
@@ -42,7 +42,7 @@ function init(waves, n) {
     start = 0,
     l,
     is_experimental = waves[Object.keys(waves)[0]].toString().indexOf('rgb') == -1,
-    str = "<svg class='svg' id='svg" + n + "' draggable='true'>" + (is_experimental ? "<path stroke='white' stroke-width='1' d='M 0,120 L" : ''),
+    str = "<svg class='svg' id='svg" + n + "' draggable='true' style='background-color:black;' width='"+ (max-min)*zoom/10+"' height='120'>" + (is_experimental ? "<path stroke='white' stroke-width='1' d='M 0,120 L" : ''),
     map_str = "<svg id='map_svg" + n + "'>" + (is_experimental ? "<path stroke='white' stroke-width='1' d='M 0,120 L" : ''),
     $preview = $('#preview'),
 //    minRuler = Math.floor(min/100)*100, // round minimum to hundreds in less side
@@ -150,7 +150,7 @@ $('#svg_wrapper .svg line').hover(
         var l = $(this).attr('l');
 
         $('#line_info').empty();
-        $('#line_info').append('Wave length: <b>' + l + '</b>');
+        $('#line_info').append('Wave length: <b>' + l + ' &#8491;</b>');
         $(this).attr('stroke-width', 2);
     },
     function() {
@@ -168,6 +168,8 @@ var $svg = $('#svg' + n);
 //$map.css('width', (max-min) * zoom / 10 + 'px');
 
 $svg.css('width', (max-min) * zoom / 10 + 'px');
+if (document.getElementById('canvas')) document.getElementById('canvas').width = (max-min) * zoom / 10; //2 = border-left (1px) + border-right (1px)
+
 
 $svg.mousemove(function(event) {
     if (isDrag) {

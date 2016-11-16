@@ -40,8 +40,83 @@
 								<div id='preview'></div>
 								<div id='map_now'></div>
 							</div>
-							<a id='compare' href='/{#$locale#}/compare/{#$layout_element_id#}'>{#$l10n.Compare#}</a>
+							<a id='compare' href='/{#$locale#}/compare/{#$layout_element_id#}'>{#$l10n.Compare#}</a> <button id="button" class="button white">{#$l10n.Download_PNG#}</button>
 							<br><br>
+
+
+
+							<canvas id="canvas" height="150" style="display:none;"></canvas>
+
+							<script>
+								function triggerDownload (imgURI) {
+									var evt = new MouseEvent('click', {
+										view: window,
+										bubbles: false,
+										cancelable: true
+									});
+
+									var a = document.createElement('a');
+									a.setAttribute('download', 'Spectrum {#$atom_name#} ' + $('#min').val() + ' - ' + $('#max').val() + ' A.png');
+									a.setAttribute('href', imgURI);
+									a.setAttribute('target', '_blank');
+
+									a.dispatchEvent(evt);
+								}
+
+								var btn = document.getElementById('button');
+								btn.addEventListener('click', function () {
+									var svg = document.getElementById('svg');
+									var data = (new XMLSerializer()).serializeToString(svg);
+									var svgBlob = new Blob([data], {type: 'image/svg+xml;charset=utf-8'});
+
+									var DOMURL = window.URL || window.webkitURL || window;
+									var url = DOMURL.createObjectURL(svgBlob);
+
+									var rulerSvg = document.getElementById('ruler');
+									var rulerData = (new XMLSerializer()).serializeToString(rulerSvg);
+									var rulerSvgBlob = new Blob([rulerData], {type: 'image/svg+xml;charset=utf-8'});
+
+									var rulerDOMURL = window.URL || window.webkitURL || window;
+									var rulerUrl = rulerDOMURL.createObjectURL(rulerSvgBlob);
+
+									var rulerImgLoaded = false;
+									var svgImgLoaded = false;
+
+									var svgImg = new Image();
+									svgImg.onload = function () {
+										var canvas = document.getElementById('canvas');
+										var ctx = canvas.getContext('2d');
+										ctx.drawImage(svgImg, 0, 0);
+										DOMURL.revokeObjectURL(url);
+
+										if (rulerImgLoaded){
+											var imgURI = canvas
+													.toDataURL('image/png')
+													.replace('image/png', 'image/octet-stream');
+											triggerDownload(imgURI);
+										}
+										else svgImgLoaded = true;
+									};
+									svgImg.src = url;
+
+									var rulerImg = new Image();
+									rulerImg.onload = function () {
+										var canvas = document.getElementById('canvas');
+										var ctx = canvas.getContext('2d');
+										ctx.drawImage(rulerImg, 0, 120);
+										rulerDOMURL.revokeObjectURL(rulerUrl);
+										if (svgImgLoaded){
+											var imgURI = canvas
+													.toDataURL('image/png')
+													.replace('image/png', 'image/octet-stream');
+											triggerDownload(imgURI);
+										}
+										else rulerImgLoaded = true;
+									};
+									rulerImg.src = rulerUrl;
+
+								});
+							</script>
 	 					</div>
 						{#else#}
 						<div class="brake"></div>
