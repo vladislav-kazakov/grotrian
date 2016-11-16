@@ -15,7 +15,7 @@ header('Content-Type: text/html; charset=UTF-8');
 <head>
 	<title>Импорт данных</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/main.css" rel="stylesheet">
+	<link href="css/main.css?v2" rel="stylesheet">
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="../js/jquery-1.11.2.min.js"></script> 
