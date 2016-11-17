@@ -10,9 +10,9 @@
 			<link rel="stylesheet" type="text/css" href="/css/main.css?v2" />
 			<link rel="stylesheet" type="text/css" href="/css/dropdown/dropdown.css" media="screen"  />
 			<link rel="stylesheet" type="text/css" href="/css/dropdown/themes/grotrian/default.advanced.css" media="screen" />
-			<link rel="stylesheet" type="text/css" href="/js/fancybox/jquery.fancybox-1.3.4.css" media="screen" />			
-			<script type="text/javascript" src="/js/jquery-1.5.2.min.js"></script>
-			<script type="text/javascript" src="/js/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
-			<script type="text/javascript" src="/js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+			<link rel="stylesheet" type="text/css" href="/js/fancybox/jquery.fancybox.css" media="screen" />
+			<script type="text/javascript" src="/js/jquery-1.11.2.min.js"></script>
+			<script type="text/javascript" src="/js/fancybox/jquery.mousewheel-3.0.6.pack.js"></script>
+			<script type="text/javascript" src="/js/fancybox/jquery.fancybox.pack.js"></script>
 			<!--[if IE 7]><script type="text/javascript" src="/js/jquery.dropdown.js"></script><![endif]-->
 			<!--[if IE 6]><script type="text/javascript" src="/js/jquery.dropdown.js"></script><![endif]-->

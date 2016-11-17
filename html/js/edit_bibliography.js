@@ -55,7 +55,7 @@ $(document).ready(function() {
 				} );
 
 	
-	$(".bibliolink").live("click", function(){
+	$(document).on("click", ".bibliolink", function(){
 		var level=$(this).parent();
 		
     	if (level.hasClass('row_selected') ){
@@ -90,7 +90,7 @@ $(document).ready(function() {
 		}
 	});
 	
-	$("#edit_source").live("click", function(event){
+	$(document).on("click", "#edit_source", function(event){
 		event.preventDefault();
 		var source = $(this).parent().parent();
 		var str = 'source_id='+source.find('.source_id').val();
@@ -105,7 +105,7 @@ $(document).ready(function() {
 		});		
 	});
 	
-	$("#save_source").live("click", function(event){
+	$(document).on("click", "#save_source", function(event){
 		event.preventDefault();
 		var str = "source_id="+$(".current_source").val();
 		str +="&"+$("#saveSourceForm").serialize();

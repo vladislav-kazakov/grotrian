@@ -1,6 +1,6 @@
 $(document).ready(function() {		
 				
-	$("#new_source").live("click", function(){	
+	$(document).on("click", "#new_source", function(){
 				
 				if (confirm('Создать новый источник?')) {						 
 					$.post("/source_admin.php",  {action: "createSource"},function(data) {				
@@ -18,7 +18,7 @@ $(document).ready(function() {
 				}				
 			});			
 			
-			$("#add_source").live("click", function(event){	
+			$(document).on("click", "#add_source", function(event){
 				event.preventDefault();
 				var str="action=manageSources&count="+$(".row_selected .row_id").length;					
 					
@@ -31,7 +31,7 @@ $(document).ready(function() {
 			});
 
 			
-			$("#remove_source").live("click", function(event){	
+			$(document).on("click", "#remove_source", function(event){
 				event.preventDefault();
 				var str = $(".row_selected .row_id").serialize();
 				str+="&action=removeSources&count="+$(".row_selected .row_id").length;					
@@ -44,7 +44,7 @@ $(document).ready(function() {
 				
 			});
 			
-			$("#bibliography_table tbody tr").live("click", function(){
+			$(document).on("click", "#bibliography_table tbody tr", function(){
 				if ( $(this).hasClass('row_selected_source') )
 					$(this).removeClass('row_selected_source');
                 else
@@ -52,7 +52,7 @@ $(document).ready(function() {
             });                
 			
 			
-			$("#apply_source").live("click", function(event){
+			$(document).on("click", "#apply_source", function(event){
 				event.preventDefault();
 				var type = $('#type').val();
 				//alert(type);
@@ -89,7 +89,7 @@ $(document).ready(function() {
 					});					
 			});
 			
-			$("#apply_removing").live("click", function(event){
+			$(document).on("click", "#apply_removing", function(event){
 				event.preventDefault();
 				var type = $('#type').val();
 				var str_rows = $(".row_selected .row_id").serialize();
@@ -137,9 +137,9 @@ $(document).ready(function() {
 				'height'			: 200,
 				'autoDimensions'	: false
 			});
-			
-			
-			$("#save_source").live("click", function(event){
+
+
+			$(document).on("click", "#save_source", function(event){
 				event.preventDefault();
 				var str=$("#saveSourceForm").serialize(); 				
 				str += "&source_id="+$(".current_source").val();				
@@ -197,7 +197,7 @@ $(document).ready(function() {
 			}
 		}	
 
-			$('#source_type').live('change', function(event) {
+			$(document).on('change', '#source_type', function(event) {
 				event.preventDefault();
 				var source_type = $(this).val();
 				CheckType(source_type);
@@ -205,7 +205,7 @@ $(document).ready(function() {
 			
 			
 			
-			$("#edit_author").live("click", function(event){
+			$(document).on("click", "#edit_author", function(event){
 				event.preventDefault();
 				var author=$(this).parent().parent().parent();		
 				$(this).parent().html('<a class="button white" id="save_author">Сохранить</a>');
@@ -216,7 +216,7 @@ $(document).ready(function() {
 			
 			});
 			
-			$("#save_author").live("click", function(event){
+			$(document).on("click", "#save_author",function(event){
 				event.preventDefault();
 				var author=$(this).parent().parent().parent();		
 				var button = $(this).parent();		
@@ -241,7 +241,7 @@ $(document).ready(function() {
 			});
 			
 			
-			$("#add_author").live('click',function(event){
+			$(document).on('click', "#add_author", function(event){
 				event.preventDefault();
 				$('#authors_edit_table').append('<tr><td class="author_name"><input type="text" name="author" class="article_author" value="" /></td><td class="author_controls"><select class="author_role" name="author_role"><option selected="selected" value="author">автор</option><option value="main_author">основной автор</option><option value="editor">редактор</option></select><input type="hidden" name="author_id" class="author_id" value="">	<span><a class="button white" id="save_author">сохранить</a></span>	<span><a class="button white" id="delete_author">Х</a></span></td></tr>');		
 			});	
@@ -251,7 +251,7 @@ $(document).ready(function() {
 			});*/
 			
 			
-			$(".article_author").live('keyup',function(){
+			$(document).on('keyup', ".article_author", function(){
 				$(this).autocomplete("/source_admin.php",{
 					delay: 1			
 					});	
@@ -262,7 +262,7 @@ $(document).ready(function() {
 			});
 			
 			
-			$("#delete_author").live('click',function(event){
+			$(document).on('click', "#delete_author", function(event){
 				event.preventDefault();
 				
 				var str = "source_id="+$(".current_source").val();

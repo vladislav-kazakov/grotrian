@@ -55,7 +55,7 @@
            	<div id='map_now'></div>
         </div>
 
-        <script src='js/jquery-1.5.2.min.js'></script>
+        <script src='js/jquery-1.11.2.min.js'></script>
         <script src='js/spectrum2/init.js'></script>
         <script>
 		$(document).ready(function() {
@@ -64,7 +64,7 @@
 
 		    init_all();
 
-		    $('#filter').live('click', function() {
+		    $(document).on('click', "#filter", function() {
 		    	init_all();
 			});
 

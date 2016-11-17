@@ -94,9 +94,9 @@ a:hover {
 
 td.name{
 	padding-right:10px;
-	align:"right"; 
-	nowrap:"nowrap";
-	valign:"middle";
+	//align:"right";
+	//nowrap:"nowrap";
+	//valign:"middle";
 }
 
 td.dimension{
@@ -188,7 +188,7 @@ div.image a {
 			div.image a img
 			{				
 				border: none;
-				padding: none;
+				padding: 0;
 				-webkit-border-radius: 4px 4px;
 				-moz-border-radius: 4px 4px;
 				border-radius: 4px 4px;
@@ -211,7 +211,7 @@ div.image a {
 }
 
 #ions span.ions,
-#ions a,
+#ions a
 {
 	padding: 0 10px;
 }

@@ -416,11 +416,11 @@
 			
 			/* Add a click handler to the rows - this could be used as a callback */	
 			
-			$("tr.selectable td:not(.source)").live("click", function(){
+			$(document).on("click", "tr.selectable td:not(.source)", function(){
 				addSelection($(this).parent());							    	
 		    });			
 			
-			$(".row_selected input:checkbox").live("click", function(){
+			$(document).on("click", ".row_selected input:checkbox",function(){
 				removeSelection($(this).parent().parent());
 			});
 			
@@ -550,7 +550,7 @@
 				});	
 			});	*/
 			
-			$("#select_lower_level").live("click", function(event){	
+			$(document).on("click", "#select_lower_level", function(event){
 				event.preventDefault(); 
 				var position = "lower";				
 				var transition = $(this).parent().parent();
@@ -576,7 +576,7 @@
 			    });					
 			});
 			
-			$("#select_upper_level").live("click", function(event){	
+			$(document).on("click", "#select_upper_level", function(event){
 				event.preventDefault();
 				var position = "upper";				
 				var transition = $(this).parent().parent();

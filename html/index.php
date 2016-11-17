@@ -269,25 +269,6 @@
 			$footer_type="footer.tpl";
 			break;
 		}
-	    case "chart": {
-	    	$level_list->Load($element_id);
-	    	$smarty->assign('level_list',json_encode($level_list->GetItemsArray()));
-			
-			$transition_list->LoadWithLevels($element_id);			
-			$smarty->assign('transition_list',json_encode($transition_list->GetItemsArray()));
-			
-    		//указываем имя шаблона и название страницы    		
-			$page_type="view_chart.tpl"; 
-    		$head="Grotrian_Charts";
-    		$title="Grotrian_Charts";
-    		$headline="Atomic_charts";
-    		$bodyclass="diagram";
-    		$header_type="header.tpl";
-    		$footer_type="footer.tpl";
-
-    		
-    		break;
-    	}
 
 	    case "newdiagram": {
     		//указываем имя шаблона и название страницы    		

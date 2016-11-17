@@ -1,5 +1,5 @@
-	<script type="text/javascript" src="/js/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
-	<script type="text/javascript" src="/js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+	<script type="text/javascript" src="/js/fancybox/jquery.mousewheel-3.0.6.pack.js"></script>
+	<script type="text/javascript" src="/js/fancybox/jquery.fancybox.pack.js"></script>
 
 
 <script type="text/javascript">$(document).ready(function() {

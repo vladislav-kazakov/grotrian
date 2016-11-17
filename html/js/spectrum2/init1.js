@@ -118,7 +118,7 @@ function init(waves, n) {
     });
 }
 
-$('#zoom_container input').live('click',function() {
+$(document).on('click', '#zoom_container input', function() {
     if (this.className == 'base')
        $('#zoom_container input.base').removeClass('active');
     $(this).toggleClass('active');

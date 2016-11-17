@@ -27,8 +27,8 @@
 				<link rel="stylesheet" href="/css/jquery.autocomplete.css" type="text/css" />
 				<link rel="stylesheet" href="/css/popuptext.css" type="text/css" />
 				<script type="text/javascript" src="/js/jquery.dataTables.min.js"></script> 
-				<script type="text/javascript" src="/js/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
-				<script type="text/javascript" src="/js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>  				 				
+				<script type="text/javascript" src="/js/fancybox/jquery.mousewheel-3.0.6.pack.js"></script>
+				<script type="text/javascript" src="/js/fancybox/jquery.fancybox.pack.js"></script>
 				<script type="text/javascript" src="/js/jquery.autocomplete.min.js"></script>	
 		
 				<script type="text/javascript" >var locale="{#$locale#}"; var energyValue = ""; var termmultiplyValue = ""; var isUpperOrLower = "";</script>
@@ -41,8 +41,8 @@
 					var SaveLevels="Сохранить";
 					var CreateLevel="Добавить";
 					var DeleteLevels="Удалить";
-				
-					$("#btn_search").live("click",function(){
+
+					$(document).on("click", "#btn_search", function(){
 						$("#panel").slideToggle("slow");
 						$(".btn-slide").toggleClass("active");
 						$("#panel div").addClass('tpanel');

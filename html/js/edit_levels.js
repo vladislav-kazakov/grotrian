@@ -489,11 +489,11 @@ $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique,
 			
 			/* Add a click handler to the rows - this could be used as a callback */	
 			
-			$("tr.selectable td:not(.source)").live("click", function(){
+			$(document).on("click", "tr.selectable td:not(.source)",function(){
 				addSelection($(this).parent());							    	
 		    });			
 			
-			$(".row_selected input:checkbox").live("click", function(){
+			$(document).on("click", ".row_selected input:checkbox", function(){
 				removeSelection($(this).parent().parent());
 			});
 			

@@ -377,7 +377,7 @@ $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique,
 				});				
 							
 							
-							$('#levels_table tbody tr').live("click", function(){		
+							$(document).on("click", "#levels_table tbody tr", function(){
 							
 								//console.log(parent.$('.clicked').find(".lower_level_id").val());
 									if (confirm('Поставить этот уровень?')) {						

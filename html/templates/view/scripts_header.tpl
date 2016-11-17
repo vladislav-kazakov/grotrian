@@ -62,15 +62,15 @@
 		$(document).ready(function() {						
 			var spectr_list={#$spectrum_json#};
 			init(spectr_list);
-			$('#filter').live('click', function() {
+			$(document).on('click', '#filter', function() {
 				init(spectr_list);
 			});
 			{# if $pagetype == "compare" #}
 			var spectr_list_uploaded = {#$spectrum_json_uploaded#};
 			if (spectr_list_uploaded) {
 				init(spectr_list_uploaded, 2);
-				$('#filter').die('click');
-				$('#filter').live('click', function() {
+				$(document).off('click', '#filter');
+				$(document).on('click', '#filter', function() {
 
 					init(spectr_list);
 					init(spectr_list_uploaded, 2);
@@ -102,15 +102,15 @@
 		var Tablelookup="{#$l10n.Table_lookup#}";
 		var ExporttoExcel="{#$l10n.Export_to_Excel#}";
 		var Search="{#$l10n.Search#}";
-		
-		$("#btn_search").live("click",function(){
+
+		$(document).on("click", "#btn_search", function(){
 			$("#panel").slideToggle("slow");
 			$(".btn-slide").toggleClass("active");
 			$("#panel div").addClass('tpanel');
 		});
 
 		/* Add a click handler to the rows - this could be used as a callback */	
-		$(".display tr").live("click", function(){
+		$(document).on("click", ".display tr", function(){
 			if ( $(this).hasClass('row_selected') )	$(this).removeClass('row_selected');
 			else $(this).addClass('row_selected');
 		});					

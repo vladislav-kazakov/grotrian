@@ -198,13 +198,13 @@ $svg.mouseup(function() {
 });
 }
 
-$('#zoom_container input').live('click',function() {
+$(document).on('click', '#zoom_container input', function() {
     if (this.className == 'base')
        $('#zoom_container input.base').removeClass('active');
    $(this).toggleClass('active');
 });
 
-$('#barchart').live('click',function() {
+$(document).on('click', '#barchart', function() {
     $(this).toggleClass('active');
 });
 
@@ -226,7 +226,7 @@ $(document).ready(function() {
             }
         };
     }
-    $("#range_intensity").live("change mousemove",function(){
+    $(document).on("change mousemove", '#range_intensity',function(){
         value = $("#range_intensity input").val();
         rule_intensity(value)
     });

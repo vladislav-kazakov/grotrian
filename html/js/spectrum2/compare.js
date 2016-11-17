@@ -1,3 +1,3 @@
-﻿$('#file, #standard_file').live('change', function() {
+﻿$(document).on('change', '#file, #standard_file', function() {
 	$('#compare').submit();
 });
