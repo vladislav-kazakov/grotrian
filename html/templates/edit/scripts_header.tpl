@@ -21,15 +21,46 @@
 				<script type="text/javascript" charset="windows-1251" src="/js/edit_element.js" ></script>						
 			{#/if#}
 			
-			
+	{# if $bodyclass=="spectrum" || $bodyclass=="element"#}
+	<link rel="stylesheet" type="text/css" href="/css/spectrum2.css" />
+	<script type="text/javascript" src="/js/spectrum2/init.js"></script>
+	{# if $pagetype == "compare" #}
+	<script type="text/javascript" src="/js/spectrum2/compare.js"></script>
+	{#/if#}
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var spectr_list={#$spectrum_json#};
+			init(spectr_list);
+			$(document).on('click', '#filter', function() {
+				init(spectr_list);
+			});
+			{# if $pagetype == "compare" #}
+			var spectr_list_uploaded = {#$spectrum_json_uploaded#};
+			if (spectr_list_uploaded) {
+				init(spectr_list_uploaded, 2);
+				$(document).off('click', '#filter');
+				$(document).on('click', '#filter', function() {
+
+					init(spectr_list);
+					init(spectr_list_uploaded, 2);
+				});
+			}
+			{#/if#}
+
+		});
+	</script>
+
+	{#/if#}
+
 			{# if $bodyclass=="levels" || $bodyclass=="transitions" || $bodyclass=="bibliography"#}
 				<link rel="stylesheet" type="text/css" href="/css/table.css" />
-				<link rel="stylesheet" href="/css/jquery.autocomplete.css" type="text/css" />
+				<link rel="stylesheet" href="/js/jquery-autocomplete/jquery.autocomplete.css" type="text/css" />
 				<link rel="stylesheet" href="/css/popuptext.css" type="text/css" />
 				<script type="text/javascript" src="/js/jquery.dataTables.min.js"></script> 
 				<script type="text/javascript" src="/js/fancybox/jquery.mousewheel-3.0.6.pack.js"></script>
 				<script type="text/javascript" src="/js/fancybox/jquery.fancybox.pack.js"></script>
-				<script type="text/javascript" src="/js/jquery.autocomplete.min.js"></script>	
+				<script type="text/javascript" src="/js/jquery-autocomplete/jquery.autocomplete.min.js"></script>
 		
 				<script type="text/javascript" >var locale="{#$locale#}"; var energyValue = ""; var termmultiplyValue = ""; var isUpperOrLower = "";</script>
 				

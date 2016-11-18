@@ -118,18 +118,11 @@
 
 	{#/if#}
 
-	{#*Вот эти файлы пока не надо вставлять в диаграммы, временно закомментил*#}
-	{# if $bodyclass=="diagram"#}
-	<!--script type="text/javascript" src="/js/grotrian_chart.js"></script>
-	<script type="text/javascript" src="/js/jquery.svg.js"></script-->
-		{#/if#}		
 
+	{# if $bodyclass=="bibliography" #}
+	<script type="text/javascript" src="/js/bibliography.js"></script>
+	{#/if#}
 
-		
-		{# if $bodyclass=="bibliography" #}
-		<script type="text/javascript" src="/js/bibliography.js"></script>
-		{#/if#}
-
-		{# if $bodyclass=="periodictable" #}
-		<script type="text/javascript" src="/js/periodic_table.js"></script>
-		{#/if#}
+	{# if $bodyclass=="periodictable" #}
+	<script type="text/javascript" src="/js/periodic_table.js"></script>
+	{#/if#}

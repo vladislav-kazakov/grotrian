@@ -26,7 +26,7 @@
 		                			</tr>
 									
                                     <tr>
-										<td class="name">{#$l10n.Wavelengt#}:</td>
+										<td class="name">{#$l10n.Wavelength#}:</td>
 										<td>
 				                        	<input  size="12" type="text" name="waveMinVal"/>
 											<input size="12" type="text" name="waveMaxVal"/>											

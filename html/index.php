@@ -24,7 +24,7 @@
 	//ѕодключаем словарь
 	require_once("dictionary/dictionary.inc");
 	
-	$l10n = new Localisation($dictionary);
+	$l10n = new Localization($dictionary);
 	$elements = new ElementList;
 	//загружаем таблицу элементов с локализованными именами и ст. ионизацией = 0;	
 	$elements->LoadPereodicTable($l10n->locale,0);
@@ -398,7 +398,7 @@
 
 		case "login": {
     		//указываем им€ шаблона и название страницы    		
-			$page_type="ru/login.tpl"; 
+			$page_type="login.tpl";
     		$head="Information_system_Electronic_structure_of_atoms";
     		$title="About_project";
     		$headline="About_project";
@@ -407,7 +407,14 @@
     		$footer_type="footer.tpl";
     		break;
     	}
-    	
+
+		case "logout": {
+			session_start();
+			session_destroy();
+			header("Location: /");
+			break;
+		}
+
 		case "bibliography": {	
 			$biblio_list = new BiblioList;	
 			
@@ -511,11 +518,29 @@
 		if (isset($pagetype))	$smarty->assign("pagetype",$pagetype);	
 		
 				
-		if(isset($header_type)) $smarty->display("$interface/".$header_type);		
-		$smarty->display("$interface/".$page_type);
-		
+		if(isset($header_type)) $smarty->display("$interface/".$header_type);
 
-		
+		switch ($pagetype) {
+			case 'diagram':
+			case 'spectrum':
+			case 'links':
+			case 'team':
+			case 'sponsors':
+			case 'awards':
+			case 'articles':
+				$smarty->display("view/".$page_type);
+				break;
+			case 'element':
+			case 'levels':
+			case 'transitions':
+			case 'index':
+			case 'bibliography':
+			default:
+				$smarty->display("$interface/".$page_type);
+		}
+
+
+
 		//print_r($_REQUEST);
 		if(isset($header_type)) $smarty->display("$interface/".$footer_type);	
 	}

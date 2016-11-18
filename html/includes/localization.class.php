@@ -1,5 +1,5 @@
 <?
-class Localisation{
+class Localization{
 
     public $locale;
     public $localize;

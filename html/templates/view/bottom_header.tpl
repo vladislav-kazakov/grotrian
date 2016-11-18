@@ -61,9 +61,9 @@
 			<div class="grid_7" id="menu_primary">					
 				<ul>
 				{# if $layout_element_id #}
-					<li class="menu_elements"><input type="hidden" name="section" value="element" /><a href="/{#$locale#}/element/{#$layout_element_id#}">{#$l10n.Elements#}</a></li>  
+					<li class="menu_elements"><input type="hidden" name="section" value="element" /><a href="/{#$locale#}/element/{#$layout_element_id#}">{#$l10n.Elements#}</a></li>
 					<li class="menu_levels"><input type="hidden" name="section" value="levels" /><a href="/{#$locale#}/levels/{#$layout_element_id#}">{#$l10n.Levels#}</a></li>
-					<li class="menu_transitions"><input type="hidden" name="section" value="transitions" /><a href="/{#$locale#}/transitions/{#$layout_element_id#}">{#$l10n.Transitions#}</a></li>  
+					<li class="menu_transitions"><input type="hidden" name="section" value="transitions" /><a href="/{#$locale#}/transitions/{#$layout_element_id#}">{#$l10n.Transitions#}</a></li>
 					<li class="menu_diagrams"><input type="hidden" name="section" value="diagram" /><a href="/{#$locale#}/diagram/{#$layout_element_id#}">{#$l10n.Charts#}</a></li>
 					<li class="menu_spectra"><input type="hidden" name="section" value="spectrum" /><a href="/{#$locale#}/spectrum/{#$layout_element_id#}">{#$l10n.Spectra#}</a></li>
 					{#else#}
@@ -84,8 +84,8 @@
 								<li><a href="/ru/">Описание</a></li>									
 								<li><a href="/ru/team/">Коллектив</a></li>
 								<li><a href="/ru/articles/">Публикации</a></li>									
-<!--								<li><a href="/ru/sponsors/">Спонсоры</a></li> -->
-								<li><a href="/ru/awards/">Награды</a></li>
+								<li><a href="/ru/sponsors/">Спонсоры</a></li>
+								<li><a href="/ru/awards/">Дипломы</a></li>
 							</ul>
 						</li>
 							
