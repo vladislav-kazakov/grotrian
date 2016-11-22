@@ -287,14 +287,14 @@
     		//Уровни
     		$level_list = new LevelList;
     		// отдаём в смарти число уровней
-    		$level_count = $level_list->LoadCount($element_id);
+    		$level_count = $level_list->LoadCount();
     		$smarty->assign('level_count', $level_count);
     		
     		
     		//Переходы
     		$transition_list = new TransitionList;
     		// отдаём в смарти число переходов
-    		$transition_count = $transition_list->LoadCount($element_id);
+    		$transition_count = $transition_list->LoadCount();
     		$smarty->assign('transition_count', $transition_count);
     		
     		$page_type=$l10n->locale."/index.tpl"; 
@@ -336,11 +336,11 @@
     	
 		case "links": {
     		//указываем имя шаблона и название страницы    		
-			$page_type=$l10n->locale."/links.tpl"; 
+			$page_type=$l10n->locale."/links.tpl";
     		$head="Other_resources_for_atomic_spectroscopy";
     		$title="Other_resources_for_atomic_spectroscopy";
     		$headline="Other_resources_for_atomic_spectroscopy";
-    		$bodyclass="index";
+    		$bodyclass="links";
     		$header_type="index_header.tpl";
     		$footer_type="footer.tpl";
     		break;
@@ -348,11 +348,11 @@
     	
 		case "team": {
     		//указываем имя шаблона и название страницы    		
-			$page_type="ru/team.tpl"; 
+			$page_type=$l10n->locale."/team.tpl";
     		$head="Project_team";
     		$title="Project_team";
     		$headline="Project_team";
-    		$bodyclass="index";
+    		$bodyclass="team";
     		$header_type="index_header.tpl";
     		$footer_type="footer.tpl";
     		break;
@@ -361,11 +361,11 @@
     	
 		case "sponsors": {
     		//указываем имя шаблона и название страницы    		
-			$page_type="ru/sponsors.tpl"; 
+			$page_type=$l10n->locale."/sponsors.tpl";
     		$head="Sponsors";
     		$title="Sponsors";
     		$headline="Sponsors";
-    		$bodyclass="index";
+    		$bodyclass="sponsors";
     		$header_type="index_header.tpl";
     		$footer_type="footer.tpl";
     		break;
@@ -373,7 +373,7 @@
     	
 		case "awards": {
     		//указываем имя шаблона и название страницы    		
-			$page_type="ru/awards.tpl"; 
+			$page_type=$l10n->locale."/awards.tpl";
     		$head="Awards";
     		$title="Awards";
     		$headline="Awards";
@@ -386,7 +386,7 @@
     	case "periodictable": {
     		//указываем имя шаблона и название страницы    	
     			
-			$page_type="view_periodictable.tpl"; 
+			$page_type="view_periodictable.tpl";
     		$head="Periodic_Table";
     		$title="Periodic_Table";
     		$headline="Periodic_Table";
@@ -470,14 +470,14 @@
 			//Уровни
 			$level_list = new LevelList;
 			// отдаём в смарти число уровней
-			$level_count = $level_list->LoadCount($element_id);
+			$level_count = $level_list->LoadCount();
 			$smarty->assign('level_count', $level_count);
 			
 			
 			//Переходы
 			$transition_list = new TransitionList;
 			// отдаём в смарти число переходов
-			$transition_count = $transition_list->LoadCount($element_id);
+			$transition_count = $transition_list->LoadCount();
 			$smarty->assign('transition_count', $transition_count);
 			
     		$page_type=$l10n->locale."/index.tpl"; 

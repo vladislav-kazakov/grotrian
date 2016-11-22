@@ -59,7 +59,7 @@ function curl_import_lines_nist($element){
 }
 
 function parsing_levels($html){
-	preg_match_all("|<TABLE BGCOLOR=\"#FFFEEE\" BORDER=\"0\" frame=\"box\" rules=\"groups\" CELLSPACING=\"0\" CELLPADDING=\"1\">(.*)</TBODY>.</TABLE>|is", $html, $matches); 
+	preg_match_all("|<TABLE BGCOLOR=\"#FFFEEE\"(.*)</TBODY>.</TABLE>|is", $html, $matches);
 	foreach ($matches[0] as $table){
 		preg_match_all("|<TBODY>.<TR class=\"bsl\">(.*)</TBODY>.</TABLE>|is", $table, $matches); 
 		foreach ($matches[0] as $tbody){

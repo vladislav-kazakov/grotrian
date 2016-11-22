@@ -1,42 +1,51 @@
-			<div id="txt" class="container_12">
-				<div class="grid_12">
-<br/>
-In the work of many researchers occupies an important place to collect and analyze information on the properties of certain physical systems. In the case of gas or plasma systems, this information applies to the parameters of atoms and molecules, their performance on energy levels and transitions between them. Such information can be presented in tabular or graphical form.<br/><br/>
-<b>The system enables a some main types of uses:</b>
-		
-        			<ul>
-						<li>
-							<span>
-                        obtain <b>information on levels</b> of one or more elements in a tabular form. Currently, the system contains information on {#$level_count#} levels</span>
-						</li>
-                    
-						<li>
-							 obtain <b>information on transitions</b> 
-	of elements in a table form. Currently, the system contains information on {#$transition_count#} transitions. 
-						</li>
-				
-                		<li>
-						<span>obtain
-  <b>graphical representation (Grotrian Charts)</b> for a given element and a set of parameters</span>
-						</li>
-					</ul>
- <br/> 
-    In atomic spectroscopy adopted the graphic form as diagrams Grotrian, whose main purpose - to give a visual representation of the structure of a single atom. In general form, the diagram Grotrian - a rectangle within which with lines of letters and numbers describe the electron structure of the atomic system: the position of energy levels, the main radiative transitions, quantum numbers. The top line gives the designation of all existing electronic configurations nl<sup>k</sup> for a given atom. The second - the symbols of the terms of the atomic residue in the third - terms of energy states of the atom in <i>LS-</i>, <i>jj-</i> or <i>lj-</i> ties. On vertical scales postponed, the energy of the states in cm<sup>-1</sup> or eV. Inside the chart for each electronic state corresponds to a horizontal line is short and a number of quantum numbers. The states with the same orbital angular momentum <i>l</i> grouped in columns - s, p, d... They form a sequence converging to the boundary atom. Sloping lines with discontinuities displaying allowed transitions with wavelengths in angstroms.
-<br/><br/>	The information system provides the user with necessary information, in tabular form or in graphical representation in the form of diagrams Grotrian, as well as provide it with ample mechanisms for sampling, filtering, sorting and tuning of the data. One of the goals is to use the system in education for training, which requires the inclusion of the full-text library of primary sources.
-As a result of a joint project NSU and IAE built an information system on the spectral properties of atoms and atomic ions.
-<br/><br/>	At the core of information system is a database from various literary sources, and electronic resources. In contrast to the various analogs, this information system on the user's query provides both tabular and graphical representation of the atomic structure of all the chemical elements of the table D. Mendeleev. In addition to constructing a general Grotrian diagram displaying the most important (resonance) transitions and levels, the system provides a wide range of samples, including filtering and sorting levels and transitions, selective mapping of the Rydberg and autoionization states. In this respect, this information system is not inferior to its parameters known system <a href="http://physics.nist.gov">NIST(USA)</a>.
-<br/><br/> Currently, information system contains the following spectral data: the value of the energy levels (93 units), known radiative transitions (90 items), the intensity of transitions, transition probabilities, oscillator strengths, lifetimes of levels, excitation cross sections. For each item, see the literary information on the reliability of data.
-<br/><br/>This information system is designed for scientists, engineers and students dealing with atomic spectroscopy, plasma physics, quantum electronics, astrophysics and related specialties.
+<div id="txt" class="container_12">
+    <div class="grid_12">
+        <br/>
+        Information system "Electronic structure of atoms" is one of the most complete world databases of spectral data.
+        <br><br>
+        At the core of the information system lays a database with spectral data, collected from various literary
+        sources and electronic resources. Unlike similar resources, this information system provides both tabular and
+        graphical representation of an atomic structure for all chemical elements of the periodic table.
+        <br><br>
+        The database contains information for neutral atoms, single and multiple ions. Experimental data presented for
+        most of atoms in the database and theoretical data presented mainly for artificial and transuranium elements.
+        The system provides a user with wide capabilities, including filtering and sorting of levels and transitions,
+        selective representation of Rydberg and autoionization states.
+        <br><br>
+        The information system contains data on energy levels and radiative transitions, the values of the intensity and
+        the probability of transitions, oscillator strengths, lifetimes of levels, excitation cross section.
+        <br><br>
+        <b>"Electronic structure of atoms" allows next main types of usage:</b>
+        <ul>
+            <li>obtaining general background information about the atom or ion</li>
+            <li>obtaining obtaining information about levels of elements in a tabular form. Currently, the system
+                contains information on {#$level_count#} levels
+            </li>
+            <li>obtaining information about transitions of elements in a tabular form. Currently, the system contains
+                information on {#$transition_count#} transitions
+            </li>
+            <li>obtaining graphical representation in form of parametrized color spectrograms and Grotrian diagrams</li>
+        </ul>
+        <br/>
+        Grotrian diagrams is a well-known cognitive graphical representation of the structure of an atom or ion. In
+        common view, the Grotrian diagram is a chart with sorted energy levels on the vertical scale and transitions in
+        a form of lines, connecting energy levels. Transitions are selected from total number of transitions in
+        accordance with priority rules and user options. A number of original algorithms implemented in the
+        "Electronic structure of atoms" provide efficient selection of the lines. Thus Grotrian diagram remains legible
+        for atomic systems with any number of transitions.
+        <br/><br/>
+        The information system is designed for scientists, engineers and students, dealing with atomic spectroscopy,
+        plasma physics, quantum electronics, astrophysics and related disciplines, as well as in education.
+        <br/><br/>
+        The project is supported by Russian foundation for basic research. The copyright to the database and software
+        are protected by RF Federal service for intellectual property. (Certificates ¹2009620361, ¹2011610094,
+        ¹2011616297, patent ¹117178).
+        <br/><br/>
+    </div>
+</div>
+<!--End of content-->
 
-					<p>The work is supported by <a href="http://www.rfbr.ru">RFBR</a> project 05-07-90220-a </p>
-                    
-                    
-                    
-				</div>
-			</div>
-<!--End of content-->       
-
-			<div class="clear"></div>
-			<div id="empty"></div> 
-		</div>
+<div class="clear"></div>
+<div id="empty"></div>
+</div>
 <!--End of wrapper--> 

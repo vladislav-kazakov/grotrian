@@ -20,7 +20,7 @@
 		<span style="display:none;">{#counter start=29 skip=1 direction="down" print="false" assign="i"#}</span>
 		{#foreach from=$periodic_table key=myId item=element#}
 			{#* <!-- Draw All Elements the Table --> *#}
-			{#if $element.Z<125#}	
+			{#if $element.Z<125 && !(56<$element.Z && $element.Z<72) && !(88<$element.Z && $element.Z<104) && !(120<$element.Z && $element.Z<127)#}
 				<div class="{#$element.TYPE#} pick" style="left:{#$element.TABLEGROUP*60+$element.TABLEGROUP-40#}px; margin-top:{#$element.TABLEPERIOD*51-30#}px;"><a title="{#$element.name|capitalize#}" href="/ru/element/{#$element.ID#}" class="plink" ><input type="hidden" class="levelsNum" name="levelsNum" value="{#$element.LEVELS_NUM#}" /><input type="hidden" class="transitionsNum" name="transitionsNum" value="{#$element.TRANSITIONS_NUM#}" /><span class="pnum">{#$element.Z#}</span><span class="pname">{#$element.ABBR#}</span><span class="ptitle">{#$element.name|capitalize#}</span></a></div>
 			{#/if#}
 			

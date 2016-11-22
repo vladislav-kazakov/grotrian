@@ -5,22 +5,7 @@
 			$(".element_picker").hide("fast");					
 		});					
 //После нажатия на ссылку генерируем ссылки у элементов 
-		{# if $bodyclass=="index" || $bodyclass=="bibliography" #}
-			$("#menu_primary ul li").click(function(){
-				var link = $(':first-child', this).val();
-					$(".plink").each(function() {
-					//$(this).attr('href', '/{#$locale#}/'+$(this).attr("href"));
-					$(this).attr('href', '/{#$locale#}/'+link+'/'+$(':first-child', this).val());
-					//$(this).attr('href', '/{#$locale#}/'+link+'/'+$(this).attr("tabindex"));
-				});					
-
-				var position = $(this).offset();						
-				$(".element_picker").css({'top': position.top, 'left': position.left});					
-				$(".element_picker").show("fast");
-				return false;
-			});
-		{#/if#}
-		{#if $bodyclass!="index"#}
+		{#if $bodyclass == "element" || $bodyclass == "levels"  || $bodyclass == "transitions"  || $bodyclass == "diagram" || $bodyclass == "spectrum"#}
 			$("#element_btn").click(function(){					
 				var link = "{#$bodyclass#}";
 				$(".plink").each(function() {								
@@ -35,6 +20,20 @@
 				$(".element_picker").show("fast");
 				return false;
 			});
+		{#else#}
+		$("#menu_primary ul li").click(function(){
+			var link = $(':first-child', this).val();
+			$(".plink").each(function() {
+				//$(this).attr('href', '/{#$locale#}/'+$(this).attr("href"));
+				$(this).attr('href', '/{#$locale#}/'+link+'/'+$(':first-child', this).val());
+				//$(this).attr('href', '/{#$locale#}/'+link+'/'+$(this).attr("tabindex"));
+			});
+
+			var position = $(this).offset();
+			$(".element_picker").css({'top': position.top, 'left': position.left});
+			$(".element_picker").show("fast");
+			return false;
+		});
 		{#/if#}
 	});
 </script>
@@ -99,7 +98,9 @@
 						<li>
 							<a href="/en/" class="dir">About</a>
 							<ul>
-								<li><a href="/en/articles/">Articles</a></li>									
+								<li><a href="/en/">About project</a></li>
+								<li><a href="/en/team/">Team</a></li>
+								<li><a href="/en/articles/">Articles</a></li>
 							</ul>
 						</li>
 						<li><a href="/en/links/">Links</a></li>
