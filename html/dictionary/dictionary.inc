@@ -50,7 +50,7 @@ $dictionary = array (
 	'Institute_of_Automation_and_Electrometry'=>array('ru'=>'Институт автоматики и электрометрии СО РАН','en'=>'Institute of Automation and Electrometry SB RAS'),
 	'Technical_support'=>array('ru'=>'Программная и техническая поддержка','en'=>'Technical support'),
 	'Multimedia_Center_of_NSU'=>array('ru'=>'Мультимедиа центр НГУ','en'=>'Multimedia Center of NSU'),
-	'Certificate_of_goverment_database_registration'=>array('ru'=>'Свидетельство о государственной регистрации базы данных','en'=>'State registration certifiacate of database'),
+	'Certificate_of_goverment_database_registration'=>array('ru'=>'Свидетельство о государственной регистрации базы данных','en'=>'State registration certificate of database'),
 	'Reference_on_this_resource'=>array('ru'=>'Ссылка на этот ресурс','en'=>'Reference on this resource'),
 	'BibTex_Citation'=>array('ru'=>'Ссылка BibTex','en'=>'BibTex Citation'),
 	'About_project'=>array('ru'=>'О проекте','en'=>'About project'),
