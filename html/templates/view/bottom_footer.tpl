@@ -1,6 +1,3 @@
-<!--End of Footer--> 
-       
-	</body>
 
 <script type="text/javascript">
 
@@ -15,6 +12,7 @@
   })();
 
 </script>
+</body>
 </html>
 
     

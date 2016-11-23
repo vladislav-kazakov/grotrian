@@ -25,7 +25,7 @@
 		                			</tr>
 									
                                     <tr>
-										<td class="name">{#$l10n.Wavelength#}:</td>
+										<td class="name">{#$l10n.Wavelengt#}:</td>
 										<td>
 				                        	<input  size=12 type=text name=waveMinVal>
 											<input size=12 type=text name=waveMaxVal>											
@@ -109,14 +109,3 @@
 				 	
 <p></p>
 							<span id="svg"></span>							 
-
-
-<!--End of Main -->
-	
-			<div class="clear"></div>
-			<div id="empty"></div> 
-		</div>
-<!--End of wrapper--> 
-
-
-{#include file="bottom_footer.tpl"#}

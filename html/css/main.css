@@ -14,7 +14,7 @@ height: 100%;
 }
 
 * html #wrapper {
-height: 100%;
+/*height: 100%;*/
 }
 
 body {
@@ -29,12 +29,12 @@ font-size: 16px;
 
 #wrapper {
 position: relative;
-margin: 0 auto;
+/*margin: 0 auto;*/
 min-height: 100%;
 }
 
-#empty {
-	height: 50px;
+.content {
+	padding-bottom: 110px;
 }
 
 p {
@@ -954,12 +954,14 @@ margin-bottom:0;
 
 
 #footer {
-	position: relative;
+	position: absolute;
+	bottom: 0;
+	width:100%;
 	background: #003357;
 	color:#c6c6c6;
-	height: 100px;
+	height: 110px;
 	font-size: .9em;
-	margin: -50px auto 0;
+/*	margin: -50px auto 0;*/
 }
 
 #footer p {

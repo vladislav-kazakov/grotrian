@@ -106,8 +106,5 @@
                         	
 		    		</table>
 				</div>
-			    <div class="clear"></div>
 			</div>
 <!--End of Main -->
-		</div>
-<!--End of wrapper--> 

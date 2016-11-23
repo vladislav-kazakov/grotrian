@@ -98,12 +98,7 @@
 
                     </div> 
 		    </div>
-<!--End of Main -->
-	
-			<div class="clear"></div>
-			<div id="empty"></div> 
-		</div>
-<!--End of wrapper-->
+
 {#else#}
 	<div class="container_12">
 		<div class="brake"></div>
@@ -111,6 +106,5 @@
 		{#$l10n.No_transitions#}
 			</div>
 	</div>
-</div>
 
 {#/if#}

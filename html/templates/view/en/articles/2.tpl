@@ -165,9 +165,4 @@
 <p><i>Translated by V. Rogovof</i></p>
 </div>
 			</div>
-<!--End of content-->       
-
-			<div class="clear"></div>
-			<div id="empty"></div> 
-		</div>
-<!--End of wrapper-->    
+<!--End of content-->

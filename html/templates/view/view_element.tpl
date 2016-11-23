@@ -1,5 +1,4 @@
-     
-<div class="container_12">    
+<div class="container_12">
 	<div class="grid_12" id="main">   
 		<div class="brake"></div>				
 		{#if $locale=="ru"#}			
@@ -60,11 +59,5 @@
 		<br/><br/>       
 
 	</div>
-	<div class="clear"></div>
 </div>
 <!--End of Main -->
-
-<div class="clear"></div>
-<div id="empty"></div> 
-</div>
-<!--End of wrapper--> 

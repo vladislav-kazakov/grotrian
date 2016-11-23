@@ -116,10 +116,4 @@
                     {#/foreach#}
                         	
 		    		</table>				
-			    <div class="clear"></div>
 			</div>
-<!--End of Main -->
-			<div class="clear"></div>
-			<div id="empty"></div> 
-		</div>
-<!--End of wrapper--> 

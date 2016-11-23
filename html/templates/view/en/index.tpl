@@ -43,9 +43,3 @@
         <br/><br/>
     </div>
 </div>
-<!--End of content-->
-
-<div class="clear"></div>
-<div id="empty"></div>
-</div>
-<!--End of wrapper--> 

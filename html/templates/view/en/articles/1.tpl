@@ -81,9 +81,4 @@ application of an attendant table, along with the Grotrian diagram, which contai
 
 </div>
 			</div>
-<!--End of content-->       
-
-			<div class="clear"></div>
-			<div id="empty"></div> 
-		</div>
-<!--End of wrapper-->    
+<!--End of content-->

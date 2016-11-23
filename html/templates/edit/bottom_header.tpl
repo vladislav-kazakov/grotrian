@@ -56,7 +56,7 @@
 
 
 <div id="wrapper">
-
+<div class="content">
 <div id="header">
 <div class="container_12">
 

@@ -24,8 +24,3 @@
 		    		</table>	 
 		    	</form>   		
 				</div>
-			    <div class="clear"></div>
-			</div>
-<!--End of Main -->
-
-<!--End of wrapper--> 

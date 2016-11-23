@@ -10,7 +10,3 @@
      </form>
 	</div>
 </div>
-
-<div class="clear"></div>
-<div id="empty"></div> 
-</div>

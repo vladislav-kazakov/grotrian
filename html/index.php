@@ -278,7 +278,7 @@
     		$headline="Atomic_charts";
     		$bodyclass="new_diagram";
     		$header_type="top_header.tpl";
-    		$footer_type="footer.tpl";
+    		$footer_type="bottom_footer.tpl";
     		break;
     	}
 		
@@ -528,12 +528,12 @@
 			case 'sponsors':
 			case 'awards':
 			case 'articles':
+			case 'index':
 				$smarty->display("view/".$page_type);
 				break;
 			case 'element':
 			case 'levels':
 			case 'transitions':
-			case 'index':
 			case 'bibliography':
 			default:
 				$smarty->display("$interface/".$page_type);
@@ -542,6 +542,6 @@
 
 
 		//print_r($_REQUEST);
-		if(isset($header_type)) $smarty->display("$interface/".$footer_type);	
+		if(isset($footer_type)) $smarty->display("$interface/".$footer_type);
 	}
 ?>
