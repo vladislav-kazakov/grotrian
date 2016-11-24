@@ -135,4 +135,8 @@
 			
  		{# if $bodyclass=="diagram"#}
 	   											 					
-		{#/if#}			
+		{#/if#}
+
+		{# if $bodyclass=="periodictable" #}
+		<script type="text/javascript" src="/js/periodic_table.js"></script>
+		{#/if#}

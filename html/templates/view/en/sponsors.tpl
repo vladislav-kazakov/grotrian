@@ -1,74 +1,96 @@
 			<div id="txt" class="container_12">
 			<div class="grid_12">
 				<br/>				
-<h2>Работы по проекту велись при финансовой поддержке</h2>
+<h2>The project has been funded by:</h2>
 <table class="sponsors">
 	<tr>
 		<td class="year">
-			<b> 2016-2018 гг.</b>
+			<b> 2016-2018 </b>
 		</td>
-		<td><a href="http://www.rfbr.ru/" target="_blank"><img alt="Российский фонд фундаментальных исследований" src="/images/rffi_logo.gif"/></a>
-			<b>Российский фонд фундаментальных исследований.</b> <br/>
-			Грант №16-37-60094-мол_а_дк на выполнение проекта «Развитие когнитивной графики и средств анализа электронной структуры атомных систем в информационных Интернет ресурсах по спектроскопии».
-		</td>
-	</tr>
-	<tr>
-		<td class="year">
-			<b> 2016-2018 гг.</b>
-		</td>
-		<td><a href="http://www.rfbr.ru/" target="_blank"><img alt="Российский фонд фундаментальных исследований" src="/images/rffi_logo.gif"/></a>
-			<b>Российский фонд фундаментальных исследований.</b> <br/>
-			Грант №16-07-00910-а на выполнение проекта «Развитие информационной системы "Электронная структура атомов": поддержка принятия решений в области астрофизики, управляемого термоядерного синтеза, исследований быстропротекающих процессов и других задачах со спектрами, формируемыми многократными ионами».
+		<td><a href="http://www.rfbr.ru/" target="_blank"><img alt="Russian foundation for basic research" src="/images/rfbr_logo_en.png"/></a>
+			<div>
+			<b>Russian foundation for basic research.</b> <br/>
+			Grant #16-37-60094 for implementation of project "Improving of cognitive graphics and tools for analysis of electronic structure of atoms in Web".
+			</div>
 		</td>
 	</tr>
 	<tr>
 		<td class="year">
-			<b> 2013-2015 гг.</b>
+			<b> 2016-2018 </b>
 		</td>
-		<td><a href="http://www.rfbr.ru/" target="_blank"><img alt="Российский фонд фундаментальных исследований" src="/images/rffi_logo.gif"/></a>
-			<b>Российский фонд фундаментальных исследований.</b> <br/> Грант № 13-07-00973-а на выполнение проекта «Информационные системы по атомной спектроскопии: от информационно-поисковых к системам поддержки принятия решений».
-		</td>
-	</tr>
-	<tr>
-		<td class="year">
-			<b> 2012-2013 гг.</b>
-		</td>
-		<td><a href="http://www.rfbr.ru/" target="_blank"><img alt="Российский фонд фундаментальных исследований" src="/images/rffi_logo.gif"/></a>
-			<b>Российский фонд фундаментальных исследований.</b> <br/> Грант №12-07-31127-мол_а на выполнение проекта «Разработка методов построения эффективных информационно-поисковых систем по атомной спектроскопии».
+		<td><a href="http://www.rfbr.ru/" target="_blank"><img alt="Russian foundation for basic research" src="/images/rfbr_logo_en.png"/></a>
+			<div>
+			<b>Russian foundation for basic research.</b> <br/>
+			Grant #16-07-00910 for implementation of project "Improving of information system "Electronic structure of atoms": decision support in astrophysics, controlled thermonuclear fusion, researches in fast reactions and other tasks with multiple ion spectra".
+			</div>
 		</td>
 	</tr>
 	<tr>
 		<td class="year">
-			<b>2009-2011 гг.</b>
+			<b> 2013-2015 </b>
+		</td>
+		<td><a href="http://www.rfbr.ru/" target="_blank"><img alt="Russian foundation for basic research" src="/images/rfbr_logo_en.png"/></a>
+			<div>
+			<b>Russian foundation for basic research.</b> <br/>
+			Grant #13-07-00973 for implementation of project "Information systems on atomic spectoscopy: from information retrival to decision support systems".
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td class="year">
+			<b> 2012-2013 </b>
+		</td>
+		<td><a href="http://www.rfbr.ru/" target="_blank"><img alt="Russian foundation for basic research" src="/images/rfbr_logo_en.png"/></a>
+			<div>
+			<b>Russian foundation for basic research.</b> <br/>
+			Grant #12-07-31127 for implementation of project "Development of methods for building effective information retrival systems on atomic spectroscopy".
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td class="year">
+			<b>2009-2011 </b>
 		</td>
 		<td>
 			<a href="http://www.kadryedu.ru/" target="_blank"><img alt="Министерство Образования и Науки Российской Федерации" src="/images/mon_logo.gif"/></a>
-			<b>Федеральная целевая программа Развитие ФЦП «Научные и научно-педагогические кадры инновационной России».</b> <br/> Государственный контракт П2374 на выполнение работ по теме «Поисковые исследования и разработка информационной системы по атомным спектрам с функциями интероперабельности и визуализации на основе интеллектуального анализа данных».
+			<div>
+			<b>Federal Targeted Programme "Scientific & Scientific-Pedagogical Human Resources for Innovative Russia in 2009-2013"</b> <br/>
+			State contract on implementation of project "Exploration and development of information system on atomic spectra with interoperability and visualization functions based on data mining".
+			</div>
 		</td>
 	</tr>
 	<tr>
 		<td class="year">
-			<b> 2008-2010 гг.</b>
+			<b> 2008-2010 </b>
 		</td>
-		<td><a href="http://www.rfbr.ru/" target="_blank"><img alt="Российский фонд фундаментальных исследований" src="/images/rffi_logo.gif"/></a>
-			<b>Российский фонд фундаментальных исследований.</b> <br/> Грант № 08-07-00306-а на выполнение проекта «Создание информационной системы по спектрам однократных ионов с возможностью визуализации данных в виде диаграмм Гротриана».
+		<td><a href="http://www.rfbr.ru/" target="_blank"><img alt="Russian foundation for basic research" src="/images/rfbr_logo_en.png"/></a>
+			<div>
+			<b>Russian foundation for basic research.</b> <br/>
+			Grant #08-07-00306 for implementation of project "Developmnet of information system on single ion spectra with visualization capability in form of Grotrian diagrams".
+			</div>
 		</td>
 	</tr>
 	
 	<tr>
 		<td class="year">
-			<b>2005-2007 гг.</b>
+			<b>2005-2007 </b>
 		</td>
-		<td><a href="http://www.rfbr.ru/" target="_blank"><img alt="Российский фонд фундаментальных исследований" src="/images/rffi_logo.gif"/></a>
-			<b>Российский фонд фундаментальных исследований.</b> <br/>Грант № 05-07-90220-в на выполнение проекта «Информационная система «Электронная структура атомов» с динамическим построением графических представлений спектральных данных».
+		<td><a href="http://www.rfbr.ru/" target="_blank"><img alt="Russian foundation for basic research" src="/images/rfbr_logo_en.png"/></a>
+			<div>
+			<b>Russian foundation for basic research.</b> <br/>
+			Grant #05-07-90220 for implementation of project "Information system "Electronic structure of atoms" with dynamic plotting of graphic representation of specral data".
+			</div>
 		</td>
 	</tr>
 	<tr>
 		<td class="year">
-			<b> 2003 г.</b>
+			<b> 2003 </b>
 		</td>
-		<td><a href="http://www.itbu.ru/" target="_blank"><img alt="Российский государственный университет инновационных технологий и предпринимательства" src="/images/itbu_logo.gif"/></a>
-			<b>Российский государственный университет инновационных технологий и предпринимательства.</b><br/> Грант для студентов, аспирантов и молодых учёных для продолжения работ по тематике «Информационная система «Электронная структура атомов».
+		<td><a href="http://www.itbu.ru/" target="_blank"><img alt="Russian State University of Innovative Technologies and Entrepreneurship" src="/images/itbu_logo.gif"/></a>
+			<div>
+			<b>Russian State University of Innovative Technologies and Entrepreneurship.</b><br/>
+			Grant for students, aspirants and postdocs for continuance of works on project "Information system "Electronic structure of atoms".
+			</div>
 		</td>
 	</tr>
 </table>

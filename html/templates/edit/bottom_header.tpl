@@ -117,6 +117,7 @@
 
 			<li><a href="/{#$interface#}/ru/bibliography/">Библиография</a></li>
 			<li><a href="/{#$interface#}/ru/links/">Ссылки</a></li>
+			<li><a href="/{#$interface#}/ru/periodictable/">Таблица</a></li>
 		</ul>
 	{#/if#}
 
@@ -124,11 +125,14 @@
 		<ul class="dropdown dropdown-horizontal">
 			<li><a href="/{#$interface#}/en/" class="dir">About</a>
 				<ul>
+					<li><a href="/{#$interface#}/en/">About project</a></li>
+					<li><a href="/{#$interface#}/en/team/">Team</a></li>
 					<li><a href="/{#$interface#}/en/articles/">Articles</a></li>
+					<li><a href="/{#$interface#}/en/sponsors/">Funding</a></li>
 				</ul>
 			</li>
 			<li><a href="/{#$interface#}/en/links/">Links</a></li>
-
+			<li><a href="/{#$interface#}/en/periodictable/">Table</a></li>
 		</ul>
 	{#/if#}
 

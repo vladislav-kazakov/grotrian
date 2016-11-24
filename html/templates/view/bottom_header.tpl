@@ -103,6 +103,7 @@
 								<li><a href="/en/">About project</a></li>
 								<li><a href="/en/team/">Team</a></li>
 								<li><a href="/en/articles/">Articles</a></li>
+								<li><a href="/en/sponsors/">Funding</a></li>
 							</ul>
 						</li>
 						<li><a href="/en/links/">Links</a></li>

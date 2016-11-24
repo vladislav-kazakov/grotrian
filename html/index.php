@@ -528,6 +528,7 @@
 			case 'sponsors':
 			case 'awards':
 			case 'articles':
+			case 'periodictable':
 			case 'index':
 				$smarty->display("view/".$page_type);
 				break;

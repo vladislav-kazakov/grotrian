@@ -944,8 +944,11 @@ table .button{
 #txt .sponsors td a{
     float: right;
     margin-left: 10px;
+	width: 200px;
 }
-
+#txt .sponsors td div{
+	margin-right: 200px;
+}
 
 h4{
 margin-bottom:0;
