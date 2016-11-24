@@ -3,7 +3,7 @@
         <br/>
         Information system "Electronic structure of atoms" is one of the most complete world databases of spectral data.
         <br><br>
-        At the core of the information system lays a database with spectral data, collected from various literary
+        At the core of the information system lies a database with spectral data, collected from various literary
         sources and electronic resources. Unlike similar resources, this information system provides both tabular and
         graphical representation of an atomic structure for all chemical elements of the periodic table.
         <br><br>
