@@ -36,7 +36,6 @@
 <script type="text/javascript" src="/js/ui/js/jquery.ui.widget.js"></script>
 <script type="text/javascript" src="/js/ui/js/jquery.ui.mouse.js"></script>
 <script type="text/javascript" src="/js/ui/js/jquery.ui.slider.js"></script>
-<script type="text/javascript" src="/js/spectrum/filter_spectrum.js"></script>
 
 <script type="text/javascript">
 	window.onload 	= init;

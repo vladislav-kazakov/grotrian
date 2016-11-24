@@ -88,6 +88,16 @@ class Spectrum{
 		return $result;
 	}
 
+	public function buildTerm($second_part, $prefix, $first_part, $multiply){
+		$term = "";
+		if ($second_part != "NULL") $term .= $second_part;
+		if ($prefix != "") $term .= "<sup>$prefix</sup>";
+		if ($first_part == "" || $first_part == " ") $term .= "(?)";
+ 		else $term .= "<span>$first_part</span>";
+		if ($multiply == 1) $term .="<span>&deg;</span>";
+		return $term;
+	}
+
 	public function getSpectraSVG($transitions,$min,$max) {		//функция из массива переходов генерирует массив вида [длина волны:цвет] в формате JSON		
 		$x=0;			
 		$obj="{";
@@ -96,7 +106,10 @@ class Spectrum{
 			$length=$value['WAVELENGTH'];
 			$intensity=$value['INTENSITY'];
 			if(empty($intensity))$intensity = 0;
-			$l_i = "$length-$intensity";
+			$l_i = "$length-$intensity-" . $value['lower_level_config']
+					. "-" . $this->buildTerm($value['lower_level_termsecondpart'], $value['lower_level_termprefix'], $value['lower_level_termfirstpart'], $value['lower_level_termmultiply'])
+					. "-" . $value['upper_level_config']
+					. "-" . $this->buildTerm($value['upper_level_termsecondpart'], $value['upper_level_termprefix'], $value['upper_level_termfirstpart'], $value['upper_level_termmultiply']);
 			if ($length>=$min && $length<=$max ){			
 				$RGB=$this->wavelength2RGB(round($length/10));
 				$obj.='"'.$l_i.'":"rgb('.$RGB['R'].','.$RGB['G'].','.$RGB['B'].')",';

@@ -70,15 +70,27 @@ function init(waves, n) {
             }
         }
         for (var key in waves) {
-            temp = key;
-            re = /\s*-\s*/
-            split = temp.split(re);
+            var temp = key;
+            var re = /\s*-\s*/;
+            var split = temp.split(re);
             l = Number(split[0]);
-            i = Number(split[1]);
+            var i = Number(split[1]);
+            var lower_level_config = split[2].replace(/@\{([^\}\{]*)\}/gi,"<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi,"<sub>$1</sub>").replace(/\s/gi,"");
+            var lower_level_term = split[3].replace(/@\{([^\}\{]*)\}/gi,"<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi,"<sub>$1</sub>").replace(/\s/gi,"");
+            var upper_level_config = split[4].replace(/@\{([^\}\{]*)\}/gi,"<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi,"<sub>$1</sub>").replace(/\s/gi,"");
+            var upper_level_term = split[5].replace(/@\{([^\}\{]*)\}/gi,"<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi,"<sub>$1</sub>").replace(/\s/gi,"");
 
             if (l > min && l < max) {
-                str += "<line id='" + id + "' l='" + l + "'  x1='" + ((l - min)/ 10 * zoom) + "' y1='" + (barchart ? 120 - i / _max_intensity * 120 : 0) + "' x2='" + ((l-min) / 10 * zoom) + "' y2='120' stroke-width='1' stroke='" + waves[key] + "'></line>";
-                map_str +="<line id='full-" + id + "' x1='" + ((l - min) / 10 / map_now) + "' y1='" + (barchart ? 120 - i / _max_intensity * 120 : 0) + "' x2='" + ((l-min) / 10 / map_now) + "' y2='120' stroke-width='1' stroke='" + waves[key] + "'></line>";
+                str += "<line id='" + id + "' l='" + l + "' lower-level-config='" + lower_level_config +
+                    "' upper-level-config='" + upper_level_config +
+                    "' lower-level-term='" + lower_level_term +
+                    "' upper-level-term='" + upper_level_term +
+                    "'  x1='" + ((l - min)/ 10 * zoom) + "' y1='" +
+                    (barchart ? 120 - i / _max_intensity * 120 : 0) + "' x2='" + ((l-min) / 10 * zoom) +
+                    "' y2='120' stroke-width='1' stroke='" + waves[key] + "'></line>";
+                map_str +="<line id='full-" + id + "' x1='" + ((l - min) / 10 / map_now) + "' y1='" +
+                    (barchart ? 120 - i / _max_intensity * 120 : 0) + "' x2='" + ((l-min) / 10 / map_now) +
+                    "' y2='120' stroke-width='1' stroke='" + waves[key] + "'></line>";
                 _lines_intensity[id] = i;
                 id++;
                 if (i > _max_intensity)
@@ -150,7 +162,9 @@ $('#svg_wrapper .svg line').hover(
         var l = $(this).attr('l');
 
         $('#line_info').empty();
-        $('#line_info').append('Wave length: <b>' + l + ' &#8491;</b>');
+        $('#line_info').append('Wave length: <b>' + l + ' &#8491;</b> Levels: '
+            + $(this).attr('lower-level-config') + ":" + $(this).attr('lower-level-term')
+            +' - ' + $(this).attr('upper-level-config') + ":" + $(this).attr('lower-level-term'));
         $(this).attr('stroke-width', 2);
     },
     function() {

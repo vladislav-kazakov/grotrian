@@ -29,6 +29,7 @@ WHERE TRANSITIONS.ID_ATOM='$element_id' ORDER BY WAVELENGTH";
 		
 		
 		$this->LoadFromSQL($query);
+		
 	}
 	
 	function LoadCount($element_id = null)
