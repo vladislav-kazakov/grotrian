@@ -98,6 +98,17 @@ class Spectrum{
 		return $term;
 	}
 
+	public function buildTermWithJ($second_part, $prefix, $first_part, $multiply, $j){
+		$term = "";
+		if ($second_part != "NULL") $term .= $second_part;
+		if ($prefix != "") $term .= "<sup>$prefix</sup>";
+		if ($first_part == "" || $first_part == " ") $term .= "(?)";
+		else $term .= "<span>$first_part</span>";
+		if ($multiply == 1) $term .="<span>&deg;</span>";
+		if ($j != "") $term .="<sub>$j</sub>";
+		return $term;
+	}
+
 	public function getSpectraSVG($transitions,$min,$max) {		//функция из массива переходов генерирует массив вида [длина волны:цвет] в формате JSON		
 		$x=0;			
 		$obj="{";
@@ -107,9 +118,10 @@ class Spectrum{
 			$intensity=$value['INTENSITY'];
 			if(empty($intensity))$intensity = 0;
 			$l_i = "$length-$intensity-" . $value['lower_level_config']
-					. "-" . $this->buildTerm($value['lower_level_termsecondpart'], $value['lower_level_termprefix'], $value['lower_level_termfirstpart'], $value['lower_level_termmultiply'])
-					. "-" . $value['upper_level_config']
-					. "-" . $this->buildTerm($value['upper_level_termsecondpart'], $value['upper_level_termprefix'], $value['upper_level_termfirstpart'], $value['upper_level_termmultiply']);
+					. "-" . $this->buildTermWithJ($value['lower_level_termsecondpart'], $value['lower_level_termprefix'], $value['lower_level_termfirstpart'], $value['lower_level_termmultiply']
+					, $value['lower_level_j']) . "-" . $value['upper_level_config']
+					. "-" . $this->buildTermWithJ($value['upper_level_termsecondpart'], $value['upper_level_termprefix'], $value['upper_level_termfirstpart'], $value['upper_level_termmultiply']
+					, $value['upper_level_j']);
 			if ($length>=$min && $length<=$max ){			
 				$RGB=$this->wavelength2RGB(round($length/10));
 				$obj.='"'.$l_i.'":"rgb('.$RGB['R'].','.$RGB['G'].','.$RGB['B'].')",';
