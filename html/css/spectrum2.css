@@ -142,7 +142,7 @@ svg {
 #zoom_container {
     text-align: center;
 }
-#zoom_container input, #filter, #barchart, #export, .upload {
+#zoom_container input, #filter, #barchart, #logbarchart, #export, .upload {
     padding:5px;
     border:none;
     background: #428BCA;
@@ -155,7 +155,7 @@ svg {
     background: #3071A9;
     border: 1px solid #285E8E;
 }
-#barchart.active {
+#barchart.active, #logbarchart.active {
     background: #3071A9;
     border: 1px solid #285E8E;
 }

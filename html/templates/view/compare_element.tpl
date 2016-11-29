@@ -32,6 +32,7 @@
 						</div>
 						<input type='button' id='filter' value='{#$l10n.Apply#}'><br><br>
 						<input type='button' id='barchart' value='{#$l10n.BarChart#}'>
+						<input type='button' id='logbarchart' value='{#$l10n.LogBarChart#}'>
 					</div>
 				</div>
 				<div style="margin: auto; margin-top: 10px; width: 520px;">

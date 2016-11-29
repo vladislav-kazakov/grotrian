@@ -23,7 +23,8 @@ function init_ruler(zoom, min, max, n) {
     for (var j = 0; j < max - min; j+= 100) {
         var i = j + rulerMin-min; // i - pixels on ruler
         var rulerValue =  (i+min) * 10 / zoom;
-        ruler += "<line x1='" + (!i ? i + 2 : (i == max ? i -2 : i)) + "' y1='0' x2='" + (!i ? i + 2 : (i == max ? i -2 : i)) + "' y2='30' stroke-width='2' stroke='rgb(0, 0, 0)'></line>";
+        ruler += "<line x1='" + (!i ? i + 2 : (i == max ? i -2 : i)) + "' y1='0' x2='" + (!i ? i + 2 : (i == max ? i -2 : i))
+               + "' y2='30' stroke-width='2' stroke='rgb(0, 0, 0)'></line>";
         if (j <= max - min - 100) ruler += "<text x='" + (i == max ? i - 45 : i + 5 - 2) + "' y='26' fill='black'>" + rulerValue + "</text>";
     }
 
@@ -35,6 +36,7 @@ function init(waves, n) {
     var n = n ? '_' + n : '',
     zoom = get_zoom(),
     barchart = $('#barchart').hasClass('active'),
+    logbarchart = $('#logbarchart').hasClass('active'),
     max = Number($('#max').val()),
     min = Number($('#min').val()),
     isDrag = 0,
@@ -42,7 +44,8 @@ function init(waves, n) {
     start = 0,
     l,
     is_experimental = waves[Object.keys(waves)[0]].toString().indexOf('rgb') == -1,
-    str = "<svg class='svg' id='svg" + n + "' draggable='true' style='background-color:black;' width='"+ (max-min)*zoom/10+"' height='120'>" + (is_experimental ? "<path stroke='white' stroke-width='1' d='M 0,120 L" : ''),
+    str = "<svg class='svg' id='svg" + n + "' draggable='true' style='background-color:black;' width='"+ (max-min)*zoom/10
+         +"' height='120'>" + (is_experimental ? "<path stroke='white' stroke-width='1' d='M 0,120 L" : ''),
     map_str = "<svg id='map_svg" + n + "'>" + (is_experimental ? "<path stroke='white' stroke-width='1' d='M 0,120 L" : ''),
     $preview = $('#preview'),
 //    minRuler = Math.floor(min/100)*100, // round minimum to hundreds in less side
@@ -76,20 +79,22 @@ function init(waves, n) {
             l = Number(split[0]);
             var i = Number(split[1]);
             var lower_level_config = split[2].replace(/@\{([^\}\{]*)\}/gi,"<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi,"<sub>$1</sub>").replace(/\s/gi,"");
-            var lower_level_term = split[3].replace(/@\{([^\}\{]*)\}/gi,"<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi,"<sub>$1</sub>").replace(/\s/gi,"");
+            var lower_level_term = split[3];
             var upper_level_config = split[4].replace(/@\{([^\}\{]*)\}/gi,"<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi,"<sub>$1</sub>").replace(/\s/gi,"");
-            var upper_level_term = split[5].replace(/@\{([^\}\{]*)\}/gi,"<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi,"<sub>$1</sub>").replace(/\s/gi,"");
+            var upper_level_term = split[5];
 
             if (l > min && l < max) {
+                var y1 = 0;
+                if (barchart) y1 = 120 - i / _max_intensity * 120;
+                if (logbarchart) y1 = 120 - Math.log10(1+ 999* i / _max_intensity)/3 * 120;
                 str += "<line id='" + id + "' l='" + l + "' lower-level-config='" + lower_level_config +
                     "' upper-level-config='" + upper_level_config +
                     "' lower-level-term='" + lower_level_term +
                     "' upper-level-term='" + upper_level_term +
-                    "'  x1='" + ((l - min)/ 10 * zoom) + "' y1='" +
-                    (barchart ? 120 - i / _max_intensity * 120 : 0) + "' x2='" + ((l-min) / 10 * zoom) +
+                    "'  x1='" + ((l - min)/ 10 * zoom) + "' y1='" + y1 + "' x2='" + ((l-min) / 10 * zoom) +
                     "' y2='120' stroke-width='1' stroke='" + waves[key] + "'></line>";
                 map_str +="<line id='full-" + id + "' x1='" + ((l - min) / 10 / map_now) + "' y1='" +
-                    (barchart ? 120 - i / _max_intensity * 120 : 0) + "' x2='" + ((l-min) / 10 / map_now) +
+                    y1 + "' x2='" + ((l-min) / 10 / map_now) +
                     "' y2='120' stroke-width='1' stroke='" + waves[key] + "'></line>";
                 _lines_intensity[id] = i;
                 id++;
@@ -220,8 +225,12 @@ $(document).on('click', '#zoom_container input', function() {
 
 $(document).on('click', '#barchart', function() {
     $(this).toggleClass('active');
+    $('#logbarchart').removeClass('active');
 });
-
+$(document).on('click', '#logbarchart', function() {
+    $(this).toggleClass('active');
+    $('#barchart').removeClass('active');
+});
 $(document).ready(function() {
     function rule_intensity(value){
         // console.log('значение '+ value);

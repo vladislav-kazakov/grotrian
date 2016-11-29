@@ -6,11 +6,11 @@
 								<div id='toolbar'>
 									<div id='range'>
 										<div id='min_container'>
-											<b>{#$l10n.MinLength#}</b><br>
+											<b>{#$l10n.MinLength#} (&#8491;)</b><br>
 											<input type='text' id='min' value='0'>
 										</div>
 										<div id='max_container'>
-											<b>{#$l10n.MaxLength#}</b><br>
+											<b>{#$l10n.MaxLength#} (&#8491;)</b><br>
 											<input type='text' id='max' value='30000'>
 										</div>
 									</div>
@@ -26,6 +26,7 @@
 									<div>
 									<input type='button' id='filter' value='{#$l10n.Apply#}'><br><br>
 									<input type='button' id='barchart' value='{#$l10n.BarChart#}'>
+									<input type='button' id='logbarchart' value='{#$l10n.LogBarChart#}'>
 										</div>
 								</div>
 							</div>
