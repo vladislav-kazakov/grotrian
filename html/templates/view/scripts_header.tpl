@@ -26,30 +26,6 @@
 	//]]>			
 </script>
 
-{#*ќставлено как € вставл€л старый спектроскоп*#}
-{# if $bodyclass=="element0" #}
-<link rel="stylesheet" type="text/css" href="/js/ui/themes/smoothness/jquery.ui.all.css" />
-<link rel="stylesheet" type="text/css" href="/js/ui/themes/smoothness/jquery.ui.slider.css" />
-<link rel="stylesheet" type="text/css" href="/css/spectrum.css" />
-
-<script type="text/javascript" src="/js/ui/js/jquery.ui.core.js"></script>
-<script type="text/javascript" src="/js/ui/js/jquery.ui.widget.js"></script>
-<script type="text/javascript" src="/js/ui/js/jquery.ui.mouse.js"></script>
-<script type="text/javascript" src="/js/ui/js/jquery.ui.slider.js"></script>
-
-<script type="text/javascript">
-	window.onload 	= init;
-	function init(evt) {
-			//SVGscale(1);
-			SVGcontentMove(948);
-			//SVGdocumentScale(1);
-			sliderMax = 18750; {#*ћаксимальное значение слайдера*#}
-			sliderMin = 0;  {#*ћинимальное значение слайдера*#}
-		}
-	</script>
-
-	{#/if#}
-
 	{# if $bodyclass=="spectrum" || $bodyclass=="element"#}
 	<link rel="stylesheet" type="text/css" href="/css/spectrum2.css" />
 	<script type="text/javascript" src="/js/spectrum2/init.js"></script>

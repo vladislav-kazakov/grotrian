@@ -86,7 +86,7 @@ function init(waves, n) {
             if (l > min && l < max) {
                 var y1 = 0;
                 if (barchart) y1 = 120 - i / _max_intensity * 120;
-                if (logbarchart) y1 = 120 - Math.log10(1+ 999* i / _max_intensity)/3 * 120;
+                if (logbarchart) y1 = 120 - Math.log2(1+ 255* i / _max_intensity)/8 * 120;
                 str += "<line id='" + id + "' l='" + l + "' lower-level-config='" + lower_level_config +
                     "' upper-level-config='" + upper_level_config +
                     "' lower-level-term='" + lower_level_term +
@@ -169,7 +169,7 @@ $('#svg_wrapper .svg line').hover(
         $('#line_info').empty();
         $('#line_info').append('Wave length: <b>' + l + ' &#8491;</b> Levels: '
             + $(this).attr('lower-level-config') + ":" + $(this).attr('lower-level-term')
-            +' - ' + $(this).attr('upper-level-config') + ":" + $(this).attr('lower-level-term'));
+            +' - ' + $(this).attr('upper-level-config') + ":" + $(this).attr('upper-level-term'));
         $(this).attr('stroke-width', 2);
     },
     function() {

@@ -35,7 +35,11 @@ if(isset($_POST['action']) && (isset($_POST['element_id']) || isset($_POST['atom
 				//print_r($_POST);	
 				break;						
 			}
-			
+			case "makeSpectrogram": {
+				$atom->makeSpectrogram($_POST);
+				//print_r($_POST);
+				break;
+			}
 			
 		}
 	}

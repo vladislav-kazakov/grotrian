@@ -43,9 +43,9 @@
 							</div>
 							<a id='compare' href='/{#$locale#}/compare/{#$layout_element_id#}'>{#$l10n.Compare#}</a> <button id="button" class="button white">{#$l10n.Download_PNG#}</button>
 							<br><br>
-
-
-
+							{#if $interface=='admin'#}
+							<button id="uploadSpectrum" class="button white">Upload spectrum</button>
+							{#/if#}
 							<canvas id="canvas" height="150" style="display:none;"></canvas>
 
 							<script>
@@ -117,6 +117,44 @@
 									rulerImg.src = rulerUrl;
 
 								});
+
+								var btn = document.getElementById('uploadSpectrum');
+								btn.addEventListener('click', function () {
+									var svg = document.getElementById('svg');
+									var data = (new XMLSerializer()).serializeToString(svg);
+									var svgBlob = new Blob([data], {type: 'image/svg+xml;charset=utf-8'});
+
+									var DOMURL = window.URL || window.webkitURL || window;
+									var url = DOMURL.createObjectURL(svgBlob);
+
+									var rulerSvg = document.getElementById('ruler');
+									var rulerData = (new XMLSerializer()).serializeToString(rulerSvg);
+									var rulerSvgBlob = new Blob([rulerData], {type: 'image/svg+xml;charset=utf-8'});
+
+									var rulerDOMURL = window.URL || window.webkitURL || window;
+									var rulerUrl = rulerDOMURL.createObjectURL(rulerSvgBlob);
+
+									var rulerImgLoaded = false;
+									var svgImgLoaded = false;
+
+									var svgImg = new Image();
+									svgImg.src = url;
+									svgImg.onload = function () {
+										var canvas = document.getElementById('canvas');
+										canvas.height = 120;
+										var ctx = canvas.getContext('2d');
+										ctx.drawImage(svgImg, 0, 0);
+										DOMURL.revokeObjectURL(url);
+
+										var imgURI = canvas
+												.toDataURL('image/png')
+												.replace('image/png', 'image/octet-stream');
+										$.post( "/element_admin.php",{imgURI: imgURI, action: 'makeSpectrogram', atom_id: '{#$layout_element_id#}'})
+												.done(function() {alert( "Data Loaded!")});
+									};
+								});
+
+
 							</script>
 	 					</div>
 						{#else#}

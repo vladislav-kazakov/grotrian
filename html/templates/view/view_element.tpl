@@ -7,6 +7,10 @@
 		<h3>Atom of {#$atom.NAME_EN#}, Z={#$atom.Z#}, I.P.={#$atom.IONIZATION_POTENCIAL#} см<sup>-1</sup></h3>
 		{#/if#}
 
+		{#if $atom.SPECTRUM!=""#}
+		<img src="{#$atom.SPECTRUM#}" height="120" width="1000">
+		{#/if#}
+
 		{#if $locale=="ru"#}
 		{#if $atom.CONTAINMENT_RUS!=""#}
 		<h4>{#$l10n.Overview#}</h4>
