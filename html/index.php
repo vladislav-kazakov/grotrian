@@ -1,4 +1,15 @@
 <?
+if ($_REQUEST['pagetype'] == "spectrumpng"){
+	header("Content-type: image/png;");
+	require_once("configure.php");
+	require_once("includes/atom.php");
+	$atom = new Atom;
+	$element_id=$_REQUEST['element_id'];
+	$atom->Load($element_id);
+	$atom_sys = $atom->GetAllProperties();
+	echo $atom_sys['SPECTRUM_IMG'];
+	exit;
+}
 	header('Content-Type: text/html; charset=windows-1251'); 
 	global $smarty, $dictionary, $elemet_types;
 	//session_start();
@@ -63,10 +74,10 @@
 			
 			$smarty->assign('elemet_types', $elemet_types);
 			//берём масив данных о элементе и передаём его смарти
-						
+
 			$atom = new Atom;
 			$atom->Load($element_id);
-			
+
 			$atom_sys = $atom->GetAllProperties();
 			$atom_name = $elname;
 			if ($atom_name !='H' && $atom_name !='D' && $atom_name !='T' )
@@ -119,7 +130,7 @@
 	if (isset($elname))		
 	//в зависимости от типа страницы готовимся вывести результат
 	switch ($pagetype) 
-	{	
+	{
 		case "element": {
 
 			// 	берём массив переходов	

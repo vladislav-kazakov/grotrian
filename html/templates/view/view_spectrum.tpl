@@ -146,11 +146,26 @@
 										ctx.drawImage(svgImg, 0, 0);
 										DOMURL.revokeObjectURL(url);
 
-										var imgURI = canvas
-												.toDataURL('image/png')
-												.replace('image/png', 'image/octet-stream');
-										$.post( "/element_admin.php",{imgURI: imgURI, action: 'makeSpectrogram', atom_id: '{#$layout_element_id#}'})
-												.done(function() {alert( "Data Loaded!")});
+//										var imgURI = canvas
+//												.toDataURL('image/png')
+//												.replace('image/png', 'image/octet-stream');
+
+										canvas.toBlob(function (blob) {
+											var fd = new FormData();
+											fd.append('fname', 'spectrum.png');
+											fd.append('action', 'makeSpectrogram');
+											fd.append('atom_id', '{#$layout_element_id#}');
+											fd.append('imgMedia', blob);
+											$.ajax({
+												type: 'POST',
+												url: '/element_admin.php',
+												data: fd,
+												processData: false,
+												contentType: false
+											}).done(function(data) {
+												alert(data);
+											});
+										});
 									};
 								});
 

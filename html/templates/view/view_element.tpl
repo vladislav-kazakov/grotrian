@@ -7,8 +7,8 @@
 		<h3>Atom of {#$atom.NAME_EN#}, Z={#$atom.Z#}, I.P.={#$atom.IONIZATION_POTENCIAL#} см<sup>-1</sup></h3>
 		{#/if#}
 
-		{#if $atom.SPECTRUM!=""#}
-		<img src="{#$atom.SPECTRUM#}" height="120" width="1000">
+		{#if $atom.SPECTRUM_IMG!=""#}
+		<img src="/ru/spectrumpng/{#$layout_element_id#}" height="120" width="1000">
 		{#/if#}
 
 		{#if $locale=="ru"#}
@@ -34,12 +34,12 @@
 		{#if ($level_count != 0)#}
 		<p>&nbsp;</p>
 		<h4>{#$l10n.Electronic_structure#}</h4>		
-		{#$l10n.Found#} {#$level_count#} {#$l10n.levels#}. <a class="nav" href="/{#$locale#}/levels/{#$element.ID#}">[{#$l10n.view#}]</a>
+		{#$l10n.Found#} {#$level_count#} {#$l10n.levels#}. <a class="nav" href="/{#$locale#}/levels/{#$layout_element_id#}">[{#$l10n.view#}]</a>
 
 		{#/if#}
 
 		{#if ($transition_count != 0)#}
-		<p>{#$l10n.Found#} {#$transition_count#} {#$l10n.transitions#}. <a class="nav" href="/{#$locale#}/transitions/{#$element.ID#}">[{#$l10n.view#}]</a></p>
+		<p>{#$l10n.Found#} {#$transition_count#} {#$l10n.transitions#}. <a class="nav" href="/{#$locale#}/transitions/{#$layout_element_id#}">[{#$l10n.view#}]</a></p>
 		{#/if#}
 
 		{#if ($element.LIMITS != "")#}

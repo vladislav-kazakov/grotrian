@@ -35,7 +35,7 @@ class Statement
 		if ($result === true)
 		{
 			// $this->_affectedRows = mssql_affected_rows($this->_dbLink);
-			$this->_lastInsertID = mssql_insert_id($this->_dbLink);
+			//$this->_lastInsertID = mssql_insert_id($this->_dbLink);
 			$retVal = true;
 		}
 		elseif (is_resource($result))
