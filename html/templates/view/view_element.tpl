@@ -8,8 +8,22 @@
 		{#/if#}
 
 		{#if $atom.SPECTRUM_IMG!=""#}
-		<img src="/ru/spectrumpng/{#$layout_element_id#}" height="120" width="1000">
+			{#if $locale=="ru"#}
+				<a href="/{#$locale#}/spectrum/{#$layout_element_id#}">
+				<img src="/{#$locale#}/spectrumpng/{#$layout_element_id#}" height="120" width="1000"
+					 title="Спектр {#if $atom.IONIZATION==0#}атома{#else#}иона{#/if#} {#$atom.NAME_RU_ALT#} ({#$atom_name#})"
+					 alt="Спектр {#if $atom.IONIZATION==0#}атома{#else#}иона{#/if#}  {#$atom.NAME_RU_ALT#} ({#$atom_name#})">
+				</a>
+			{#else#}
+				<a href="/{#$locale#}/spectrum/{#$layout_element_id#}">
+					<img src="/{#$locale#}/spectrumpng/{#$layout_element_id#}" height="120" width="1000"
+						 title="Spectrum of {#$atom.NAME_EN#} {#if $atom.IONIZATION==0#}atom{#else#}ion{#/if#} ({#$atom_name#})"
+						 alt="Spectrum of {#$atom.NAME_EN#} {#if $atom.IONIZATION==0#}atom{#else#}ion{#/if#} ({#$atom_name#})">
+				</a>
+			{#/if#}
 		{#/if#}
+
+		<br>
 
 		{#if $locale=="ru"#}
 		{#if $atom.CONTAINMENT_RUS!=""#}
