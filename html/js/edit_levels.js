@@ -411,14 +411,14 @@ $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique,
 			
 				level.removeClass('row_selected').addClass('selectable').find(':checkbox').removeAttr('checked');			    		
 	    		
-				lev_config = level.children('.level_config').children().attr('value');
-				level_config = level.children('.level_config').children().attr('value').replace(/@\{([^\}\{]*)\}/gi,"<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi,"<sub>$1</sub>");
+				lev_config = level.children('.level_config').children().prop('value');
+				level_config = level.children('.level_config').children().prop('value').replace(/@\{([^\}\{]*)\}/gi,"<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi,"<sub>$1</sub>");
 	    		level.children('.level_config').html(level_config);
 
-	    		termSecondpart = level.children('.term').children('.termSecondpart').attr('value');
-				termPrefix = level.children('.term').children('.termPrefix').attr('value');
-	    		termFirstpart = level.children('.term').children('.termFirstpart').attr('value').replace(/@\{([^\}\{]*)\}/gi,"<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi,"<sub>$1</sub>");
-	    		termMultiply = level.children('.term').children('.termMultiply').attr('value');
+	    		termSecondpart = level.children('.term').children('.termSecondpart').prop('value');
+				termPrefix = level.children('.term').children('.termPrefix').prop('value');
+	    		termFirstpart = level.children('.term').children('.termFirstpart').prop('value').replace(/@\{([^\}\{]*)\}/gi,"<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi,"<sub>$1</sub>");
+	    		termMultiply = level.children('.term').children('.termMultiply').prop('value');
 	    		//alert(termMultiply)
 	    		
 	    		if (termSecondpart) term += '<span>'+termSecondpart+'</span>'; else term += '<span></span>';
@@ -430,13 +430,13 @@ $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique,
 	    		
 	    		level.children('.term').html(term);
 
-	    		j = level.children('.j').children().attr('value');
+	    		j = level.children('.j').children().prop('value');
 	    		level.children('.j').html(j);
 
-	    		energy = level.children('.energy').children().attr('value');
+	    		energy = level.children('.energy').children().prop('value');
 	    		level.children('.energy').html(energy);
 
-	    		lifetime = level.children('.lifetime').children().attr('value');
+	    		lifetime = level.children('.lifetime').children().prop('value');
 	    		level.children('.lifetime').html(lifetime); 
 /*
 				rts ="level_id="+level.find('.level_id').val();						
@@ -461,11 +461,11 @@ $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique,
 				
 				var checkConfigResult = checkConfigFunction(lev_config,energy*1);
 				
-					if (((energy*1==0)&&(checkConfigResult != $("#electronNumber").html()))||(/[^0-9]/g.test(checkConfigResult))){
-						createPopupMessage(level, checkConfigResult);						
-					} else {						
+//					if (((energy*1==0)&&(checkConfigResult != $("#electronNumber").html()))||(/[^0-9]/g.test(checkConfigResult))){
+//						createPopupMessage(level, checkConfigResult);
+//					} else {
 						level.children('.level_config').removeClass("errorText");
-					}
+//					}
 			}					
 			
 			
@@ -538,7 +538,7 @@ $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique,
 						//var str ='<tr class="'+p+' row_selected"><input type="hidden" class="level_id" name="level_id[]" value="'+data+'"><td class=""><input type="checkbox" checked="checked"></td><!--  <td></td>--><td id="level_config" class=" sorting_1"><input size="" type="text" name="level_config[]" value=""></td><td id="term"><input size="1" type="text" class="termPrefix" name="termPrefix[]" value=""><input size="1" type="text" id="termFirstpart" name="termFirstpart[]" value=""><input size="1" type="text" id="termMultiply" name="termMultiply[]" value=""></td><td id="j"><input size="" type="text" name="j[]" value=""></td><td id="energy"><input size="" type="text" name="energy[]" value=""></td><td id="lifetime"><input size="" type="text" name="lifetime[]" value=""></td><td id="source"><a href="#" class="button white" id="add_source">+</a><a class="button white" id="remove_source">-</a></td></tr>';
 						var str ='<tr class="'+p+' row_selected"><td class=""><input type="checkbox" checked="checked"><input type="hidden" class="row_id" name="row_id[]" value="'+data+'"></td><td class="level_config"><input type="text" name="level_config[]" value=""></td><td class="term"><input size="1" type="text" class="termSecondpart" name="termSecondpart[]" value=""><input size="1" type="text" class="termPrefix" name="termPrefix[]" value=""><input size="1" type="text" class="termFirstpart" name="termFirstpart[]" value=""><input size="1" type="text" class="termMultiply" name="termMultiply[]" value=""></td><td class="j"><input type="text" name="j[]" value=""></td><td class="energy"><input type="text" name="energy[]" value=""></td><td class="lifetime"><input type="text" name="lifetime[]" value=""></td><td class="source"><a href="#" class="button white" id="add_source">+</a></td></tr>';
 						//alert(data);
-						$('table').prepend(str);						
+						$('#table1').prepend(str);
 						//alert(data);
 						//window.location.href = "/admin/ru/element/"+data;
 					});		
@@ -561,11 +561,11 @@ $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique,
 				
 				var checkConfigResult = checkConfigFunction(level_config,energy*1);
 				
-					if (((energy*1==0)&&(checkConfigResult != $("#electronNumber").html()))||(/[^0-9]/g.test(checkConfigResult))){
-						createPopupMessage(level, checkConfigResult);						
-					} else {						
+//					if (((energy*1==0)&&(checkConfigResult != $("#electronNumber").html()))||(/[^0-9]/g.test(checkConfigResult))){
+//						createPopupMessage(level, checkConfigResult);
+//					} else {
 						level.children('.level_config').removeClass("errorText");
-					}				
+//					}
 		    });			
 		
 });

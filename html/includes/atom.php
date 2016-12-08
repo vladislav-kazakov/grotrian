@@ -63,6 +63,12 @@ SELECT TOP 1 ID FROM ATOMS WHERE ID_ELEMENT=".$element_id." ORDER BY IONIZATION 
 		$query = "SELECT [XML] FROM [Grotrian_v2].[dbo].[ATOMS] WHERE ID = ".$atom_id;	
 		$this->LoadFromSQL($query);
 	}
-	
+
+	function LoadNext($atom_id)
+	{
+
+		$query = "SELECT TOP 1 * FROM ATOMS WHERE ID > $atom_id ORDER BY ID";
+		$this->LoadFromSQL($query);
+	}
 }
 ?>

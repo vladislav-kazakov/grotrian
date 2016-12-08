@@ -33,6 +33,7 @@ function init_ruler(zoom, min, max, n) {
 
 function init(waves, n) {
     // console.log(waves);
+    if (Object.keys(waves).length == 0) return;
     var n = n ? '_' + n : '',
     zoom = get_zoom(),
     barchart = $('#barchart').hasClass('active'),
@@ -52,6 +53,7 @@ function init(waves, n) {
 //    maxRuler = Math.ceil(max/100)*100, // round minimum to hundreds in less side
     map_now = (max - min) / 10000,
     $map_now = $('#map_now');
+    lines_count = 0;
 
     if (is_experimental)
     	var perc = Math.max.apply(null, Object.keys(waves).map(function(key) { return waves[key];})) / 100;
@@ -70,6 +72,7 @@ function init(waves, n) {
             if (l > min && l < max) {
                 if (i > _max_intensity)
                     _max_intensity = i;
+                lines_count++;
             }
         }
         for (var key in waves) {
@@ -85,12 +88,18 @@ function init(waves, n) {
 
             if (l > min && l < max) {
                 var y1 = 0;
-                if (barchart) y1 = 120 - i / _max_intensity * 120;
-                if (logbarchart) y1 = 120 - Math.log2(1+ 255* i / _max_intensity)/8 * 120;
-                str += "<line id='" + id + "' l='" + l + "' lower-level-config='" + lower_level_config +
-                    "' upper-level-config='" + upper_level_config +
-                    "' lower-level-term='" + lower_level_term +
-                    "' upper-level-term='" + upper_level_term +
+                if (barchart) {
+                    if (_max_intensity > 0) y1 = 120 - i / _max_intensity * 120;
+                    else y1 = 0;
+                }
+                if (logbarchart){
+                    if (_max_intensity > 0) y1 = 120 - Math.log2(1+ 255* i / _max_intensity)/8 * 120;
+                    else y1 = 0;
+                }
+                str += "<line id='" + id + "' l='" + l + "' lower-level-config='" + lower_level_config.replace(/'/g, "&#39;") +
+                    "' upper-level-config='" + upper_level_config.replace(/'/g, "&#39;") +
+                    "' lower-level-term='" + lower_level_term.replace(/'/g, "&#39;") +
+                    "' upper-level-term='" + upper_level_term.replace(/'/g, "&#39;") +
                     "'  x1='" + ((l - min)/ 10 * zoom) + "' y1='" + y1 + "' x2='" + ((l-min) / 10 * zoom) +
                     "' y2='120' stroke-width='1' stroke='" + waves[key] + "'></line>";
                 map_str +="<line id='full-" + id + "' x1='" + ((l - min) / 10 / map_now) + "' y1='" +

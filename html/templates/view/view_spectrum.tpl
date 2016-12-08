@@ -7,11 +7,11 @@
 									<div id='range'>
 										<div id='min_container'>
 											<b>{#$l10n.MinLength#} (&#8491;)</b><br>
-											<input type='text' id='min' value='0'>
+											<input type='text' id='min' value='{#if $auto==true#}3000{#else#}0{#/if#}'>
 										</div>
 										<div id='max_container'>
 											<b>{#$l10n.MaxLength#} (&#8491;)</b><br>
-											<input type='text' id='max' value='30000'>
+											<input type='text' id='max' value='{#if $auto==true#}8000{#else#}30000{#/if#}'>
 										</div>
 									</div>
 									<div id='zoom_container'>
@@ -20,12 +20,12 @@
 										<input type='button' value='10' class='base'>
 										<input type='button' value='100' class='base'>
 										<br><br>
-										<input type='button' value='x2'>
+										<input type='button' value='x2' {#if $auto==true#}class="active"{#/if#}>
 										<input type='button' value='x5'>
 									</div>
 									<div>
 									<input type='button' id='filter' value='{#$l10n.Apply#}'><br><br>
-									<input type='button' id='barchart' value='{#$l10n.BarChart#}'>
+									<input type='button' id='barchart' value='{#$l10n.BarChart#}' {#if $auto==true#}class="active"{#/if#}>
 									<input type='button' id='logbarchart' value='{#$l10n.LogBarChart#}'>
 										</div>
 								</div>
@@ -118,8 +118,12 @@
 
 								});
 
-								var btn = document.getElementById('uploadSpectrum');
-								btn.addEventListener('click', function () {
+								function next() {
+									document.location.replace("/admin/{#$locale#}/spectrum/{#$next_element_id#}/auto");
+								}
+
+								var uploadSpectrumBtn = document.getElementById('uploadSpectrum');
+								uploadSpectrumBtn.addEventListener('click', function () {
 									var svg = document.getElementById('svg');
 									var data = (new XMLSerializer()).serializeToString(svg);
 									var svgBlob = new Blob([data], {type: 'image/svg+xml;charset=utf-8'});
@@ -137,13 +141,12 @@
 									var rulerImgLoaded = false;
 									var svgImgLoaded = false;
 
-									var svgImg = new Image();
-									svgImg.src = url;
-									svgImg.onload = function () {
+									var svgUploadImg = new Image();
+									svgUploadImg.onload = function () {
 										var canvas = document.getElementById('canvas');
 										canvas.height = 120;
 										var ctx = canvas.getContext('2d');
-										ctx.drawImage(svgImg, 0, 0);
+										ctx.drawImage(svgUploadImg, 0, 0);
 										DOMURL.revokeObjectURL(url);
 
 //										var imgURI = canvas
@@ -163,13 +166,24 @@
 												processData: false,
 												contentType: false
 											}).done(function(data) {
-												alert(data);
+												{#if $auto==true#}
+													//alert("1");
+													next();
+												{#else#}
+													alert("Data uploaded!");
+												{#/if#}
 											});
 										});
 									};
+									svgUploadImg.src = url;
 								});
-
-
+								{#if $auto==true#}
+								window.onload = function() {
+									if (lines_count > 0)
+										uploadSpectrumBtn.click();
+									else next();
+								}
+								{#/if#}
 							</script>
 	 					</div>
 						{#else#}
@@ -177,6 +191,11 @@
 						<div>
 							{#$l10n.No_transitions#}
 						</div>
+						{#if $auto==true#}
+						<script>
+							document.location.replace("/admin/{#$locale#}/spectrum/{#$next_element_id#}/auto");
+						</script>
+						{#/if#}
 						{#/if#}
 					</div>
                     <div class="clear">  </div>

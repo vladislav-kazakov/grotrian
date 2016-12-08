@@ -73,7 +73,6 @@ FROM  cfg1 LEFT JOIN  cfg2 ON  cfg1.CONFIG_TYPE= cfg2.CONFIG_TYPE";
 				
 				$query .= " UPDATE LEVELS SET [CONFIG] = ".$level_config." ,[ENERGY] = ".$energy.",[LIFETIME] = ".$lifetime.", [J] = ".$j.", [TERMSECONDPART] = ".$termSecondpart." , [TERMPREFIX] = ".$termPrefix." ,[TERMMULTIPLY] = ".$termMultiply.", [TERMFIRSTPART] = '".$termFirstpart."' WHERE ID =".$level_id;
 			}		
-		//echo $query;
 		$this->LoadFromSQL($query);
 	}
 	
@@ -88,6 +87,7 @@ FROM  cfg1 LEFT JOIN  cfg2 ON  cfg1.CONFIG_TYPE= cfg2.CONFIG_TYPE";
 	}*/
 	
 	function Delete($post){
+		$query = "";
 		foreach ($post['row_id'] as $key=>$level_id) {
 			$query .= " DELETE FROM [LEVELS] WHERE ID =".$level_id;			
 		}

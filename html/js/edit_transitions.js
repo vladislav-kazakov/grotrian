@@ -388,11 +388,11 @@
 						    	
 				transition.removeClass('row_selected').addClass('selectable').find(':checkbox').removeAttr('checked');
 
-	    		transition.children('.wavelength').html(transition.children('.wavelength').children().attr('value'));
-	    		transition.children('.intensity').html(transition.children('.intensity').children().attr('value'));
-	    		transition.children('.f_ik').html(transition.children('.f_ik').children().attr('value'));
-	    		transition.children('.a_ki').html(transition.children('.a_ki').children().attr('value'));
-	    		transition.children('.absorption').html(transition.children('.absorption').children().attr('value'));
+	    		transition.children('.wavelength').html(transition.children('.wavelength').children().prop('value'));
+	    		transition.children('.intensity').html(transition.children('.intensity').children().prop('value'));
+	    		transition.children('.f_ik').html(transition.children('.f_ik').children().prop('value'));
+	    		transition.children('.a_ki').html(transition.children('.a_ki').children().prop('value'));
+	    		transition.children('.absorption').html(transition.children('.absorption').children().prop('value'));
 
 	    		if (transition.children('.lower_level_config').data("cfg")){
 	    			transition.children('.lower_level_config').html(transition.children('.lower_level_config').data("cfg"));

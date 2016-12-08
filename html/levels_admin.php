@@ -30,12 +30,13 @@ if(!empty($_POST['action'])){
 		case "saveLevels": {
 			//print_r($_POST);
 			$level_list->Save($_POST);
-			
+			break;
 		}
 		
 		case "deleteLevels": {			
 			$level_list->Delete($_POST);				
 			//print_r($_POST);
+			break;
 			}
 			
 		case "createLevel": {

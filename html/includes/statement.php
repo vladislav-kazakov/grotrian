@@ -64,7 +64,7 @@ class Statement
 				}
 			}
 			array_push($this->_errors, array('Query' => $this->_ToLog($query),
-				'ErrNo' => mssql_errno($this->_dbLink), 'ErrStr' => mssql_error($this->_dbLink)));
+				'ErrNo' => ""/*mssql_errno($this->_dbLink)*/, 'ErrStr' => mssql_get_last_message() /*mssql_error($this->_dbLink)*/));
 			$retVal = false;
 		}
 
@@ -89,7 +89,7 @@ class Statement
 	function FetchList($query, $resultType = null)
 	{
 		$rs =& $this->Execute($query, $resultType);
-		if (strtolower(get_class($rs)) == 'recordset')
+		if (is_object($rs) && strtolower(get_class($rs)) == 'recordset')
 			return $rs->AllRows();
 		elseif ($rs === false)
 			return false;

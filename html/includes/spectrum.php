@@ -127,7 +127,7 @@ class Spectrum{
 				$obj.='"'.$l_i.'":"rgb('.$RGB['R'].','.$RGB['G'].','.$RGB['B'].')",';
 			}
 		}			
-  		$obj=substr($obj, 0, -1);
+  		if (strlen($obj) > 1) $obj = substr($obj, 0, -1);
 		$obj.='}';
 		
 		return $obj;
