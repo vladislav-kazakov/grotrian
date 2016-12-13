@@ -1,5 +1,5 @@
 <?
-if ($_REQUEST['pagetype'] == "spectrumpng"){
+if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
 	header("Content-type: image/png;");
 	require_once("configure.php");
 	require_once("includes/atom.php");
