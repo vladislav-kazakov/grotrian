@@ -211,8 +211,8 @@ if ($_REQUEST['pagetype'] == "spectrumpng"){
     	
 		case "addlevels": {
 	    //print_r($_GET);
-			if (isset($_GET['attribute2']) || isset($_GET['attribute3'])){				
-				$level_list->LoadFiltered($element_id,$_GET['attribute2'],$_GET['attribute3']);				
+			if (isset($_GET['attribute2']) || isset($_GET['attribute3'])){
+				$level_list->LoadFiltered($element_id,$_GET['attribute2'], isset($_GET['attribute3'])?$_GET['attribute3']:null);
 			} else $level_list->Load($element_id);
 			
 	    	//отдаём в смарти массив уровней		
@@ -301,7 +301,8 @@ if ($_REQUEST['pagetype'] == "spectrumpng"){
     	}
 		
     	default: {
-    		
+			header("HTTP/1.0 404 Not Found");
+			exit;
     		//Уровни
     		$level_list = new LevelList;
     		// отдаём в смарти число уровней
@@ -477,14 +478,20 @@ if ($_REQUEST['pagetype'] == "spectrumpng"){
     				$header_type="index_header.tpl";
     				$footer_type="footer.tpl";
 
-    				if($_REQUEST["element_id"]>2) header('location: /'.$l10n->locale.'/articles');
+    				if($_REQUEST["element_id"]>2)
+					{
+						header("HTTP/1.0 404 Not Found");
+						exit;
+						header('location: /'.$l10n->locale.'/articles');
+					}
 				}
 			}
     		break;
     	}
 
-		default: {	
-
+		default: {
+			header("HTTP/1.0 404 Not Found");
+			exit;
 			//Уровни
 			$level_list = new LevelList;
 			// отдаём в смарти число уровней

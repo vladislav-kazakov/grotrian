@@ -71,7 +71,7 @@
 								<th>&nbsp;</th>
 								<!-- <th>{#$l10n.ConfigurationType#}</th> -->	
 								<th>{#$l10n.Configuration#}</th>
-								<th>{#$l10n.Therm#}</th>
+								<th style="width: 120px;">{#$l10n.Therm#}</th>
 		                        <th>&nbsp;&nbsp;J&nbsp;&nbsp;</th>
 								<th>{#$l10n.Energy#} ({#$l10n.cm#} <sup>-1</sup>)</th>
 								<th>{#$l10n.Lifetime#} <br/>({#$l10n.ns#})</th>   
