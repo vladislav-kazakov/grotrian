@@ -117,7 +117,7 @@
 									rulerImg.src = rulerUrl;
 
 								});
-
+								{#if $interface=='admin'#}
 								var uploadSpectrumBtn = document.getElementById('uploadSpectrum');
 								uploadSpectrumBtn.addEventListener('click', function () {
 									var svg = document.getElementById('svg');
@@ -182,6 +182,7 @@
 										uploadSpectrumBtn.click();
 									else next();
 								}
+								{#/if#}
 								{#/if#}
 							</script>
 	 					</div>
