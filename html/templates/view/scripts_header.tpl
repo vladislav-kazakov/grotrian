@@ -26,7 +26,7 @@
 	//]]>			
 </script>
 
-	{# if $bodyclass=="spectrum" || $bodyclass=="element"#}
+	{# if $bodyclass=="spectrum"#}
 	<link rel="stylesheet" type="text/css" href="/css/spectrum2.css" />
 	<script type="text/javascript" src="/js/spectrum2/init.js"></script>
 	{# if $pagetype == "compare" #}

@@ -42,7 +42,7 @@
 		{#/if#}
 
 		<form method='POST'>
-			<input type='submit' id='export' value='{#$l10n.XSAMS_Export#}' name='export'>
+			<input type='submit' id='export' value='{#$l10n.XSAMS_Export#}' name='export' class="button white commonbuttom" download>
 		</form>
 
 

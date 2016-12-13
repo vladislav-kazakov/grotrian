@@ -148,7 +148,6 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
 
 			if (isset($_POST['export'])) {
 				$spectrum = new Spectrum();
-				$smarty->assign('spectrum_json', $spectrum->getSpectraSVG($transitions, 0, 1599900000));
 				$spectrum->export($transitions, $elname);
 			}
     		

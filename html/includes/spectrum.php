@@ -149,12 +149,14 @@ class Spectrum{
 				</EnergyWavelength>
 			</RadiativeTransition>';
 		}
-		header("Content-Type: application/xml");
-        header('Content-Disposition: attachment; filename="'.$elname.'.xsams"');
-		echo $xsams .= '
+		$xsams .= '
 		</Radiative>
 	</Processes>
 </XSAMSData>';
+		header("Content-Type: application/xml");
+        header('Content-Disposition: attachment; filename="'.$elname.'.xsams"');
+		header('Content-Length: ' .mb_strlen($xsams) );
+		echo $xsams;
 		exit;
 	}
 
