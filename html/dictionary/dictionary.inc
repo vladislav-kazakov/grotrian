@@ -67,7 +67,7 @@ $dictionary = array (
 	'for_example'=>array('ru'=>'например','en'=>'for example'),
 	'or'=>array('ru'=>'или','en'=>'or'),
 	'Total_time'=>array('ru'=>'Cуммарный момент','en'=>'Total time'),
-	'Therm'=>array('ru'=>'Терм','en'=>'Therm'),
+	'Term'=>array('ru'=>'Терм','en'=>'Term'),
 	'Lifetime'=>array('ru'=>'Время жизни','en'=>'Lifetime'),
 	'cm'=>array('ru'=>'см','en'=>'cm'),
 	'ns'=>array('ru'=>'нс','en'=>'ns'),
@@ -104,6 +104,7 @@ $dictionary = array (
 	'Mercury_lamp_spectrum'=>array('ru'=>'Спектр ртутной лампы', 'en'=>'Mercury lamp spectrum'),
 	'Download_PNG'=>array('ru'=>'Скачать спектр в формате PNG', 'en'=>'Download spectrum in PNG format'),
 	'Admin'=>array('ru'=>'Администрирование','en'=>'Administration'),
+	'XSAMS_Export'=>array('ru'=>'Экспорт в XSAMS','en'=>'Export to XSAMS'),
 
 	'Login'=>array('ru'=>'Вход','en'=>'Login'),
 	'UserName'=>array('ru'=>'Имя пользователя','en'=>'User name'),

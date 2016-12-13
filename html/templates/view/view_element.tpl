@@ -21,6 +21,7 @@
 						 alt="Spectrum of {#$atom.NAME_EN#} {#if $atom.IONIZATION==0#}atom{#else#}ion{#/if#} ({#$atom_name#})">
 				</a>
 			{#/if#}
+			<br>
 		{#/if#}
 
 		<br>
@@ -41,7 +42,7 @@
 		{#/if#}
 
 		<form method='POST'>
-			<input type='submit' id='export' value='Ёкспорт в XSAMS' name='export'>
+			<input type='submit' id='export' value='{#$l10n.XSAMS_Export#}' name='export'>
 		</form>
 
 

@@ -83,7 +83,7 @@
 				
 				
   				{# if $bodyclass=="levels" #}
-  				<script type="text/javascript" src="/js/edit_levels.js"></script> 
+  				<script type="text/javascript" src="/js/edit_levels.js?v2"></script>
   				<script type="text/javascript" src="/js/manage_source.js"></script>	
 				{# /if #}
   				

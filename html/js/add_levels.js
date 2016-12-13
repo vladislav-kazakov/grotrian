@@ -196,24 +196,24 @@ $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique,
 										}
 									}
 							
-									if (fromFieldWeCome != 'thermSelect'){
-										var selectTherm = document.getElementById("thermSelect");			
-										var saveTherm = selectTherm.value;
-										selectTherm.options.length = 1;
-										var thermsList = oTable_levels.fnGetColumnData(2,true,true);
-										selectTherm.options[0].selected=true;
-										for (var i=0; i<thermsList.length;i++){
-											selectTherm.options[i+1] = new Option(thermsList[i].replace(/<[^\/>]*>/gi,"[").replace(/<\/[^>]*>/gi,"]"), thermsList[i].replace(/<[^>]*>/gi,""));
-											if (thermsList[i].replace(/<[^>]*>/gi,"") == saveTherm){
-												selectTherm.options[i+1].selected = true;
+									if (fromFieldWeCome != 'termSelect'){
+										var selectTerm = document.getElementById("termSelect");			
+										var saveTerm = selectTerm.value;
+										selectTerm.options.length = 1;
+										var termsList = oTable_levels.fnGetColumnData(2,true,true);
+										selectTerm.options[0].selected=true;
+										for (var i=0; i<termsList.length;i++){
+											selectTerm.options[i+1] = new Option(termsList[i].replace(/<[^\/>]*>/gi,"[").replace(/<\/[^>]*>/gi,"]"), termsList[i].replace(/<[^>]*>/gi,""));
+											if (termsList[i].replace(/<[^>]*>/gi,"") == saveTerm){
+												selectTerm.options[i+1].selected = true;
 											} else {
-												selectTherm.options[i+1].selected = false;
+												selectTerm.options[i+1].selected = false;
 											}
 										}
-										if (thermsList.length>1){
-											selectTherm.options[0].selected = true;
+										if (termsList.length>1){
+											selectTerm.options[0].selected = true;
 										} else {
-											selectTherm.options[1].selected = true;
+											selectTerm.options[1].selected = true;
 										}
 									}
 							
@@ -264,10 +264,10 @@ $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique,
 									}
 								} );
 												
-								$("#thermSelect").change( function () {					
+								$("#termSelect").change( function () {					
 									oTable_levels.fnFilter(this.value,2);					
 									if (this.value != '') {
-										fillSelectFields('thermSelect');
+										fillSelectFields('termSelect');
 									} else {
 										fillSelectFields('Any text here');
 									}

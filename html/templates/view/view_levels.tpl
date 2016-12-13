@@ -37,9 +37,9 @@
 			
 									</tr>
 									<tr>
-										<td class="name">{#$l10n.Therm#}:</td>
+										<td class="name">{#$l10n.Term#}:</td>
 										<td>
-											<select id="thermSelect" name="thermSelect" style="width: 210px">										
+											<select id="termSelect" name="termSelect" style="width: 210px">
 												<option>&nbsp;</option>
 											</select>
 										</td>
@@ -77,7 +77,7 @@
 								
 								<th>{#$l10n.ConfigurationType#}</th>	
 								<th>{#$l10n.Configuration#}</th>
-								<th>{#$l10n.Therm#}</th>
+								<th>{#$l10n.Term#}</th>
 		                        <th>J  </th>
 								<th>{#$l10n.Energy#} ({#$l10n.cm#} <sup>-1</sup>)</th>
 								<th>{#$l10n.Lifetime#} <br/>({#$l10n.ns#})</th>   

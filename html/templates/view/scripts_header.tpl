@@ -65,7 +65,7 @@
 	<script type="text/javascript" charset="windows-1251">var locale="{#$locale#}";</script>
 	
 	{# if $bodyclass=="levels" #}
-	<script type="text/javascript" charset="windows-1251" src="/js/levels.js"></script> 				
+	<script type="text/javascript" charset="windows-1251" src="/js/levels.js?v2"></script>
 	{# /if #}
 
 	{# if $bodyclass=="transitions" #}

@@ -40,7 +40,7 @@
 									<tr>
 										<td class="name">Терм:</td>
 										<td>
-											<select id="thermSelect" name="thermSelect">										
+											<select id="termSelect" name="termSelect">
 												<option></option>
 											</select>
 										</td>

@@ -8,7 +8,7 @@
 			
 					var confType = $("select#configurationType").val();
 					var config = $("select#configurationSelect").val();
-					var therm = $("select#thermSelect").val();
+					var term = $("select#termSelect").val();
 					var jvalue = $("select#jvalueSelect").val();
 					
 					if (aData[0]!=confType && confType!=''){
@@ -17,7 +17,7 @@
 					if (aData[1]!=config && config!=''){
 						return false;
 					} else
-					if (aData[2]!=therm && therm!=''){
+					if (aData[2]!=term && term!=''){
 						return false;
 					} else
 					if (aData[3]!=jvalue && jvalue!=''){
@@ -100,9 +100,9 @@ $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique,
 				$("#configurationSelect").empty();
 				$("#configurationSelect").append( $('<option value="">Any</option>'));
 				$("#configurationSelect :last").attr("selected", "selected");
-				$("#thermSelect").empty();
-				$("#thermSelect").append( $('<option value="">Any</option>'));
-				$("#thermSelect :last").attr("selected", "selected");
+				$("#termSelect").empty();
+				$("#termSelect").append( $('<option value="">Any</option>'));
+				$("#termSelect :last").attr("selected", "selected");
 				$("#jvalueSelect").empty();
 				$("#jvalueSelect").append( $('<option value="">Any</option>'));		
 				$("#jvalueSelect :last").attr("selected", "selected");				
@@ -227,7 +227,7 @@ $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique,
 					//Запоминаем текущие параметры фильтра
 					var confType = $("select#configurationType").val();
 					var config = $("select#configurationSelect").val();
-					var therm = $("select#thermSelect").val();
+					var term = $("select#termSelect").val();
 					var jvalue = $("select#jvalueSelect").val();					
 					
 					//Заполняем поля для фильтрации пустыми значениями
@@ -237,9 +237,9 @@ $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique,
 					$("#configurationSelect").empty();
 					$("#configurationSelect").append( $('<option value="">Any</option>'));
 					//$("#configurationSelect :last").attr("selected", "selected");
-					$("#thermSelect").empty();
-					$("#thermSelect").append( $('<option value="">Any</option>'));
-					//$("#thermSelect :last").attr("selected", "selected");
+					$("#termSelect").empty();
+					$("#termSelect").append( $('<option value="">Any</option>'));
+					//$("#termSelect :last").attr("selected", "selected");
 					$("#jvalueSelect").empty();
 					$("#jvalueSelect").append( $('<option value="">Any</option>'));		
 					//$("#jvalueSelect :last").attr("selected", "selected");
@@ -247,7 +247,7 @@ $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique,
 					// Составляем массивы с данными, находящимися в таблице в данный момент. Автоматически вырезаются повторы - к сожалению, получаются массивы разной длины
 					var configurationsTypesList = oTableLevels.fnGetColumnData(0,true,true,true);
 					var configurationsList = oTableLevels.fnGetColumnData(1,true,true,true);
-					var thermsList = oTableLevels.fnGetColumnData(2,true,true,true);
+					var termsList = oTableLevels.fnGetColumnData(2,true,true,true);
 					var jvalueList = oTableLevels.fnGetColumnData(3,true,true,true);
 					
 					// Заполняем select-поля инфой из массивов
@@ -263,10 +263,10 @@ $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique,
 							$("#configurationSelect :last").attr("selected", "selected");
 						}
 					}
-					for (var i=0; i<thermsList.length;i++){
-						$("#thermSelect").append( $('<option value="'+thermsList[i]+'">'+thermsList[i].replace(/<[\/]*[^\/>]*span>/gi,"").replace(/<[^\/>]*>/gi,"[").replace(/<\/[^>]*>/gi,"]")+'</option>'));
-						if (thermsList[i] == therm){
-							$("#thermSelect :last").attr("selected", "selected");
+					for (var i=0; i<termsList.length;i++){
+						$("#termSelect").append( $('<option value="'+termsList[i]+'">'+termsList[i].replace(/<[\/]*[^\/>]*span>/gi,"").replace(/<[^\/>]*>/gi,"[").replace(/<\/[^>]*>/gi,"]")+'</option>'));
+						if (termsList[i] == term){
+							$("#termSelect :last").attr("selected", "selected");
 						}
 					}
 					for (var i=0; i<jvalueList.length;i++){
@@ -290,7 +290,7 @@ $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique,
 					fillSelectFields();
 				} );
 				
-				$("#thermSelect").change( function () {					
+				$("#termSelect").change( function () {					
 					oTableLevels.fnDraw();
 					fillSelectFields();
 				} );
