@@ -118,10 +118,6 @@
 
 								});
 
-								function next() {
-									document.location.replace("/admin/{#$locale#}/spectrum/{#$next_element_id#}/auto");
-								}
-
 								var uploadSpectrumBtn = document.getElementById('uploadSpectrum');
 								uploadSpectrumBtn.addEventListener('click', function () {
 									var svg = document.getElementById('svg');
@@ -178,6 +174,9 @@
 									svgUploadImg.src = url;
 								});
 								{#if $auto==true#}
+								function next() {
+									document.location.replace("/admin/{#$locale#}/spectrum/{#$next_element_id#}/auto");
+								}
 								window.onload = function() {
 									if (lines_count > 0)
 										uploadSpectrumBtn.click();
