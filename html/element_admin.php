@@ -11,33 +11,33 @@ if(isset($_POST['action']) && (isset($_POST['element_id']) || isset($_POST['atom
 	$element = new ElementList();	
 	switch ($action){	
 			case "saveElement": {				
-				$element->Save($_POST);	
-				//print_r($_POST);			
+				$element->Save($_POST);
+				break;
 			}
 			
 			case "createAtom": {				
 				$atom->Create($element_id);					
-				echo $atom->GetProperty('ID'); break;							
+				echo $atom->GetProperty('ID');
+				break;
 			}
 			
 			case "deleteAtom": {				
 				$atom->Delete($element_id,$atom_id);
-				echo $atom->GetProperty('ID'); break;
+				echo $atom->GetProperty('ID');
+				break;
 			}
 			
 			case "saveAtom": {				
 				$atom->Save($_POST);				
-				//print_r($_POST);							
+				break;
 			}
 			
 			case "makeDiagram": {				
 				$atom->makeDiagram($_POST);				
-				//print_r($_POST);	
-				break;						
+				break;
 			}
 			case "makeSpectrogram": {
 				$atom->makeSpectrogram($_POST);
-				//print_r($_POST);
 				break;
 			}
 			

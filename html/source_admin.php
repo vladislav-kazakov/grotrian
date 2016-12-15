@@ -121,13 +121,14 @@ if(isset($_POST['action'])){
 		
 		case "saveSource": {			
 			$source->Save($_POST);
+			break;
 			//print_r($_POST);				
 		}	
 			
 		case "deleteSources": {
 			$source->Delete($_POST);
-			
-		}		
+			break;
+		}
 
 		case "editSource": {	
 			$source_types= array( j_article=>"Статья из журнала",c_article=>"Статья из сборника",e_book=>"Электронное издание",book=>"Книга",journal=>"Журнал",collection=>"Сборник");

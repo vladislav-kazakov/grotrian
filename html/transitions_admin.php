@@ -29,48 +29,53 @@ if(!empty($_POST['action'])){
 		case "saveTransitions": {
 			//print_r($_POST);
 			$transition->Save($_POST);
+			break;
 		}
 		
 		case "deleteTransitions": {			
-			$transition->Delete($_POST);				
+			$transition->Delete($_POST);
+			break;
 			}
 			
 		case "createTransition": {
 			$transition->Create($atom_id);
 			$trans=$transition->GetItemsArray();
-			echo $trans[0]['ID']; break;				
+			echo $trans[0]['ID'];
+			break;
 			//$transition->GetProperty('ID'); break;							
 			}					
 			
 		case "setUpperLevel": {			
-				$transition->setUpperLevel($_POST['transition_id'],$_POST['level_id']);	
-				$level=$transition->GetItemsArray();
-				$level = $level[0];
-				
-				$str = ($level['CONFIG']==" " || $level['CONFIG']=="") ? $level['ENERGY'] : $level['CONFIG'];				
-				$str .= ($level['TERMSECONDPART']!="NULL") ? $level['TERMSECONDPART'] : "";							
-				$str .= (!empty($level['TERMPREFIX'])) ? "<sup>".$level['TERMPREFIX']."</sup>" : "";
-				$str .= (!empty($level['TERMFIRSTPART'])) ? $level['TERMFIRSTPART'] : "";
-				$str .= ($level['TERMMULTIPLY']==1) ? "<sup>0</sup>" : "<sup></sup>";
-				$str .= (!empty($level['J'])) ? "<sub>".$level['J']."</sub>" : "";	
-				
-				print_r ($str); break;					
+			$transition->setUpperLevel($_POST['transition_id'],$_POST['level_id']);
+			$level=$transition->GetItemsArray();
+			$level = $level[0];
+
+			$str = ($level['CONFIG']==" " || $level['CONFIG']=="") ? $level['ENERGY'] : $level['CONFIG'];
+			$str .= ($level['TERMSECONDPART']!="NULL") ? $level['TERMSECONDPART'] : "";
+			$str .= (!empty($level['TERMPREFIX'])) ? "<sup>".$level['TERMPREFIX']."</sup>" : "";
+			$str .= (!empty($level['TERMFIRSTPART'])) ? $level['TERMFIRSTPART'] : "";
+			$str .= ($level['TERMMULTIPLY']==1) ? "<sup>0</sup>" : "<sup></sup>";
+			$str .= (!empty($level['J'])) ? "<sub>".$level['J']."</sub>" : "";
+
+			print_r ($str);
+			break;
 			}		
 		
 		case "setLowerLevel": {			
-				$transition->setLowerLevel($_POST['transition_id'],$_POST['level_id']);			
-				$level=$transition->GetItemsArray();				 			
-				$level = $level[0];
+			$transition->setLowerLevel($_POST['transition_id'],$_POST['level_id']);
+			$level=$transition->GetItemsArray();
+			$level = $level[0];
 
-				$str = ($level['CONFIG']==" " || $level['CONFIG']=="") ? $level['ENERGY'] : $level['CONFIG'];				
-				$str .= ($level['TERMSECONDPART']!="NULL") ? $level['TERMSECONDPART'] : "";			
-				$str .= (!empty($level['TERMPREFIX'])) ? "<sup>".$level['TERMPREFIX']."</sup>" : "";
-				$str .= (!empty($level['TERMFIRSTPART'])) ? $level['TERMFIRSTPART'] : "";
-				$str .= ($level['TERMMULTIPLY']==1) ? "<sup>0</sup>" : "<sup></sup>";
-				$str .= (!empty($level['J'])) ? "<sub>".$level['J']."</sub>" : "";
-				
-				print_r ($str); break;			
-			}		
+			$str = ($level['CONFIG']==" " || $level['CONFIG']=="") ? $level['ENERGY'] : $level['CONFIG'];
+			$str .= ($level['TERMSECONDPART']!="NULL") ? $level['TERMSECONDPART'] : "";
+			$str .= (!empty($level['TERMPREFIX'])) ? "<sup>".$level['TERMPREFIX']."</sup>" : "";
+			$str .= (!empty($level['TERMFIRSTPART'])) ? $level['TERMFIRSTPART'] : "";
+			$str .= ($level['TERMMULTIPLY']==1) ? "<sup>0</sup>" : "<sup></sup>";
+			$str .= (!empty($level['J'])) ? "<sub>".$level['J']."</sub>" : "";
+
+			print_r ($str);
+			break;
+			}
 			
 		
 		}
