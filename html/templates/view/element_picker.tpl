@@ -11,10 +11,10 @@
 		<span style="display:none;">{#counter start=29 skip=1 direction="down" print="false" assign="i"#}</span>
 {#foreach from=$periodic_table key=myId item=element#}
 {#* <!-- Draw All Elements the Table --> *#}
-{#if $element.Z<121#}<div class="{#$element.TYPE#} pick" style="left:{#$element.TABLEGROUP*25+$element.TABLEGROUP#}px; margin-top:{#$element.TABLEPERIOD*26#}px;"><a title="{#$element.name|capitalize#}" href="{#$element.ID#}" class="plink" ><input type="hidden" name="elemid" value="{#$element.ID#}" /><span class="pnum">{#$element.Z#}</span><span class="pname">{#$element.ABBR#}</span></a></div>
+{#if $element.Z<121#}<div class="{#$element.TYPE#} pick" style="left:{#$element.TABLEGROUP*25+$element.TABLEGROUP#}px; margin-top:{#$element.TABLEPERIOD*26#}px;"><a title="{#$element.name|capitalize#}" class="plink" ><input type="hidden" name="elemid" value="{#$element.ID#}" /><span class="pnum">{#$element.Z#}</span><span class="pname">{#$element.ABBR#}</span></a></div>
 {#/if#}
 {#*<!-- Draw Lanthanide -->*#}
-{#if 57<$element.Z && $element.Z<72#}{#counter#}<div class="{#$element.TYPE#} pick" style="left:{#$i*25+$i+112#}px; margin-top:240px;"><a title="{#$element.name|capitalize#}" href="{#$element.ID#}" class="plink" ><input type="hidden" name="elemid" value="{#$element.ID#}" /><span class="pnum">{#$element.Z#}</span><span class="pname">{#$element.ABBR#}</span></a></div>
+{#if 57<$element.Z && $element.Z<72#}{#counter#}<div class="{#$element.TYPE#} pick" style="left:{#$i*25+$i+112#}px; margin-top:240px;"><a title="{#$element.name|capitalize#}" class="plink" ><input type="hidden" name="elemid" value="{#$element.ID#}" /><span class="pnum">{#$element.Z#}</span><span class="pname">{#$element.ABBR#}</span></a></div>
 {#/if#}
 {#*<!-- Draw Actinide -->*#}
 {#if 89<$element.Z && $element.Z<104#}{#counter#}<div class="{#$element.TYPE#} pick" style="left:{#$i*25+$i-364+112#}px; margin-top:266px;"><a title="{#$element.name|capitalize#}" class="plink" ><input type="hidden" name="elemid" value="{#$element.ID#}" /><span class="pnum">{#$element.Z#}</span><span class="pname">{#$element.ABBR#}</span></a></div>
