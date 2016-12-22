@@ -4,8 +4,8 @@ require_once("includes/elementlist.php");
 require_once("includes/atom.php");
 
 if(isset($_POST['action']) && (isset($_POST['element_id']) || isset($_POST['atom_id']))){
-	if (isset($element_id)) $element_id = $_POST['element_id'];
-	$atom_id = $_POST['atom_id'];
+	if (isset($_POST['element_id'])) $element_id = $_POST['element_id'];
+	if (isset($_POST['atom_id'])) $atom_id = $_POST['atom_id'];
 	$action=$_POST['action'];
 	$atom = new Atom();	
 	$element = new ElementList();	

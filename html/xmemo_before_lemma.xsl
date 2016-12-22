@@ -49,7 +49,7 @@
 		<xsl:value-of select="$diagram_h - $core_row_h - $conf_row_h - $term_row_h"/>
 	</xsl:variable>
 	<xsl:variable name="conf_row_h">
-		<xsl:value-of select="50"/>
+		<xsl:value-of select="100"/>
 	</xsl:variable>
 	<xsl:variable name="core_row_h">
 		<xsl:choose>
