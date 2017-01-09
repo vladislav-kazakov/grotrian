@@ -10,4 +10,4 @@ Disallow: /templates/*
 Disallow: /counter/
 Disallow: /import/
 Host: grotrian.nsu.ru
-Sitemap: http://grotrian.nsu.ru/sitemap.xml
+Sitemap: http://grotrian.nsu.ru/sitemap.php
