@@ -8,7 +8,7 @@ $(document).ready(function() {
 						var str = 'source_id='+data;						
 						str+="&action=editSource";	
 						//alert(data);
-						$.fancybox.showActivity();
+						$.fancybox.showLoading();
 						
 						$.post("/source_admin.php", str, function(data){					
 							$.fancybox(data);
@@ -22,7 +22,7 @@ $(document).ready(function() {
 				event.preventDefault();
 				var str="action=manageSources&count="+$(".row_selected .row_id").length;					
 					
-					$.fancybox.showActivity();
+					$.fancybox.showLoading();
 					
 					$.post("/source_admin.php", str, function(data){					
 						$.fancybox(data);					
@@ -36,7 +36,7 @@ $(document).ready(function() {
 				var str = $(".row_selected .row_id").serialize();
 				str+="&action=removeSources&count="+$(".row_selected .row_id").length;					
 				//alert(str);	
-					$.fancybox.showActivity();
+					$.fancybox.showLoading();
 					
 					$.post("/source_admin.php", str, function(data){						
 						$.fancybox(data);						
@@ -154,7 +154,7 @@ $(document).ready(function() {
 						var str = $(".row_selected .row_id").serialize();
 						str+="&action=manageSources&count="+$(".row_selected .row_id").length;					
 							
-							$.fancybox.showActivity();
+							$.fancybox.showLoading();
 							
 							$.post("/source_admin.php", str, function(data){					
 								$.fancybox(data);					

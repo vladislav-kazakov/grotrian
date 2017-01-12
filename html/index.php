@@ -19,6 +19,7 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
 	require_once("includes/atom.php");
 	require_once("includes/levellist.php");
 	require_once("includes/transitionlist.php");
+	require_once("includes/referencelist.php");
 	require_once("includes/bibliolist.php");
 	require_once("includes/spectrum.php");
 	require_once("includes/user.class.php");
@@ -229,10 +230,10 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
     		$headline="Atomic_levels";
     		$bodyclass="levels"; 
     		$header_type="iframe_header.tpl";
+			$smarty->assign('script', '<script type="text/javascript" charset="windows-1251" src="/js/add_levels.js?v2" ></script>');
     		$footer_type="iframe_footer.tpl";
     		break;
     	}
-    	
 		case "transitions": {
 
 		    // отдаём в смарти массив переходов	
@@ -488,6 +489,34 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
     		break;
     	}
 
+		case "addref": {
+			//Уровни
+			$reference_list = new ReferenceList;
+
+			/*if (isset($_GET['attribute2']) || isset($_GET['attribute3'])){
+				$reference_list->LoadFiltered($element_id,$_GET['attribute2'], isset($_GET['attribute3'])?$_GET['attribute3']:null);
+			} else */ $reference_list->Load();
+
+			//отдаём в смарти массив уровней
+			//$level_list->Load($element_id);
+			if (isset($_GET['attribute1']))	$smarty->assign('level_id',$_GET['attribute1']);
+			if (isset($_GET['attribute2']))	$smarty->assign('field',$_GET['attribute2']);
+
+			//print_r($level_list->GetItemsArray());
+			$smarty->assign('$reference_list',$reference_list->GetItemsArray());
+
+			//указываем имя шаблона и название страницы
+			$page_type="add_reference.tpl";
+			$head="References";
+			$title="References";
+			$headline="References";
+			$bodyclass="references";
+			$header_type="iframe_header.tpl";
+			$smarty->assign('script', '<script type="text/javascript" charset="windows-1251" src="/js/add_reference.js" ></script>');
+			$footer_type="iframe_footer.tpl";
+			break;
+		}
+
 		default: {
 			header("HTTP/1.0 404 Not Found");
 			exit;
@@ -560,6 +589,7 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
 			case 'levels':
 			case 'transitions':
 			case 'bibliography':
+			case 'references':
 			default:
 				$smarty->display("$interface/".$page_type);
 		}

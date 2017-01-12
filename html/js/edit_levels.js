@@ -186,6 +186,8 @@ $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique,
 									
 			{ "sType": "numeric" },
 			
+			{ "sType": "html" },
+
 			{ "sType": "html" }
 		], 
 		
@@ -308,16 +310,23 @@ $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique,
 		    		level.children('.lifetime').html('<input size="" type="text" name="lifetime[]" value="'+lifetime+'"/>');
 
 		    		//levelSources = level.children('.source').html();
-		    		
-		    		    		
-		    		if (level.find('.links').children('a').html() !=null) {
-		    			level.children('.source').data("source", level.find('.links').html());
-		    			var buttons = '<span id="buttons"><a href="#" class="button white" id="add_source">+</a><a class="button white" id="remove_source">-</a></span>';		    			
-		    		}	else var buttons = '<span id="buttons"><a href="#" class="button white" id="add_source">+</a></span>';
-		    		
-		    			level.children('.source').append(buttons);
-		    		//alert(level.children('.source').data("source"));
 
+
+					level.children('.ref_aggregator').data("ref", level.children('.ref_aggregator').html());
+					level.children('.ref_aggregator').html('<a href="#" class=" button white" id="select_ref_aggregator">выбрать</a>');
+
+					level.children('.ref_original').data("ref", level.children('.ref_original').html());
+					level.children('.ref_original').html('<a href="#" class=" button white" id="select_ref_original">выбрать</a>');
+
+
+					/*					if (level.find('.links').children('a').html() !=null) {
+                                            level.children('.source').data("source", level.find('.links').html());
+                                            var buttons = '<span id="buttons"><a href="#" class="button white" id="add_source">+</a><a class="button white" id="remove_source">-</a></span>';
+                                        }	else var buttons = '<span id="buttons"><a href="#" class="button white" id="add_source">+</a></span>';
+
+                                            level.children('.source').append(buttons);
+                                        //alert(level.children('.source').data("source"));
+                    */
 				}
 			}
 			
@@ -447,13 +456,23 @@ $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique,
 					//alert(data);
 					level.children('.source').html(data);
 				});
-	*/			
- 		
-	    		if (level.children('.source').data("source")){
+	*/
+
+				if (level.children('.ref_aggregator').data("ref")){
+					level.children('.ref_aggregator').html(level.children('.ref_aggregator').data("ref"));
+				}else level.children('.ref_aggregator').html('');
+
+				if (level.children('.ref_original').data("ref")){
+					level.children('.ref_original').html(level.children('.ref_original').data("ref"));
+				}else level.children('.ref_original').html('');
+
+
+
+/*	    		if (level.children('.source').data("source")){
 	    			//alert(level.children('.source').data("source"));
 	    			level.children('.source').html('<span class="links">'+level.children('.source').data("source")+"</span>");
 	    		}else level.children('.source').html('<span class="links"></span>');
-	    		
+*/
 				
 				if (energy==""){
 					energy=0;
@@ -566,6 +585,52 @@ $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique,
 //					} else {
 						level.children('.level_config').removeClass("errorText");
 //					}
-		    });			
+		    });
+
+				$(document).on("click", "#select_ref_aggregator", function(event){
+					event.preventDefault();
+					var field = "level_ref_aggregator";
+					var level = $(this).parent().parent();
+					//var atom_id = $("#atom_id").val();
+					var level_id=level.find('.row_id').val();
+					var ref_id;
+					var str;
+					$('.clicked').removeClass('clicked');
+					level.addClass("clicked");
+
+					str = '../addref/'+level_id+'/'+field;
+
+					$.fancybox({
+						'href'          : str,
+						'width'             : '75%',
+						'height'            : '75%',
+						'autoScale'         : false,
+						'type'              : 'iframe',
+						'hideOnContentClick': false
+					});
+				});
+
+				$(document).on("click", "#select_ref_original", function(event){
+					event.preventDefault();
+					var field = "level_ref_original";
+					var level = $(this).parent().parent();
+					//var atom_id = $("#atom_id").val();
+					var level_id=level.find('.row_id').val();
+					var ref_id;
+					var str;
+					$('.clicked').removeClass('clicked');
+					level.addClass("clicked");
+
+					str = '../addref/'+level_id+'/'+field;
+
+					$.fancybox({
+						'href'          : str,
+						'width'             : '75%',
+						'height'            : '75%',
+						'autoScale'         : false,
+						'type'              : 'iframe',
+						'hideOnContentClick': false
+					});
+				});
 		
 });

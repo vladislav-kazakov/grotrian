@@ -75,8 +75,9 @@
 		                        <th>&nbsp;&nbsp;J&nbsp;&nbsp;</th>
 								<th>{#$l10n.Energy#} ({#$l10n.cm#} <sup>-1</sup>)</th>
 								<th>{#$l10n.Lifetime#} <br/>({#$l10n.ns#})</th>   
-								<th>{#$l10n.Source#}</th>
-							</tr>	
+								<th>{#$l10n.ReferenceAggregator#}</th>
+								<th>{#$l10n.ReferenceOriginal#}</th>
+							</tr>
 						</thead>
                     {# foreach item=level from=$level_list#}
 					<tr class="selectable">						
@@ -94,19 +95,16 @@
                         <td class="lifetime">{#$level.LIFETIME#}</td>                        
                         
                            
-						<td class="source">							
-							{# if $level.SOURCE_IDS !='' #}
-							<span class="links">							
-								{# assign var=sources value=","|explode:$level.SOURCE_IDS#}
-								{#foreach from=$sources item=source#}
-									<a class="source_link" href="../bibliography/{#$source#}" >{#$source#}</a>
-								{#/foreach#}	
-							</span>	
-								{#else#}
-							<span class="links">&nbsp;</span>																	
-						{#/if#}                        
-							
+						<td class="ref_aggregator">
+							{# if $level.ID_REF_ORIGINAL !='' #}
+								<a class="source_link" href="../ref/{#$level.ID_REF_ORIGINAL#}" >{#$level.ID_REF_ORIGINAL#}</a>
+							{#/if#}
                        	</td>
+						<td class="ref_original">
+							{# if $level.ID_REF_ORIGINAL !='' #}
+							<a class="source_link" href="../ref/{#$level.ID_REF_ORIGINAL#}" >{#$level.ID_REF_ORIGINAL#}</a>
+							{#/if#}
+						</td>
                     </tr>
                     {#/foreach#}
                         	

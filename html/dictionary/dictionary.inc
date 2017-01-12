@@ -12,7 +12,8 @@ $dictionary = array (
 	///
 	'Spectra'=>array('ru'=>'Спектры','en'=>'Spectra'),
 	///
-	///Title entries 
+	'References'=>array('ru'=>'Источники','en'=>'References'),
+	///Title entries
 	'Articles_title'=>array('ru'=>'Публикации','en'=>'Articles'),
 	'Atomic_levels_title'=>array('ru'=>'Уровни атома','en'=>'Atomic levels'),
 	'Grotrian_Charts_title'=>array('ru'=>'Диаграмма Гротриана','en'=>'Grotrian Chart'),
@@ -26,6 +27,7 @@ $dictionary = array (
 	'About_project_title'=>array('ru'=>'О проекте','en'=>'About project'),
 	'Other_resources_for_atomic_spectroscopy_title'=>array('ru'=>'Другие ресурсы по атомной спектроскопии','en'=>'Other resources for atomic spectroscopy'),
 	'Periodic_Table_title'=>array('ru'=>'Периодическая таблица элементов','en'=>'Periodic table of the elements'),
+	'References_title'=>array('ru'=>'Источники данных','en'=>'References'),
 	///title entries end
 
 	'ions'=>array('ru'=>'ионы','en'=>'ions'),
@@ -115,6 +117,8 @@ $dictionary = array (
 	'Jvalue'=>array('ru'=>'Значение J','en'=>'J value'),
 	'isotopes'=>array('ru'=>'изотопы','en'=>'isotopes'),
 	'Source'=>array('ru'=>'Источник','en'=>'Source'),
+	'ReferenceOriginal'=>array('ru'=>'Исходный источник','en'=>'Original Reference'),
+	'ReferenceAggregator'=>array('ru'=>'Имортировано из','en'=>'Imported from'),
 	'Search'=>array('ru'=>'Поиск','en'=>'Search'),
 	'Superactinide'=>array('ru'=>'Суперактиноиды','en'=>'Superactinide'),
 	'Show_database_filling'=>array('ru'=>'Показать степень наполнения базы данных по нейтральным атомам','en'=>'Show database filling'),

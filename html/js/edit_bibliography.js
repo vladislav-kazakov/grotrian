@@ -97,7 +97,7 @@ $(document).ready(function() {
 		
 		str+="&action=editSource";					
 		//alert(str);
-		$.fancybox.showActivity();
+		$.fancybox.showLoading();
 			
 		$.post("/source_admin.php", str, function(data){					
 			$.fancybox(data);	
