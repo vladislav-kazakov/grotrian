@@ -8,7 +8,7 @@ $(document).ready(function() {
 						var str = 'source_id='+data;						
 						str+="&action=editSource";	
 						//alert(data);
-						$.fancybox.showActivity();
+						$.fancybox.showLoading();
 						
 						$.post("/source_admin.php", str, function(data){					
 							$.fancybox(data);
@@ -22,7 +22,7 @@ $(document).ready(function() {
 				event.preventDefault();
 				var str="action=manageSources&count="+$(".row_selected .row_id").length;					
 					
-					$.fancybox.showActivity();
+					$.fancybox.showLoading();
 					
 					$.post("/source_admin.php", str, function(data){					
 						$.fancybox(data);					
@@ -36,7 +36,7 @@ $(document).ready(function() {
 				var str = $(".row_selected .row_id").serialize();
 				str+="&action=removeSources&count="+$(".row_selected .row_id").length;					
 				//alert(str);	
-					$.fancybox.showActivity();
+					$.fancybox.showLoading();
 					
 					$.post("/source_admin.php", str, function(data){						
 						$.fancybox(data);						
@@ -129,7 +129,7 @@ $(document).ready(function() {
 			});
 				*/
 
-			$("a.source_link").fancybox({
+		/*	$("a.source_link").fancybox({
 				'hideOnContentClick': false,
 				'overlayColor'		: '#000',
 				'overlayOpacity'	: 0.8,
@@ -137,7 +137,7 @@ $(document).ready(function() {
 				'height'			: 200,
 				'autoDimensions'	: false
 			});
-
+*/
 
 			$(document).on("click", "#save_source", function(event){
 				event.preventDefault();
@@ -151,14 +151,16 @@ $(document).ready(function() {
 				//alert(str_authors);
 				//var str=str_levels+'&'+str_sources+'&type="L"&action=applySources';	
 					$.post("/source_admin.php", str,function(data) {
-						var str = $(".row_selected .row_id").serialize();
-						str+="&action=manageSources&count="+$(".row_selected .row_id").length;					
-							
-							$.fancybox.showActivity();
-							
-							$.post("/source_admin.php", str, function(data){					
-								$.fancybox(data);					
-							});						
+						if ($(".row_selected .row_id").serialize()) {
+							var str = $(".row_selected .row_id").serialize();
+							str += "&action=manageSources&count=" + $(".row_selected .row_id").length;
+
+							$.fancybox.showLoading();
+
+							$.post("/source_admin.php", str, function (data) {
+								$.fancybox(data);
+							});
+						}
 					});
 
 						//window.location.href = "/admin/ru/levels/"+atom_id;
@@ -171,29 +173,33 @@ $(document).ready(function() {
 			switch (source_type) {
 			
 			case "j_article": 
-				$('#article_name, #issue_name, #publisher, #year,  #publish_page, #link, #vol_num').show();
+				$('#article_name, #issue_name, #publisher, #year,  #publish_page, #link, #vol_num, #bibtex').show();
 				$('#collection_type, #city, #publish_vol, #publish_tome,#page_num, #tome_num').hide();
 		    break;
 			case "c_article": 
-				$('#article_name, #issue_name,#collection_type,#city, #publisher, #year, #publish_page, #link, #vol_num, #tome_num').show();
+				$('#article_name, #issue_name,#collection_type,#city, #publisher, #year, #publish_page, #link, #vol_num, #tome_num, #bibtex').show();
 				$('#page_num, #publish_tome, #publish_vol').hide();
 		    break;
 			case "e_book":				
-				$('#article_name,#link').show();
+				$('#article_name,#link, #bibtex').show();
 				$('#issue_name,#collection_type,#publish_tome, #city, #publisher, #year, #publish_vol, #publish_page,#page_num, #vol_num, #tome_num').hide();
 		    break;
 			case "book":				
-				$('#issue_name, #city, #publisher, #year, #link, #page_num').show();
+				$('#issue_name, #city, #publisher, #year, #link, #page_num, #bibtex').show();
 				$('#article_name,#collection_type,#publish_tome, #publish_vol, #publish_page, #vol_num, #tome_num').hide();
 			break;
 			case "journal":				
-				$('#issue_name, #vol_num, #tome_num, #publisher, #year, #link, #page_num').show();
+				$('#issue_name, #vol_num, #tome_num, #publisher, #year, #link, #page_num, #bibtex').show();
 				$('#article_name, #city, #collection_type, #publisher, #publish_page,#publish_tome, #publish_vol').hide();
 			break;
 			case "collection":				
-				$('#issue_name, #collection_type, #city, #publisher, #year, #link, #page_num,#tome_num,#vol_num').show();
+				$('#issue_name, #collection_type, #city, #publisher, #year, #link, #page_num,#tome_num,#vol_num, #bibtex').show();
 				$('#article_name, #publish_page, #publish_tome, #publish_vol').hide();
-			break;			
+			break;
+			case "bibtex":
+				$('#bibtex').show();
+				$('#issue_name,#collection_type,#publish_tome, #city, #publisher, #year, #publish_vol, #publish_page,#page_num, #vol_num, #tome_num,#article_name,#link').hide();
+				break;
 			}
 		}	
 
@@ -202,9 +208,7 @@ $(document).ready(function() {
 				var source_type = $(this).val();
 				CheckType(source_type);
 			});
-			
-			
-			
+
 			$(document).on("click", "#edit_author", function(event){
 				event.preventDefault();
 				var author=$(this).parent().parent().parent();		

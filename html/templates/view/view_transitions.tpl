@@ -191,7 +191,7 @@
 									{# assign var=sources value=","|explode:$transition.SOURCE_IDS#}
 									{#foreach from=$sources item=source#}
 										{# if $source !='' #}
-											<a class="source_link" href="../bibliography/{#$source#}" >{#$source#}</a>
+											<a class="source_link various fancybox.ajax" href="../bibliography/{#$source#}" >{#$source#}</a>
 										{#/if#}
 									{#/foreach#}						                        
 									</span>

@@ -10,7 +10,8 @@
                     {# foreach item=bibliolink from=$BiblioList#}
 					<tr class="selectable">
 					 	<td class="bibliolink" >
-					 		{#bibliolink biblioarray=$bibliolink #}			 	
+					 		{#*bibliolink biblioarray=$bibliolink *#}
+							{#$bibliolink.BIBTEX#}
 					 	</td>
 				        <td >
 				        	<a class="source_link" href="{#$bibliolink.ID#}" >{#$bibliolink.ID#}</a>

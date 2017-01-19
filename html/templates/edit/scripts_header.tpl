@@ -9,7 +9,16 @@
 						$("#panel").slideToggle("slow");
 						$(this).toggleClass("active");
 						$("#panel div").addClass('tpanel');
-					});					
+					});
+					$(".various").fancybox({
+						fitToView	: false,
+						width		: 500,
+						height		: 200,
+						autoSize	: false,
+						closeClick	: false,
+						openEffect	: 'none',
+						closeEffect	: 'none'}
+					);
 				});
 				//]]>			
 			</script>
@@ -57,11 +66,10 @@
 				<link rel="stylesheet" type="text/css" href="/css/table.css" />
 				<link rel="stylesheet" href="/js/jquery-autocomplete/jquery.autocomplete.css" type="text/css" />
 				<link rel="stylesheet" href="/css/popuptext.css" type="text/css" />
-				<script type="text/javascript" src="/js/jquery.dataTables.min.js"></script> 
-				<script type="text/javascript" src="/js/fancybox/jquery.mousewheel-3.0.6.pack.js"></script>
-				<script type="text/javascript" src="/js/fancybox/jquery.fancybox.pack.js"></script>
+				<script type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
 				<script type="text/javascript" src="/js/jquery-autocomplete/jquery.autocomplete.min.js"></script>
-		
+				<script type="text/javascript" src="/js/bibtex_js.js"></script>
+
 				<script type="text/javascript" >var locale="{#$locale#}"; var energyValue = ""; var termmultiplyValue = ""; var isUpperOrLower = "";</script>
 				
 				<script type="text/javascript" charset="windows-1251">					
@@ -98,31 +106,35 @@
 			var CheckType= function (source_type) {	
 			
 			switch (source_type) {
-			
-			case "j_article": 
-				$('#article_name, #issue_name, #publisher, #year,  #publish_page, #link, #vol_num').show();
-				$('#collection_type, #city, #publish_vol, #publish_tome,#page_num, #tome_num').hide();
-		    break;
-			case "c_article": 
-				$('#article_name, #issue_name,#collection_type,#city, #publisher, #year, #publish_page, #link, #vol_num, #tome_num').show();
-				$('#page_num, #publish_tome, #publish_vol').hide();
-		    break;
-			case "e_book":				
-				$('#article_name,#link').show();
-				$('#issue_name,#collection_type,#publish_tome, #city, #publisher, #year, #publish_vol, #publish_page,#page_num, #vol_num, #tome_num').hide();
-		    break;
-			case "book":				
-				$('#issue_name, #city, #publisher, #year, #link, #page_num').show();
-				$('#article_name,#collection_type,#publish_tome, #publish_vol, #publish_page, #vol_num, #tome_num').hide();
-			break;
-			case "journal":				
-				$('#issue_name, #vol_num, #tome_num, #publisher, #year, #link, #page_num').show();
-				$('#article_name, #city, #collection_type, #publisher, #publish_page,#publish_tome, #publish_vol').hide();
-			break;
-			case "collection":				
-				$('#issue_name, #collection_type, #city, #publisher, #year, #link, #page_num,#tome_num,#vol_num').show();
-				$('#article_name, #publish_page, #publish_tome, #publish_vol').hide();
-			break;			
+
+				case "j_article":
+					$('#article_name, #issue_name, #publisher, #year,  #publish_page, #link, #vol_num, #bibtex').show();
+					$('#collection_type, #city, #publish_vol, #publish_tome,#page_num, #tome_num').hide();
+					break;
+				case "c_article":
+					$('#article_name, #issue_name,#collection_type,#city, #publisher, #year, #publish_page, #link, #vol_num, #tome_num, #bibtex').show();
+					$('#page_num, #publish_tome, #publish_vol').hide();
+					break;
+				case "e_book":
+					$('#article_name,#link, #bibtex').show();
+					$('#issue_name,#collection_type,#publish_tome, #city, #publisher, #year, #publish_vol, #publish_page,#page_num, #vol_num, #tome_num').hide();
+					break;
+				case "book":
+					$('#issue_name, #city, #publisher, #year, #link, #page_num, #bibtex').show();
+					$('#article_name,#collection_type,#publish_tome, #publish_vol, #publish_page, #vol_num, #tome_num').hide();
+					break;
+				case "journal":
+					$('#issue_name, #vol_num, #tome_num, #publisher, #year, #link, #page_num, #bibtex').show();
+					$('#article_name, #city, #collection_type, #publisher, #publish_page,#publish_tome, #publish_vol').hide();
+					break;
+				case "collection":
+					$('#issue_name, #collection_type, #city, #publisher, #year, #link, #page_num,#tome_num,#vol_num, #bibtex').show();
+					$('#article_name, #publish_page, #publish_tome, #publish_vol').hide();
+					break;
+				case "bibtex":
+					$('#bibtex').show();
+					$('#issue_name,#collection_type,#publish_tome, #city, #publisher, #year, #publish_vol, #publish_page,#page_num, #vol_num, #tome_num,#article_name,#link').hide();
+					break;
 			}
 		}
 				</script>

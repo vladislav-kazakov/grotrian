@@ -5,7 +5,7 @@ class Source extends LocalList
 {
 	function Create()
 	{		
-		$query = "INSERT INTO SOURCES ([SOURCE_TYPE]) VALUES ('j_article') 
+		$query = "INSERT INTO SOURCES ([SOURCE_TYPE]) VALUES ('bibtex') 
 		SELECT TOP 1 ID AS ID FROM SOURCES ORDER BY ID DESC";
 		$this->LoadFromSQL($query);				
 	}
@@ -35,10 +35,12 @@ class Source extends LocalList
 	$publisher = empty($post['publisher']) ? "" : (iconv("UTF-8", "Windows-1251", $post['publisher']));
 	$city = empty($post['city']) ? "" : (iconv("UTF-8", "Windows-1251", $post['city']));
 	$collection_type = empty($post['collection_type']) ? "" : (iconv("UTF-8", "Windows-1251", $post['collection_type']));
-	
-	//$content_en = iconv("UTF-8", "Windows-1251", $post['atomDescription_en']);	
+
+	$bibtex = empty($post['bibtex']) ? "" : (iconv("UTF-8", "Windows-1251", $post['bibtex']));
+
+		//$content_en = iconv("UTF-8", "Windows-1251", $post['atomDescription_en']);
 		
-	$query = "UPDATE SOURCES SET [SOURCE_TYPE] = '".$post['source_type']."',[WORK_NAME] = '".$name."',[ISSUE_NAME] = '".$issue_name."',[PAGE_FIRST] = ".$page_first.",[PAGE_LAST] = ".$page_last.",[VOLUME_FIRST] = ".$vol_first.",[VOLUME_LAST] = ".$vol_last.",[PUBLISHER] = '".$publisher."',[CITY] = '".$city."',[YEAR] = ".$year.",[LINK] = '".$link."',[COLLECTION_TYPE] = '".$collection_type."' WHERE ID=".$post['source_id'];
+	$query = "UPDATE SOURCES SET [SOURCE_TYPE] = '".$post['source_type']."',[WORK_NAME] = '".$name."',[ISSUE_NAME] = '".$issue_name."',[PAGE_FIRST] = ".$page_first.",[PAGE_LAST] = ".$page_last.",[VOLUME_FIRST] = ".$vol_first.",[VOLUME_LAST] = ".$vol_last.",[PUBLISHER] = '".$publisher."',[CITY] = '".$city."',[YEAR] = ".$year.",[LINK] = '".$link."',[COLLECTION_TYPE] = '".$collection_type."',[BIBTEX] = '".$bibtex."' WHERE ID=".$post['source_id'];
 	//print_r($query);
 	$this->LoadFromSQL($query);
 	}	

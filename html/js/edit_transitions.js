@@ -481,7 +481,7 @@
 				isOtherLevel = transition.find('.lower_level_config').data("cfg");
 				termmultiplyValue=transition.find('.lower_level_termmultiply').val()+"a";
 				
-				$.fancybox.showActivity();								
+				$.fancybox.showLoading();
 				
 				$.post("/levels_admin.php",  {atom_id: atom_id , action: "manageLevel"}, function(data){
 					$.fancybox(data,{
@@ -521,7 +521,7 @@
 				//alert(isOtherLevel);
 				//console.log(isOtherLevel);				
 				termmultiplyValue=transition.find('.upper_level_termmultiply').val()+"a";				
-				$.fancybox.showActivity();				
+				$.fancybox.showLoading();
 				
 				$.post("/levels_admin.php", {atom_id: atom_id , action: "manageLevel"}, function(data){
 					alert(data);

@@ -28,11 +28,11 @@ if(isset($_POST['action'])){
 	
 	
 	$action=$_POST['action'];
-	if(isset($_POST['source_id'])) $source_id = $_POST['source_id'];	
+	if(isset($_POST['source_id'])) $source_id = $_POST['source_id'];
 	
 	switch ($action){
 		
-		case "manageSources": {	
+		case "manageSources": {
 			$source_list->LoadAll();			
 			$smarty->assign('BiblioList',$source_list->GetItemsArray());			
 			$smarty->display("edit/add_sources.tpl");				
@@ -103,12 +103,12 @@ if(isset($_POST['action'])){
     	
     	
     	case "applySources" : {    		
-			$source->ApplySources($_POST);  
+			$source->ApplySources($_POST);
 			break;  		
     	}
     	
 		case "applyRemovingSources" : {    
-			$source->ApplyRemovingSources($_POST);  
+			$source->ApplyRemovingSources($_POST);
 			break;  		
     	}
     	
@@ -131,9 +131,9 @@ if(isset($_POST['action'])){
 		}
 
 		case "editSource": {	
-			$source_types= array( j_article=>"Статья из журнала",c_article=>"Статья из сборника",e_book=>"Электронное издание",book=>"Книга",journal=>"Журнал",collection=>"Сборник");
+			$source_types= array( "j_article"=>"Статья из журнала","c_article"=>"Статья из сборника","e_book"=>"Электронное издание","book"=>"Книга","journal"=>"Журнал","collection"=>"Сборник", "bibtex"=>"bibtex");
 			$collection_types= array("сб.","сб. стат.","сб. науч. тр.","межвуз. сб. науч. тр.","спец. выпуск","сб. мат.","сб. тезисов и докл.","монография","биограф. справка");
-			$author_roles= array( author=>"автор",main_author=>"основной автор",editor=>"редактор");
+			$author_roles= array( "author"=>"автор","main_author"=>"основной автор","editor"=>"редактор");
 			
 			$smarty->assign('source_types',$source_types);	
 			$smarty->assign('collection_types',$collection_types);
@@ -161,7 +161,7 @@ if(isset($_POST['action'])){
 		}
     	
 		case "deleteAuthor": {
-			$source->RemoveAuthor($source_id,$_POST['author_id']);		
+			$source->RemoveAuthor($source_id,$_POST['author_id']);
 			break;	
 		}
     	

@@ -1,4 +1,4 @@
-			<div id="electronNumber" style="display:none;">
+<div id="electronNumber" style="display:none;">
 				{#$atom.Z-$atom.IONIZATION#}
 			</div>
 			<div id="tab">
@@ -99,9 +99,9 @@
 							<span class="links">							
 								{# assign var=sources value=","|explode:$level.SOURCE_IDS#}
 								{#foreach from=$sources item=source#}
-									<a class="source_link" href="../bibliography/{#$source#}" >{#$source#}</a>
-								{#/foreach#}	
-							</span>	
+									<a class="source_link various fancybox.ajax" href="../bibliography/{#$source#}" >{#$source#}</a>
+								{#/foreach#}
+							</span>
 								{#else#}
 							<span class="links">&nbsp;</span>																	
 						{#/if#}                        
@@ -109,7 +109,7 @@
                        	</td>
                     </tr>
                     {#/foreach#}
-                        	
+
 		    		</table>
 		    		</form>	    		
 				</div>

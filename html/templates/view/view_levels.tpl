@@ -70,7 +70,6 @@
 			</div>	
 <!--End of Tab-->				
 				<div id="main" class="container_12" >
-                                
 					<table cellpadding="0" cellspacing="0" border="0" class="display view" id="levels_table">
 						<thead>
 							<tr>
@@ -106,7 +105,7 @@
 							{# assign var=sources value=","|explode:$level.SOURCE_IDS#}
 							{#foreach from=$sources item=source#}
 								{# if $source !='' #}
-									<a class="source_link" href="../bibliography/{#$source#}" >{#$source#}</a>
+									<a class="source_link various fancybox.ajax" href="../bibliography/{#$source#}" >{#$source#}</a>
 								{#/if#}
 							{#/foreach#}						                        
 							</span>

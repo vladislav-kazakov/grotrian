@@ -447,8 +447,7 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
 				$page_type="view_bibliolink.tpl"; 
 			} else {		
 				
-				//phpinfo();
-				$biblio_list->LoadAll();			
+				$biblio_list->LoadAll();
 				$smarty->assign('BiblioList',$biblio_list->GetItemsArray());   		
 				$page_type="view_bibliography.tpl"; 
     			$head="Bibliography";

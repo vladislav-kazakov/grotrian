@@ -7,13 +7,16 @@
 			$("#panel").slideToggle("slow");
 			$(this).toggleClass("active");
 			$("#panel div").addClass('tpanel');
-		});	
-
-		$("a.source_link").fancybox({
-			'hideOnContentClick': false,
-			'overlayColor'		: '#000',
-			'overlayOpacity'	: 0.8
-		});						
+		});
+		$(".various").fancybox({
+				fitToView	: false,
+				width		: 500,
+				height		: 200,
+				autoSize	: false,
+				closeClick	: false,
+				openEffect	: 'none',
+				closeEffect	: 'none'}
+		);
 	});
 	jQuery.ajax({
 		type: "POST",
@@ -61,7 +64,9 @@
 	{# if $bodyclass=="levels" || $bodyclass=="transitions" || $bodyclass=="bibliography"#}
 	<link rel="stylesheet" type="text/css" href="/css/table.css" />
 	<script type="text/javascript" src="/js/jquery.dataTables.min.js"></script> 
-	<script type="text/javascript" src="/js/tablexport.js"></script>	
+	<script type="text/javascript" src="/js/tablexport.js"></script>
+	<script type="text/javascript" src="/js/bibtex_js.js"></script>
+
 	<script type="text/javascript" charset="windows-1251">var locale="{#$locale#}";</script>
 	
 	{# if $bodyclass=="levels" #}

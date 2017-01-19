@@ -1,4 +1,4 @@
-﻿			$(document).ready(function() {	
+﻿$(document).ready(function() {
 				/* Initialise datatables */
 				//Выбираем словарь в зависимости от локали				
 				if(locale=="en") dataTableslib={
@@ -37,13 +37,14 @@
 //		            alert( 'DataTables has redrawn the table' );
 //					replaceTable();					
 //       			},
-
-					"sDom": 'l<"toolbar">rtip',	
+					"sDom": 'l<"toolbar">rtip',
 					"oLanguage": dataTableslib											
 					,
 					"aoColumns": [									
-									{ "sType": "numeric" },									
-									{ "sType": "html" }
+									{ "sType": "numeric" },
+									{ "fnRender": function ( oObj ) {
+										return (new BibtexDisplay()).displayBibtex(oObj.aData[1]);
+									} }
 									
 								], 
 					"iDisplayLength": 25,
@@ -58,12 +59,14 @@
 					
 					"fnInitComplete": function() {
 						 // Make custom toolbar
-						$("#bibliography_table_wrapper div.toolbar").html(Search+': <input size="20" type="text" id="biblioSearchField">');
+//						$("#bibliography_table_wrapper div.toolbar").html(Search+': <input size="20" type="text" id="biblioSearchField">');
 					}
 				
-				});						
-		
-				$("#biblioSearchField").keyup( function () {											
-					oTable3.fnFilter( this.value, 0);					
+				});
+				$("#biblioSearchField").on('keyup', function () {
+					oTable3.fnFilter( this.value, 1);
 				} );
-			});	
+
+
+
+});

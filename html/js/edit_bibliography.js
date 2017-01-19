@@ -15,7 +15,7 @@ $(document).ready(function() {
 			"sLast": "&gt;&gt;"
 		}
 	};
-	
+
 	if(locale=="ru") dataTableslib={
 		"sLengthMenu": "Показать _MENU_ записей на странице",
 		"sZeroRecords": "Записи отсутствуют",
@@ -30,13 +30,16 @@ $(document).ready(function() {
 		}
 	};
 				
-	var oTable = $('#bibliography_table').dataTable({	
-	"sDom": 'l<"toolbar">rtip',	
+	var oTable = $('#bibliography_table').dataTable({
+	"sDom": 'l<"toolbar">rtip',
 	"oLanguage": dataTableslib,
 	"aoColumns":[
-	            { "sType": "html" },									
-				{ "sType": "html" }
-				], 
+				{ "fnRender": function ( oObj ) { //return "1";
+					return (new BibtexDisplay()).displayBibtex(oObj.aData[0]);
+					//oObj.aData[2].replace(/\s/gi,"");
+				} },
+	            { "sType": "html" },
+				],
 				"iDisplayLength": 25,
 				"bLengthChange": true,
 				"bFilter": true,
@@ -49,8 +52,9 @@ $(document).ready(function() {
 				}
 				
 	});
-	
-		$("#biblioSearchField").keyup( function () {											
+
+
+		$("#biblioSearchField").keyup( function () {
 					oTable.fnFilter( this.value, 0);					
 				} );
 
@@ -97,7 +101,7 @@ $(document).ready(function() {
 		
 		str+="&action=editSource";					
 		//alert(str);
-		$.fancybox.showActivity();
+		$.fancybox.showLoading();
 			
 		$.post("/source_admin.php", str, function(data){					
 			$.fancybox(data);	

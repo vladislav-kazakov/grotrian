@@ -185,8 +185,17 @@
 					<td>
 						<input type="text" name="link" {#if $SourceItem.LINK !=" "#} value='{#$SourceItem.LINK#}'{#/if#}/>
 					</td>				        
-				</tr>							
-				</table>
+				</tr>
+
+				<tr id="bibtex">
+					<td>
+						<b>Bibtex</b>
+					</td>
+					<td>
+						<textarea name="bibtex" style="width:100%; height: 100px;resize: none;">{#if $SourceItem.BIBTEX !=" "#}{#$SourceItem.BIBTEX#}{#/if#}</textarea>
+					</td>
+				</tr>
+			</table>
 				
 				</td>
 				</form>	
