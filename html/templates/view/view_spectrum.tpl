@@ -13,25 +13,29 @@
 											<b>{#$l10n.MaxLength#} (&#8491;)</b><br>
 											<input type='text' id='max' value='{#if $auto==true#}8000{#else#}30000{#/if#}'>
 										</div>
+										<div id='visible_container' style="float:none">
+											<b>{#$l10n.MaxLength#} (&#8491;)</b><br>
+											<input type='button' id='visible' value='Visible spectrum' class='bluebtn'>
+										</div>
+
 									</div>
 									<div id='zoom_container'>
 										<b>{#$l10n.Scale#}</b><br>
-										<input type='button' value='1' class='base active'>
-										<input type='button' value='10' class='base'>
-										<input type='button' value='100' class='base'>
+										<input type='button' id='x1' value='1' class='bluebtn base active'>
+										<input type='button' value='10' class='bluebtn base'>
+										<input type='button' value='100' class='bluebtn base'>
 										<br><br>
-										<input type='button' value='x2' {#if $auto==true#}class="active"{#/if#}>
-										<input type='button' value='x5'>
+										<input type='button' id='x2' value='x2' class="bluebtn {#if $auto==true#}active{#/if#}">
+										<input type='button' value='x5' class="bluebtn">
 									</div>
 									<div>
-									<input type='button' id='filter' value='{#$l10n.Apply#}'><br><br>
-									<input type='button' id='barchart' value='{#$l10n.BarChart#}' {#if $auto==true#}class="active"{#/if#}>
-									<input type='button' id='logbarchart' value='{#$l10n.LogBarChart#}'>
-										</div>
+									<input type='button' id='filter' value='{#$l10n.Apply#}' class="bluebtn"><br><br>
+									<input type='button' id='barchart' value='{#$l10n.BarChart#}' class="bluebtn {#if $auto==true#}active{#/if#}">
+									</div>
 								</div>
 							</div>
 							<div style="margin: auto; margin-top: 10px; width: 520px;">
-								<div id="info_intensity"><b>{#$l10n.Sensibility#}</b><!-- <input type="number" min=0 id="value"> <div id="value" style="display: inline-block;"></div> --></div><div id="range_intensity"></div>
+								<div id="info_intensity"><b>{#$l10n.Sensibility#}</b></div><div id="range_intensity"><input type="range" min=10 max=400 value=160 style="width: 390px;"></div>
 							</div>
 							<div id='line_info'>
 							</div>

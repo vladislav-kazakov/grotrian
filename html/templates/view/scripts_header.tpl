@@ -37,14 +37,15 @@
 	{#/if#}
 	
 	<script type="text/javascript">
+		var spectr_list, spectr_list_uploaded;
 		$(document).ready(function() {						
-			var spectr_list={#$spectrum_json#};
+			spectr_list={#$spectrum_json#};
 			init(spectr_list);
 			$(document).on('click', '#filter', function() {
 				init(spectr_list);
 			});
 			{# if $pagetype == "compare" #}
-			var spectr_list_uploaded = {#$spectrum_json_uploaded#};
+			spectr_list_uploaded = {#$spectrum_json_uploaded#};
 			if (spectr_list_uploaded) {
 				init(spectr_list_uploaded, 2);
 				$(document).off('click', '#filter');

@@ -96,7 +96,6 @@ $dictionary = array (
 	'MaxLength'=>array('ru'=>'Максимум','en'=>'Maximum'),
 	'Center'=>array('ru'=>'Центр','en'=>'Central'),
 	'BarChart'=>array('ru'=>'Гистограмма','en'=>'Bar chart'),
-	'LogBarChart'=>array('ru'=>'Лог. гистограмма','en'=>'Log bar chart'),
 	'Sensibility'=>array('ru'=>'Чувствительность','en'=>'Sensibility'),
 	'Compare'=>array('ru'=>'Сравнить','en'=>'Compare'),
 	'No_transitions'=>array('ru'=>'Невозможно построить диаграмму: для данного элемента пока не введено ни одного перехода','en'=>"Chart can't be built: no transitions for this element yet"),

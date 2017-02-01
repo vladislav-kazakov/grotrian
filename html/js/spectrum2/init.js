@@ -58,7 +58,6 @@ function init(waves, n) {
     var n = n ? '_' + n : '',
     zoom = get_zoom(),
     barchart = $('#barchart').hasClass('active'),
-    logbarchart = $('#logbarchart').hasClass('active'),
     max = Number($('#max').val()),
     min = Number($('#min').val()),
     isDrag = 0,
@@ -109,37 +108,22 @@ function init(waves, n) {
 
             if (l > min && l < max) {
                 var y1 = 0;
+                var newcolor = waves[key];
                 if (barchart) {
-                    if (_max_intensity > 0) y1 = 120 - i / _max_intensity * 120;
-                    else y1 = 0;
+                    if (_max_intensity > 0) y1 = definelength(i/ _max_intensity, $("#range_intensity input").val() / 20);
                 }
-                if (logbarchart){
-                    if (_max_intensity > 0) y1 = 120 - Math.log2(1+ 255* i / _max_intensity)/8 * 120;
-                    else y1 = 0;
+                else
+                {
+                    if (_max_intensity > 0) newcolor = fadecolor(waves[key], i/ _max_intensity, $("#range_intensity input").val() / 20);
                 }
-                //parse rgb(255,255,255) string
-                var regex = /rgb\((\d+),(\d+),(\d+)\)/;
-                var color = waves[key].match(regex);
-                //console.log(_max_intensity - i);
-                //console.log(i + " : " + Math.log2(1+ 255* (_max_intensity - i) / _max_intensity)/8 * 255);
-
-                var r = color[1];
-                var g = color[2];
-                var b = color[3];
-                //r = Math.max(Math.round(r - Math.log2(1+ 255* (_max_intensity - i) / _max_intensity)/8 * 255), 0);
-                //g = Math.max(Math.round(g - Math.log2(1+ 255* (_max_intensity - i) / _max_intensity)/8 * 255), 0);
-                //b = Math.max(Math.round(b - Math.log2(1+ 255* (_max_intensity - i) / _max_intensity)/8 * 255), 0);
-                alfa = Math.log2(1+ 255* i / _max_intensity)/8;
-                var newcolor = "rgba("+r+","+g+","+b+","+alfa+")";
                 str += "<line id='" + id + "' l='" + l + "' i='" + i + "' lower-level-config='" + lower_level_config.replace(/'/g, "&#39;") +
                     "' upper-level-config='" + upper_level_config.replace(/'/g, "&#39;") +
                     "' lower-level-term='" + lower_level_term.replace(/'/g, "&#39;") +
                     "' upper-level-term='" + upper_level_term.replace(/'/g, "&#39;") +
                     "'  x1='" + ((l - min)/ 10 * zoom) + "' y1='" + y1 + "' x2='" + ((l-min) / 10 * zoom) +
-                    "' y2='120' stroke-width='1' stroke='" + newcolor /*waves[key]*/ + "' ocolor='" + waves[key] + "'></line>";
-                map_str +="<line id='full-" + id + "' x1='" + ((l - min) / 10 / map_now) + "' y1='" +
-                    y1 + "' x2='" + ((l-min) / 10 / map_now) +
-                    "' y2='120' stroke-width='1' stroke='" + waves[key] + "'></line>";
+                    "' y2='120' stroke-width='1' stroke='" + newcolor + "' ocolor='" + waves[key] + "'></line>";
+                map_str +="<line id='full-" + id + "' x1='" + ((l - min) / 10 / map_now) + "' y1='" + y1 + "' x2='" + ((l-min) / 10 / map_now) +
+                    "' y2='120' stroke-width='1' stroke='" + newcolor + "'></line>";
                 _lines_intensity[id] = i;
                 id++;
                 if (i > _max_intensity)
@@ -177,18 +161,6 @@ function init(waves, n) {
         lines_intensity_2 = _lines_intensity;
         max_intensity_2 = _max_intensity;
     }
-
-// $("#range_intensity").ionRangeSlider({
-//     type: "double",
-//     grid: true,
-//     min: 0,
-//     max: max_intensity
-// });
-//max_intensity = Math.round(Math.log2(max_intensity)) * 1000 + 1;
-//input_range = '<input type="range" min=-1000 max='+max_intensity+' value='+max_intensity+' style="width: 520px;">';
-    input_range = '<input type="range" min=10 max=400 value=160 style="width: 390px;">';
-$("#range_intensity").html(input_range);
-
 
 if (!n) {
    $wrapper.empty();
@@ -265,63 +237,59 @@ $svg.mouseup(function() {
 }
 
 $(document).on('click', '#zoom_container input', function() {
-    if (this.className == 'base')
+    if ($(this).hasClass('base'))
        $('#zoom_container input.base').removeClass('active');
-   $(this).toggleClass('active');
+    $(this).toggleClass('active');
+    init(spectr_list);
+    console.log($('#wrapper').prop('scrollLeft'));
 });
+
+$(document).on('click', '#visible', function() {
+    $('#min').prop('value', 3800);
+    $('#max').prop('value', 7800);
+    $('#zoom_container input').removeClass('active');
+    $('#x1').addClass('active');
+    $('#x2').addClass('active');
+    init(spectr_list);
+});
+
 
 $(document).on('click', '#barchart', function() {
     $(this).toggleClass('active');
     $('#logbarchart').removeClass('active');
-    value = $("#range_intensity input").val();
+    var value = $("#range_intensity input").val();
     for (var k = 1; k < lines_intensity.length; k++) {
         if ($('#barchart').hasClass('active')) {
             $("#" + k).attr("stroke", fadecolor($("#" + k).attr("ocolor"), $("#" + k).attr("i") / max_intensity, $("#range_intensity input").attr("max") / 20));
             $("#" + k).attr("y1", definelength($("#" + k).attr("i") / max_intensity, value / 20));
+            $("#full-" + k).attr("stroke", fadecolor($("#" + k).attr("ocolor"), $("#" + k).attr("i") / max_intensity, $("#range_intensity input").attr("max") / 20));
+            $("#full-" + k).attr("y1", definelength($("#" + k).attr("i") / max_intensity, value / 20));
         }
         else {
             $("#" + k).attr("stroke", fadecolor($("#" + k).attr("ocolor"), $("#" + k).attr("i") / max_intensity, value / 20));
             $("#" + k).attr("y1", definelength($("#" + k).attr("i") / max_intensity, $("#range_intensity input").attr("max") / 20));
+            $("#full-" + k).attr("stroke", fadecolor($("#" + k).attr("ocolor"), $("#" + k).attr("i") / max_intensity, value / 20));
+            $("#full-" + k).attr("y1", definelength($("#" + k).attr("i") / max_intensity, $("#range_intensity input").attr("max") / 20));
         }
     }
 });
-$(document).on('click', '#logbarchart', function() {
-    $(this).toggleClass('active');
-    $('#barchart').removeClass('active');
-});
+
 $(document).ready(function() {
     function rule_intensity(value){
-        // console.log('значение '+ value);
-        // $("#info_intensity #value").val(value);
-       // value = Math.round(value);
         for (var k = 1; k < lines_intensity.length; k++) {
-//            // console.log(Math.pow(2,(max_intensity - value)/1000 - 1));
-//            if(lines_intensity[k] >= Math.pow(2,(max_intensity - value)/1000) - 1 /*|| (lines_intensity[k] == 0 && max_intensity != value)*/){
-//                // console.log(k +'=>'+lines_intensity[k]);
-//                $("#"+k).show();
-//                $("#full-"+k).show();
-//                // console.log($("#"+k));
-//            }else{
-//                $("#"+k).hide();
-//                $("#full-"+k).hide();
-//            }
-            if ($('#barchart').hasClass('active'))
-                $("#"+k).attr("y1", definelength($("#"+k).attr("i")/ max_intensity, value/20));
-                else
-            $("#"+k).attr("stroke", fadecolor( $("#"+k).attr("ocolor"), $("#"+k).attr("i")/ max_intensity, value/20));
+            if ($('#barchart').hasClass('active')) {
+                $("#" + k).attr("y1", definelength($("#" + k).attr("i") / max_intensity, value / 20));
+                $("#full-" + k).attr("y1", definelength($("#" + k).attr("i") / max_intensity, value / 20));
+            }
+            else {
+                $("#" + k).attr("stroke", fadecolor($("#" + k).attr("ocolor"), $("#" + k).attr("i") / max_intensity, value / 20));
+                $("#full-" + k).attr("stroke", fadecolor($("#" + k).attr("ocolor"), $("#" + k).attr("i") / max_intensity, value / 20));
+            }
 
         };
-
-
     }
     $(document).on("change mousemove", '#range_intensity',function(){
         value = $("#range_intensity input").val();
         rule_intensity(value)
     });
-    // $("#info_intensity #value").click(function(){
-    //     value = $("#info_intensity #value").val();
-    //     $("#range_intensity input").val(value);
-    //     // if()
-    //     rule_intensity(value)
-    // });                
 });
