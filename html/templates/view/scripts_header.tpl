@@ -29,7 +29,7 @@
 	//]]>			
 </script>
 
-	{# if $bodyclass=="spectrum"#}
+	{# if $bodyclass=="spectrum" || $bodyclass=="compare"#}
 	<link rel="stylesheet" type="text/css" href="/css/spectrum2.css" />
 	<script type="text/javascript" src="/js/spectrum2/init.js"></script>
 	{# if $pagetype == "compare" #}
@@ -38,24 +38,23 @@
 	
 	<script type="text/javascript">
 		var spectr_list, spectr_list_uploaded;
+		function init_all() {
+			init(spectr_list);
+			{# if $pagetype == "compare" #}
+			if (spectr_list_uploaded) init(spectr_list_uploaded, 2);
+			{#/if#}
+		}
 		$(document).ready(function() {						
 			spectr_list={#$spectrum_json#};
 			init(spectr_list);
-			$(document).on('click', '#filter', function() {
-				init(spectr_list);
-			});
 			{# if $pagetype == "compare" #}
 			spectr_list_uploaded = {#$spectrum_json_uploaded#};
-			if (spectr_list_uploaded) {
-				init(spectr_list_uploaded, 2);
-				$(document).off('click', '#filter');
-				$(document).on('click', '#filter', function() {
-
-					init(spectr_list);
-					init(spectr_list_uploaded, 2);
-				});
-			}
+			if (spectr_list_uploaded) init(spectr_list_uploaded, 2);
 			{#/if#}
+
+			$(document).on('click', '#filter', function() {
+				init_all();
+			});
 
 		});		
 	</script>

@@ -168,9 +168,13 @@ svg {
     float:left;
     margin-right:20px;
 }
-#filter {
-    margin: 20px 0 0 20px;
+#toolbar .top_div {
+    height: 38px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
 }
+
 
 #line_info, #line_info_2 {
 	height:20px;

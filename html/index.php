@@ -180,10 +180,10 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
 			$smarty->assign('spectrum_json_uploaded', $spectrum_json_uploaded);  
 
     		$page_type="compare_element.tpl";
-			$head="Spectrogram";
-			$title="Spectrogram";
-			$headline="Spectrogram";
-			$bodyclass="spectrum";
+			$head="Compare_spectra";
+			$title="Compare_spectra";
+			$headline="Compare_spectra";
+			$bodyclass="compare";
     		$header_type="header.tpl";
     		$footer_type="footer.tpl";
 
@@ -546,6 +546,7 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
 		switch ($pagetype) {
 			case 'diagram':
 			case 'spectrum':
+			case 'compare':
 			case 'links':
 			case 'team':
 			case 'sponsors':

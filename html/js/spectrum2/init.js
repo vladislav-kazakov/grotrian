@@ -13,6 +13,13 @@ function get_zoom() {
     return zoom ? zoom : 1;
 }
 
+function map_width(){
+    var max = Number($('#max').val());
+    var min = Number($('#min').val());
+    var map_now = (max - min) / 10000;
+    return Math.min(1000/ map_now / get_zoom(), 1000);
+}
+
 function init_ruler(zoom, min, max, n) {
     var $wrapper = $('#svg_wrapper' + n),
     max = max * zoom / 10,
@@ -177,7 +184,7 @@ init_ruler(zoom, min, max, n);
 
 $preview.prepend(map_str + (is_experimental ? "'>" : '') + "</svg>");
 
-$map_now.css('width', Math.min(1000/ map_now / zoom, 1000) + 'px');
+$map_now.css('width', map_width() + 'px');
 
 $('#svg_wrapper .svg line').hover( 
     function() {
@@ -234,14 +241,18 @@ $svg.mouseup(function() {
     $(this).css('cursor', 'default');
     isDrag = 0;
 });
+
 }
 
+
 $(document).on('click', '#zoom_container input', function() {
+    var middle = ($('#svg_wrapper').prop('scrollLeft') + $('#svg_wrapper').prop('clientWidth')/2)/$('#svg_wrapper').prop('scrollWidth');
     if ($(this).hasClass('base'))
        $('#zoom_container input.base').removeClass('active');
     $(this).toggleClass('active');
-    init(spectr_list);
-    console.log($('#wrapper').prop('scrollLeft'));
+    init_all();
+    $('#svg_wrapper').prop('scrollLeft', middle * $('#svg_wrapper').prop('scrollWidth') - $('#svg_wrapper').prop('clientWidth')/2);
+
 });
 
 $(document).on('click', '#visible', function() {
@@ -250,13 +261,22 @@ $(document).on('click', '#visible', function() {
     $('#zoom_container input').removeClass('active');
     $('#x1').addClass('active');
     $('#x2').addClass('active');
-    init(spectr_list);
+    $('#x5').removeClass('active');
+    init_all();
 });
 
+$(document).on('click', '#all_spectrum', function() {
+    $('#min').prop('value', 0);
+    $('#max').prop('value', 30000);
+    $('#zoom_container input').removeClass('active');
+    $('#x1').addClass('active');
+    $('#x2').removeClass('active');
+    $('#x2').removeClass('active');
+    init_all();
+});
 
 $(document).on('click', '#barchart', function() {
     $(this).toggleClass('active');
-    $('#logbarchart').removeClass('active');
     var value = $("#range_intensity input").val();
     for (var k = 1; k < lines_intensity.length; k++) {
         if ($('#barchart').hasClass('active')) {

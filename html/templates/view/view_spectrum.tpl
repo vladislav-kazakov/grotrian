@@ -13,9 +13,12 @@
 											<b>{#$l10n.MaxLength#} (&#8491;)</b><br>
 											<input type='text' id='max' value='{#if $auto==true#}8000{#else#}30000{#/if#}'>
 										</div>
-										<div id='visible_container' style="float:none">
-											<b>{#$l10n.MaxLength#} (&#8491;)</b><br>
-											<input type='button' id='visible' value='Visible spectrum' class='bluebtn'>
+										<div class='top_div'>
+											<input type='button' id='filter' value='OK' class="bluebtn">
+										</div>
+										<div id='visible_container' style="clear:both; margin-top: 10px;">
+											<input type='button' id='visible' value='Visible spectrum' class='bluebtn'><span style="width: 20px">
+											<input type='button' id='all_spectrum' value='All spectrum' class='bluebtn'>
 										</div>
 
 									</div>
@@ -29,8 +32,7 @@
 										<input type='button' value='x5' class="bluebtn">
 									</div>
 									<div>
-									<input type='button' id='filter' value='{#$l10n.Apply#}' class="bluebtn"><br><br>
-									<input type='button' id='barchart' value='{#$l10n.BarChart#}' class="bluebtn {#if $auto==true#}active{#/if#}">
+										<input type='button' id='barchart' value='{#$l10n.BarChart#}' class="bluebtn {#if $auto==true#}active{#/if#}">
 									</div>
 								</div>
 							</div>
