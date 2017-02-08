@@ -39,8 +39,7 @@ function init_ruler(zoom, min, max, n) {
 }
 function fadecolor(color, normal_intensity, logbase)
 {
-    if (logbase == $("#range_intensity input").attr("max")/20)
-        return color;
+    if (logbase == max_logbase) return color;
 
     var regex = /rgb\((\d+),(\d+),(\d+)\)/;
     color = color.match(regex);
@@ -54,10 +53,11 @@ function fadecolor(color, normal_intensity, logbase)
 function definelength(normal_intensity, logbase)
 {
     var maxlength = 120;
-    if (logbase == $("#range_intensity input").attr("max")/20)
-        return 0;
-     return maxlength - Math.log2(1+ (Math.pow(2, logbase) - 1) * normal_intensity)/logbase * maxlength;
+    if (logbase == max_logbase) return 0;
+    return maxlength - Math.log2(1+ (Math.pow(2, logbase) - 1) * normal_intensity)/logbase * maxlength;
 }
+
+var max_logbase = $("#range_intensity input").attr("max")/20;
 
 function init(waves, n) {
     // console.log(waves);
@@ -277,39 +277,39 @@ $(document).on('click', '#all_spectrum', function() {
 
 $(document).on('click', '#barchart', function() {
     $(this).toggleClass('active');
-    var value = $("#range_intensity input").val();
-    for (var k = 1; k < lines_intensity.length; k++) {
-        if ($('#barchart').hasClass('active')) {
+    var barchart = $('#barchart').hasClass('active');
+    for (var k = 1; k < lines_intensity.length; k++) {//сброс длины палочек или затемнения при смене типа отображения
+        if (barchart) {
             $("#" + k).attr("stroke", fadecolor($("#" + k).attr("ocolor"), $("#" + k).attr("i") / max_intensity, $("#range_intensity input").attr("max") / 20));
-            $("#" + k).attr("y1", definelength($("#" + k).attr("i") / max_intensity, value / 20));
-            $("#full-" + k).attr("stroke", fadecolor($("#" + k).attr("ocolor"), $("#" + k).attr("i") / max_intensity, $("#range_intensity input").attr("max") / 20));
-            $("#full-" + k).attr("y1", definelength($("#" + k).attr("i") / max_intensity, value / 20));
+            //$("#full-" + k).attr("stroke", fadecolor($("#" + k).attr("ocolor"), $("#" + k).attr("i") / max_intensity, $("#range_intensity input").attr("max") / 20));
         }
         else {
-            $("#" + k).attr("stroke", fadecolor($("#" + k).attr("ocolor"), $("#" + k).attr("i") / max_intensity, value / 20));
             $("#" + k).attr("y1", definelength($("#" + k).attr("i") / max_intensity, $("#range_intensity input").attr("max") / 20));
-            $("#full-" + k).attr("stroke", fadecolor($("#" + k).attr("ocolor"), $("#" + k).attr("i") / max_intensity, value / 20));
-            $("#full-" + k).attr("y1", definelength($("#" + k).attr("i") / max_intensity, $("#range_intensity input").attr("max") / 20));
+            //$("#full-" + k).attr("y1", definelength($("#" + k).attr("i") / max_intensity, $("#range_intensity input").attr("max") / 20));
         }
     }
+    rule_intensity();
 });
 
 $(document).ready(function() {
-    function rule_intensity(value){
+    function rule_intensity(){
+        var barchart = $('#barchart').hasClass('active');
+        var value = $("#range_intensity input").val();
         for (var k = 1; k < lines_intensity.length; k++) {
-            if ($('#barchart').hasClass('active')) {
-                $("#" + k).attr("y1", definelength($("#" + k).attr("i") / max_intensity, value / 20));
-                $("#full-" + k).attr("y1", definelength($("#" + k).attr("i") / max_intensity, value / 20));
+            if (barchart) {
+                let y1 = definelength($("#" + k).attr("i") / max_intensity, value / 20);
+                $("#" + k).attr("y1", y1);
+                $("#full-" + k).attr("y1", y1);
             }
             else {
-                $("#" + k).attr("stroke", fadecolor($("#" + k).attr("ocolor"), $("#" + k).attr("i") / max_intensity, value / 20));
-                $("#full-" + k).attr("stroke", fadecolor($("#" + k).attr("ocolor"), $("#" + k).attr("i") / max_intensity, value / 20));
+                let color = fadecolor($("#" + k).attr("ocolor"), $("#" + k).attr("i") / max_intensity, value / 20);
+                $("#" + k).attr("stroke", color);
+                $("#full-" + k).attr("stroke", color);
             }
 
         };
     }
     $(document).on("change mousemove", '#range_intensity',function(){
-        value = $("#range_intensity input").val();
-        rule_intensity(value)
+        rule_intensity();
     });
 });
