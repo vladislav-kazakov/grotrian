@@ -37,7 +37,7 @@
 								</div>
 							</div>
 							<div style="margin: auto; margin-top: 10px; width: 520px;">
-								<div id="info_intensity"><b>{#$l10n.Sensibility#}</b></div><div id="range_intensity"><input type="range" min=10 max=400 value=160 style="width: 390px;"></div>
+								<div id="info_intensity"><b>{#$l10n.Sensibility#}</b></div><div id="range_intensity"><input type="range" min=10 max=400 value=160 style="width: 380px;"></div>
 							</div>
 							<div id='line_info'>
 							</div>
