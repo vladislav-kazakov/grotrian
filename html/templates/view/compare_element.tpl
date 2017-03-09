@@ -39,7 +39,8 @@
 							<input type='button' value='x5' class="bluebtn">
 						</div>
 						<div>
-							<input type='button' id='barchart' value='{#$l10n.BarChart#}' class="bluebtn {#if $auto==true#}active{#/if#}">
+							<input type='button' id='barchart' value='{#$l10n.BarChart#}' class="bluebtn {#if $auto==true#}active{#/if#}"><br><br>
+							<div id="series"></div>
 						</div>
 					</div>
 				</div>

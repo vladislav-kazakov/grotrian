@@ -28,11 +28,14 @@ function init_ruler(zoom, min, max, n) {
 
     rulerMin = Math.ceil(min/100)*100; // round minimum to hundreds in less side
     for (var j = 0; j < max - min; j+= 100) {
-        var i = j + rulerMin-min; // i - pixels on ruler
-        var rulerValue =  (i+min) * 10 / zoom;
-        ruler += "<line x1='" + (!i ? i + 2 : (i == max ? i -2 : i)) + "' y1='0' x2='" + (!i ? i + 2 : (i == max ? i -2 : i))
-               + "' y2='30' stroke-width='2' stroke='rgb(0, 0, 0)'></line>";
-        if (j <= max - min - 100) ruler += "<text x='" + (i == max ? i - 45 : i + 5 - 2) + "' y='26' fill='black'>" + rulerValue + "</text>";
+        let i = j + rulerMin-min; // i - pixels on ruler
+        let rulerValue =  (i+min) * 10 / zoom;
+        let line_x = !i ? i + 2 : (i == max ? i - 2 : i);
+        ruler += "<line x1='" + line_x + "' y1='0' x2='" + line_x + "' y2='30' stroke-width='2' stroke='rgb(0, 0, 0)'></line>";
+        if (j <= max - min - 100) {
+            let text_x = i == max ? i - 45 : i + 5 - 2;
+            ruler += "<text x='" + text_x + "' y='26' fill='black'>" + rulerValue + "</text>";
+        }
     }
 
     $wrapper.append(ruler);
@@ -40,7 +43,7 @@ function init_ruler(zoom, min, max, n) {
 function fadecolor(color, normal_intensity, logbase)
 {
     if (logbase == max_logbase) return color;
-    alfa = Math.log2(1+ (Math.pow(2, logbase)-1) * normal_intensity)/logbase;
+    alfa = Math.round(Math.log2(1+ (Math.pow(2, logbase)-1) * normal_intensity)/logbase*1000)/1000;
     return "rgba" + color.substr(3, color.length-3-1) + "," + alfa + ")";
 }
 function definelength(normal_intensity, logbase)
@@ -49,20 +52,81 @@ function definelength(normal_intensity, logbase)
     if (logbase == max_logbase) return 0;
     return maxlength - Math.log2(1+ (Math.pow(2, logbase) - 1) * normal_intensity)/logbase * maxlength;
 }
+function init_serie_selector(element)
+{
+    if (element == "H" || element == "D" || element == "T")
+    {
+        var series = new Array();
+        for (var i = 1; i < lines_data.length; i++) {
+            let llc = lines_data[i]['lower-level-config-original'];
+            if (series.indexOf(llc[0]) == -1) series.push(llc[0]);
+        }
+        series.sort();
+        $('#series').empty();
+        $('<select>', {'id': 'serieSelector', 'change': function(event){selectserie(element, event.target.value)}}).appendTo($('#series'));
+        $('<option>', {'value': 'all', 'text': 'All lines'}).appendTo($('#serieSelector'));
+        for (var j = 0; j < series.length; j++) {
+            let text = series[j];
+            switch (series[j]){
+                case "1": text = "Lyman series (n' = 1)"; break;
+                case "2": text = "Balmer series (n' = 2)"; break;
+                case "3": text = "Paschen series (n' = 3)"; break;
+                case "4": text = "Brackett series (n' = 4)"; break;
+                case "5": text = "Pfund series (n' = 5)"; break;
+                case "6": text = "Humphreys series (n' = 6)"; break;
+                default: text = "n' = " + series[j];
+            }
+            $('<option>', {'value': series[j], 'text': text}).appendTo($('#serieSelector'));
+        }
+    }
 
+}
+function selectserie(element, serie)
+{
+    for (var k = 1; k < lines_data.length; k++) {//сброс длины палочек или затемнения при смене типа отображения
+        document.getElementById(k).style.display = "";
+        document.getElementById("full-" + k).style.display="";
+    }
+    //rule_intensity();
+
+    if ((element == "H" || element == "D" || element == "T")&& serie!='all')
+    {
+        for (var k = 1; k < lines_data.length; k++) {
+            let llc = lines_data[k]['lower-level-config-original'];
+            if (llc[0] != serie) {
+                document.getElementById(k).style.display = "none";
+                document.getElementById("full-" + k).style.display = "none";
+            }
+        }
+    }
+}
 function rule_intensity(){
+    if (max_intensity == 0) return;
     var barchart = $('#barchart').hasClass('active');
     var intensity_slider_value = $("#range_intensity input").val();
     for (var k = 1; k < lines_data.length; k++) {
         if (barchart) {
-            let y1 = definelength(lines_data[k]['i'] / max_intensity, intensity_slider_value / intensity_slider_scale);
-            document.getElementById(k).attributes["y1"].value = y1;
-            document.getElementById("full-" + k).attributes["y1"].value = y1;
+            if (max_intensity == 0){
+                document.getElementById(k).attributes["y1"].value = 0;
+                document.getElementById("full-" + k).attributes["y1"].value = 0;
+            }
+            else {
+                let y1 = definelength(lines_data[k]['i'] / max_intensity, intensity_slider_value / intensity_slider_scale);
+                //console.log(lines_data[k].l +": "+ y1);
+                document.getElementById(k).attributes["y1"].value = y1;
+                document.getElementById("full-" + k).attributes["y1"].value = y1;
+            }
         }
         else {
-            let color = fadecolor(lines_data[k]['color'], lines_data[k]['i'] / max_intensity, intensity_slider_value / intensity_slider_scale);
-            document.getElementById(k).attributes["stroke"].value = color;
-            document.getElementById("full-" + k).attributes["stroke"].value = color;
+            if (max_intensity == 0){
+                document.getElementById(k).attributes["stroke"].value = lines_data[k].color;
+                document.getElementById("full-" + k).attributes["stroke"].value = lines_data[k].color;
+            }
+            else {
+                let color = fadecolor(lines_data[k]['color'], lines_data[k]['i'] / max_intensity, intensity_slider_value / intensity_slider_scale);
+                document.getElementById(k).attributes["stroke"].value = color;
+                document.getElementById("full-" + k).attributes["stroke"].value = color;
+            }
         }
     }
 }
@@ -74,7 +138,7 @@ var default_logbase = 8;
 
 var lines_data;
 
-function init(waves, n) {
+function init(waves, element, n) {
     if (Object.keys(waves).length == 0) return;
     var n = n ? '_' + n : '',
     zoom = get_zoom(),
@@ -101,15 +165,14 @@ function init(waves, n) {
 
     if (is_experimental)
     	var perc = Math.max.apply(null, Object.keys(waves).map(function(key) { return waves[key];})) / 100;
-    id = 1;
 
-    var _lines_intensity = new Array();
-    var _max_intensity = 0;
+    id = 1;
 
     var intensity_slider_value = $("#range_intensity input").val();
 
     if (n == '')
     {
+        max_intensity = 0;
         for (var key in waves) {
             temp = key;
             re = /\s*-\s*/
@@ -117,8 +180,8 @@ function init(waves, n) {
             l = Number(split[0]);
             i = Number(split[1]);
             if (l > min && l < max) {
-                if (i > _max_intensity)
-                    _max_intensity = i;
+                if (i > max_intensity)
+                    max_intensity = i;
                 lines_count++;
             }
         }
@@ -129,6 +192,7 @@ function init(waves, n) {
             var split = temp.split(re);
             l = Number(split[0]);
             var i = Number(split[1]);
+            var lower_level_config_original = split[2];
             var lower_level_config = split[2].replace(/@\{([^\}\{]*)\}/gi,"<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi,"<sub>$1</sub>").replace(/\s/gi,"");
             var lower_level_term = split[3];
             var upper_level_config = split[4].replace(/@\{([^\}\{]*)\}/gi,"<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi,"<sub>$1</sub>").replace(/\s/gi,"");
@@ -138,14 +202,15 @@ function init(waves, n) {
                 var y1 = 0;
                 var newcolor = waves[key];
                 if (barchart) {
-                    if (_max_intensity > 0) y1 = definelength(i/ _max_intensity, intensity_slider_value / intensity_slider_scale);
+                    if (max_intensity > 0) y1 = definelength(i/ max_intensity, intensity_slider_value / intensity_slider_scale);
                 }
                 else
                 {
-                    if (_max_intensity > 0) newcolor = fadecolor(waves[key], i/ _max_intensity, intensity_slider_value / intensity_slider_scale);
+                    if (max_intensity > 0) newcolor = fadecolor(waves[key], i/ max_intensity, intensity_slider_value / intensity_slider_scale);
                 }
 
                 lines_data[id] = new Object();
+                lines_data[id]['lower-level-config-original'] = lower_level_config_original;
                 lines_data[id]['lower-level-config'] = lower_level_config.replace(/'/g, "&#39;");
                 lines_data[id]['upper-level-config'] = upper_level_config.replace(/'/g, "&#39;");
                 lines_data[id]['lower-level-term'] = lower_level_term.replace(/'/g, "&#39;");
@@ -153,46 +218,28 @@ function init(waves, n) {
                 lines_data[id]['l'] = l;
                 lines_data[id]['i'] = i;
                 lines_data[id]['color'] = waves[key];
+                let x = Math.round(((l - min)/ 10 * zoom)*100)/100;
+                let map_x = Math.round(((l - min) / 10 / map_now)*100)/100;
+                //console.log(Math.round(((l - min)/ 10 * zoom)*100)/100);
 
-                str += "<line id='" + id + "' x1='" + ((l - min)/ 10 * zoom) + "' y1='" + y1 + "' x2='" + ((l-min) / 10 * zoom) +
+                str += "<line id='" + id + "' x1='" + x + "' y1='" + y1 + "' x2='" + x +
                     "' y2='120' stroke-width='1' stroke='" + newcolor + "'></line>";
-                map_str +="<line id='full-" + id + "' x1='" + ((l - min) / 10 / map_now) + "' y1='" + y1 + "' x2='" + ((l-min) / 10 / map_now) +
+                map_str +="<line id='full-" + id + "' x1='" + map_x + "' y1='" + y1 + "' x2='" + map_x +
                     "' y2='120' stroke-width='1' stroke='" + newcolor + "'></line>";
-                _lines_intensity[id] = i;
 
                 id++;
-                if (i > _max_intensity)
-                    _max_intensity = i;
-                // $("#info_intensity #value").attr("max",max_intensity);
-                // $("#info_intensity #value").val(max_intensity);
             }
         }
-        lines_intensity = _lines_intensity;
-        max_intensity = _max_intensity;
     }
     else{
-        for (var key in waves) {
-            l = Number(key) *10;
-            i = Number(waves[key]);
-            if (l > min && l < max) {
-                if (i > _max_intensity)
-                    _max_intensity = i;
-            }
-        }
         for (var key in waves) {
             l = Number(key) * 10;
             i = Number(waves[key]);
             if (l > min && l < max) {
                 str += ' ' + ((l-min)/10 * zoom) + ',' + (121 - (1.2 * waves[key] / perc));
                 map_str += ' ' + ((l-min)/10 / map_now ) + ',' + (120 - (1.2 * waves[key] / perc));
-                _lines_intensity[id] = i;
-                id++;
-                if (i > _max_intensity)
-                    _max_intensity = i;
             }
         }
-        lines_intensity_2 = _lines_intensity;
-        max_intensity_2 = _max_intensity;
     }
 
     if (!n) {
@@ -230,7 +277,7 @@ function init(waves, n) {
         );
 
     $wrapper.scroll(function() {
-        $map_now.css('left', this.scrollLeft / map_now / zoom + 'px');
+        $map_now.css('left', Math.round(this.scrollLeft / map_now / zoom * 100)/100 + 'px');
     });
 
     var $svg = $('#svg' + n);
@@ -256,6 +303,8 @@ function init(waves, n) {
         $(this).css('cursor', 'default');
         isDrag = 0;
     });
+
+    init_serie_selector(element);
 
 }
 
@@ -294,14 +343,26 @@ $(document).on('click', '#barchart', function() {
     var barchart = $('#barchart').hasClass('active');
     for (var k = 1; k < lines_data.length; k++) {//сброс длины палочек или затемнения при смене типа отображения
         if (barchart) {
-            var color = fadecolor(lines_data[k]['color'], lines_data[k]['i'] / max_intensity, max_logbase);
-            document.getElementById(k).attributes["stroke"].value = color;
-            document.getElementById("full-" + k).attributes["stroke"].value = color;
+            if (max_intensity == 0){
+                document.getElementById(k).attributes["stroke"].value = lines_data[k].color;
+                document.getElementById("full-" + k).attributes["stroke"].value = lines_data[k].color;
+            }
+            else {
+                var color = fadecolor(lines_data[k]['color'], lines_data[k]['i'] / max_intensity, max_logbase);
+                document.getElementById(k).attributes["stroke"].value = color;
+                document.getElementById("full-" + k).attributes["stroke"].value = color;
+            }
         }
         else {
-            var y1 = definelength(lines_data[k]['i'] / max_intensity, max_logbase);
-            document.getElementById(k).attributes["y1"].value = y1;
-            document.getElementById("full-" + k).attributes["y1"].value = y1;
+            if (max_intensity == 0){
+                document.getElementById(k).attributes["y1"].value = 0;
+                document.getElementById("full-" + k).attributes["y1"].value = 0;
+            }
+            else {
+                var y1 = definelength(lines_data[k]['i'] / max_intensity, max_logbase);
+                document.getElementById(k).attributes["y1"].value = y1;
+                document.getElementById("full-" + k).attributes["y1"].value = y1;
+            }
         }
     }
     rule_intensity();

@@ -39,19 +39,18 @@
 	<script type="text/javascript">
 		var spectr_list, spectr_list_uploaded;
 		function init_all() {
-			init(spectr_list);
+			var element_name = "{#$atom_name#}";
+			init(spectr_list, element_name);
 			{# if $pagetype == "compare" #}
-			if (spectr_list_uploaded) init(spectr_list_uploaded, 2);
+			if (spectr_list_uploaded) init(spectr_list_uploaded, element_name, 2);
 			{#/if#}
 		}
 		$(document).ready(function() {						
 			spectr_list={#$spectrum_json#};
-			init(spectr_list);
 			{# if $pagetype == "compare" #}
 			spectr_list_uploaded = {#$spectrum_json_uploaded#};
-			if (spectr_list_uploaded) init(spectr_list_uploaded, 2);
 			{#/if#}
-
+			init_all();
 			$(document).on('click', '#filter', function() {
 				init_all();
 			});
