@@ -79,7 +79,15 @@ function init_serie_selector(element)
             $('<option>', {'value': series[j], 'text': text}).appendTo($('#serieSelector'));
         }
     }
-
+    if (element == "Na I" || element == "Li I")
+    {
+        $('<select>', {'id': 'serieSelector', 'change': function(event){selectserie(element, event.target.value)}}).appendTo($('#series'));
+        $('<option>', {'value': 'all', 'text': 'All lines'}).appendTo($('#serieSelector'));
+        $('<option>', {'value': 'sp', 'text': "Principal series (ns - n'p)"}).appendTo($('#serieSelector'));
+        $('<option>', {'value': 'ps', 'text': "Sharp series (np - n's)"}).appendTo($('#serieSelector'));
+        $('<option>', {'value': 'pd', 'text': "Diffuse series (np - n'd)"}).appendTo($('#serieSelector'));
+        $('<option>', {'value': 'df', 'text': "Fundamental series (nd - n'f)"}).appendTo($('#serieSelector'));
+    }
 }
 function selectserie(element, serie)
 {
@@ -94,6 +102,18 @@ function selectserie(element, serie)
         for (var k = 1; k < lines_data.length; k++) {
             let llc = lines_data[k]['lower-level-config-original'];
             if (llc[0] != serie) {
+                document.getElementById(k).style.display = "none";
+                document.getElementById("full-" + k).style.display = "none";
+            }
+        }
+    }
+    if (element == "Na I" || element == "Li I") {
+        for (var k = 1; k < lines_data.length; k++) {
+            let llc = lines_data[k]['lower-level-config-original'];
+            let ulc = lines_data[k]['upper-level-config-original'];
+            let ll = llc[llc.search( /[a-z][^a-z@]*$/ )];
+            let ul = ulc[ulc.search( /[a-z][^a-z@]*$/ )];
+            if (ll != serie[0] || ul != serie[1]) {
                 document.getElementById(k).style.display = "none";
                 document.getElementById("full-" + k).style.display = "none";
             }
@@ -195,6 +215,7 @@ function init(waves, element, n) {
             var lower_level_config_original = split[2];
             var lower_level_config = split[2].replace(/@\{([^\}\{]*)\}/gi,"<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi,"<sub>$1</sub>").replace(/\s/gi,"");
             var lower_level_term = split[3];
+            var upper_level_config_original = split[4];
             var upper_level_config = split[4].replace(/@\{([^\}\{]*)\}/gi,"<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi,"<sub>$1</sub>").replace(/\s/gi,"");
             var upper_level_term = split[5];
 
@@ -212,6 +233,7 @@ function init(waves, element, n) {
                 lines_data[id] = new Object();
                 lines_data[id]['lower-level-config-original'] = lower_level_config_original;
                 lines_data[id]['lower-level-config'] = lower_level_config.replace(/'/g, "&#39;");
+                lines_data[id]['upper-level-config-original'] = upper_level_config_original;
                 lines_data[id]['upper-level-config'] = upper_level_config.replace(/'/g, "&#39;");
                 lines_data[id]['lower-level-term'] = lower_level_term.replace(/'/g, "&#39;");
                 lines_data[id]['upper-level-term'] = upper_level_term.replace(/'/g, "&#39;");

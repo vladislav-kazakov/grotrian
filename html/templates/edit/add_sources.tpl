@@ -1,4 +1,4 @@
-<script type="text/javascript" charset="windows-1251" src="/js/bibliography.js" ></script>
+<script type="text/javascript" charset="windows-1251" src="/js/bibliography.js?v2" ></script>
 <script type="text/javascript" charset="windows-1251">
 			//<![CDATA[	
 /*				$(document).ready(function() {

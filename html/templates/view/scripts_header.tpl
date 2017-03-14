@@ -30,10 +30,10 @@
 </script>
 
 	{# if $bodyclass=="spectrum" || $bodyclass=="compare"#}
-	<link rel="stylesheet" type="text/css" href="/css/spectrum2.css" />
-	<script type="text/javascript" src="/js/spectrum2/init.js"></script>
+	<link rel="stylesheet" type="text/css" href="/css/spectrum2.css?v2" />
+	<script type="text/javascript" src="/js/spectrum2/init.js?v2"></script>
 	{# if $pagetype == "compare" #}
-	<script type="text/javascript" src="/js/spectrum2/compare.js"></script>
+	<script type="text/javascript" src="/js/spectrum2/compare.js?v2"></script>
 	{#/if#}
 	
 	<script type="text/javascript">
@@ -69,11 +69,11 @@
 	<script type="text/javascript" charset="windows-1251">var locale="{#$locale#}";</script>
 	
 	{# if $bodyclass=="levels" #}
-	<script type="text/javascript" charset="windows-1251" src="/js/levels.js?v2"></script>
+	<script type="text/javascript" charset="windows-1251" src="/js/levels.js?v3"></script>
 	{# /if #}
 
 	{# if $bodyclass=="transitions" #}
-	<script type="text/javascript" src="/js/transitions.js"></script>
+	<script type="text/javascript" src="/js/transitions.js?v2"></script>
 	{#/if#}
 
 	<script type="text/javascript" charset="windows-1251">					
@@ -99,9 +99,9 @@
 
 
 	{# if $bodyclass=="bibliography" #}
-	<script type="text/javascript" src="/js/bibliography.js"></script>
+	<script type="text/javascript" src="/js/bibliography.js?v2"></script>
 	{#/if#}
 
 	{# if $bodyclass=="periodictable" #}
-	<script type="text/javascript" src="/js/periodic_table.js"></script>
+	<script type="text/javascript" src="/js/periodic_table.js?v2"></script>
 	{#/if#}

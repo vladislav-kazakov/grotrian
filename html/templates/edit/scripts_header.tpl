@@ -27,14 +27,14 @@
 			{# if $bodyclass=="element" #}
 				<script type="text/javascript" src="/js/ckeditor/ckeditor.js"></script>	
 				<script type="text/javascript" src="/js/ckeditor/adapters/jquery.js"></script>
-				<script type="text/javascript" charset="windows-1251" src="/js/edit_element.js" ></script>						
+				<script type="text/javascript" charset="windows-1251" src="/js/edit_element.js?v2" ></script>
 			{#/if#}
 			
 	{# if $bodyclass=="spectrum"#}
-	<link rel="stylesheet" type="text/css" href="/css/spectrum2.css" />
-	<script type="text/javascript" src="/js/spectrum2/init.js"></script>
+	<link rel="stylesheet" type="text/css" href="/css/spectrum2.css?v2" />
+	<script type="text/javascript" src="/js/spectrum2/init.js?v2"></script>
 	{# if $pagetype == "compare" #}
-	<script type="text/javascript" src="/js/spectrum2/compare.js"></script>
+	<script type="text/javascript" src="/js/spectrum2/compare.js?v2"></script>
 	{#/if#}
 
 	<script type="text/javascript">
@@ -91,14 +91,14 @@
 				
 				
   				{# if $bodyclass=="levels" #}
-  				<script type="text/javascript" src="/js/edit_levels.js?v2"></script>
-  				<script type="text/javascript" src="/js/manage_source.js"></script>	
+  				<script type="text/javascript" src="/js/edit_levels.js?v3"></script>
+  				<script type="text/javascript" src="/js/manage_source.js?v2"></script>
 				{# /if #}
   				
   				
 				{# if $bodyclass=="transitions" #}
-  				<script type="text/javascript" src="/js/edit_transitions.js"></script>
-  				<script type="text/javascript" src="/js/manage_source.js"></script>
+  				<script type="text/javascript" src="/js/edit_transitions.js?v2"></script>
+  				<script type="text/javascript" src="/js/manage_source.js?v2"></script>
 				{#/if#}
 				
 				{# if $bodyclass=="bibliography" #}
@@ -138,8 +138,8 @@
 			}
 		}
 				</script>
-				<script type="text/javascript" src="/js/edit_bibliography.js"></script>
-				<script type="text/javascript" src="/js/manage_source.js"></script>	
+				<script type="text/javascript" src="/js/edit_bibliography.js?v2"></script>
+				<script type="text/javascript" src="/js/manage_source.js?v2"></script>
 			
 				{#/if#}
 								 					
@@ -150,5 +150,5 @@
 		{#/if#}
 
 		{# if $bodyclass=="periodictable" #}
-		<script type="text/javascript" src="/js/periodic_table.js"></script>
+		<script type="text/javascript" src="/js/periodic_table.js?v2"></script>
 		{#/if#}
