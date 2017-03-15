@@ -28,12 +28,12 @@ function init_ruler(zoom, min, max, n) {
 
     rulerMin = Math.ceil(min/100)*100; // round minimum to hundreds in less side
     for (var j = 0; j < max - min; j+= 100) {
-        let i = j + rulerMin-min; // i - pixels on ruler
-        let rulerValue =  (i+min) * 10 / zoom;
-        let line_x = !i ? i + 2 : (i == max ? i - 2 : i);
+        var i = j + rulerMin-min; // i - pixels on ruler
+        var rulerValue =  (i+min) * 10 / zoom;
+        var line_x = !i ? i + 2 : (i == max ? i - 2 : i);
         ruler += "<line x1='" + line_x + "' y1='0' x2='" + line_x + "' y2='30' stroke-width='2' stroke='rgb(0, 0, 0)'></line>";
         if (j <= max - min - 100) {
-            let text_x = i == max ? i - 45 : i + 5 - 2;
+            var text_x = i == max ? i - 45 : i + 5 - 2;
             ruler += "<text x='" + text_x + "' y='26' fill='black'>" + rulerValue + "</text>";
         }
     }
@@ -43,14 +43,14 @@ function init_ruler(zoom, min, max, n) {
 function fadecolor(color, normal_intensity, logbase)
 {
     if (logbase == max_logbase) return color;
-    alfa = Math.round(Math.log2(1+ (Math.pow(2, logbase)-1) * normal_intensity)/logbase*1000)/1000;
+    alfa = Math.round(Math.log(1+ (Math.pow(2, logbase)-1) * normal_intensity)/Math.log(2)/logbase*1000)/1000;
     return "rgba" + color.substr(3, color.length-3-1) + "," + alfa + ")";
 }
 function definelength(normal_intensity, logbase)
 {
     var maxlength = 120;
     if (logbase == max_logbase) return 0;
-    return maxlength - Math.log2(1+ (Math.pow(2, logbase) - 1) * normal_intensity)/logbase * maxlength;
+    return maxlength - Math.log(1+ (Math.pow(2, logbase) - 1) * normal_intensity)/Math.log(2)/logbase * maxlength;
 }
 function init_serie_selector(element)
 {
@@ -58,7 +58,7 @@ function init_serie_selector(element)
     {
         var series = new Array();
         for (var i = 1; i < lines_data.length; i++) {
-            let llc = lines_data[i]['lower-level-config-original'];
+            var llc = lines_data[i]['lower-level-config-original'];
             if (series.indexOf(llc[0]) == -1) series.push(llc[0]);
         }
         series.sort();
@@ -66,7 +66,7 @@ function init_serie_selector(element)
         $('<select>', {'id': 'serieSelector', 'change': function(event){selectserie(element, event.target.value)}}).appendTo($('#series'));
         $('<option>', {'value': 'all', 'text': 'All lines'}).appendTo($('#serieSelector'));
         for (var j = 0; j < series.length; j++) {
-            let text = series[j];
+            var text = series[j];
             switch (series[j]){
                 case "1": text = "Lyman series (n' = 1)"; break;
                 case "2": text = "Balmer series (n' = 2)"; break;
@@ -100,7 +100,7 @@ function selectserie(element, serie)
     if ((element == "H" || element == "D" || element == "T")&& serie!='all')
     {
         for (var k = 1; k < lines_data.length; k++) {
-            let llc = lines_data[k]['lower-level-config-original'];
+            var llc = lines_data[k]['lower-level-config-original'];
             if (llc[0] != serie) {
                 document.getElementById(k).style.display = "none";
                 document.getElementById("full-" + k).style.display = "none";
@@ -109,10 +109,10 @@ function selectserie(element, serie)
     }
     if (element == "Na I" || element == "Li I") {
         for (var k = 1; k < lines_data.length; k++) {
-            let llc = lines_data[k]['lower-level-config-original'];
-            let ulc = lines_data[k]['upper-level-config-original'];
-            let ll = llc[llc.search( /[a-z][^a-z@]*$/ )];
-            let ul = ulc[ulc.search( /[a-z][^a-z@]*$/ )];
+            var llc = lines_data[k]['lower-level-config-original'];
+            var ulc = lines_data[k]['upper-level-config-original'];
+            var ll = llc[llc.search( /[a-z][^a-z@]*$/ )];
+            var ul = ulc[ulc.search( /[a-z][^a-z@]*$/ )];
             if (ll != serie[0] || ul != serie[1]) {
                 document.getElementById(k).style.display = "none";
                 document.getElementById("full-" + k).style.display = "none";
@@ -131,7 +131,7 @@ function rule_intensity(){
                 document.getElementById("full-" + k).attributes["y1"].value = 0;
             }
             else {
-                let y1 = definelength(lines_data[k]['i'] / max_intensity, intensity_slider_value / intensity_slider_scale);
+                var y1 = definelength(lines_data[k]['i'] / max_intensity, intensity_slider_value / intensity_slider_scale);
                 //console.log(lines_data[k].l +": "+ y1);
                 document.getElementById(k).attributes["y1"].value = y1;
                 document.getElementById("full-" + k).attributes["y1"].value = y1;
@@ -143,7 +143,7 @@ function rule_intensity(){
                 document.getElementById("full-" + k).attributes["stroke"].value = lines_data[k].color;
             }
             else {
-                let color = fadecolor(lines_data[k]['color'], lines_data[k]['i'] / max_intensity, intensity_slider_value / intensity_slider_scale);
+                var color = fadecolor(lines_data[k]['color'], lines_data[k]['i'] / max_intensity, intensity_slider_value / intensity_slider_scale);
                 document.getElementById(k).attributes["stroke"].value = color;
                 document.getElementById("full-" + k).attributes["stroke"].value = color;
             }
@@ -240,8 +240,8 @@ function init(waves, element, n) {
                 lines_data[id]['l'] = l;
                 lines_data[id]['i'] = i;
                 lines_data[id]['color'] = waves[key];
-                let x = Math.round(((l - min)/ 10 * zoom)*100)/100;
-                let map_x = Math.round(((l - min) / 10 / map_now)*100)/100;
+                var x = Math.round(((l - min)/ 10 * zoom)*100)/100;
+                var map_x = Math.round(((l - min) / 10 / map_now)*100)/100;
                 //console.log(Math.round(((l - min)/ 10 * zoom)*100)/100);
 
                 str += "<line id='" + id + "' x1='" + x + "' y1='" + y1 + "' x2='" + x +

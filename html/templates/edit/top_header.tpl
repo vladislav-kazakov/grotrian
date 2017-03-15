@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=Windows-1251" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 			<title>{#$title#}</title>
 			<link rel="shortcut icon" type="image/x-icon" href="/images/icon_blue.ico" />
 			<link rel="stylesheet" type="text/css" href="/css/reset.css" />
