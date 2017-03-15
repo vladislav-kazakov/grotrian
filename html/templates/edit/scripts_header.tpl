@@ -32,7 +32,7 @@
 			
 	{# if $bodyclass=="spectrum"#}
 	<link rel="stylesheet" type="text/css" href="/css/spectrum2.css?v2" />
-	<script type="text/javascript" src="/js/spectrum2/init.js?v2"></script>
+	<script type="text/javascript" src="/js/spectrum2/init.js?v3"></script>
 	{# if $pagetype == "compare" #}
 	<script type="text/javascript" src="/js/spectrum2/compare.js?v2"></script>
 	{#/if#}

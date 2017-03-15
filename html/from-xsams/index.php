@@ -58,7 +58,7 @@
             var waves = <?=$waves?>;
         </script>
         <script src='jquery.js'></script>
-        <script src='init.js?v2'></script>
+        <script src='init.js?v3'></script>
         <?php
             }
         ?>

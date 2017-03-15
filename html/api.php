@@ -56,7 +56,7 @@
         </div>
 
         <script src='js/jquery-1.11.2.min.js'></script>
-        <script src='js/spectrum2/init.js?v2'></script>
+        <script src='js/spectrum2/init.js?v3'></script>
         <script>
 		$(document).ready(function() {
 		    var xsams = <?=$xsams?>;
