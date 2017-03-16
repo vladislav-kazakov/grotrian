@@ -170,8 +170,53 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
 				if (isset($_REQUEST['standard_file'])) {
 					$file = $_REQUEST['standard_file'];
 
-					if ($file == 1)
-						$_FILES['file']['tmp_name'] = 'files/hghe500.csv';
+					switch ($file) {
+						case 1:
+							$_FILES['file']['tmp_name'] = 'files/hghe500.csv';
+							break;
+						case 2:
+							$_FILES['file']['tmp_name'] = 'files/Cu-Zn-hollow cathode-300msec.csv';
+							break;
+						case 3:
+							$_FILES['file']['tmp_name'] = 'files/DDS030-170msec.csv';
+							break;
+						case 4:
+							$_FILES['file']['tmp_name'] = 'files/DDS030-36msec.csv';
+							break;
+						case 5:
+							$_FILES['file']['tmp_name'] = 'files/DDS030-470msec.csv';
+							break;
+						case 6:
+							$_FILES['file']['tmp_name'] = 'files/DVS25-1000msec.csv';
+							break;
+						case 7:
+							$_FILES['file']['tmp_name'] = 'files/DVS25-245msec.csv';
+							break;
+						case 8:
+							$_FILES['file']['tmp_name'] = 'files/DVS25-500msec.csv';
+							break;
+						case 9:
+							$_FILES['file']['tmp_name'] = 'files/Hg-hollowcathode-21msec.csv';
+							break;
+						case 10:
+							$_FILES['file']['tmp_name'] = 'files/Home-125msec.csv';
+							break;
+						case 11:
+							$_FILES['file']['tmp_name'] = 'files/Home-25msec.csv';
+							break;
+						case 12:
+							$_FILES['file']['tmp_name'] = 'files/Na-1700msec.csv';
+							break;
+						case 13:
+							$_FILES['file']['tmp_name'] = 'files/Na-170msec.csv';
+							break;
+						case 14:
+							$_FILES['file']['tmp_name'] = 'files/Ta-hollow cathode-62msec.csv';
+							break;
+						case 15:
+							$_FILES['file']['tmp_name'] = 'files/Ta-Kortek-hollowcathode-90msec.csv';
+							break;
+					}
 
 				}  
 
@@ -182,7 +227,7 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
 			$level_list->LoadBase($element_id);
 			$levels_array = $level_list->GetItemsArray();
 			$smarty->assign('base_level', $levels_array[0]['CONFIG']);
-			
+
 			$smarty->assign('spectrum_json_uploaded', $spectrum_json_uploaded);  
 
     		$page_type="compare_element.tpl";

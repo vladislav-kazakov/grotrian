@@ -119,6 +119,12 @@ $dictionary = array (
 	'No_transitions'=>array('ru'=>'Невозможно построить диаграмму: для данного элемента пока не введено ни одного перехода','en'=>"Chart can't be built: no transitions for this element yet"),
 	'Load_file'=>array('ru'=>'Загрузите файл или выберите из списка','en'=>"Load file or select one from list"),
 	'Mercury_lamp_spectrum'=>array('ru'=>'Спектр ртутной лампы', 'en'=>'Mercury lamp spectrum'),
+	'DDS_lamp_spectrum'=>array('ru'=>'Спектр дейтериевой дуговой лампы ДДС-30', 'en'=>'Deuterium arc lamp spectrum'),
+	'DVS_lamp_spectrum'=>array('ru'=>'Спектр водородной дуговой лампы ВДС-30', 'en'=>'Hydrogen arc lamp spectrum'),
+	'Home_lamp_spectrum'=>array('ru'=>'Спектр бытовой люминисцентной лампы', 'en'=>'Household fluorescent lamp spectrum'),
+	'Na_lamp_spectrum'=>array('ru'=>'Спектр натриевой лампы', 'en'=>'Sodium lamp spectrum'),
+	'Hollow_cathode_lamp_spectrum'=>array('ru'=>'Спектр лампы c полым катодом ', 'en'=>'Hollow_cathode_lamp_spectrum'),
+
 	'Download_PNG'=>array('ru'=>'Скачать спектр в формате PNG', 'en'=>'Download spectrum in PNG format'),
 	'Admin'=>array('ru'=>'Администрирование','en'=>'Administration'),
 	'XSAMS_Export'=>array('ru'=>'Экспорт в XSAMS','en'=>'Export to XSAMS'),
