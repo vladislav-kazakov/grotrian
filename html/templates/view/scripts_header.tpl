@@ -38,11 +38,29 @@
 	
 	<script type="text/javascript">
 		var spectr_list, spectr_list_uploaded;
+		var e_count = "{#$e_count#}";
+		var i_AllLines = "{#$l10n.AllLines#}";
+		var i_PrincipalSeries = "{#$l10n.PrincipalSeries#}";
+		var i_SharpSeries = "{#$l10n.SharpSeries#}";
+		var i_DiffuseSeries = "{#$l10n.DiffuseSeries#}";
+		var i_FundamentalSeries = "{#$l10n.FundamentalSeries#}";
+		var i_LymanSeries = "{#$l10n.LymanSeries#}";
+		var i_BalmerSeries = "{#$l10n.BalmerSeries#}";
+		var i_PaschenSeries = "{#$l10n.PaschenSeries#}";
+		var i_BrackettSeries = "{#$l10n.BrackettSeries#}";
+		var i_PfundSeries = "{#$l10n.PfundSeries#}";
+		var i_HumphreysSeries = "{#$l10n.HumphreysSeries#}";
+		var i_Wavelength = "{#$l10n.Wavelength#}";
+		var i_Intensity = "{#$l10n.Intensity#}";
+		var i_Levels = "{#$l10n.Levels#}";
+
+
 		function init_all() {
 			var element_name = "{#$atom_name#}";
-			init(spectr_list, element_name);
+			var base_level = "{#$base_level#}";
+			init(spectr_list, element_name, base_level);
 			{# if $pagetype == "compare" #}
-			if (spectr_list_uploaded) init(spectr_list_uploaded, element_name, 2);
+			if (spectr_list_uploaded) init(spectr_list_uploaded, element_name, base_level, 2);
 			{#/if#}
 		}
 		$(document).ready(function() {						

@@ -11,7 +11,7 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
 	exit;
 }
 	header('Content-Type: text/html; charset=windows-1251'); 
-	global $smarty, $dictionary, $elemet_types;
+	global $smarty, $dictionary, $element_types;
 	//session_start();
 
 	require_once("configure.php");
@@ -72,7 +72,7 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
 
 			//получаем массив типов элементов(из словаря) и загоняем его в smarty()			
 			
-			$smarty->assign('elemet_types', $elemet_types);
+			$smarty->assign('element_types', $element_types);
 			//берём масив данных о элементе и передаём его смарти
 
 			$atom = new Atom;
@@ -90,8 +90,10 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
 			
 			$smarty->assign('ichi', $ichi);
 			//$smarty->assign('ichi_key', $ichi_key);
-					
-			
+
+			$e_count = intval($atom_sys['Z']) - intval($atom_sys['IONIZATION']);
+			$smarty->assign('e_count', $e_count);
+
 			//Уровни
 			$level_list = new LevelList;
 			// отдаём в смарти число уровней
@@ -175,7 +177,11 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
 
 				$spectrum_json_uploaded = $spectrum->parse_file($_FILES['file']);
 			}
-			
+
+			$level_list = new LevelList;
+			$level_list->LoadBase($element_id);
+			$levels_array = $level_list->GetItemsArray();
+			$smarty->assign('base_level', $levels_array[0]['CONFIG']);
 			
 			$smarty->assign('spectrum_json_uploaded', $spectrum_json_uploaded);  
 
@@ -276,6 +282,12 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
 				$smarty->assign('next_element_id', $atomNext_sys['ID']);
 			}
 			$smarty->assign('spectrum_json',$spectrum->getSpectraSVG($transitions,0,1599900000));
+
+			$level_list = new LevelList;
+			$level_list->LoadBase($element_id);
+			$levels_array = $level_list->GetItemsArray();
+			$smarty->assign('base_level', $levels_array[0]['CONFIG']);
+
 			//указываем имя шаблона и название страницы
 			$page_type="view_spectrum.tpl";
 			$head="Spectrogram";

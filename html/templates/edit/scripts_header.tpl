@@ -1,9 +1,7 @@
 			<script type="text/javascript" charset="windows-1251">
 			//<![CDATA[	
 				$(document).ready(function() {
-				
 					var locale="{#$locale#}";
-					
 				    // Make slide search panel
 					$(".btn-slide").click(function(){
 						$("#panel").slideToggle("slow");
@@ -30,35 +28,52 @@
 				<script type="text/javascript" charset="windows-1251" src="/js/edit_element.js?v2" ></script>
 			{#/if#}
 			
-	{# if $bodyclass=="spectrum"#}
+	{# if $bodyclass=="spectrum" || $bodyclass=="compare"#}
 	<link rel="stylesheet" type="text/css" href="/css/spectrum2.css?v2" />
 	<script type="text/javascript" src="/js/spectrum2/init.js?v3"></script>
 	{# if $pagetype == "compare" #}
 	<script type="text/javascript" src="/js/spectrum2/compare.js?v2"></script>
 	{#/if#}
 
-	<script type="text/javascript">
-		$(document).ready(function() {
-			var spectr_list={#$spectrum_json#};
-			init(spectr_list);
-			$(document).on('click', '#filter', function() {
-				init(spectr_list);
-			});
-			{# if $pagetype == "compare" #}
-			var spectr_list_uploaded = {#$spectrum_json_uploaded#};
-			if (spectr_list_uploaded) {
-				init(spectr_list_uploaded, 2);
-				$(document).off('click', '#filter');
-				$(document).on('click', '#filter', function() {
+			<script type="text/javascript">
+				var spectr_list, spectr_list_uploaded;
+				var e_count = "{#$e_count#}";
+				var i_AllLines = "{#$l10n.AllLines#}";
+				var i_PrincipalSeries = "{#$l10n.PrincipalSeries#}";
+				var i_SharpSeries = "{#$l10n.SharpSeries#}";
+				var i_DiffuseSeries = "{#$l10n.DiffuseSeries#}";
+				var i_FundamentalSeries = "{#$l10n.FundamentalSeries#}";
+				var i_LymanSeries = "{#$l10n.LymanSeries#}";
+				var i_BalmerSeries = "{#$l10n.BalmerSeries#}";
+				var i_PaschenSeries = "{#$l10n.PaschenSeries#}";
+				var i_BrackettSeries = "{#$l10n.BrackettSeries#}";
+				var i_PfundSeries = "{#$l10n.PfundSeries#}";
+				var i_HumphreysSeries = "{#$l10n.HumphreysSeries#}";
+				var i_Wavelength = "{#$l10n.Wavelength#}";
+				var i_Intensity = "{#$l10n.Intensity#}";
+				var i_Levels = "{#$l10n.Levels#}";
 
-					init(spectr_list);
-					init(spectr_list_uploaded, 2);
+
+				function init_all() {
+					var element_name = "{#$atom_name#}";
+					var base_level = "{#$base_level#}";
+					init(spectr_list, element_name, base_level);
+					{# if $pagetype == "compare" #}
+					if (spectr_list_uploaded) init(spectr_list_uploaded, element_name, base_level, 2);
+					{#/if#}
+				}
+				$(document).ready(function() {
+					spectr_list={#$spectrum_json#};
+					{# if $pagetype == "compare" #}
+					spectr_list_uploaded = {#$spectrum_json_uploaded#};
+					{#/if#}
+					init_all();
+					$(document).on('click', '#filter', function() {
+						init_all();
+					});
+
 				});
-			}
-			{#/if#}
-
-		});
-	</script>
+			</script>
 
 	{#/if#}
 

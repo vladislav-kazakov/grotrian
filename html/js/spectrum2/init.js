@@ -64,29 +64,30 @@ function init_serie_selector(element)
         series.sort();
         $('#series').empty();
         $('<select>', {'id': 'serieSelector', 'change': function(event){selectserie(element, event.target.value)}}).appendTo($('#series'));
-        $('<option>', {'value': 'all', 'text': 'All lines'}).appendTo($('#serieSelector'));
+        $('<option>', {'value': 'all', 'text': i_AllLines}).appendTo($('#serieSelector'));
         for (var j = 0; j < series.length; j++) {
             var text = series[j];
             switch (series[j]){
-                case "1": text = "Lyman series (n' = 1)"; break;
-                case "2": text = "Balmer series (n' = 2)"; break;
-                case "3": text = "Paschen series (n' = 3)"; break;
-                case "4": text = "Brackett series (n' = 4)"; break;
-                case "5": text = "Pfund series (n' = 5)"; break;
-                case "6": text = "Humphreys series (n' = 6)"; break;
+                case "1": text = i_LymanSeries; break;
+                case "2": text = i_BalmerSeries; break;
+                case "3": text = i_PaschenSeries; break;
+                case "4": text = i_BrackettSeries; break;
+                case "5": text = i_PfundSeries; break;
+                case "6": text = i_HumphreysSeries; break;
                 default: text = "n' = " + series[j];
             }
             $('<option>', {'value': series[j], 'text': text}).appendTo($('#serieSelector'));
         }
     }
-    if (element == "Na I" || element == "Li I")
+    if (element == "Na I" || element == "Li I" || element == "K I" || element == "Rb I" || element == "Cs I" || element == "Fr I"/* || e_count == "1"*/)
     {
+        $('#series').empty();
         $('<select>', {'id': 'serieSelector', 'change': function(event){selectserie(element, event.target.value)}}).appendTo($('#series'));
-        $('<option>', {'value': 'all', 'text': 'All lines'}).appendTo($('#serieSelector'));
-        $('<option>', {'value': 'sp', 'text': "Principal series (ns - n'p)"}).appendTo($('#serieSelector'));
-        $('<option>', {'value': 'ps', 'text': "Sharp series (np - n's)"}).appendTo($('#serieSelector'));
-        $('<option>', {'value': 'pd', 'text': "Diffuse series (np - n'd)"}).appendTo($('#serieSelector'));
-        $('<option>', {'value': 'df', 'text': "Fundamental series (nd - n'f)"}).appendTo($('#serieSelector'));
+        $('<option>', {'value': 'all', 'text': i_AllLines}).appendTo($('#serieSelector'));
+        $('<option>', {'value': 'sp', 'text': i_PrincipalSeries}).appendTo($('#serieSelector'));
+        $('<option>', {'value': 'ps', 'text': i_SharpSeries}).appendTo($('#serieSelector'));
+        $('<option>', {'value': 'pd', 'text': i_DiffuseSeries}).appendTo($('#serieSelector'));
+        $('<option>', {'value': 'df', 'text': i_FundamentalSeries}).appendTo($('#serieSelector'));
     }
 }
 function selectserie(element, serie)
@@ -107,13 +108,16 @@ function selectserie(element, serie)
             }
         }
     }
-    if (element == "Na I" || element == "Li I") {
+    if ((element == "Na I" || element == "Li I" || element == "K I" || element == "Rb I" || element == "Cs I" || element == "Fr I"
+       /* || e_count == "1"*/) && serie!='all') {
+
         for (var k = 1; k < lines_data.length; k++) {
             var llc = lines_data[k]['lower-level-config-original'];
             var ulc = lines_data[k]['upper-level-config-original'];
-            var ll = llc[llc.search( /[a-z][^a-z@]*$/ )];
+            //var ll = llc[llc.search( /[a-z][^a-z@]*$/ )];
             var ul = ulc[ulc.search( /[a-z][^a-z@]*$/ )];
-            if (ll != serie[0] || ul != serie[1]) {
+            if (llc != g_base_level.substr(0, g_base_level.length -1) + serie[0]
+                || ulc.substr(0, ulc.search( /\d+[a-z][^a-z@]*$/ )) + "n" + ulc.substr(ulc.search( /[a-z][^a-z@]*$/ ), 1) != g_base_level.substr(0, g_base_level.length -2) + "n" + serie[1]) {
                 document.getElementById(k).style.display = "none";
                 document.getElementById("full-" + k).style.display = "none";
             }
@@ -156,10 +160,12 @@ var min_logbase = 1;
 var intensity_slider_scale = 20;
 var default_logbase = 8;
 
+var g_base_level;
 var lines_data;
 
-function init(waves, element, n) {
+function init(waves, element, base_level, n) {
     if (Object.keys(waves).length == 0) return;
+    g_base_level = base_level;
     var n = n ? '_' + n : '',
     zoom = get_zoom(),
     barchart = $('#barchart').hasClass('active'),
@@ -285,10 +291,10 @@ function init(waves, element, n) {
         function() {
             var id = $(this).attr('id');
             $('#line_info').empty();
-            $('#line_info').append('Wave length: <b>' + lines_data[id]['l'] + ' &#8491;</b> Levels: '
+            $('#line_info').append(i_Wavelength + ': <b>' + lines_data[id]['l'] + ' &#8491;</b> ' + i_Levels +': '
                 + lines_data[id]['lower-level-config'] + ":" +   lines_data[id]['lower-level-term']
                 +' - ' +  lines_data[id]['upper-level-config'] + ":" + lines_data[id]['upper-level-term']
-                +'. Intensity: ' + lines_data[id]['i']
+                +'. ' + i_Intensity + ': ' + lines_data[id]['i']
             );
             $(this).attr('stroke-width', 2);
         },

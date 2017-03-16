@@ -117,36 +117,11 @@
                         {# foreach item=transition from=$transition_list#}
                              <tr>
                              <td>
-                            {#if $transition.lower_level_config=="" || $transition.lower_level_config==" " #}
-                            (?)
-                            {#else#} 
-                            {#$transition.lower_level_config#} :
-                            
-                            {#if $transition.lower_level_termsecondpart!="NULL"#}{#$transition.lower_level_termsecondpart #}{#/if#}
-                            
-                            {#if $transition.lower_level_termprefix!=""#}<sup>{#$transition.lower_level_termprefix#}</sup>{#/if#}                            
-                            				 		
-					 		{#if $transition.lower_level_termfirstpart=="" || $transition.lower_level_termfirstpart==" "#} (?) {#else#}<span>{#$transition.lower_level_termfirstpart#}</span>{#/if#}	
-					 					 			
-							{#if $transition.lower_level_termmultiply==1#}<span>&deg;</span>{#/if#}
-							
-					 		{#if $transition.lower_level_j!=""#}<sub>{#$transition.lower_level_j#}</sub>{#/if#}  
-					 		
-					 		{#if $transition.upper_level_config_type#} - {#$transition.upper_level_config_type#}:
-					 		
-					 		{#if $transition.upper_level_termsecondpart!="NULL"#}{#$transition.upper_level_termsecondpart#}{#/if#}{#/if#}
-					 		
-					 		{#if $transition.upper_level_termprefix!=""#}<sup>{#$transition.upper_level_termprefix#}</sup>{#/if#}
-                            
-                            {#if $transition.upper_level_termfirstpart=="" || $transition.upper_level_termfirstpart==" "#} (?) {#else#}<span>{#$transition.upper_level_termfirstpart#}</span>{#/if#}	
-                            
-                            {#if $transition.upper_level_termmultiply==1#}<span>&deg;</span>{#/if#}
-                            {#if $transition.upper_level_j!=""#}<sub>{#$transition.upper_level_j#}</sub>{#/if#}                              
-                             
-                             {#/if#}
+                            	{#if $transition.lower_level_config=="" || $transition.lower_level_config==" " #}(?)
+                            	{#else#} {#$transition.lower_level_config#}
+						 			{#if $transition.upper_level_config_type#} - {#$transition.upper_level_config_type#} {#/if#}
+								{#/if#}
                              </td>
-                             
-                             
 					 			<td>
 					 			{#if $transition.lower_level_config=="" || $transition.lower_level_config==" "#} {#$transition.lower_level_energy#} {#else#} {#$transition.lower_level_config#} {#/if#}:
 					 			

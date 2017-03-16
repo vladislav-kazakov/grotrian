@@ -319,7 +319,7 @@
 					"oLanguage": dataTableslib,			
 					"aoColumns": [
 									{ "fnRender": function ( oObj ) {
-										return oObj.aData[0].replace(/@\{([^\}\{]*)\}/gi,"<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi,"<sub>$1</sub>").replace(/\s/gi,"");
+										return oObj.aData[0].replace(/(\([^\)]*\))/gi,"").replace(/@\{([^\}\{]*)\}/gi,"<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi,"<sub>$1</sub>").replace(/\s/gi,"");
 									} },
 									{ "fnRender": function ( oObj ) {
 										return oObj.aData[1].replace(/@\{([^\}\{]*)\}/gi,"<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi,"<sub>$1</sub>").replace(/\s/gi,"");

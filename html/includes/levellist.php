@@ -4,41 +4,46 @@ require_once("locallist.php");
 class LevelList extends LocalList
 {
 	    
-	function Load($element_id)
-	{	
-		/*$query = "SELECT class_levels.*, [Grotrian].[dbo].GetCfgType(class_levels.CONFIG) AS CONFIG_TYPE , class_elements.ID as elementID FROM class_levels 
+function Load($element_id)
+	{
+		/*$query = "SELECT class_levels.*, [Grotrian].[dbo].GetCfgType(class_levels.CONFIG) AS CONFIG_TYPE , class_elements.ID as elementID FROM class_levels
 		JOIN links ON links.TO_ELEMENT_ID=class_levels.ID
 		JOIN class_elements ON links.FROM_ELEMENT_ID=class_elements.ID
 		WHERE class_elements.ID='$element_id' ORDER BY ID";*/
 
 		//$query = "SELECT *, GetCfgType(CONFIG) AS config_type FROM LEVELS WHERE ID_ATOM='$element_id' ORDER BY ID";
 		$query = "SELECT LEVELS.* ,dbo.GetCfgType(CONFIG) AS config_type, dbo.ConcatSourcesID(ID,'L') AS SOURCE_IDS FROM LEVELS WHERE  ID_ATOM='$element_id' ORDER BY ENERGY asc";
-		
-		$this->LoadFromSQL($query);
-	}
-	
-/*
-function Load($element_id)
-	{	
-				
-$query = "ALTER VIEW cfg1 AS
-SELECT class_levels.*,[Grotrian].[dbo].GetCfgType(class_levels.CONFIG) AS CONFIG_TYPE , class_elements.ID as elementID FROM class_levels 
-		JOIN links ON links.TO_ELEMENT_ID=class_levels.ID
-		JOIN class_elements ON links.FROM_ELEMENT_ID=class_elements.ID
-		WHERE class_elements.ID='8728'; 
-		
-ALTER VIEW cfg2 AS
-SELECT  CONFIG_TYPE, [Grotrian].[dbo].CountCfg(CONFIG_TYPE) AS CFGT  
-FROM cfg1 GROUP BY  CONFIG_TYPE;   
- 
 
-SELECT cfg1.*, CASE WHEN (cfg2.CFGT=1) THEN  cfg1.CONFIG ELSE cfg1.CONFIG_TYPE END AS CFG_TYPE
-FROM  cfg1 LEFT JOIN  cfg2 ON  cfg1.CONFIG_TYPE= cfg2.CONFIG_TYPE";
-		
 		$this->LoadFromSQL($query);
 	}
 
-*/
+function LoadBase($element_id){
+		$query = "SELECT LEVELS.* ,dbo.GetCfgType(CONFIG) AS config_type, dbo.ConcatSourcesID(ID,'L') AS SOURCE_IDS FROM LEVELS WHERE ID_ATOM='$element_id' AND ENERGY=0";
+		$this->LoadFromSQL($query);
+	}
+
+	/*
+    function Load($element_id)
+        {
+
+    $query = "ALTER VIEW cfg1 AS
+    SELECT class_levels.*,[Grotrian].[dbo].GetCfgType(class_levels.CONFIG) AS CONFIG_TYPE , class_elements.ID as elementID FROM class_levels
+            JOIN links ON links.TO_ELEMENT_ID=class_levels.ID
+            JOIN class_elements ON links.FROM_ELEMENT_ID=class_elements.ID
+            WHERE class_elements.ID='8728';
+
+    ALTER VIEW cfg2 AS
+    SELECT  CONFIG_TYPE, [Grotrian].[dbo].CountCfg(CONFIG_TYPE) AS CFGT
+    FROM cfg1 GROUP BY  CONFIG_TYPE;
+
+
+    SELECT cfg1.*, CASE WHEN (cfg2.CFGT=1) THEN  cfg1.CONFIG ELSE cfg1.CONFIG_TYPE END AS CFG_TYPE
+    FROM  cfg1 LEFT JOIN  cfg2 ON  cfg1.CONFIG_TYPE= cfg2.CONFIG_TYPE";
+
+            $this->LoadFromSQL($query);
+        }
+
+    */
 	
 	function LoadCount($element_id = null)
 	{

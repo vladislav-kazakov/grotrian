@@ -98,6 +98,22 @@ $dictionary = array (
 	'MaxLength'=>array('ru'=>'Максимум','en'=>'Maximum'),
 	'Center'=>array('ru'=>'Центр','en'=>'Central'),
 	'BarChart'=>array('ru'=>'Гистограмма','en'=>'Bar chart'),
+	'VisibleSpectrum'=>array('ru'=>'Видимый спектр','en'=>'Visible spectrum'),
+	'AllSpectrum'=>array('ru'=>'Весь спектр','en'=>'All spectrum'),
+
+	'AllLines'=>array('ru'=>'Все линии','en'=>'All lines'),
+	'PrincipalSeries'=>array('ru'=>'Главная серия (ns - n\'p)','en'=>"Principal series (ns - n'p)"),
+	'SharpSeries'=>array('ru'=>'Резкая серия (np - n\'s)','en'=>"Sharp series (np - n's)"),
+	'DiffuseSeries'=>array('ru'=>'Диффузная серия (np - n\'d)','en'=>"Diffuse series (np - n'd)"),
+	'FundamentalSeries'=>array('ru'=>'Фундаментальная серия (nd - n\'f)','en'=>"Fundamental series (nd - n'f)"),
+	'LymanSeries'=>array('ru'=>"Серия Лаймана (n' = 1)",'en'=>"Lyman series (n' = 1)"),
+	'BalmerSeries'=>array('ru'=>"Серия Бальмера (n' = 2)",'en'=>"Balmer series (n' = 2)"),
+	'PaschenSeries'=>array('ru'=>"Серия Пашена (n' = 3)",'en'=>"Paschen series (n' = 3)"),
+	'BrackettSeries'=>array('ru'=>"Серия Брэккета (n' = 4)",'en'=>"Brackett series (n' = 4)"),
+	'PfundSeries'=>array('ru'=>"Серия Пфунда (n' = 5)",'en'=>"Pfund series (n' = 5)"),
+	'HumphreysSeries'=>array('ru'=>"Серия Хэмпфри (n' = 6)",'en'=>"Humphreys series (n' = 6)"),
+
+
 	'Sensibility'=>array('ru'=>'Чувствительность','en'=>'Sensibility'),
 	'Compare'=>array('ru'=>'Сравнить','en'=>'Compare'),
 	'No_transitions'=>array('ru'=>'Невозможно построить диаграмму: для данного элемента пока не введено ни одного перехода','en'=>"Chart can't be built: no transitions for this element yet"),
@@ -122,7 +138,7 @@ $dictionary = array (
 	'Periodic_Table'=>array('ru'=>'Периодическая таблица элементов','en'=>'Periodic table of the elements')
 
 );
-			$elemet_types=array(
+			$element_types=array(
 			"onm"=>array("en"=>"Other non metals","ru"=>"Неметаллы"),
 			"am"=>array("en"=>"Alkali metals","ru"=>"Щелочные металлы"),
 			"aem"=>array("en"=>"Alkali earth metals","ru"=>"Щёлочноземельные металлы"),

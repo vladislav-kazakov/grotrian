@@ -90,13 +90,13 @@
 				                        	<select size="1" name="Type">
 				                        	
 				                        	
-				                        	{#foreach from=$elemet_types key=type item=elemet_type #}			
+				                        	{#foreach from=$element_types key=type item=element_type #}
     											
     											{#if $atom.ELEMENT_TYPE==$type#}
-    											<option selected value="{#$type#}">{#$elemet_type.ru#}</option>
+    											<option selected value="{#$type#}">{#$element_type.ru#}</option>
     											{#else#}
     											
-    											<option value="{#$type#}">{#$elemet_type.ru#}</option>
+    											<option value="{#$type#}">{#$element_type.ru#}</option>
     											{#/if#}
     											
 											{#/foreach#}
