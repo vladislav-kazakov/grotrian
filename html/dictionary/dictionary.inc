@@ -123,7 +123,7 @@ $dictionary = array (
 	'DVS_lamp_spectrum'=>array('ru'=>'Спектр водородной дуговой лампы ВДС-30', 'en'=>'Hydrogen arc lamp spectrum'),
 	'Home_lamp_spectrum'=>array('ru'=>'Спектр бытовой люминисцентной лампы', 'en'=>'Household fluorescent lamp spectrum'),
 	'Na_lamp_spectrum'=>array('ru'=>'Спектр натриевой лампы', 'en'=>'Sodium lamp spectrum'),
-	'Hollow_cathode_lamp_spectrum'=>array('ru'=>'Спектр лампы c полым катодом ', 'en'=>'Hollow_cathode_lamp_spectrum'),
+	'Hollow_cathode_lamp_spectrum'=>array('ru'=>'Спектр лампы c полым катодом ', 'en'=>'Hollow cathode lamp spectrum'),
 
 	'Download_PNG'=>array('ru'=>'Скачать спектр в формате PNG', 'en'=>'Download spectrum in PNG format'),
 	'Admin'=>array('ru'=>'Администрирование','en'=>'Administration'),
