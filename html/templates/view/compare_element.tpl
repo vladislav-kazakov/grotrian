@@ -7,20 +7,20 @@
 					<select name='standard_file' id='standard_file'>
 						<option value=0>---
 						<option value=1>{#$l10n.Mercury_lamp_spectrum#}
-						<option value=3>{#$l10n.DDS_lamp_spectrum#} 170msec
 						<option value=4>{#$l10n.DDS_lamp_spectrum#} 36msec
+						<option value=3>{#$l10n.DDS_lamp_spectrum#} 170msec
 						<option value=5>{#$l10n.DDS_lamp_spectrum#} 470msec
-						<option value=6>{#$l10n.DVS_lamp_spectrum#} 1000msec
 						<option value=7>{#$l10n.DVS_lamp_spectrum#} 245msec
 						<option value=8>{#$l10n.DVS_lamp_spectrum#} 500msec
-						<option value=10>{#$l10n.Home_lamp_spectrum#} 125msec
+						<option value=6>{#$l10n.DVS_lamp_spectrum#} 1000msec
 						<option value=11>{#$l10n.Home_lamp_spectrum#} 25msec
-						<option value=12>{#$l10n.Na_lamp_spectrum#} 1700msec
+						<option value=10>{#$l10n.Home_lamp_spectrum#} 125msec
 						<option value=13>{#$l10n.Na_lamp_spectrum#} 170msec
-						<option value=2>{#$l10n.Hollow_cathode_lamp_spectrum#} (Cu-Zn) 300msec
+						<option value=12>{#$l10n.Na_lamp_spectrum#} 1700msec
 						<option value=9>{#$l10n.Hollow_cathode_lamp_spectrum#} (Hg) 21msec
 						<option value=14>{#$l10n.Hollow_cathode_lamp_spectrum#} (Ta) 62msec
 						<option value=15>{#$l10n.Hollow_cathode_lamp_spectrum#} (Ta, Kortek) 90msec
+						<option value=2>{#$l10n.Hollow_cathode_lamp_spectrum#} (Cu-Zn) 300msec
 					</select>
 				</form><br>
 				<div>
