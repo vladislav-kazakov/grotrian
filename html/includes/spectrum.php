@@ -112,7 +112,7 @@ class Spectrum{
 	public function getSpectraSVG($transitions,$min,$max) {		//функция из массива переходов генерирует массив вида [длина волны:цвет] в формате JSON		
 		$x=0;			
 		$obj="{";
-		
+		usort($transitions, function ($a, $b) { if ($a['INTENSITY'] == $b['INTENSITY']) { return 0; } return ($a['INTENSITY'] > $b['INTENSITY']) ? +1 : -1; });
 		foreach ($transitions as $transition=>$value){
 			$length=$value['WAVELENGTH'];
 			$intensity=$value['INTENSITY'];
