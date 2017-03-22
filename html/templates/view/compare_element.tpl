@@ -17,6 +17,9 @@
 						<option value=10>{#$l10n.Home_lamp_spectrum#} 125msec
 						<option value=13>{#$l10n.Na_lamp_spectrum#} 170msec
 						<option value=12>{#$l10n.Na_lamp_spectrum#} 1700msec
+						<option value=16>{#$l10n.Cesium_lamp_spectrum#} 50msec
+						<option value=17>{#$l10n.Cesium_lamp_spectrum#} 100msec
+						<option value=18>{#$l10n.Cesium_lamp_spectrum#} 1000msec
 						<option value=9>{#$l10n.Hollow_cathode_lamp_spectrum#} (Hg) 21msec
 						<option value=14>{#$l10n.Hollow_cathode_lamp_spectrum#} (Ta) 62msec
 						<option value=15>{#$l10n.Hollow_cathode_lamp_spectrum#} (Ta, Kortek) 90msec

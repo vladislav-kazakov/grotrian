@@ -216,6 +216,15 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
 						case 15:
 							$_FILES['file']['tmp_name'] = 'files/Ta-Kortek-hollowcathode-90msec.csv';
 							break;
+						case 16:
+							$_FILES['file']['tmp_name'] = 'files/Cz - 50 ms.csv';
+							break;
+						case 17:
+							$_FILES['file']['tmp_name'] = 'files/Cz - 100 ms.csv';
+							break;
+						case 18:
+							$_FILES['file']['tmp_name'] = 'files/Cz - 1000 ms.csv';
+							break;
 					}
 
 				}  
