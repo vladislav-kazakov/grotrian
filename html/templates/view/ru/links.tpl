@@ -17,6 +17,7 @@
 						<li><a target="blank" href="http://www-cfadc.phy.ornl.gov/">The Controlled Fusion Atomic Data Center (CFADC)</a></li>
 						<li><a target="blank" href="http://www-amdis.iaea.org/ALADDIN/">ALADDIN Database of International Atomic Energy Agency - Nuclear Data Section/Atomic and Molecular Data Unit</a></li>
 						<li><a target="blank" href="http://www-amdis.iaea.org/GENIE/">A General Internet Search Engine for Atomic Data (GENIE)</a></li>
+						<li><a target="blank" href="http://www.phys.nsu.ru/atom/Labworks.html">A General Internet Search Engine for Atomic Data (GENIE)</a></li>
 					</ul>
 
 				</div>
