@@ -2,7 +2,7 @@
 	<div class="grid_12" id="main">   
 		<div class="brake"></div>				
 		{#if $locale=="ru"#}			
-		<h3>јтом {#$atom.NAME_RU_ALT#}, Z={#$atom.Z#}, I.P.={#$atom.IONIZATION_POTENCIAL#} см<sup>-1</sup> ichi: {#$ichi#}, ichi_key: {#$ichi_key#}</h3>        	   
+		<h3>јтом {#$atom.NAME_RU_ALT#}, Z={#$atom.Z#}, I.P.={#$atom.IONIZATION_POTENCIAL#} см<sup>-1</sup>, InChI: {#$ichi#}<!--, ichi_key: {#$ichi_key#}--></h3>
 		{#else#}
 		<h3>Atom of {#$atom.NAME_EN#}, Z={#$atom.Z#}, I.P.={#$atom.IONIZATION_POTENCIAL#} см<sup>-1</sup></h3>
 		{#/if#}
