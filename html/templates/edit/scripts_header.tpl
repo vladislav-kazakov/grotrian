@@ -112,7 +112,7 @@
   				
   				
 				{# if $bodyclass=="transitions" #}
-  				<script type="text/javascript" src="/js/edit_transitions.js?v2"></script>
+  				<script type="text/javascript" src="/js/edit_transitions.js?v3"></script>
   				<script type="text/javascript" src="/js/manage_source.js?v2"></script>
 				{#/if#}
 				

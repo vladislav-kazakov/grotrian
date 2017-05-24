@@ -54,7 +54,7 @@
 									</tr>
                                     
 									<tr>
-										<td class="name">{#$l10n.The_absorption_cross_section#}:</td>
+										<td class="name">{#$l10n.The_excitation_cross_section#}:</td>
 										<td>
 	                            			<input size="12" id="min_6" name="min_6"  type="text"/>
 											<input size="12" id="max_6" name="max_6"  type="text"/> 
@@ -109,7 +109,7 @@
 								<th>{#$l10n.Intensity#}</th>
 								<th><i>f<sub>ik</sub></i></th>
 					            <th>A<sub><i>ki</i></sub><br/>[<i>10<sup>8</sup>сек<sup>-1</sup></i>]</th>
-					            <th>{#$l10n.The_absorption_cross_section#} <br/> Q<sub>max</sub>* 10<sup>18</sup>, <i>{#$l10n.cm#}<sup>2</sup></i></th>
+					            <th>{#$l10n.The_excitation_cross_section#} <br/> Q<sub>max</sub>* 10<sup>18</sup>, <i>{#$l10n.cm#}<sup>2</sup></i></th>
 								<th>{#$l10n.Source#}</th>                          
 							</tr>
 						</thead>	

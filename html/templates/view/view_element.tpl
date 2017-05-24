@@ -41,6 +41,11 @@
 
 		{#/if#}
 
+		{#if $atom.USED_BOOKS!=""#}
+		<h4>{#$l10n.Element_references#}:</h4>
+		{#$atom.USED_BOOKS#}
+		{#/if#}
+
 		<form method='POST'>
 			<input type='submit' id='export' value='{#$l10n.XSAMS_Export#}' name='export' class="button white commonbuttom" download>
 		</form>

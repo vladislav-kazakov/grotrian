@@ -53,7 +53,7 @@
 									</tr>
                                     
 									<tr>
-										<td class="name">{#$l10n.The_absorption_cross_section#}:</td>
+										<td class="name">{#$l10n.The_excitation_cross_section#}:</td>
 										<td>
 	                            			<input size="12" id="min_6" name="min_6"  type="text"/>
 											<input size="12" id="max_6" name="max_6"  type="text"/> 
@@ -86,7 +86,7 @@
 								<th>{#$l10n.Intensity#}</th>
 								<th><i>f<sub>ik</sub></i></th>
 					            <th>A<sub><i>ki</i></sub><br/>[<i>10<sup>8</sup>сек<sup>-1</sup></i>]</th>
-					            <th>{#$l10n.The_absorption_cross_section#} <br/> Q<sub>max</sub>* 10<sup>18</sup>, <i>{#$l10n.cm#}<sup>2</sup></i></th>
+					            <th>{#$l10n.The_excitation_cross_section#} <br/> Q<sub>max</sub>* 10<sup>18</sup>, <i>{#$l10n.cm#}<sup>2</sup></i></th>
 					            <th>{#$l10n.Source#}</th>                        
 							</tr>
 						</thead>	
@@ -142,7 +142,7 @@
 						        <td class="intensity">{#$transition.INTENSITY#}</td>
 						        <td class="f_ik">{#$transition.OSCILLATOR_F#}</td>
 				        		<td class="a_ki">{#if $transition.PROBABILITY!=""#}{#$transition.PROBABILITY/100000000#}{#/if#}</td>
-        		                <td class="absorption">{#$transition.CROSSECTION#}</td>
+        		                <td class="excitation">{#$transition.CROSSECTION#}</td>
         		               	<td class="source">        		               											
 									{# if $transition.SOURCE_IDS !='' #}	
 									<span class="links">									
