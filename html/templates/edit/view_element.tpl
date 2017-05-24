@@ -157,7 +157,12 @@
 						<h4>Описание на английском языке</h4>		
 						<textarea  class="jquery_ckeditor" rows="40" cols="115" name="atomDescription_en">{#$atom.CONTAINMENT_ENG#}</textarea>
 						<br/>
-						<input class="button white" id="saveAtom" value="Сохранить" type="button"/>	
+					<p>&nbsp;</p>
+
+						<h4>Используемая литература:</h4>
+						<textarea  class="jquery_ckeditor" rows="40" cols="115" name="references">{#$atom.USED_BOOKS#}</textarea>
+						<br/>
+					<input class="button white" id="saveAtom" value="Сохранить" type="button"/>
 					<p>&nbsp;</p>
 					</form>
 				

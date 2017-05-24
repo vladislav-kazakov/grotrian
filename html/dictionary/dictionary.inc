@@ -76,7 +76,7 @@ $dictionary = array (
 	'ns'=>array('ru'=>'нс','en'=>'ns'),
 	'Atomic_transitions'=>array('ru'=>'Переходы атома','en'=>'Atomic transitions'),
 	'Export_to_Excel'=>array('ru'=>'Экспорт в Excel','en'=>'Export to Excel'),	
-	'The_excitation_cross_section'=>array('ru'=>'Сечение возбуждения','en'=>'The excitation cross section'),
+	'The_excitation_cross_section'=>array('ru'=>'Сечение возбуждения','en'=>'Excitation cross section'),
 	'Lower'=>array('ru'=>'Нижний','en'=>'Lower'),	
 	'Upper'=>array('ru'=>'Верхний','en'=>'Upper'),	
 	'Level'=>array('ru'=>'Уровень','en'=>'Level'),	
