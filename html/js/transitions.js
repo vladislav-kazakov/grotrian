@@ -5,7 +5,7 @@
 					var iMin = document.getElementById('min_2').value * 1;
 					var iMax = document.getElementById('max_2').value * 1;
 					
-					var iVersion = aData[3] == "-" ? 0 : aData[3]*1;			
+					var iVersion = aData[7] == "-" ? 0 : aData[7]*1;
 					
 					var serie = $("select#serieSelect").val();
 					var lowerlevel = $("select#lowerLevelSelect").val();
@@ -17,7 +17,7 @@
 					if (aData[1]!=lowerlevel && lowerlevel!=''){
 						return false;
 					} else
-					if (aData[2]!=upperlevel && upperlevel!=''){
+					if (aData[4]!=upperlevel && upperlevel!=''){
 						return false;
 					} else
 					if ( iMin == "" && iMax == "" )
@@ -54,7 +54,7 @@
 					var iMin = document.getElementById('min_3').value * 1;
 					var iMax = document.getElementById('max_3').value * 1;
 					
-					var iVersion = aData[4] == "-" ? 0 : aData[4]*1;			
+					var iVersion = aData[8] == "-" ? 0 : aData[8]*1;
 		
 					if ( iMin == "" && iMax == "" )
 					{
@@ -90,7 +90,7 @@
 					var iMin = document.getElementById('min_4').value * 1;
 					var iMax = document.getElementById('max_4').value * 1;
 					
-					var iVersion = aData[5] == "-" ? 0 : aData[5]*1;			
+					var iVersion = aData[9] == "-" ? 0 : aData[9]*1;
 		
 					if ( iMin == "" && iMax == "" )
 					{
@@ -126,7 +126,7 @@
 					var iMin = document.getElementById('min_5').value * 1;
 					var iMax = document.getElementById('max_5').value * 1;
 					
-					var iVersion = aData[6] == "-" ? 0 : aData[6]*1;			
+					var iVersion = aData[10] == "-" ? 0 : aData[10]*1;
 		
 					if ( iMin == "" && iMax == "" )
 					{
@@ -162,7 +162,7 @@
 					var iMin = document.getElementById('min_6').value * 1;
 					var iMax = document.getElementById('max_6').value * 1;
 					
-					var iVersion = aData[7] == "-" ? 0 : aData[7]*1;			
+					var iVersion = aData[11] == "-" ? 0 : aData[11]*1;
 		
 					if ( iMin == "" && iMax == "" )
 					{
@@ -305,7 +305,7 @@
 				/* Initialise datatables */
 
 				var oTable = $('#transitions_table').dataTable({
-				"aaSorting": [[ 3, "asc" ]],
+				"aaSorting": [[ 7, "asc" ]],
 //				"bProcessing": true,
 //				"bServerSide": true,
 //				"sAjaxSource": 'a_qlines.php',
@@ -324,11 +324,15 @@
 									{ "fnRender": function ( oObj ) {
 										return oObj.aData[1].replace(/@\{([^\}\{]*)\}/gi,"<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi,"<sub>$1</sub>").replace(/\s/gi,"");
 									} },
+						{ "sType": "numeric" },
+						{ "sType": "numeric" },
 									{ "fnRender": function ( oObj ) {
-										return oObj.aData[2].replace(/@\{([^\}\{]*)\}/gi,"<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi,"<sub>$1</sub>").replace(/\s/gi,"");
-									} },											
+										return oObj.aData[4].replace(/@\{([^\}\{]*)\}/gi,"<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi,"<sub>$1</sub>").replace(/\s/gi,"");
+									} },
+						{ "sType": "numeric" },
+						{ "sType": "numeric" },
 									{ "fnRender": function ( oObj ) {
-										return oObj.aData[3].replace(",",".");
+										return oObj.aData[7].replace(",",".");
 										},
 									"sType": "numeric" 
 									},

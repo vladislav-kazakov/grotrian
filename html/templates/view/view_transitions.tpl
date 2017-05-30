@@ -104,7 +104,11 @@
 							<tr>	
 								<th>{#$l10n.Serie#}</th>
 								<th>{#$l10n.Lower#} {#$l10n.Level#}</th>
+								<th>{#$l10n.Lower_Level_Energy#}</th>
+								<th>{#$l10n.Lower_Level_Lifetime#}</th>
 								<th>{#$l10n.Upper#} {#$l10n.Level#}</th>
+								<th>{#$l10n.Upper_Level_Energy#}</th>
+								<th>{#$l10n.Upper_Level_Lifetime#}</th>
 								<th>{#$l10n.Wavelength#}[<i>&#197;</i>]</th>
 								<th>{#$l10n.Intensity#}</th>
 								<th><i>f<sub>ik</sub></i></th>
@@ -134,9 +138,17 @@
 					 			{#if $transition.lower_level_termmultiply==1#}<span>&deg;</span>{#/if#}
 					 			
 					 			{#if $transition.lower_level_j!=""#}<sub>{#$transition.lower_level_j#}</sub>{#/if#}
-					 			</td>
-					 								 			
-                                <td>
+
+								</td>
+
+								 <td>
+									 {#$transition.lower_level_energy#}
+								</td>
+								 <td>
+									 {#$transition.lower_level_lifetime#}
+								 </td>
+
+								 <td>
                                 {#if $transition.upper_level_config=="" || $transition.upper_level_config==" "#} {#$transition.upper_level_energy#} {#else#} {#$transition.upper_level_config#} {#/if#}:
                                 
                                 {#if $transition.upper_level_termsecondpart!="NULL"#}{#$transition.upper_level_termsecondpart#}{#/if#}
@@ -148,8 +160,15 @@
                                 {#if $transition.upper_level_termmultiply==1#}<span>&deg;</span>{#/if#}
                                 
                                 {#if $transition.upper_level_j!=""#}<sub>{#$transition.upper_level_j#}</sub>{#/if#}
-                                
-                                </td>
+
+								</td>
+								 <td>
+									 {#$transition.upper_level_energy#}
+								 </td>
+								 <td>
+									 {#$transition.upper_level_lifetime#}
+								 </td>
+
    							 	<td>{#$transition.WAVELENGTH#}</td>
 						        <td>{#$transition.INTENSITY#}</td>
 						        <td>{#$transition.OSCILLATOR_F#}</td>
