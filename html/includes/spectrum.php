@@ -109,10 +109,22 @@ class Spectrum{
 		return $term;
 	}
 
-	public function getSpectraSVG($transitions,$min,$max) {		//функция из массива переходов генерирует массив вида [длина волны:цвет] в формате JSON		
+	public function getLevelsSVG($grouped_levels)
+	{
+		$obj = "{";
+		foreach ($grouped_levels as $level=>$value) {
+			$obj .= '"' . $value['ENERGY'] . '":"' . $value['CONFIG'] . '",';
+		}
+		if (strlen($obj) > 1) $obj = substr($obj, 0, -1);
+		$obj.='}';
+
+			return $obj;
+	}
+
+		public function getSpectraSVG($transitions,$min,$max) {		//функция из массива переходов генерирует массив вида [длина волны:цвет] в формате JSON
 		$x=0;			
 		$obj="{";
-		usort($transitions, function ($a, $b) { if ($a['INTENSITY'] == $b['INTENSITY']) { return 0; } return ($a['INTENSITY'] > $b['INTENSITY']) ? +1 : -1; });
+		//usort($transitions, function ($a, $b) { if ($a['INTENSITY'] == $b['INTENSITY']) { return 0; } return ($a['INTENSITY'] > $b['INTENSITY']) ? +1 : -1; });
 		foreach ($transitions as $transition=>$value){
 			$length=$value['WAVELENGTH'];
 			$intensity=$value['INTENSITY'];
@@ -121,7 +133,8 @@ class Spectrum{
 					. "-" . $this->buildTermWithJ($value['lower_level_termsecondpart'], $value['lower_level_termprefix'], $value['lower_level_termfirstpart'], $value['lower_level_termmultiply']
 					, $value['lower_level_j']) . "-" . $value['upper_level_config']
 					. "-" . $this->buildTermWithJ($value['upper_level_termsecondpart'], $value['upper_level_termprefix'], $value['upper_level_termfirstpart'], $value['upper_level_termmultiply']
-					, $value['upper_level_j']);
+					, $value['upper_level_j'])
+					. "-" . $value['lower_level_energy'] . "-" . $value['upper_level_energy'];
 			if ($length>=$min && $length<=$max ){			
 				$RGB=$this->wavelength2RGB(round($length/10));
 				$obj.='"'.$l_i.'":"rgb('.$RGB['R'].','.$RGB['G'].','.$RGB['B'].')",';

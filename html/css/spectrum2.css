@@ -93,14 +93,14 @@ svg {
 }
 #svg_wrapper, #svg_wrapper_2 {
     position:relative;
-    height:215px;
+    height:800px;
     overflow:auto;
     width:1000px;
     margin:0 auto;
 }
 #svg_wrapper svg, #map svg, #svg_wrapper_2 svg, #map_2 svg {
     background:#000;
-    height:120px;
+    height:600px;
 }
 #end {
     float:right;

@@ -153,6 +153,21 @@ function LoadBase($element_id){
 		$this->LoadFromSQL($query);
 	}
 
+	function LoadGroupForCircleSpectrum($element_id)
+	{
+		$query = "SELECT l.config, g.* FROM 
+(SELECT config FROM [Grotrian_v2].[dbo].[LEVELS] where ID_ATOM = $element_id 
+GROUP BY config ) as l
+cross apply
+(SELECT top 1 * FROM [Grotrian_v2].[dbo].[LEVELS] 
+	 WHERE config = l.config and ID_ATOM=$element_id order by energy) as g
+
+ORDER BY g.energy
+	 ";
+
+		$this->LoadFromSQL($query);
+	}
+
 
 }
 ?>

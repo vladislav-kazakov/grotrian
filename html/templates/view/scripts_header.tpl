@@ -58,12 +58,15 @@
 		function init_all() {
 			var element_name = "{#$atom_name#}";
 			var base_level = "{#$base_level#}";
+			level_list={#$levels_json#};
 			init(spectr_list, element_name, base_level);
+			init_levels(level_list);
 			{# if $pagetype == "compare" #}
 			if (spectr_list_uploaded) init(spectr_list_uploaded, element_name, base_level, 2);
 			{#/if#}
 		}
-		$(document).ready(function() {						
+		$(document).ready(function() {
+
 			spectr_list={#$spectrum_json#};
 			{# if $pagetype == "compare" #}
 			spectr_list_uploaded = {#$spectrum_json_uploaded#};

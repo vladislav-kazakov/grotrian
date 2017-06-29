@@ -52,6 +52,12 @@ function definelength(normal_intensity, logbase)
     if (logbase == max_logbase) return 0;
     return maxlength - Math.log(1+ (Math.pow(2, logbase) - 1) * normal_intensity)/Math.log(2)/logbase * maxlength;
 }
+function definecoords(e1, e2, angle, x1, y1, x2, y2) {
+    x1 = e1 * Math.cos(angle);
+    y1 = e1 * Math.sin(angle);
+    x2 = e2 * Math.cos(angle);
+    y2 = e2 * Math.sin(angle);
+}
 function init_serie_selector(element)
 {
     if (element == "H" || element == "D" || element == "T")
@@ -163,6 +169,16 @@ var default_logbase = 8;
 var g_base_level;
 var lines_data;
 
+var max_e = 0;
+
+function init_levels(levels) {
+    for (var key in levels) {
+        $('#svg').append("<circle cx='500' cy='300' r='" + key / max_e * 250 + "' stroke-width='1' stroke='rgba(255,255,0,0.3)' fill='rgba(0,0,0,0)'></circle>");
+        console.log(key, max_e, key / max_e * 250);
+    }
+    $("#svg").html($("#svg").html());
+}
+
 function init(waves, element, base_level, n) {
     if (Object.keys(waves).length == 0) return;
     g_base_level = base_level;
@@ -177,7 +193,7 @@ function init(waves, element, base_level, n) {
     l,
     is_experimental = waves[Object.keys(waves)[0]].toString().indexOf('rgb') == -1,
     str = "<svg class='svg' id='svg" + n + "' draggable='true' style='background-color:black;' width='"+ (max-min)*zoom/10
-         +"' height='120'>" + (is_experimental ? "<path stroke='white' stroke-width='1' d='M 0,120 L" : ''),
+         +"' height='800'>" + (is_experimental ? "<path stroke='white' stroke-width='1' d='M 0,120 L" : ''),
     map_str = "<svg id='map_svg" + n + "'>" + (is_experimental ? "<path stroke='white' stroke-width='1' d='M 0,120 L" : ''),
     $preview = $('#preview'),
 
@@ -199,19 +215,29 @@ function init(waves, element, base_level, n) {
     if (n == '')
     {
         max_intensity = 0;
+        max_e = 0;
+        e_arr = new Array();
+
         for (var key in waves) {
             temp = key;
             re = /\s*-\s*/
             split = temp.split(re);
             l = Number(split[0]);
             i = Number(split[1]);
+            e = Number(split[7]);
+            e0 = Number(split[6]);
             if (l > min && l < max) {
                 if (i > max_intensity)
                     max_intensity = i;
+                if (e > max_e)
+                    max_e = e;
+                if(e_arr.indexOf(e) == -1) e_arr.push(e);
+                if(e_arr.indexOf(e0) == -1) e_arr.push(e);
                 lines_count++;
             }
         }
         lines_data = new Array();
+        var angle = 3*Math.PI/2;
         for (var key in waves) {
             var temp = key;
             var re = /\s*-\s*/;
@@ -224,6 +250,9 @@ function init(waves, element, base_level, n) {
             var upper_level_config_original = split[4];
             var upper_level_config = split[4].replace(/@\{([^\}\{]*)\}/gi,"<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi,"<sub>$1</sub>").replace(/\s/gi,"");
             var upper_level_term = split[5];
+            var e1 = split[6];
+            var e2 = split[7];
+            var xx1 = 0, xx2 = 0, yy1 = 0, yy2 = 0;
 
             if (l > min && l < max) {
                 var y1 = 0;
@@ -250,8 +279,15 @@ function init(waves, element, base_level, n) {
                 var map_x = Math.round(((l - min) / 10 / map_now)*100)/100;
                 //console.log(Math.round(((l - min)/ 10 * zoom)*100)/100);
 
-                str += "<line id='" + id + "' x1='" + x + "' y1='" + y1 + "' x2='" + x +
-                    "' y2='120' stroke-width='1' stroke='" + newcolor + "'></line>";
+                xx1 = e1 * Math.cos(angle)/max_e*250 + 500;
+                yy1 = e1 * Math.sin(angle)/max_e*250 + 300;
+                xx2 = e2 * Math.cos(angle)/max_e*250 + 500;
+                yy2 = e2 * Math.sin(angle)/max_e*250 + 300;
+                //console.log (e1, e2, max_e);
+                angle += 2*Math.PI / lines_count;
+//console.log (e1, e2, xx1, yy1, xx2, yy2);
+                str += "<line id='" + id + "' x1='" + xx1 + "' y1='" + yy1 + "' x2='" + xx2 +
+                    "' y2='" + yy2 + "' stroke-width='1' stroke='" + newcolor + "'></line>";
                 map_str +="<line id='full-" + id + "' x1='" + map_x + "' y1='" + y1 + "' x2='" + map_x +
                     "' y2='120' stroke-width='1' stroke='" + newcolor + "'></line>";
 
@@ -274,9 +310,9 @@ function init(waves, element, base_level, n) {
        $wrapper.empty();
        $preview.empty();
     }else {
-      $wrapper.css('height', '325px');
-      $preview.css('height', '300px');
-      $map_now.css('height', '240px');
+      $wrapper.css('height', '825px');
+      $preview.css('height', '800px');
+      $map_now.css('height', '840px');
     }
 
     $wrapper.prepend(str + (is_experimental ? "'>" : '') + "</svg>");
@@ -303,6 +339,23 @@ function init(waves, element, base_level, n) {
             $('#line_info').empty();
         }
         );
+
+    $('#svg_wrapper .svg circle').hover(
+        function() {
+            var id = $(this).attr('id');
+            $('#line_info').empty();
+            $('#line_info').append(i_Wavelength + ': <b>' + lines_data[id]['l'] + ' &#8491;</b> ' + i_Levels +': '
+                + lines_data[id]['lower-level-config'] + ":" +   lines_data[id]['lower-level-term']
+                +' - ' +  lines_data[id]['upper-level-config'] + ":" + lines_data[id]['upper-level-term']
+                +'. ' + i_Intensity + ': ' + lines_data[id]['i']
+            );
+            $(this).attr('stroke-width', 2);
+        },
+        function() {
+            $(this).attr('stroke-width', 1);
+            $('#line_info').empty();
+        }
+    );
 
     $wrapper.scroll(function() {
         $map_now.css('left', Math.round(this.scrollLeft / map_now / zoom * 100)/100 + 'px');

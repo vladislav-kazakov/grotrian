@@ -324,7 +324,7 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
     	}
 
 		case "spectrum": {
-			$transition_list->LoadWithLevels($element_id);
+			$transition_list->LoadGroupForCircleSpectrum($element_id);
 			$transitions=$transition_list->GetItemsArray();
 			// берём json объект длин волн и отдаём его в смарти
 			$spectrum= new Spectrum();
@@ -335,6 +335,11 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
 				$atomNext_sys = $atomNext->GetAllProperties();
 				$smarty->assign('next_element_id', $atomNext_sys['ID']);
 			}
+
+			$grouped_levels = new LevelList();
+			$grouped_levels->Load($element_id);
+			$grouped_levels_arr=$grouped_levels->GetItemsArray();
+			$smarty->assign('levels_json',$spectrum->getLevelsSVG($grouped_levels_arr));
 			$smarty->assign('spectrum_json',$spectrum->getSpectraSVG($transitions,0,1599900000));
 
 			$level_list = new LevelList;
