@@ -19,7 +19,7 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
 	require_once("includes/atom.php");
 	require_once("includes/levellist.php");
 	require_once("includes/transitionlist.php");
-	require_once("includes/bibliolist.php");
+	require_once("includes/sourcelist.php");
 	require_once("includes/spectrum.php");
 	require_once("includes/user.class.php");
 
@@ -500,21 +500,21 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
 		}
 
 		case "bibliography": {	
-			$biblio_list = new BiblioList;	
+			$source_list = new SourceList;	
 			
 			if(isset($_REQUEST['element_id']) && is_numeric($_REQUEST["element_id"])){
 				$source_id=$_REQUEST["element_id"];
 
-				$biblio_list->Load($source_id);			
-				$BiblioItem = $biblio_list->GetItemsArray();
+				$source_list->Load($source_id);			
+				$BiblioItem = $source_list->GetItemsArray();
 				$smarty->assign('BiblioItem',$BiblioItem[0]);	
-				$biblio_list->GetAuthors($source_id);
-				$smarty->assign('Authors',$biblio_list->GetItemsArray());				
+				$source_list->GetAuthors($source_id);
+				$smarty->assign('Authors',$source_list->GetItemsArray());				
 				$page_type="view_bibliolink.tpl"; 
 			} else {		
 				
-				$biblio_list->LoadAll();
-				$smarty->assign('BiblioList',$biblio_list->GetItemsArray());   		
+				//$source_list->LoadAll();
+				$smarty->assign('SourceList',$source_list->GetItemsArray());   		
 				$page_type="view_bibliography.tpl"; 
     			$head="Bibliography";
     			$title="Bibliography";

@@ -3,7 +3,7 @@ header('Content-Type: text/html; charset=windows-1251');
 global $smarty;
 require_once("configure.php");
 require_once("includes/transitionlist.php");
-require_once("includes/bibliolist.php");
+require_once("includes/sourcelist.php");
 require_once("includes/atom.php");
 
 
@@ -22,7 +22,7 @@ if(!empty($_POST['action'])){
 	
 	$action=$_POST['action'];	
 	$transition = new TransitionList();
-	$source_list = new BiblioList;
+	$source_list = new SourceList;
 	
 	switch ($action){	
 		

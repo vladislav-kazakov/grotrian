@@ -25,19 +25,10 @@
 	<table cellpadding="0" cellspacing="0" border="0" class="display view" id="bibliography_table">
 		<thead>
 			<tr>
-				<th>ID</th>
 				<th>Источники</th>
+				<th>ID</th>
 			</tr>
 		</thead>	
             <input type="hidden" id="atom_id" name="atom_id" value=""/>
-            {# foreach item=bibliolink from=$BiblioList#}
-				<tr class="{#cycle values='odd,even'#}">
-					<td>
-						{#$bibliolink.ID#}
-						<input type="hidden" class="source_id" name="source_id[]" value="{#$bibliolink.ID#}"/>
-					</td>
-					<td class="bibliolink">{#$bibliolink.BIBTEX#}</td>
-            	</tr>
-        	{#/foreach#}
-	</table>	
+	</table>
 </div>

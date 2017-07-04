@@ -1,24 +1,26 @@
 var p="";
 						
 $.fn.dataTableExt.afnFiltering.push(
-				function( oSettings, aData, iDataIndex ) {		
-				
+				function( oSettings, aData, iDataIndex, rawData ) {
+
+
+
 					var iMin = document.getElementById('min_3').value * 1;
 					var iMax = document.getElementById('max_3').value * 1;
 					
-					var iVersion = aData[4] == "-" ? 0 : aData[4]*1;								
+					var iVersion = rawData[4] == "-" ? 0 : rawData[4]*1;
 			
 					var config = $("select#configurationSelect").val();
 					var term = $("select#termSelect").val();
 					var jvalue = $("select#jvalueSelect").val();
 					
-					if (aData[1]!=config && config!=''){
+					if (rawData[1]!=config && config!=''){
 						return false;
 					} else
-					if (aData[2]!=term && term!=''){
+					if (rawData[2]!=term && term!=''){
 						return false;
 					} else
-					if (aData[3]!=jvalue && jvalue!=''){
+					if (rawData[3]!=jvalue && jvalue!=''){
 						return false;
 					} else
 					if ( iMin == "" && iMax == "" )
@@ -47,7 +49,7 @@ $.fn.dataTableExt.afnFiltering.push(
 					
 					}
 			);	
-
+/*
 $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique, bFiltered, bIgnoreEmpty ) {
 				// check that we have a column id
 				if ( typeof iColumn == "undefined" ) return new Array();
@@ -88,7 +90,7 @@ $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique,
 				}			
 				
 				return asResultData.sort();
-			};			
+			};		*/
 
 			$(document).ready(function() {	
 				//Заполняем поля для фильтрации пустыми значениями
@@ -120,7 +122,7 @@ $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique,
 			        }       
 			
 			        oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
-			        that.fnDraw( that );
+			        that.draw( that );
 			        that.oApi._fnProcessingDisplay( oSettings, false );
          
 				    /* Callback user function - for event handlers etc */
@@ -133,68 +135,80 @@ $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique,
 					
 
 	if(locale=="en") dataTableslib={
-		"sLengthMenu": "Show _MENU_ records per page",
-		"sZeroRecords": "No entries",
-		"sInfo": "Entries from _START_ to _END_ of _TOTAL_",
-		"sInfoEmtpy": "Entries from 0 to 0 of 0",
-		"sInfoFiltered": "(Filtred from _MAX_ entries)",
-		"oPaginate": {
-			"sFirst": "&lt;&lt;",
-			"sPrevious": "&lt;",
-			"sNext": "&gt;",
-			"sLast": "&gt;&gt;"
+		"lengthMenu": "Show _MENU_ records per page",
+		"zeroRecords": "No entries",
+		"info": "Entries from _START_ to _END_ of _TOTAL_",
+		"infoEmtpy": "Entries from 0 to 0 of 0",
+		"infoFiltered": "(Filtred from _MAX_ entries)",
+		"paginate": {
+			"first": "&lt;&lt;",
+			"previous": "&lt;",
+			"next": "&gt;",
+			"last": "&gt;&gt;"
 		}
 	};
 	
 	if(locale=="ru") dataTableslib={
-		"sLengthMenu": "Показать _MENU_ записей на странице",
-		"sZeroRecords": "Записи отсутствуют",
-		"sInfo": "Записи с _START_ до _END_ из _TOTAL_ записей",
-		"sInfoEmtpy": "Записи с 0 до 0 из 0 записей",
-		"sInfoFiltered": "(Отфильтровано из _MAX_ записей)",
-		"oPaginate": {
-			"sFirst": "&lt;&lt;",
-			"sPrevious": "&lt;",
-			"sNext": "&gt;",
-			"sLast": "&gt;&gt;"
+		"lengthMenu": "Показать _MENU_ записей на странице",
+		"zeroRecords": "Записи отсутствуют",
+		"info": "Записи с _START_ до _END_ из _TOTAL_ записей",
+		"infoEmtpy": "Записи с 0 до 0 из 0 записей",
+		"infoFiltered": "(Отфильтровано из _MAX_ записей)",
+		"paginate": {
+			"first": "&lt;&lt;",
+			"previous": "&lt;",
+			"next": "&gt;",
+			"last": "&gt;&gt;"
 		}
 	};
 				
-	var oTable = $('#table1').dataTable({
-		"aaSorting": [[ 4, "asc" ]],
-		"sDom": 'l<"toolbar">rtip',	
-		"oLanguage": dataTableslib,
-		"aoColumns": 
+	var oTable = $('#table1').DataTable({
+		"order": [[ 4, "asc" ]],
+		"dom": 'l<"toolbar">rtip',
+		"language": dataTableslib,
+		"columns":
 		[	{ },			
 			{ 
-				"fnRender": function ( oObj ) {
-					return oObj.aData[1].replace(/<sub>/gi,"~{").replace(/<\/sub>/gi,"}").replace(/@\{([^\}\{]*)\}/gi,"<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi,"<sub>$1</sub>").replace(/#/gi,"<sup>0</sup>");
+				"render": function ( oObj ) {
+					return String(oObj).replace(/<sub>/gi,"~{").replace(/<\/sub>/gi,"}").replace(/@\{([^\}\{]*)\}/gi,"<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi,"<sub>$1</sub>").replace(/#/gi,"<sup>0</sup>");
 				} 
 			},						
 			{ 
-				"fnRender": function ( oObj ) {
-					return oObj.aData[2].replace(/<sup><pr>0<\/sup>/gi,"").replace(/<sup><suf>1<\/sup>/gi,"").replace(/[^0-9a-z<>,?\\\/\(\)\[\]\{\}\@\~]/gi,"").replace(/@\{([^\}\{]*)\}/gi,"<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi,"<sub>$1</sub>");
+				"render": function ( oObj ) {
+					return String(oObj).replace(/<sup><pr>0<\/sup>/gi,"").replace(/<sup><suf>1<\/sup>/gi,"").replace(/[^0-9a-z<>,?\\\/\(\)\[\]\{\}\@\~]/gi,"").replace(/@\{([^\}\{]*)\}/gi,"<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi,"<sub>$1</sub>");
 				} 
 			},						
-			{ 
-				"fnRender": function ( oObj ) {
-					return oObj.aData[3].replace(",",".");
+			{
+				"render": function ( oObj ) {
+					return String(oObj).replace(",",".");
 				}
 			},
 									
-			{ "sType": "numeric" },	
+			{ "type": "numeric",
+				"render": function ( oObj ) {
+					if (String(oObj) != "")
+						return Number(oObj);
+					else return "";
+				}
+			},
 									
-			{ "sType": "numeric" },
+			{ "type": "numeric",
+				"render": function ( oObj ) {
+					if (String(oObj) != "" )
+						return Number(oObj);
+					else return "";
+				}
+			},
 			
-			{ "sType": "html" }
+			{ "type": "html" }
 		], 
 		
-		"iDisplayLength": 25,
-		"bLengthChange": true,
-		"bFilter": true,
-		"bProcessing": true,
-		"sPaginationType": "full_numbers",					
-		"fnInitComplete": function() {
+		"pageLength": 25,
+		"lengthChange": true,
+		"searching": true,
+		"processing": true,
+		"pagingType": "full_numbers",
+		"initComplete": function() {
 		 // Make custom toolbar
 			$("div.toolbar").html('<input class="button white" id="saveLevels" value="'+SaveLevels+'" type="button"><input class="button white" id="deleteLevels" value="'+DeleteLevels+'" type="button"><input class="button white" id="createLevel" value="'+CreateLevel+'" type="button">');
 		}			
@@ -219,10 +233,13 @@ $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique,
 					//$("#jvalueSelect :last").attr("selected", "selected");
 				
 					// Составляем массивы с данными, находящимися в таблице в данный момент. Автоматически вырезаются повторы - к сожалению, получаются массивы разной длины
-					var configurationsList = oTable.fnGetColumnData(1,true,true,true);
-					var termsList = oTable.fnGetColumnData(2,true,true,true);
-					var jvalueList = oTable.fnGetColumnData(3,true,true,true);
-					
+					//var configurationsList = oTable.fnGetColumnData(1,true,true,true);
+					var configurationsList = oTable.columns(1).data().eq(0).unique();
+					//var termsList = oTable.fnGetColumnData(2,true,true,true);
+					var termsList = oTable.columns(2).data().eq(0).unique();
+					//var jvalueList = oTable.fnGetColumnData(3,true,true,true);
+					var jvalueList = oTable.columns(3).data().eq(0).unique();
+
 					// Заполняем select-поля инфой из массивов
 					for (var i=0; i<configurationsList.length;i++){
 						$("#configurationSelect").append( $('<option value="'+configurationsList[i]+'">'+configurationsList[i].replace(/<[^\/>]*>/gi,"[").replace(/<\/[^>]*>/gi,"]")+'</option>'));
@@ -247,23 +264,23 @@ $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique,
 				/* Add event listeners to the two range filtering inputs */		
 
 				$("#configurationSelect").change( function () {					
-					oTable.fnDraw();
+					oTable.draw();
 					fillSelectFields();
 				} );
 				
 				$("#termSelect").change( function () {					
-					oTable.fnDraw();
+					oTable.draw();
 					fillSelectFields();
 				} );
 				
 				$("#jvalueSelect").change( function () {					
-					oTable.fnDraw();
+					oTable.draw();
 					fillSelectFields();
 				} );
 				
 				
-				$('#min_3').keyup( function() { oTable.fnDraw(); fillSelectFields();} );
-				$('#max_3').keyup( function() { oTable.fnDraw(); fillSelectFields();} );				
+				$('#min_3').keyup( function() { oTable.draw(); fillSelectFields();} );
+				$('#max_3').keyup( function() { oTable.draw(); fillSelectFields();} );
 				
 				fillSelectFields();
 			

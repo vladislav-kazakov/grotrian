@@ -25,7 +25,7 @@
 							</tr>	
 						</thead>
                                             
-                    {# foreach item=bibliolink from=$BiblioList#}
+                    {# foreach item=bibliolink from=$SourceList#}
 					<tr class="selectable">					
 					 	<td class="bibliolink" >{#$bibliolink.BIBTEX#}</td>
 				        <td>

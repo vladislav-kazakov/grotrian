@@ -57,7 +57,12 @@ $(document).ready(function() {
 				var type = $('#type').val();
 				//alert(type);
 				var str_rows = $(".row_selected .row_id").serialize();
-				var str_sources = $(".row_selected_source .source_id").serialize();				
+				//var str_sources = $(".row_selected_source .source_id").serialize();
+				var str_sources_arr = [];
+				$('.row_selected_source .source_id').each(function () {
+					str_sources_arr.push("source_id[]=" + this.innerText);
+				});
+				var str_sources = encodeURI(str_sources_arr.join("&"));
 				var str=str_rows+'&'+str_sources+'&type="'+type+'"&action=applySources';	
 				//alert(str);
 				var rts;
