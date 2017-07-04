@@ -64,7 +64,7 @@ $(document).ready(function() {
 	});
 
 
-	$(document).on("click", ".bibliolink", function(){
+	$(document).on("click", "td.bibliolink", function(){
 		var level=$(this).parent();
 
     	if (level.hasClass('row_selected') ){
