@@ -16,7 +16,7 @@ $(document).ready(function () {
   </span>
 		<span class="author"></span>
   <span class="if url" style="margin-left: 20px">
-    <a class="url" style="color:black; font-size:10px">(view online)</a>
+    <a class="url" style="color:black; font-size:10px" target="_blank">(view online)</a>
   </span>
 	</div>
 	<div style="margin-left: 10px; margin-bottom:5px;">

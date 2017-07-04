@@ -39,7 +39,8 @@
 					"language": dataTableslib
 					,
 					"columns": [
-									{ "render": function ( oObj ) {
+									{ "className": "bibliolink",
+										"render": function ( oObj ) {
 										return (new BibtexDisplay()).displayBibtex(String(oObj));
 									}},
 									{ "className": "source_id",
