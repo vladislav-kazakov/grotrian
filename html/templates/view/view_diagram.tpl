@@ -93,7 +93,7 @@
 			<div class="container_12">
 				 	<div class="grid_12" id="main">
 							<br/>
-							<div id="svg"><embed wmode="transparent" id="diagram" type="image/svg+xml" src="/svg.php?element_id={#$layout_element_id#}" width="960" height="672" pluginspage="http://www.adobe.com/svg/viewer/install/"/></div>
+							<div id="svg"></div>
 							<a class="nav" target="_blank" href="/{#$locale#}/newdiagram/{#$layout_element_id#}">[{#$l10n.Open_in_new_window#}]</a><br/><b>{#$l10n.To_view_a_chart_you_need#} <a href="http://www.adobe.com/svg/viewer/install/main.html" target="_blank">Adobe SVG Viewer</a></b>
 
                     </div> 

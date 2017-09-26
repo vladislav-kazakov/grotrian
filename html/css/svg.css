@@ -1,0 +1,78 @@
+rect {
+      fill:none;
+      stroke: black;
+      stroke-width:2 px;
+  }
+rect.fortext {
+    fill:white;
+    stroke: white;
+}
+line.energy {
+    stroke: black;
+    stroke-width:2px;
+}
+line.transition {
+    stroke: black;
+    stroke-width:2;
+}
+line.level {
+    stroke: red;
+    stroke-width:2px;
+}
+text.config {
+    font-family: Verdana;
+    font-size: 12px;
+    fill: blue;
+    text-anchor: middle;
+}
+tspan.index {
+    font-size: 8px;
+}
+text.energy {
+    font-family: Verdana;
+    font-size: 11px;
+    fill: black
+}
+text.namelevel {
+    font-family: Verdana;
+    font-size: 12px;
+    fill: blue
+}
+text.transition {
+    font-family: Verdana;
+    font-size: 10px;
+    fill: blue;
+    text-anchor: begin;
+    alignment-baseline: central;
+}
+text.name {
+    font-family: Verdana;
+    font-size: 24px;
+    fill: red;
+    text-anchor: end;
+}
+text.Eev {
+    font-family: Verdana;
+    font-size: 10px;
+    fill: black;
+    text-anchor: begin;
+}
+text.Ecm {
+    font-family: Verdana;
+    font-size: 10px;
+    fill: black;
+    text-anchor: end;
+}
+text.Ecml {
+    font-family: Verdana;
+    font-size: 10px;
+    fill: red;
+    text-anchor: end;
+}
+text.break {
+    font-family: Verdana;
+    font-size: 16px;
+    fill: red;
+    text-anchor: middle;
+    font-weight: bold;
+}

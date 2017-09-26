@@ -33,7 +33,8 @@ if(isset($_GET['element_id']))
 	$xsl1 = $proc1->importStylesheet($xsl1); 
 	$newdom = $proc1->transformToXML($xml2); 
 
-	header("Content-type:image/svg+xml");
+	//header("Content-type:image/svg+xml");
+	header("Content-type:text/html");
 	echo $newdom;
 	
 }
