@@ -46,7 +46,26 @@ WHERE TRANSITIONS.ID_ATOM='$element_id' ORDER BY WAVELENGTH";
 		}
 		return $this->GetTotalRecords('TRANSITIONS');
 	}
-	
+
+	function LoadCountByIonization($ion = NULL, $operator = "=") //For statistics page
+	{
+		$stmt = GetStatement();
+		$query = "SELECT COUNT(TRANSITIONS.ID) FROM TRANSITIONS JOIN ATOMS ON TRANSITIONS.ID_ATOM = ATOMS.ID"
+			. ($ion!== NULL ? " WHERE ATOMS.IONIZATION $operator $ion" : "" );
+		//echo $query;
+		return $stmt->FetchField($query);
+	}
+
+	function LoadClassifiedCountByIonization($ion = NULL, $operator = "=") //For statistics page
+	{
+		$stmt = GetStatement();
+		$query = "SELECT COUNT(TRANSITIONS.ID) FROM TRANSITIONS JOIN ATOMS ON TRANSITIONS.ID_ATOM = ATOMS.ID"
+			. " WHERE TRANSITIONS.ID_UPPER_LEVEL IS NOT NULL AND TRANSITIONS.ID_LOWER_LEVEL IS NOT NULL"
+			. ($ion!== NULL ? " AND ATOMS.IONIZATION $operator $ion" : "" );
+		//echo $query;
+		return $stmt->FetchField($query);
+	}
+
 	function Save($post){
 		$count=$post['count'];
 		for ($i=0; $i<$count; $i++) {
