@@ -9,8 +9,8 @@
 							$("#diagram").attr({
 								  width: "960",
 								  height: "672"
-								});															
-						});
+								});
+                        });
 
 						$("#filterBtn").click(function(){
 
