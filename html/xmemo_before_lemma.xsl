@@ -71,7 +71,7 @@
 	<!-- End of variables -->
 
 	<xsl:template match="Diagram">
-		<svg version="1.1" xmlns="http://www.w3.org/2000/svg"  xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMinYMin" id="svg_with_diagram">
+		<svg preserveAspectRatio="xMinYMin" id="svg_with_diagram">
 		<!--	<xsl:attribute name="width">
 				<xsl:value-of select="$diagram_w"/>
 			</xsl:attribute>
