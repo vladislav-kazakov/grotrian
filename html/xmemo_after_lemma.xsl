@@ -20,7 +20,7 @@
 
 	<xsl:template match="svg:svg" priority="2">
 	<!--svg-->
-		<link rel="stylesheet" type="text/css" href="/css/svg.css" />
+		<link rel="stylesheet" type="text/css" href="/css/svg.css?v2" />
 		<xsl:copy>
 			<xsl:apply-templates select="@*"/>
 			<xsl:copy-of select="./svg:desc"/>
