@@ -4,8 +4,9 @@ html, body {
 }
 #svg_with_diagram
 {
-    width: 100%;
     height: 100%;
+    display: block;
+    margin: auto;
 }
 rect {
       fill:none;

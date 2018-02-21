@@ -87,16 +87,16 @@
 					<a href="#" class="btn-slide"></a>
 			    </div>
 
-<!--End of Slide-->	       
-        
-        
+<!--End of Slide-->
+
+			<div id="svg"></div>
+
 			<div class="container_12">
 				 	<div class="grid_12" id="main">
 							<br/>
-							<div id="svg"></div>
 							<a class="nav" target="_blank" href="/{#$locale#}/newdiagram/{#$layout_element_id#}">[{#$l10n.Open_in_new_window#}]</a><br/><b>{#$l10n.To_view_a_chart_you_need#} <a href="http://www.adobe.com/svg/viewer/install/main.html" target="_blank">Adobe SVG Viewer</a></b>
 
-                    </div> 
+                    </div>
 		    </div>
 
 {#else#}
