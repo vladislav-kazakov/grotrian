@@ -93,12 +93,23 @@ svg {
 }
 #svg_wrapper, #svg_wrapper_2 {
     position:relative;
-    height:800px;
+    height:215px;
     overflow:auto;
     width:1000px;
     margin:0 auto;
 }
 #svg_wrapper svg, #map svg, #svg_wrapper_2 svg, #map_2 svg {
+    background:#000;
+    height:120px;
+}
+#svg_wrapper_3, #svg_wrapper_4 {
+    position:relative;
+    height:800px;
+    overflow:auto;
+    width:1000px;
+    margin:0 auto;
+}
+#svg_wrapper_3 svg, #svg_wrapper_4 svg {
     background:#000;
     height:600px;
 }

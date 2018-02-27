@@ -58,9 +58,11 @@
 		function init_all() {
 			var element_name = "{#$atom_name#}";
 			var base_level = "{#$base_level#}";
-			level_list={#$levels_json#};
 			init(spectr_list, element_name, base_level);
+            {# if $pagetype == "circle" #}
+            level_list={#$levels_json#};
 			init_levels(level_list);
+            {#/if#}
 			{# if $pagetype == "compare" #}
 			if (spectr_list_uploaded) init(spectr_list_uploaded, element_name, base_level, 2);
 			{#/if#}

@@ -323,7 +323,36 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
     		break;
     	}
 
-		case "spectrum": {
+        case "spectrum": {
+            $transition_list->LoadWithLevels($element_id);
+            $transitions=$transition_list->GetItemsArray();
+            // берём json объект длин волн и отдаём его в смарти
+            $spectrum= new Spectrum();
+            if (isset($_REQUEST['auto'])){
+                $smarty->assign('auto', true);
+                $atomNext = new Atom;
+                $atomNext->LoadNext($element_id);
+                $atomNext_sys = $atomNext->GetAllProperties();
+                $smarty->assign('next_element_id', $atomNext_sys['ID']);
+            }
+            $smarty->assign('spectrum_json',$spectrum->getSpectraSVG($transitions,0,1599900000));
+
+            $level_list = new LevelList;
+            $level_list->LoadBase($element_id);
+            $levels_array = $level_list->GetItemsArray();
+            $smarty->assign('base_level', $levels_array[0]['CONFIG']);
+
+            //указываем имя шаблона и название страницы
+            $page_type="view_spectrum.tpl";
+            $head="Spectrogram";
+            $title="Spectrogram";
+            $headline="Spectrogram";
+            $bodyclass="spectrum";
+            $header_type="header.tpl";
+            $footer_type="footer.tpl";
+            break;
+        }
+		case "circle": {
 			$transition_list->LoadGroupForCircleSpectrum($element_id);
 			$transitions=$transition_list->GetItemsArray();
 			// берём json объект длин волн и отдаём его в смарти
