@@ -2,69 +2,71 @@
 				/* Initialise datatables */
 				//Выбираем словарь в зависимости от локали				
 				if(locale=="en") dataTableslib={
-						"sLengthMenu": "Show _MENU_ records per page",
-						"sZeroRecords": "No entries",
-						"sInfo": "Entries from _START_ to _END_ of _TOTAL_",
-						"sInfoEmtpy": "Entries from 0 to 0 of 0",
-						"sInfoFiltered": "(Filtred from _MAX_ entries)",
-						"oPaginate": {
-							"sFirst": "&lt;&lt;",
-							"sPrevious": "&lt;",
-							"sNext": "&gt;",
-							"sLast": "&gt;&gt;"
+						"lengthMenu": "Show _MENU_ records per page",
+						"zeroRecords": "No entries",
+						"info": "Entries from _START_ to _END_ of _TOTAL_",
+						"infoEmtpy": "Entries from 0 to 0 of 0",
+						"infoFiltered": "(Filtred from _MAX_ entries)",
+						"paginate": {
+							"first": "&lt;&lt;",
+							"previous": "&lt;",
+							"next": "&gt;",
+							"last": "&gt;&gt;"
 							}
 					};
 				if(locale=="ru") dataTableslib={
-						"sLengthMenu": "Показать _MENU_ записей на странице",
-						"sZeroRecords": "Записи отсутствуют",
-						"sInfo": "Записи с _START_ до _END_ из _TOTAL_ записей",
-						"sInfoEmtpy": "Записи с 0 до 0 из 0 записей",
-						"sInfoFiltered": "(Отфильтровано из _MAX_ записей)",
-						"oPaginate": {
-							"sFirst": "&lt;&lt;",
-							"sPrevious": "&lt;",
-							"sNext": "&gt;",
-							"sLast": "&gt;&gt;"
+						"lengthMenu": "Показать _MENU_ записей на странице",
+						"zeroRecords": "Записи отсутствуют",
+						"info": "Записи с _START_ до _END_ из _TOTAL_ записей",
+						"infoEmtpy": "Записи с 0 до 0 из 0 записей",
+						"infoFiltered": "(Отфильтровано из _MAX_ записей)",
+						"paginate": {
+							"first": "&lt;&lt;",
+							"previous": "&lt;",
+							"next": "&gt;",
+							"last": "&gt;&gt;"
 						}
 					};
 				
-				var oTable3 = $('#bibliography_table').dataTable({	
+				var oTable3 = $('#bibliography_table').DataTable({
 //				"bProcessing": true,
-//				"bServerSide": true,
-//				"sAjaxSource": '/ind.php',
+				serverSide: true,
+				ajax: '/bibliolinks.php',
 
 //				"fnDrawCallback": function() {					
 //		            alert( 'DataTables has redrawn the table' );
 //					replaceTable();					
 //       			},
-					"sDom": 'l<"toolbar">rtip',
-					"oLanguage": dataTableslib											
+					"dom": 'l<"toolbar">rtip',
+					"language": dataTableslib
 					,
-					"aoColumns": [									
-									{ "sType": "numeric" },
-									{ "fnRender": function ( oObj ) {
-										return (new BibtexDisplay()).displayBibtex(oObj.aData[1]);
-									} }
-									
+					"columns": [
+									{ "className": "bibliolink",
+										"render": function ( oObj ) {
+										return (new BibtexDisplay()).displayBibtex(String(oObj));
+									}},
+									{ "className": "source_id",
+										"type": "numeric" }
+
 								], 
-					"iDisplayLength": 25,
-					"bLengthChange": true,
-					"bFilter": true,
-					"bProcessing": true,
+					"pageLength": 25,
+					"lengthChange": true,
+					"searching": true,
+					"processing": true,
 //					"bStateSave": true,
 					//"bJQueryUI": true,
 //					"sScrollY": 652,
 //					"bPaginate": false,
-					"sPaginationType": "full_numbers",
+					"paginationType": "full_numbers",
 					
-					"fnInitComplete": function() {
+					"initComplete": function() {
 						 // Make custom toolbar
 //						$("#bibliography_table_wrapper div.toolbar").html(Search+': <input size="20" type="text" id="biblioSearchField">');
 					}
 				
 				});
 				$("#biblioSearchField").on('keyup', function () {
-					oTable3.fnFilter( this.value, 1);
+					oTable3.column(0).search(this.value).draw();
 				} );
 
 

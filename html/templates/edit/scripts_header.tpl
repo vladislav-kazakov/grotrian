@@ -77,11 +77,14 @@
 
 	{#/if#}
 
+			{# if $bodyclass=="levels" || $bodyclass=="transitions" ||$bodyclass=="bibliography"#}
+			<script type="text/javascript" src="/js/jquery.dataTables-1.10.15.min.js"></script>
+				{# /if #}
+
 			{# if $bodyclass=="levels" || $bodyclass=="transitions" || $bodyclass=="bibliography"#}
 				<link rel="stylesheet" type="text/css" href="/css/table.css" />
 				<link rel="stylesheet" href="/js/jquery-autocomplete/jquery.autocomplete.css" type="text/css" />
 				<link rel="stylesheet" href="/css/popuptext.css" type="text/css" />
-				<script type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
 				<script type="text/javascript" src="/js/jquery-autocomplete/jquery.autocomplete.min.js"></script>
 				<script type="text/javascript" src="/js/bibtex_js.js"></script>
 

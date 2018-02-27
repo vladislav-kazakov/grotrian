@@ -7,10 +7,10 @@
 						$.post('/a_svg.php',{ element_id: id }, function(data) {
 							$('#svg').html(data);	
 							$("#diagram").attr({
-								  width: "960",
-								  height: "672"
-								});															
-						});
+								  width: "100%",
+								  height: "600px"
+								});
+                        });
 
 						$("#filterBtn").click(function(){
 
@@ -28,8 +28,8 @@
 							$.post('/a_svg.php',{ element_id: id }, function(data) {
 								$('#svg').html(data);
 								$("#diagram").attr({
-									  width: "960",
-									  height: "672"
+                                    width: "100%",
+                                    height: "600px"
 									});	
 							});
 						
@@ -46,8 +46,8 @@
 							$.post('/a_svg.php',{ element_id: id }, function(data) {
 								$('#svg').html(data);
 								$("#diagram").attr({
-									  width: "960",
-									  height: "672"
+                                    width: "100%",
+                                    height: "600px"
 									});	
 							});
 						

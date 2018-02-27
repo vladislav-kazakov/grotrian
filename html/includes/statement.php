@@ -97,7 +97,7 @@ class Statement
 			return null;
 	}
 
-	function FetchIndexedList($query, $field = 0, $resultType = mssql_BOTH)
+	function FetchIndexedList($query, $field = 0, $resultType = null)
 	{
 		$rs =& $this->Execute($query, $resultType);
 		if (strtolower(get_class($rs)) == 'recordset')

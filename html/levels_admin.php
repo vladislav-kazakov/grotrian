@@ -3,7 +3,7 @@ header('Content-Type: text/html; charset=windows-1251');
 global $smarty;
 require_once("configure.php");
 require_once("includes/levellist.php");
-require_once("includes/bibliolist.php");
+require_once("includes/sourcelist.php");
 require_once("includes/atom.php");
 
 
@@ -23,7 +23,7 @@ if(!empty($_POST['action'])){
 	
 	$action=$_POST['action'];	
 	$level_list = new LevelList();
-	$source_list = new BiblioList;
+	$source_list = new SourceList;
 	
 	switch ($action){	
 		

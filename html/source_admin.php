@@ -3,9 +3,9 @@ header('Content-Type: text/html; charset=windows-1251');
 require_once("configure.php");
 require_once("includes/elementlist.php");
 require_once("includes/source.php");
-require_once("includes/bibliolist.php");
+require_once("includes/sourcelist.php");
 $source = new Source();
-$source_list = new BiblioList;
+$source_list = new SourceList;
 
 function compare($v1, $v2)
 {
@@ -34,7 +34,7 @@ if(isset($_POST['action'])){
 		
 		case "manageSources": {
 			$source_list->LoadAll();			
-			$smarty->assign('BiblioList',$source_list->GetItemsArray());			
+			$smarty->assign('SourceList',$source_list->GetItemsArray());			
 			$smarty->display("edit/add_sources.tpl");				
     		break;
     	}

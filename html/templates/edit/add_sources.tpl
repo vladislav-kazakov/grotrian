@@ -13,7 +13,7 @@
   </span>
 		<span class="author"></span>
   <span class="if url" style="margin-left: 20px">
-    <a class="url" style="color:black; font-size:10px">(view online)</a>
+    <a class="url" style="color:black; font-size:10px" target="_blank">(view online)</a>
   </span>
 	</div>
 	<div style="margin-left: 10px; margin-bottom:5px;">
@@ -25,19 +25,10 @@
 	<table cellpadding="0" cellspacing="0" border="0" class="display view" id="bibliography_table">
 		<thead>
 			<tr>
-				<th>ID</th>
 				<th>Источники</th>
+				<th>ID</th>
 			</tr>
 		</thead>	
             <input type="hidden" id="atom_id" name="atom_id" value=""/>
-            {# foreach item=bibliolink from=$BiblioList#}
-				<tr class="{#cycle values='odd,even'#}">
-					<td>
-						{#$bibliolink.ID#}
-						<input type="hidden" class="source_id" name="source_id[]" value="{#$bibliolink.ID#}"/>
-					</td>
-					<td class="bibliolink">{#$bibliolink.BIBTEX#}</td>
-            	</tr>
-        	{#/foreach#}
-	</table>	
+	</table>
 </div>

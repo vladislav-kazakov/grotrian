@@ -1,25 +1,25 @@
 					
 			$.fn.dataTableExt.afnFiltering.push(
-				function( oSettings, aData, iDataIndex ) {		
+				function( oSettings, aData, iDataIndex ) {
 				
 					var iMin = document.getElementById('min_2').value * 1;
 					var iMax = document.getElementById('max_2').value * 1;
 					
-					var iVersion = aData[3] == "-" ? 0 : aData[3]*1;			
+					var iVersion = aData[3] == "-" ? 0 : aData[3]*1;
 		
 					if ( iMin == "" && iMax == "" )
 					{
 						return true;
 					}
-					else if ( iMin== "" && iVersion < iMax )
+					else if ( iMin== "" && iVersion <= iMax )
 					{
 						return true;
 					}
-					else if ( iMin < iVersion && "" == iMax )
+					else if ( iMin <= iVersion && "" == iMax )
 					{
 						return true;
 					}
-					else if ( iMin < iVersion && iVersion < iMax )
+					else if ( iMin <= iVersion && iVersion <= iMax )
 					{
 						return true;
 					}
@@ -47,15 +47,15 @@
 					{
 						return true;
 					}
-					else if ( iMin== "" && iVersion < iMax )
+					else if ( iMin== "" && iVersion <= iMax )
 					{
 						return true;
 					}
-					else if ( iMin < iVersion && "" == iMax )
+					else if ( iMin <= iVersion && "" == iMax )
 					{
 						return true;
 					}
-					else if ( iMin < iVersion && iVersion < iMax )
+					else if ( iMin <= iVersion && iVersion <= iMax )
 					{
 						return true;
 					}
@@ -83,15 +83,15 @@
 					{
 						return true;
 					}
-					else if ( iMin== "" && iVersion < iMax )
+					else if ( iMin== "" && iVersion <= iMax )
 					{
 						return true;
 					}
-					else if ( iMin < iVersion && "" == iMax )
+					else if ( iMin <= iVersion && "" == iMax )
 					{
 						return true;
 					}
-					else if ( iMin < iVersion && iVersion < iMax )
+					else if ( iMin <= iVersion && iVersion <= iMax )
 					{
 						return true;
 					}
@@ -119,15 +119,15 @@
 					{
 						return true;
 					}
-					else if ( iMin== "" && iVersion < iMax )
+					else if ( iMin== "" && iVersion <= iMax )
 					{
 						return true;
 					}
-					else if ( iMin < iVersion && "" == iMax )
+					else if ( iMin <= iVersion && "" == iMax )
 					{
 						return true;
 					}
-					else if ( iMin < iVersion && iVersion < iMax )
+					else if ( iMin <= iVersion && iVersion <= iMax )
 					{
 						return true;
 					}
@@ -178,7 +178,7 @@
 					}
 			);	
 			
-			$.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique, bFiltered, bIgnoreEmpty ) {
+/*			$.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique, bFiltered, bIgnoreEmpty ) {
 				// check that we have a column id
 				if ( typeof iColumn == "undefined" ) return new Array();
 	
@@ -219,7 +219,7 @@
 				
 				return asResultData.sort();
 			};
-			
+*/
 			
 
 			$(document).ready(function() {
@@ -241,7 +241,7 @@
 			        }       
 			
 			        oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
-			        that.fnDraw( that );
+			        that.draw( that );
 			        that.oApi._fnProcessingDisplay( oSettings, false );
          
 				    /* Callback user function - for event handlers etc */
@@ -254,55 +254,69 @@
 //Выбираем словарь в зависимости от локали				
 
 	if(locale=="en") dataTableslib={
-		"sLengthMenu": "Show _MENU_ records per page",
-		"sZeroRecords": "No entries",
-		"sInfo": "Entries from _START_ to _END_ of _TOTAL_",
-		"sInfoEmtpy": "Entries from 0 to 0 of 0",
-		"sInfoFiltered": "(Filtred from _MAX_ entries)",
-		"oPaginate": {
-			"sFirst": "&lt;&lt;",
-			"sPrevious": "&lt;",
-			"sNext": "&gt;",
-			"sLast": "&gt;&gt;"
+		"lengthMenu": "Show _MENU_ records per page",
+		"zeroRecords": "No entries",
+		"info": "Entries from _START_ to _END_ of _TOTAL_",
+		"infoEmtpy": "Entries from 0 to 0 of 0",
+		"infoFiltered": "(Filtred from _MAX_ entries)",
+		"paginate": {
+			"first": "&lt;&lt;",
+			"previous": "&lt;",
+			"next": "&gt;",
+			"last": "&gt;&gt;"
 		}
 	};
 	
 	if(locale=="ru") dataTableslib={
-		"sLengthMenu": "Показать _MENU_ записей на странице",
-		"sZeroRecords": "Записи отсутствуют",
-		"sInfo": "Записи с _START_ до _END_ из _TOTAL_ записей",
-		"sInfoEmtpy": "Записи с 0 до 0 из 0 записей",
-		"sInfoFiltered": "(Отфильтровано из _MAX_ записей)",
-		"oPaginate": {
-			"sFirst": "&lt;&lt;",
-			"sPrevious": "&lt;",
-			"sNext": "&gt;",
-			"sLast": "&gt;&gt;"
+		"lengthMenu": "Показать _MENU_ записей на странице",
+		"zeroRecords": "Записи отсутствуют",
+		"info": "Записи с _START_ до _END_ из _TOTAL_ записей",
+		"infoEmtpy": "Записи с 0 до 0 из 0 записей",
+		"infoFiltered": "(Отфильтровано из _MAX_ записей)",
+		"paginate": {
+			"first": "&lt;&lt;",
+			"previous": "&lt;",
+			"next": "&gt;",
+			"last": "&gt;&gt;"
 		}
 	};
 				
-	var oTable = $('#table1').dataTable({
-		"aaSorting": [[ 3, "asc" ]],
-		"sDom": 'l<"toolbar">rtip',	
-		"oLanguage": dataTableslib,
-		"aoColumns": [
+	var oTable = $('#table1').DataTable({
+		"order": [[ 3, "asc" ]],
+		"dom": 'l<"toolbar">rtip',
+		"language": dataTableslib,
+		"columns": [
 						/*{ "fnRender": function ( oObj ) {
 							return oObj.aData[0].replace(/@\{([^\}\{]*)\}/gi,"<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi,"<sub>$1</sub>").replace(/\s/gi,"");
 						} },*/
 						{ },
-						{ "fnRender": function ( oObj ) {
-							return oObj.aData[1].replace(/@\{([^\}\{]*)\}/gi,"<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi,"<sub>$1</sub>").replace(/\s/gi,"");
+						{ "render": function ( oObj ) {
+							return String(oObj).replace(/@\{([^\}\{]*)\}/gi,"<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi,"<sub>$1</sub>").replace(/\s/gi,"");
 						} },
-						{ "fnRender": function ( oObj ) {
-							return oObj.aData[2].replace(/@\{([^\}\{]*)\}/gi,"<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi,"<sub>$1</sub>").replace(/<sup><suf>1<\/sup>/gi,"").replace(/\s/gi,"");
+						{ "render": function ( oObj ) {
+							return String(oObj).replace(/@\{([^\}\{]*)\}/gi,"<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi,"<sub>$1</sub>").replace(/<sup><suf>1<\/sup>/gi,"").replace(/\s/gi,"");
 						} },		
-						{ "fnRender": function ( oObj ) {
-							return oObj.aData[3].replace(",",".");
+						{ "render": function ( oObj ) {
+							if (String(oObj) != "")
+								return Number(oObj);
+							else return "";
 							},
-						"sType": "numeric" 
+						"type": "numeric"
 						},
-						{ "sType": "numeric" },
-						{ "sType": "numeric" },
+			{ "type": "numeric",
+				"render": function ( oObj ) {
+					if (String(oObj) != "")
+						return Number(oObj);
+					else return "";
+				}
+			},
+			{ "type": "numeric",
+				"render": function ( oObj ) {
+					if (String(oObj) != "")
+						return Number(oObj);
+					else return "";
+				}
+			},
 						{ 
 					/*	"fnRender": function ( oObj ) {
 							var str= oObj.aData[5];									
@@ -311,19 +325,31 @@
 							if (!isNaN(str)) str = str; else str="";
 																	
 							return str										
-							},			*/						
-						"sType": "numeric" },
-						{ "sType": "numeric" },
+							},			*/
+			 "type": "numeric",
+				"render": function ( oObj ) {
+					if (String(oObj) != "")
+						return Number(oObj);
+					else return "";
+				}
+			},
+			{ "type": "numeric",
+				"render": function ( oObj ) {
+					if (String(oObj) != "")
+						return Number(oObj);
+					else return "";
+				}
+			},
 						
-						{ "sType": "html" }
+						{ "type": "html" }
 					], 
 		
-		"iDisplayLength": 25,
-		"bLengthChange": true,
-		"bFilter": true,
-		"bProcessing": true,
-		"sPaginationType": "full_numbers",					
-		"fnInitComplete": function() {
+		"pageLength": 25,
+		"lengthChange": true,
+		"searching": true,
+		"processing": true,
+		"pagingType": "full_numbers",
+		"initComplete": function() {
 		 // Make custom toolbar
 			$("div.toolbar").html('<input class="button white" id="saveTransitions" value="'+SaveLevels+'" type="button"><input class="button white" id="deleteTransitions" value="'+DeleteLevels+'" type="button"><input class="button white" id="createTransition" value="'+CreateLevel+'" type="button">');
 		}			
@@ -331,16 +357,16 @@
 	
 	/* Add event listeners to the two range filtering inputs */
 	
-	$('#min_6').keyup( function() { oTable.fnDraw(); } );
-	$('#max_6').keyup( function() { oTable.fnDraw(); } );
-	$('#min_2').keyup( function() { oTable.fnDraw(); } );
-	$('#max_2').keyup( function() { oTable.fnDraw(); } );
-	$('#min_3').keyup( function() { oTable.fnDraw(); } );
-	$('#max_3').keyup( function() { oTable.fnDraw(); } );
-	$('#min_4').keyup( function() { oTable.fnDraw(); } );
-	$('#max_4').keyup( function() { oTable.fnDraw(); } );
-	$('#min_5').keyup( function() { oTable.fnDraw(); } );
-	$('#max_5').keyup( function() { oTable.fnDraw(); } );
+	$('#min_6').keyup( function() { oTable.draw(); } );
+	$('#max_6').keyup( function() { oTable.draw(); } );
+	$('#min_2').keyup( function() { oTable.draw(); } );
+	$('#max_2').keyup( function() { oTable.draw(); } );
+	$('#min_3').keyup( function() { oTable.draw(); } );
+	$('#max_3').keyup( function() { oTable.draw(); } );
+	$('#min_4').keyup( function() { oTable.draw(); } );
+	$('#max_4').keyup( function() { oTable.draw(); } );
+	$('#min_5').keyup( function() { oTable.draw(); } );
+	$('#max_5').keyup( function() { oTable.draw(); } );
 	
 			function addSelection(transition){			
 				var lower_level_config, upper_level_config, wavelength, intensity, f_ik, a_ki, excitation ,source; 						

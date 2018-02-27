@@ -61,7 +61,26 @@ function LoadBase($element_id){
 		}
 		return $this->GetTotalRecords('LEVELS');
 	}
-	
+
+	function LoadCountByIonization($ion = NULL, $operator = "=") //For statistics page
+	{
+		$stmt = GetStatement();
+		$query = "SELECT COUNT(LEVELS.ID) FROM LEVELS JOIN ATOMS ON LEVELS.ID_ATOM = ATOMS.ID"
+			. ($ion!== NULL ? " WHERE ATOMS.IONIZATION $operator $ion" : "" );
+		//echo $query;
+		return $stmt->FetchField($query);
+	}
+
+	function LoadClassifiedCountByIonization($ion = NULL, $operator = "=") //For statistics page
+	{
+		$stmt = GetStatement();
+		$query = "SELECT COUNT(LEVELS.ID) FROM LEVELS JOIN ATOMS ON LEVELS.ID_ATOM = ATOMS.ID"
+			. " WHERE LEVELS.CONFIG <> '' AND LEVELS.CONFIG IS NOT NULL AND LEVELS.CONFIG <> '(?)'"
+			. ($ion!== NULL ? " AND ATOMS.IONIZATION $operator $ion" : "" );
+		//echo $query;
+		return $stmt->FetchField($query);
+	}
+
 	function Save($post){
 		$count=$post['count'];
 		$query="";
