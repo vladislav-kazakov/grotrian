@@ -378,11 +378,11 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
 			$smarty->assign('base_level', $levels_array[0]['CONFIG']);
 
 			//указываем имя шаблона и название страницы
-			$page_type="view_spectrum.tpl";
+			$page_type="view_circle.tpl";
 			$head="Spectrogram";
 			$title="Spectrogram";
 			$headline="Spectrogram";
-			$bodyclass="spectrum";
+			$bodyclass="circle";
 			$header_type="header.tpl";
 			$footer_type="footer.tpl";
 			break;
@@ -721,6 +721,7 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
 			case 'diagram':
 			case 'spectrum':
 			case 'compare':
+            case 'circle':
 			case 'links':
 			case 'team':
 			case 'sponsors':

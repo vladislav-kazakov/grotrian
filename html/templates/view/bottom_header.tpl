@@ -5,7 +5,7 @@
 			$(".element_picker").hide("fast");					
 		});					
 //После нажатия на ссылку генерируем ссылки у элементов 
-		{#if $bodyclass == "element" || $bodyclass == "levels"  || $bodyclass == "transitions"  || $bodyclass == "diagram" || $bodyclass == "spectrum" || $bodyclass == "compare"#}
+		{#if $bodyclass == "element" || $bodyclass == "levels"  || $bodyclass == "transitions"  || $bodyclass == "diagram" || $bodyclass == "spectrum" || $bodyclass == "compare" || $bodyclass == "circle"#}
 			$("#element_btn").click(function(){					
 				var link = "{#$bodyclass#}";
 				$(".plink").each(function() {								

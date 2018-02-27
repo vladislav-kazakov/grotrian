@@ -24,7 +24,7 @@ function init_ruler(zoom, min, max, n) {
     var $wrapper = $('#svg_wrapper' + n),
         max = max * zoom / 10,
         min = min * zoom / 10,
-        ruler = "<svg width='" + (max-min) + "' height='30' id='ruler' style='background-color:white;'>";
+        ruler = "<svg width='" + (max-min) + "' height='30' id='ruler' style='background-color:white; display:none'>";
 
     rulerMin = Math.ceil(min/100)*100; // round minimum to hundreds in less side
     for (var j = 0; j < max - min; j+= 100) {
@@ -173,8 +173,8 @@ var max_e = 0;
 
 function init_levels(levels) {
     for (var key in levels) {
-        $('#svg').append("<circle cx='500' cy='300' r='" + key / max_e * 250 + "' stroke-width='1' stroke='rgba(255,255,0,0.3)' fill='rgba(0,0,0,0)'></circle>");
-        console.log(key, max_e, key / max_e * 250);
+        $('#svg').append("<circle cx='400' cy='300' r='" + key / max_e * 250 + "' stroke-width='1' stroke='rgba(255,255,0,0.3)' fill='rgba(0,0,0,0)'></circle>");
+        //console.log(key, max_e, key / max_e * 250);
     }
     $("#svg").html($("#svg").html());
 }
@@ -192,8 +192,8 @@ function init(waves, element, base_level, n) {
         start = 0,
         l,
         is_experimental = waves[Object.keys(waves)[0]].toString().indexOf('rgb') == -1,
-        str = "<svg class='svg' id='svg" + n + "' draggable='true' style='background-color:black;' width='"+ (max-min)*zoom/10
-            +"' height='800'>" + (is_experimental ? "<path stroke='white' stroke-width='1' d='M 0,120 L" : ''),
+        str = "<svg class='svg' id='svg" + n + "' draggable='true' style='background-color:black;' width='800' height='600'>"
+            + (is_experimental ? "<path stroke='white' stroke-width='1' d='M 0,120 L" : ''),
         map_str = "<svg id='map_svg" + n + "'>" + (is_experimental ? "<path stroke='white' stroke-width='1' d='M 0,120 L" : ''),
         $preview = $('#preview'),
 
@@ -279,9 +279,9 @@ function init(waves, element, base_level, n) {
                 var map_x = Math.round(((l - min) / 10 / map_now)*100)/100;
                 //console.log(Math.round(((l - min)/ 10 * zoom)*100)/100);
 
-                xx1 = e1 * Math.cos(angle)/max_e*250 + 500;
+                xx1 = e1 * Math.cos(angle)/max_e*250 + 400;
                 yy1 = e1 * Math.sin(angle)/max_e*250 + 300;
-                xx2 = e2 * Math.cos(angle)/max_e*250 + 500;
+                xx2 = e2 * Math.cos(angle)/max_e*250 + 400;
                 yy2 = e2 * Math.sin(angle)/max_e*250 + 300;
                 //console.log (e1, e2, max_e);
                 angle += 2*Math.PI / lines_count;
@@ -363,8 +363,8 @@ function init(waves, element, base_level, n) {
 
     var $svg = $('#svg' + n);
 
-    $svg.css('width', (max-min) * zoom / 10 + 'px');
-    if (document.getElementById('canvas')) document.getElementById('canvas').width = (max-min) * zoom / 10; //2 = border-left (1px) + border-right (1px)
+    //$svg.css('width', (max-min) * zoom / 10 + 'px');
+   // if (document.getElementById('canvas')) document.getElementById('canvas').width = (max-min) * zoom / 10; //2 = border-left (1px) + border-right (1px)
 
     $svg.mousemove(function(event) {
         if (isDrag) {

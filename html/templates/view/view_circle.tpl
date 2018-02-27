@@ -22,7 +22,7 @@
 										</div>
 
 									</div>
-									<div id='zoom_container'>
+									<div id='zoom_container' style="display:none">
 										<b>{#$l10n.Scale#}</b><br>
 										<input type='button' id='x1' value='1' class='bluebtn base active'>
 										<input type='button' value='10' class='bluebtn base'>
@@ -32,7 +32,7 @@
 										<input type='button' value='x5' class="bluebtn">
 									</div>
 									<div>
-										<input type='button' id='barchart' value='{#$l10n.BarChart#}' class="bluebtn {#if $auto==true#}active{#/if#}"><br><br>
+										<input type='button' id='barchart' style="display:none" value='{#$l10n.BarChart#}' class="bluebtn {#if $auto==true#}active{#/if#}"><br><br>
 										<div id="series"></div>
 									</div>
 								</div>
@@ -42,20 +42,20 @@
 							</div>
 							<div id='line_info'>
 							</div>
-							<div id="svg_wrapper" class="svg_wrapper">
+							<div id="svg_wrapper" class="svg_wrapper_3">
 							</div>
-							<div id='map'>
+							<div id='map' style="display:none">
 								<div id='preview'></div>
 								<div id='map_now'></div>
 							</div>
 							<a id='compare' href='/{#$locale#}/compare/{#$layout_element_id#}'>{#$l10n.Compare#}</a>
-							<a id='circle' href='/{#$locale#}/circle/{#$layout_element_id#}'>{#$l10n.Circle_spectrum#}</a>
+							<a id='circle' href='/{#$locale#}/spectrum/{#$layout_element_id#}'>{#$l10n.Regular_spectrum#}</a>
 							<button id="button" class="button white">{#$l10n.Download_PNG#}</button>
 							<br><br>
 							{#if $interface=='admin'#}
 							<button id="uploadSpectrum" class="button white">Upload spectrum</button>
 							{#/if#}
-							<canvas id="canvas" height="150" style="display:none;"></canvas>
+							<canvas id="canvas" height="600" width="800" style="display:none;"></canvas>
 
 							<script>
 								function triggerDownload (imgURI) {
@@ -66,7 +66,7 @@
 									});
 
 									var a = document.createElement('a');
-									a.setAttribute('download', 'Spectrum {#$atom_name#} ' + $('#min').val() + ' - ' + $('#max').val() + ' A.png');
+									a.setAttribute('download', 'Circle spectrum {#$atom_name#} ' + $('#min').val() + ' - ' + $('#max').val() + ' A.png');
 									a.setAttribute('href', imgURI);
 									a.setAttribute('target', '_blank');
 
@@ -99,16 +99,13 @@
 										ctx.drawImage(svgImg, 0, 0);
 										DOMURL.revokeObjectURL(url);
 
-										if (rulerImgLoaded){
-											var imgURI = canvas
-													.toDataURL('image/png')
-													.replace('image/png', 'image/octet-stream');
-											triggerDownload(imgURI);
-										}
-										else svgImgLoaded = true;
+                                                 var imgURI = canvas
+                                                .toDataURL('image/png')
+                                                .replace('image/png', 'image/octet-stream');
+                                            triggerDownload(imgURI);
 									};
 									svgImg.src = url;
-
+/*
 									var rulerImg = new Image();
 									rulerImg.onload = function () {
 										var canvas = document.getElementById('canvas');
@@ -124,8 +121,7 @@
 										else rulerImgLoaded = true;
 									};
 									rulerImg.src = rulerUrl;
-
-								});
+*/								});
 								{#if $interface=='admin'#}
 								var uploadSpectrumBtn = document.getElementById('uploadSpectrum');
 								uploadSpectrumBtn.addEventListener('click', function () {

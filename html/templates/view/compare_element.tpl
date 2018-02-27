@@ -66,7 +66,7 @@
 			</div>
 				<div id='line_info'>
 				</div>
-				<div id="svg_wrapper">
+				<div id="svg_wrapper" class="svg_wrapper">
 				</div>
 				<div id='map'>
 					<div id='preview'></div>

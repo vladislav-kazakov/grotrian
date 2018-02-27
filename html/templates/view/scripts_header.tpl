@@ -29,13 +29,19 @@
 	//]]>			
 </script>
 
-	{# if $bodyclass=="spectrum" || $bodyclass=="compare"#}
+	{# if $bodyclass=="spectrum" || $bodyclass=="compare" || $bodyclass=="circle"#}
 	<link rel="stylesheet" type="text/css" href="/css/spectrum2.css?v2" />
+
+	{# if $bodyclass=="spectrum" || $bodyclass=="compare"#}
 	<script type="text/javascript" src="/js/spectrum2/init.js?v3"></script>
+	{#/if#}
 	{# if $pagetype == "compare" #}
 	<script type="text/javascript" src="/js/spectrum2/compare.js?v2"></script>
 	{#/if#}
-	
+	{# if $bodyclass == "circle" #}
+	<script type="text/javascript" src="/js/spectrum2/init_circle.js"></script>
+	{#/if#}
+
 	<script type="text/javascript">
 		var spectr_list, spectr_list_uploaded;
 		var e_count = "{#$e_count#}";
