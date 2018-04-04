@@ -20,7 +20,7 @@
 
 	<xsl:template match="svg:svg" priority="2">
 	<!--svg-->
-		<link rel="stylesheet" type="text/css" href="/css/svg.css?v2" />
+		<link rel="stylesheet" type="text/css" href="/css/svg.css?v3" />
 		<xsl:copy>
 			<xsl:apply-templates select="@*"/>
 			<xsl:copy-of select="./svg:desc"/>
@@ -42,7 +42,7 @@
 				var term_row_h = <xsl:value-of select="//svg:g[@class='term']/svg:rect/@height"/>;
 			</script>
 			<![CDATA[ ]]>
-			<script type="text/ecmascript" xlink:href="/js/svg.js"></script>
+			<script type="text/ecmascript" xlink:href="/js/svg.js?v2"></script>
 		</xsl:copy>
 	<!--/svg-->
 	</xsl:template>

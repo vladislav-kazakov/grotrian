@@ -123,7 +123,10 @@
 								{#/if#}
                              </td>
 					 			<td>
-					 			{#if $transition.lower_level_config=="" || $transition.lower_level_config==" "#} {#$transition.lower_level_energy#} {#else#} {#$transition.lower_level_config#} {#/if#}:
+					 			{#if $transition.lower_level_config=="" || $transition.lower_level_config==" " || $transition.lower_level_config=="(?)"#}
+            						{#if $transition.lower_level_config!=""#}{#$transition.lower_level_energy#}{#else#}(?){#/if#}
+									{#else#} {#$transition.lower_level_config#}
+								{#/if#}:
 					 			
 					 			{#if $transition.lower_level_termsecondpart!="NULL"#}{#$transition.lower_level_termsecondpart #}{#/if#}
 					 			
@@ -137,7 +140,10 @@
 					 			</td>
 					 								 			
                                 <td>
-                                {#if $transition.upper_level_config=="" || $transition.upper_level_config==" "#} {#$transition.upper_level_energy#} {#else#} {#$transition.upper_level_config#} {#/if#}:
+                                {#if $transition.upper_level_config=="" || $transition.upper_level_config==" " || $transition.upper_level_config=="(?)"#}
+                                    {#if $transition.upper_level_config!=""#}{#$transition.upper_level_energy#}{#else#}(?){#/if#}
+                                    {#else#} {#$transition.upper_level_config#}
+								{#/if#}:
                                 
                                 {#if $transition.upper_level_termsecondpart!="NULL"#}{#$transition.upper_level_termsecondpart#}{#/if#}
                                 

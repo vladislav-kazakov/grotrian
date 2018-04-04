@@ -420,9 +420,9 @@
 						</xsl:otherwise>
 					</xsl:choose>
 				</line>
-				<text class="namelevel" id="{concat('conf_name_', @id)}" x="{$child_x + $dx}" display="none">
+				<text class="namelevel" id="{concat('conf_name_', @id)}" x="{$child_x + $level_dx + $dx}" display="none">
 					<xsl:attribute name="y"><xsl:call-template name="convert_energy"><xsl:with-param name="val" select="@energy"/></xsl:call-template></xsl:attribute>
-					<xsl:value-of select="@config"/><xsl:if test="'' != @j">, j=<xsl:value-of select="@j"/></xsl:if>
+					<xsl:value-of select="@config"/><xsl:if test="'' != @j"><xsl:if test="'' != @config">, </xsl:if>j=<xsl:value-of select="@j"/></xsl:if>
 				</text>
 			</xsl:for-each>
 		</g>
