@@ -98,6 +98,17 @@ WHERE TRANSITIONS.ID_ATOM='$element_id' AND upper_level.energy < 200000 GROUP BY
 		return $stmt->FetchField($query);
 	}
 
+    function LoadMaxIntensity($element_id = null) //For statistics page
+    {
+        if ($element_id != null)
+        {
+            $stmt = GetStatement();
+            $query = "SELECT MAX(INTENSITY) FROM TRANSITIONS WHERE ID_ATOM='$element_id' ";
+            return $stmt->FetchField($query);
+        }
+        return 0;
+    }
+
 	function Save($post){
 		$count=$post['count'];
 		for ($i=0; $i<$count; $i++) {

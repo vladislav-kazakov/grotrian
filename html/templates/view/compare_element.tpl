@@ -78,6 +78,11 @@
 					{#$l10n.No_transitions#}
 				</div>
 			{#/if#}
+			<a id='compare' href='/{#$locale#}/compare/{#$layout_element_id#}'>{#$l10n.Compare#}</a>
+			<a id='circle' href='/{#$locale#}/circle/{#$layout_element_id#}'>{#$l10n.Circle_spectrum#}</a>
+			<a id='cf' href='/{#$locale#}/cf/{#$layout_element_id#}'>{#$l10n.Cognitive_diagram#}</a>
+			<button id="button" class="button white">{#$l10n.Download_PNG#}</button>
+			<br><br>
     	</div>
 	</div>
 <!--End of Main -->
