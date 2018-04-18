@@ -110,11 +110,11 @@ function compress_table()
                                             dx = - term_row_w * ii;
                                             shift_glevels(g_levels.item(toCompress[ii]), dx, true)
                                             rect_terms.item(toCompress[ii]).setAttribute('display', 'none');
-                                            rect_terms.item(toCompress[ii]).nextSibling.setAttribute('display', 'none');
+                                            rect_terms.item(toCompress[ii]).nextElementSibling.setAttribute('display', 'none');
                                         }
                                         //dx = - term_row_w * (toCompress.length - 1);
                                         // append J
-                                        var tJ = rect_terms.item(toCompress[0]).nextSibling;
+                                        var tJ = rect_terms.item(toCompress[0]).nextElementSibling;
 
                                         //Slava
                                         jArr = new Array();
@@ -144,7 +144,7 @@ function compress_table()
                                         {
                                             shift_glevels(g_levels.item(ii), dx);
                                             rect_terms.item(ii).setAttribute('x', parseFloat(rect_terms.item(ii).getAttribute('x')) + dx);
-                                            rect_terms.item(ii).nextSibling.setAttribute('x', parseFloat(rect_terms.item(ii).nextSibling.getAttribute('x')) + dx);
+                                            rect_terms.item(ii).nextElementSibling.setAttribute('x', parseFloat(rect_terms.item(ii).nextElementSibling.getAttribute('x')) + dx);
                                         }
                                         // shift next terms
                                         var curTerm = g_terms.item(j);
@@ -184,7 +184,7 @@ function compress_table()
                                 for (k = 0; k< rect_terms.length; k++)
                                 {
                                     rect_terms.item(k).setAttribute('display', 'none');
-                                    rect_terms.item(k).nextSibling.setAttribute('display', 'none');
+                                    rect_terms.item(k).nextElementSibling.setAttribute('display', 'none');
                                     dx = - term_row_w * k;
                                     shift_glevels(g_levels.item(k), dx, true);
                                 }
@@ -282,27 +282,27 @@ function fix_viewBox()
 
 function compress_shift_data(curTerm, dx)
 {
-    var Term = curTerm.nextSibling;
+    var Term = curTerm.nextElementSibling;
     while (Term != null)
     {
         if ('term' == Term.getAttribute('class'))
         {
             shift_group(Term, dx);
         }
-        Term = Term.nextSibling;
+        Term = Term.nextElementSibling;
     }
     //compress current core
     var curCore = curTerm.parentNode;
     compress_group(curCore, dx);
     //shift cores
-    var Core = curCore.nextSibling;
+    var Core = curCore.nextElementSibling;
     while (Core != null)
     {
         if ('core' == Core.getAttribute('class'))
         {
             shift_group(Core, dx);
         }
-        Core = Core.nextSibling;
+        Core = Core.nextElementSibling;
     }
 
     // compress config
@@ -310,14 +310,14 @@ function compress_shift_data(curTerm, dx)
     compress_group(curConf, dx);
 
     // shift next columns
-    var Conf = curConf.nextSibling;
+    var Conf = curConf.nextElementSibling;
     while (Conf != null)
     {
         if ('column' == Conf.getAttribute('class'))
         {
             shift_group(Conf, dx);
         }
-        Conf = Conf.nextSibling;
+        Conf = Conf.nextElementSibling;
     }
 
     // compress AllData
@@ -434,7 +434,7 @@ function drawTransitionsWaveEnergyRange(minWave, maxWave, minEnergy, maxEnergy)
 {
     var transitions = document.getElementById('transitions');
     if (null == transitions) return 1;
-    transitions = transitions.childNodes;
+    transitions = transitions.children; //childNodes;
     var rating, i, llevel, hlevel, curLine, txt_el, ex;
     var y1, y2, xl1, xl2, xh1, xh2, longh, longl, val, hx, len;
     //rating = transitions.item(0).getAttribute('rating');
