@@ -1,5 +1,6 @@
 <?
 require_once("locallist.php");
+require_once($_SERVER['DOCUMENT_ROOT']."/includes/transitionlist.php");
 
 class LevelList extends LocalList
 {
@@ -80,6 +81,218 @@ function LoadBase($element_id){
 		//echo $query;
 		return $stmt->FetchField($query);
 	}
+
+	function LoadGrouped($element_id)
+    {
+    //    TERMPARITY,       TERMR,          TERMPREFIX, JJ, TERMSEQ
+	//	  TERMMULTIPLY,     TERMFIRSTPART,  TERMPREFIX, J,  TERMSECONDPART
+
+
+
+        $query = "SELECT LEVELS.* /*,dbo.GetCfgType(CONFIG) AS config_type*/, dbo.ConcatSourcesID(ID,'L') AS SOURCE_IDS 
+                  FROM LEVELS 
+                  WHERE ID_ATOM='$element_id' 
+				  /*AND Levels.CONFIG NOT LIKE '%(%)%(%)%'*/  
+                  AND Levels.CONFIG IS NOT NULL
+				  AND Levels.CONFIG != '' 
+				  AND ENERGY IS NOT NULL
+				  ORDER BY ENERGY";
+        $this->LoadFromSQL($query);
+
+        $items = $this->GetItemsArray();
+        //Генерируем атомные остатки
+        foreach ($items as &$item) {
+            $item['id'] = $item['ID'];
+            $item['energy'] = $item['ENERGY'];
+
+            $item['FULL_CONFIG'] = $item['CONFIG'];
+
+            $item['TERMPARITY'] = $item['TERMMULTIPLY'];
+            $item['TERMR'] = $item['TERMFIRSTPART'];
+            $item['JJ'] = $item['J'];
+            $item['TERMSEQ'] = $item['TERMSECONDPART'];
+
+
+            //если есть атомный остаток, то выносим его в отдельный атрибут (ATOMICCORE), из CONFIG убираем
+            if (preg_match('/^(.*)\(([^\)]*)\)([^\(\)]*)$/', $item['CONFIG'])){
+                $item['ATOMICCORE'] = preg_replace('/^(.*)\(([^\)]*)\)([^\(\)]*)$/', '$2', $item['CONFIG']);
+                $item['CONFIG'] = preg_replace('/^(.*)\(([^\)]*)\)([^\(\)]*)$/', '$1$3', $item['CONFIG']);
+            }
+            else $item['ATOMICCORE'] = '';
+
+            //устанавливаем поля с NULL в ''
+            if ($item['ATOMICCORE'] == null) $item['ATOMICCORE'] = '';
+            if ($item['TERMSEQ'] == null) $item['TERMSEQ'] = '';
+            if ($item['TERMPREFIX'] == null) $item['TERMPREFIX'] = '';
+            if ($item['TERMR'] == null || $item['TERMR'] == '') $item['TERMR'] = '?';
+
+            //убираем с конца конфигурации, j и терма незначащие символы, такие как '?', ', "
+            $item['CONFIG'] = preg_replace('/^(.*?)([^a-zA-Z\}]*)$/', '$1', $item['CONFIG']);
+            $item['JJ'] = preg_replace('/^(.*?)([^0-9]*)$/', '$1', $item['JJ']);
+            $item['TERMR'] = preg_replace('/^(.*?)([^a-zA-Z0-9\)\}\]]*)$/', '$1', $item['TERMR']);
+            $item['TERMSEQ'] = trim($item['TERMSEQ']);
+
+            //убираем ~{...} c конца конфигурации
+            $item['CONFIG'] = preg_replace('/^(.*)(~\{[^\{\}]*\})$/', '$1', $item['CONFIG']);
+            //убираем последнюю букву из конфигурации, если их там две
+            $item['CONFIG'] = preg_replace('/^(.*[a-zA-Z])[a-zA-Z]$/', '$1', $item['CONFIG']);
+            //если заканчивается на @{число}, то в CELLCONFIG копируем CONFIG %@{%}
+            //если не заканчивается на @{число}, то в CELLCONFIG заносим CONFIG с заменой последнего числа на 'n'
+            if (!preg_match('/^(.*[@~]\{.*\})$/', $item['CONFIG'])) {
+                if (preg_match('/^(.*?)(\d*)([a-zA-Z])$/', $item['CONFIG']))
+                    $item['CELLCONFIG'] = preg_replace('/^(.*?)(\d*)([a-zA-Z])$/', '$1n$3', $item['CONFIG']);
+                //непонятно, почему это здесь. Исправить
+                if ($item['CONFIG'] == null || $item['CONFIG'] == '')
+                    $item['CELLCONFIG'] = $item['CONFIG'] = '?';
+            }
+            else /*(preg_match('/^(.*@\{.*\})$/', $item['CONFIG']))*/
+                $item['CELLCONFIG'] = $item['CONFIG'];
+        }
+        unset($item);
+        //если у всех уровней с одинаковым CELLCONFIG совпадают и CONFIG, то CELLCONFIG = CONFIG
+        $cellconfigs = [];
+
+        foreach ($items as $item) {
+            if (!isset($cellconfigs[$item['CELLCONFIG']])) $cellconfigs[$item['CELLCONFIG']] = [];
+            if (!in_array($item['CONFIG'], $cellconfigs[$item['CELLCONFIG']]))
+                $cellconfigs[$item['CELLCONFIG']][] = $item['CONFIG'];
+        }
+
+        $new_cellconfigs = [];
+        foreach ($cellconfigs as $cellconfig => $configs) {
+            if (count($configs) == 1)
+                $new_cellconfigs[$configs[0]] = $configs;
+            else $new_cellconfigs[$cellconfig] = $configs;
+        }
+        $cellconfigs = $new_cellconfigs;
+
+        foreach ($items as &$item)
+            foreach ($cellconfigs as $cellconfig => $configs)
+                foreach ($configs as $config)
+                    if ($item['CONFIG'] == $config)
+                        $item['CELLCONFIG'] = $cellconfig;
+        unset($item);
+
+        //генерируем long
+        $transitionList = new TransitionList();
+        $transitionList->LoadWithLevels($element_id);
+        $transitions =  $transitionList->GetItemsArray();
+
+        foreach ($items as &$item){
+            $item['long'] = 0;
+            if ($item['ENERGY'] == 0) $item['long'] = 1;
+            foreach($transitions as $transition){
+                if ($transition['lower_level_id'] == $item['ID'] && $transition['lower_level_termmultiply'] != $transition['upper_level_termmultiply']) {
+                    $item['long'] = 1;
+                    break;
+                }
+            }
+
+        }
+        unset($item);
+
+        //Группируем элементы массива
+        $terms = $this->GroupArrayByKeys($items, ['CELLCONFIG', 'ATOMICCORE', 'TERMPREFIX', 'TERMPARITY', 'TERMR', 'TERMSEQ', 'JJ'], 'level');
+        //print_r($terms);
+
+        //Сортируем термы учитывая четность, основной терм, энергии
+        usort($terms, function($a, $b)
+        {
+            if ($a['level'][0]['ENERGY'] == 0 ){
+                if ($b['level'][0]['TERMPARITY'] == 1 ) {
+                    return 1;
+                }
+                else {
+                    return -1;
+                }
+            }
+            if ($b['level'][0]['ENERGY'] == 0 ){
+                if ($a['level'][0]['TERMPARITY'] == 1 ) {
+                    return -1;
+                }
+                else {
+                    return 1;
+                }
+            }
+
+            if ($a['level'][0]['TERMPARITY'] > $b['level'][0]['TERMPARITY']){
+                return -1;
+            }
+            if ($a['level'][0]['TERMPARITY'] < $b['level'][0]['TERMPARITY']){
+                return 1;
+            }
+            else{
+                if ($a['level'][0]['TERMPARITY'] == 1){
+                    if ($a['level'][0]['ENERGY'] > $b['level'][0]['ENERGY']){
+                        return 1;
+                    }
+                    if ($a['level'][0]['TERMPARITY'] < $b['level'][0]['TERMPARITY']){
+                        return -1;
+                    }
+                    else{
+                        return 0;
+                    }
+                }
+                else{
+                    if ($a['level'][0]['ENERGY'] < $b['level'][0]['ENERGY']){
+                        return 1;
+                    }
+                    if ($a['level'][0]['TERMPARITY'] > $b['level'][0]['TERMPARITY']){
+                        return -1;
+                    }
+                    else{
+                        return 0;
+                    }
+                }
+
+            }
+
+        });
+
+        $groups = $this->GroupArrayByKeys($terms, ['CELLCONFIG', 'ATOMICCORE', 'TERMPREFIX', 'TERMPARITY'], 'group');
+        $atomiccores = $this->GroupArrayByKeys($groups, ['CELLCONFIG', 'ATOMICCORE', 'TERMPARITY'], 'term');
+        $columns = $this->GroupArrayByKeys($atomiccores, ['CELLCONFIG', 'TERMPARITY'], 'atomiccore');
+
+        $diagramArray = ['Diagram'=>['Levels'=>['column'=>$columns]]];
+        return $diagramArray;
+}
+
+    function GroupArrayByKeys($array, $keys, $groupName)
+    {
+        $newarray = [];
+        foreach($array as $value) {
+            $found = false;
+            foreach ($newarray as &$newarrayvalue){
+                //проверяем совпадение $value и $newarrayvalue
+                $equal = true;
+                foreach ($keys as $key) {
+                    //echo var_dump($value[$key]), " ", var_dump($newarrayvalue[$key]), "->";
+                    if ($value[$key] != $newarrayvalue[$key]) {
+                        //echo "not equal".PHP_EOL;
+                        $equal = false;
+                        break;
+                    }
+                    //echo PHP_EOL;
+                }
+                //если всё совпало добавляем туда элемент
+                if ($equal) {
+                    $newarrayvalue[$groupName][] = $value;
+                    $found = true;
+                    break;
+                }
+            }
+            unset($newarrayvalue);
+            //если не нашли совпадение создаем
+            if (!$found){
+                $newarrayvalue = [];
+                foreach ($keys as $key)
+                    $newarrayvalue[$key] = $value[$key];
+                $newarrayvalue[$groupName][] = $value;
+                $newarray[] = $newarrayvalue;
+            }
+        }
+        return $newarray;
+    }
 
 	function Save($post){
 		$count=$post['count'];

@@ -2,6 +2,95 @@
 
 require_once($_SERVER['DOCUMENT_ROOT']."/configure.php");
 require_once($_SERVER['DOCUMENT_ROOT']."/includes/atom.php");
+require_once($_SERVER['DOCUMENT_ROOT']."/includes/levellist.php");
+require_once($_SERVER['DOCUMENT_ROOT']."/includes/transitionlist.php");
+
+/*FORMATING FUNCTIONS */
+function extend_energy($val, $n){
+    global $n_breaks, $breaks;
+    if ($n < $n_breaks) {
+        if ($val < $breaks[$n]['l1']) return extend_energy($val, $n + 1);
+        else return extend_energy($val + ($breaks[$n]['l2'] - $breaks[$n]['l1']), $n + 1);
+    }
+    else return $val;
+}
+
+/*convert energy to coordinates*/
+function convert_energy($val){ //сложна€ логика условий. ѕеределать
+    global $energy_limit, $n_breaks, $diagram_h, $graph_y, $n_limits, $energy_limit_last, $term_row_h;
+    if ($val < $energy_limit){
+        if ($n_breaks >= 1) return scale_with_breaks( 0, $val, $val);
+        if ($n_breaks == 0) return round($diagram_h - (($val * $graph_y) / $energy_limit), 2);
+    }
+    elseif ($n_limits == 1) return round($diagram_h - $graph_y, 2);
+    elseif ($val > $energy_limit_last) return round($diagram_h - $graph_y - $term_row_h*0.5, 2);
+    elseif ($n_limits > 1) return round($diagram_h - $graph_y - ($term_row_h*0.5*($val - $energy_limit) / ($energy_limit_last - $energy_limit)), 2);
+    else return round($diagram_h - $graph_y, 2);
+}
+
+function scale_with_breaks($n_break, $energy, $val){
+    global $breaks, $n_breaks, $diagram_h, $graph_y, $energy_limit, $sum_breaks;
+    if ($n_break < $n_breaks){
+        if ($energy > $breaks[$n_break]['l2'])
+            //≈сли уровень выше верхней границы предела, то отнимаем от энергии ширину разрыва и идем дальше
+            return scale_with_breaks($n_break + 1, $energy, $val - ($breaks[$n_break]['l2'] - $breaks[$n_break]['l1']));
+        elseif ($energy >= $breaks[$n_break]['l1'])
+            //≈сли энерги€ попадает в разрыв, то устанавливаем значение в нижнуюю границу разрыва
+            return scale_with_breaks($n_break + 1, $energy, $breaks[$n_break]['l1']);
+        else return scale_with_breaks($n_break + 1, $energy, $val);
+    }
+    else return round($diagram_h - (($val*$graph_y) / ($energy_limit - $sum_breaks)));
+}
+
+function set_labels($x, $dx, $class, $n, $kE, $energy){
+    global $n_labels;
+    if ($n < $n_labels) {
+        $curE = extend_energy($energy /*val*/, 0 /*n*/);
+        $curY = convert_energy($curE);
+        echo '<text class="' . $class . '" x="' . ($x+$dx) .'" y="' . $curY . '">' . round($curE*$kE, 1) . '</text>' . PHP_EOL;
+        echo '<line class="energy" y1="' . $curY . '" y2="' . $curY . '" x1="' . ($x+$dx) . '" x2="' . ($x - 3*$dx) .'"/>' . PHP_EOL;
+        set_labels($x, $dx, $class, $n + 1, $kE, (($energy / $n) * ($n + 1)));
+    }
+}
+
+/*create a string with indexes instead of @{...} (supindex) and ~{...} (subindex)*/
+function create_indexes($val){
+    global $index_dx, $index_dy;
+    if (strpos($val, '{') !== false){
+        if (strpos($val, '@') !== false) return create_indexes(substr($val, 0, strpos($val, '@')))
+            . '<tspan class="index" dy="' . (-$index_dy) . '" dx="' . (-$index_dx) . '">'
+            . substr($val, strpos($val,  '{') + 1, strpos($val, '}') - strpos($val,  '{') - 1)
+            . '</tspan>'
+            . '<tspan dy="' . $index_dy . '" dx="' . (-$index_dx) .'">'
+            .  create_indexes(substr($val, strpos($val, '}') + 1))
+            . '</tspan>';
+        else return substr($val, 0, strpos($val, '~'))
+            . '<tspan class="index" dx="' . (-$index_dx) . '" dy="' . (2*$index_dy) . '">'
+            . substr($val, strpos($val,  '{') + 1, strpos($val, '}') - strpos($val,  '{') - 1)
+            . '</tspan>'
+            . '<tspan dx="' . (-$index_dx) . '" dy="' . (-$index_dy) . '">'
+            . create_indexes(substr($val, strpos($val, '}') + 1))
+            . '</tspan>';
+    }
+    else return $val;
+}
+
+/*Xml2Array recursive parser*/
+function parseNode($node, &$arrayElement, $assocs = null){
+    if ($node->hasAttributes())
+        foreach ($node->attributes as $attribute)
+            $arrayElement[$attribute->nodeName] = $attribute->nodeValue;
+    if ($node->hasChildNodes()) {
+        foreach ($node->childNodes as $childNode) {
+            $childArrayElement = [];
+            parseNode($childNode, $childArrayElement, $assocs);
+            if (isset($childNode->tagName) && in_array($childNode->tagName, $assocs))
+                $arrayElement[$childNode->tagName] = $childArrayElement;
+            elseif (isset($childNode->tagName)) $arrayElement[$childNode->tagName][] = $childArrayElement;
+            else $arrayElement[] = $childArrayElement;
+        }
+    }
+}
 
 if(isset($_GET['element_id'])) {
     $element_id = $_GET['element_id'];
@@ -16,25 +105,8 @@ if(isset($_GET['element_id'])) {
     $DOM_diagram = $xml->getElementsByTagName('Diagram')->item(0);
     $assocs = ["Diagram", "Levels", "Lines", "limits", "breaks"];
 
-    /*Xml2Array recursive parser*/
-    function parseNode($node, &$arrayElement, $assocs = null){
-        if ($node->hasAttributes())
-            foreach ($node->attributes as $attribute)
-                $arrayElement[$attribute->nodeName] = $attribute->nodeValue;
-        if ($node->hasChildNodes()) {
-            foreach ($node->childNodes as $childNode) {
-                $childArrayElement = [];
-                parseNode($childNode, $childArrayElement, $assocs);
-                if (isset($childNode->tagName) && in_array($childNode->tagName, $assocs))
-                    $arrayElement[$childNode->tagName] = $childArrayElement;
-                elseif (isset($childNode->tagName)) $arrayElement[$childNode->tagName][] = $childArrayElement;
-                else $arrayElement[] = $childArrayElement;
-            }
-        }
-    }
-
     parseNode($xml, $diagramArray, $assocs);
-
+    //print_r($diagramArray);
     $atom = new Atom();
     $atom->Load($element_id);
     $atom_data = $atom->GetAllProperties();
@@ -42,6 +114,10 @@ if(isset($_GET['element_id'])) {
         (($atom_data['ABBR'] != 'H' && $atom_data['ABBR'] != 'D' && $atom_data['ABBR'] != 'T') ?
             " " . numberToRoman(intval($atom_data['IONIZATION']) + 1) : "");
 
+    $levelList = new LevelList();
+    $diagramArray2 = $levelList->LoadGrouped($element_id);
+    $transitionList = new TransitionList();
+    $lines = $transitionList->LoadForDiagram($element_id);
 
     $breaks = [];
     foreach($xml->getElementsByTagName('break') as $DOM_break){
@@ -65,96 +141,32 @@ if(isset($_GET['element_id'])) {
     $diagram_h = 700;
     $term_row_w = 30;
     $term_row_h = 80;
-    $conf_row_h = 100;
+    $conf_row_h = 100;//150
     $dE = round(($energy_limit - $sum_breaks)/($n_labels*100))*100;
 
     $core_row_h =  0;
-    foreach($diagramArray['Diagram']['Levels']['column'] as $column)
+    foreach($diagramArray2['Diagram']['Levels']['column'] as $column)
         foreach($column['atomiccore'] as $atomiccore)
-            if ($atomiccore['value'] != "")
-                $core_row_h =  50;
+            if ($atomiccore['ATOMICCORE'] != "") {
+                $core_row_h = 50;
+                break 2;
+            }
+    //print_r($core_row_h);
 
     $graph_y = $diagram_h - $core_row_h - $conf_row_h - $term_row_h;
 
     $n_terms = 0;
-    foreach($diagramArray['Diagram']['Levels']['column'] as $column)
+    foreach($diagramArray2['Diagram']['Levels']['column'] as $column)
         foreach($column['atomiccore'] as $atomiccore)
             foreach($atomiccore['term'] as $term)
                 foreach($term['group'] as $group)
                     $n_terms++;
+   // print_r($n_terms);
 
     $t_width = $term_row_w * $n_terms;
     $t_height = $diagram_h + 2;
+    //print_r($diagramArray2);
 
-    /*FORMATING FUNCTIONS */
-    function extend_energy($val, $n){
-        global $n_breaks, $breaks;
-        if ($n < $n_breaks) {
-            if ($val < $breaks[$n]['l1']) return extend_energy($val, $n + 1);
-            else return extend_energy($val + ($breaks[$n]['l2'] - $breaks[$n]['l1']), $n + 1);
-        }
-        else return $val;
-    }
-
-    /*convert energy to coordinates*/
-    function convert_energy($val){ //сложна€ логика условий. ѕеределать
-        global $energy_limit, $n_breaks, $diagram_h, $graph_y, $n_limits, $energy_limit_last, $term_row_h;
-        if ($val < $energy_limit){
-            if ($n_breaks >= 1) return scale_with_breaks( 0, $val, $val);
-            if ($n_breaks == 0) return round($diagram_h - (($val * $graph_y) / $energy_limit), 2);
-        }
-        elseif ($n_limits == 1) return round($diagram_h - $graph_y, 2);
-        elseif ($val > $energy_limit_last) return round($diagram_h - $graph_y - $term_row_h*0.5, 2);
-        elseif ($n_limits > 1) return round($diagram_h - $graph_y - ($term_row_h*0.5*($val - $energy_limit) / ($energy_limit_last - $energy_limit)), 2);
-        else return round($diagram_h - $graph_y, 2);
-    }
-
-    function scale_with_breaks($n_break, $energy, $val){
-        global $breaks, $n_breaks, $diagram_h, $graph_y, $energy_limit, $sum_breaks;
-        if ($n_break < $n_breaks){
-            if ($energy > $breaks[$n_break]['l2'])
-                //≈сли уровень выше верхней границы предела, то отнимаем от энергии ширину разрыва и идем дальше
-                return scale_with_breaks($n_break + 1, $energy, $val - ($breaks[$n_break]['l2'] - $breaks[$n_break]['l1']));
-            elseif ($energy >= $breaks[$n_break]['l1'])
-                //≈сли энерги€ попадает в разрыв, то устанавливаем значение в нижнуюю границу разрыва
-                return scale_with_breaks($n_break + 1, $energy, $breaks[$n_break]['l1']);
-            else return scale_with_breaks($n_break + 1, $energy, $val);
-        }
-        else return round($diagram_h - (($val*$graph_y) / ($energy_limit - $sum_breaks)));
-    }
-
-    function set_labels($x, $dx, $class, $n, $kE, $energy){
-        global $n_labels;
-        if ($n < $n_labels) {
-            $curE = extend_energy($energy /*val*/, 0 /*n*/);
-            $curY = convert_energy($curE);
-            echo '<text class="' . $class . '" x="' . ($x+$dx) .'" y="' . $curY . '">' . round($curE*$kE, 1) . '</text>' . PHP_EOL;
-            echo '<line class="energy" y1="' . $curY . '" y2="' . $curY . '" x1="' . ($x+$dx) . '" x2="' . ($x - 3*$dx) .'"/>' . PHP_EOL;
-            set_labels($x, $dx, $class, $n + 1, $kE, (($energy / $n) * ($n + 1)));
-        }
-    }
-
-    /*create a string with indexes instead of @{...} (supindex) and ~{...} (subindex)*/
-    function create_indexes($val){
-        global $index_dx, $index_dy;
-        if (strpos($val, '{') !== false){
-            if (strpos($val, '@') !== false) return create_indexes(substr($val, 0, strpos($val, '@')))
-                    . '<tspan class="index" dy="' . (-$index_dy) . '" dx="' . (-$index_dx) . '">'
-                    . substr($val, strpos($val,  '{') + 1, strpos($val, '}') - strpos($val,  '{') - 1)
-                    . '</tspan>'
-                    . '<tspan dy="' . $index_dy . '" dx="' . (-$index_dx) .'">'
-                    .  create_indexes(substr($val, strpos($val, '}') + 1))
-                    . '</tspan>';
-            else return substr($val, 0, strpos($val, '~'))
-                    . '<tspan class="index" dx="' . (-$index_dx) . '" dy="' . (2*$index_dy) . '">'
-                    . substr($val, strpos($val,  '{') + 1, strpos($val, '}') - strpos($val,  '{') - 1)
-                    . '</tspan>'
-                    . '<tspan dx="' . (-$index_dx) . '" dy="' . (-$index_dy) . '">'
-                    . create_indexes(substr($val, strpos($val, '}') + 1))
-                    . '</tspan>';
-        }
-        else return $val;
-    }
 ?>
 <link xmlns="http://www.w3.org/2000/svg"
       xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -178,7 +190,7 @@ if(isset($_GET['element_id'])) {
             class="Ecm" x="<?=$Ecm_row_w - 1?>" y="<?=$diagram_h - $graph_y?>"><?=$energy_limit?></text>
 
         <!-- for view level energy -->
-        <?foreach ($diagramArray['Diagram']['Levels']['column'] as $column){
+        <?foreach ($diagramArray2['Diagram']['Levels']['column'] as $column){
             foreach($column['atomiccore'] as $atomiccore) {
                 foreach ($atomiccore['term'] as $term) {
                     foreach ($term['group'] as $group) {
@@ -213,7 +225,7 @@ if(isset($_GET['element_id'])) {
     <g class="Data" transform="translate(<?=$Ecm_row_w?>, 0)">
         <?$n_col = 0;
         $translate = 0;
-        foreach ($diagramArray['Diagram']['Levels']['column'] as $column){
+        foreach ($diagramArray2['Diagram']['Levels']['column'] as $column){
             $n_col++;
             $n_terms_in_config = 0;
             foreach($column['atomiccore'] as $atomiccore)
@@ -225,7 +237,7 @@ if(isset($_GET['element_id'])) {
             <g class="column" id="col_<?=$n_col?>" transform="translate(<?=$translate?>, 0)">
                 <rect y="0" x="0" height="<?=$conf_row_h?>" width="<?=$col_w?>" id="recConf_<?=$n_col?>"> </rect>
                 <text class="config" y="<?=0.5*$conf_row_h?>" x="<?=0.5*$col_w?>"
-                      rec_id="recConf_<?=$n_col?>"><?=create_indexes($column['config'])?></text>
+                      rec_id="recConf_<?=$n_col?>"><?=create_indexes($column['CELLCONFIG'])?></text>
                 <?$n_core = 0;
                 $core_x = 0;
                 foreach ($column['atomiccore'] as $atomiccore) {
@@ -240,16 +252,16 @@ if(isset($_GET['element_id'])) {
                     <g class="core">
                         <rect x="<?=$core_x?>" height="<?=$core_row_h?>" width="<?=$core_w?>" y="<?=$conf_row_h?>"
                               id="recCore_<?=$n_core?>"></rect>
-                    <?if ($atomiccore['value'] != ''){?>
+                    <?if ($atomiccore['ATOMICCORE'] != ''){?>
                         <text class="config" y="<?=0.5*$core_row_h + $conf_row_h?>" x="<?=$core_x + 0.5*$core_w?>"
-                            rec_id="recCore_<?=$n_core?>"><?=create_indexes($atomiccore['value'])?></text>
+                            rec_id="recCore_<?=$n_core?>"><?=create_indexes($atomiccore['ATOMICCORE'])?></text>
                     <?}?>
                     <?
                     $n_term = 0;
                     foreach($atomiccore['term'] as $term) {
                         $dx = 0;
                    ?>
-                   <g class="term" prefix="<?=$term['prefix']?>" parity="<?=$term['parity']?>"><?
+                   <g class="term" prefix="<?=$term['TERMPREFIX']?>" parity="<?=$term['TERMPARITY']?>"><?
                    foreach ($term['group'] as $group){
                        $n_term++;
                        $child_x = ($n_term-0.5) * $term_row_w + $core_x;
@@ -257,10 +269,10 @@ if(isset($_GET['element_id'])) {
                        foreach($group['level'] as $level)
                            $n_levels_in_term++;
                        ?><rect x="<?=($n_term-1)*$term_row_w + $core_x + $dx?>" y="<?=$conf_row_h+$core_row_h?>" width="<?=$term_row_w?>" id="recTerm_<?=$n_term?>"
-                             L="<?=$group['L']?>"
-                             prefix="<?=$term['prefix']?>"
-                             parity="<?=$term['parity']?>"
-                             j="<?=$group['j']?>"
+                             L="<?=$group['TERMR']?>"
+                             prefix="<?=$term['TERMPREFIX']?>"
+                             parity="<?=$term['TERMPARITY']?>"
+                             j="<?=$group['JJ']?>"
                              n_levels="<?=$n_levels_in_term?>"
                            <?
                            if ($n_limits==1){?>
@@ -282,12 +294,12 @@ if(isset($_GET['element_id'])) {
                             <?}else{?>
                                 y="<?=0.5*$term_row_h + $core_row_h + $conf_row_h?>"
                             <?}?>
-                            rec_id="recTerm_<?=$n_term?>"><?=$group['seq']?><tspan class="index" dx="<?=-$index_dx?>"
-                            dy="<?=-$index_dy?>"><?=$term['prefix']?></tspan><tspan dx="<?=-$index_dx?>"
-                            dy="<?=$index_dy?>"><?=create_indexes($group['L'])?></tspan><?if ($term['parity'] != ''){?><tspan class="index"
-                          dx="<?=-$index_dx?>" dy="<?=-$index_dy?>"><?=$term['parity']?></tspan><tspan class="index"
-                       dx="<?=-$index_dy?>" dy="<?=2*$index_dy?>"><?=$group['j']?></tspan><?}else{?><tspan class="index"
-                       dx="<?=-$index_dx?>" dy="<?=$index_dy?>"><?=$group['j']?></tspan><?}?></text>
+                            rec_id="recTerm_<?=$n_term?>"><?=$group['TERMSEQ']?><tspan class="index" dx="<?=-$index_dx?>"
+                            dy="<?=-$index_dy?>"><?=$term['TERMPREFIX']?></tspan><tspan dx="<?=-$index_dx?>"
+                            dy="<?=$index_dy?>"><?=create_indexes($group['TERMR'])?></tspan><?if ($term['TERMPARITY'] != ''){?><tspan class="index"
+                          dx="<?=-$index_dx?>" dy="<?=-$index_dy?>">o</tspan><tspan class="index"
+                       dx="<?=-$index_dy?>" dy="<?=2*$index_dy?>"><?=$group['JJ']?></tspan><?}else{?><tspan class="index"
+                       dx="<?=-$index_dx?>" dy="<?=$index_dy?>"><?=$group['JJ']?></tspan><?}?></text>
                        <g class="levels"><line class="level" x1="<?=$child_x + $dx?>" x2="<?=$child_x + $dx?>"
                                y2="<?=convert_energy($group['level'][0]['energy'])?>"
                            <?if ($n_limits == 1){?>
@@ -300,7 +312,7 @@ if(isset($_GET['element_id'])) {
                            ></line>
                        <?foreach($group['level'] as $level){?>
                            <line class="level" energy="<?=$level['energy']?>" onmouseover="mouse_on_level(evt, this)" onmouseout="mouse_out_level(evt, this)"
-                                     config="<?=$level['config']?>" j="<?=$level['j']?>"
+                                     config="<?=$level['CONFIG']?>" j="<?=$level['JJ']?>"
                                      id="<?=$level['id']?>"
                                      y1="<?=convert_energy($level['energy'])?>"
                                      y2="<?=convert_energy($level['energy'])?>"
@@ -310,7 +322,7 @@ if(isset($_GET['element_id'])) {
                            ></line>
                            <text class="namelevel" id="conf_name_<?=$level['id']?>" x="<?=$child_x + $level_dx + $dx?>" display="none"
                                 y="<?=convert_energy($level['energy'])?>"
-                           ><?=$level['config']?><?if ($level['j'] != ''){?><?if ($level['config'] != ''){?>, <?}?>j=<?=$level['j']?><?}?></text>
+                           ><?=create_indexes($level['CONFIG'])?><?if ($level['JJ'] != ''){?><?if ($level['CONFIG'] != ''){?>, <?}?>j=<?=$level['JJ']?><?}?></text>
                        <?}?>
                        </g>
                    <?}?>
@@ -326,18 +338,18 @@ if(isset($_GET['element_id'])) {
 
         <!-- transitions-->
         <g id="transitions">
-            <?foreach($diagramArray['Diagram']['Lines']['line'] as $line){?>
+            <?foreach($lines as $line){?>
                 <line class="transition" onmouseover="mouse_on_tr(evt, this)" onmouseout="mouse_out_tr(evt, this)"
-                    id="<?=$line['id']?>"
-                    low_level="<?=$line['low_level']?>"
-                    high_level="<?=$line['high_level']?>"
+                    id="<?=$line['ID']?>"
+                    low_level="<?=$line['lower_level_id']?>"
+                    high_level="<?=$line['upper_level_id']?>"
                     rating="<?=$line['rating']?>"
                     dx="0"
-                    wavelength="<?=$line['wavelength']?>"></line>
+                    wavelength="<?=$line['WAVELENGTH']?>"></line>
                 <rect class="fortext" width="1" height="6" transform="" display="none"
-                    id="rect_<?=$line['id']?>"></rect>
+                    id="rect_<?=$line['ID']?>"></rect>
                 <text class="transition" transform="" display="none"
-                    id="txt_<?=$line['id']?>"><?=$line['wavelength']?></text>
+                    id="txt_<?=$line['ID']?>"><?=$line['WAVELENGTH']?></text>
             <?}?>
         </g>
         <text class="name" id="Abbr" x="<?=$term_row_w*$n_terms - 5?>" y="<?=$diagram_h - 5?>"><?=$abbr?></text>
