@@ -1,6 +1,6 @@
 <?
 require_once("locallist.php");
-require_once($_SERVER['DOCUMENT_ROOT']."/includes/transitionlist.php");
+require_once("transitionlist.php");
 
 class LevelList extends LocalList
 {
@@ -84,12 +84,7 @@ function LoadBase($element_id){
 
 	function LoadGrouped($element_id)
     {
-    //    TERMPARITY,       TERMR,          TERMPREFIX, JJ, TERMSEQ
-	//	  TERMMULTIPLY,     TERMFIRSTPART,  TERMPREFIX, J,  TERMSECONDPART
-
-
-
-        $query = "SELECT LEVELS.* /*,dbo.GetCfgType(CONFIG) AS config_type*/, dbo.ConcatSourcesID(ID,'L') AS SOURCE_IDS 
+        $query = "SELECT LEVELS.*, dbo.ConcatSourcesID(ID,'L') AS SOURCE_IDS 
                   FROM LEVELS 
                   WHERE ID_ATOM='$element_id' 
 				  /*AND Levels.CONFIG NOT LIKE '%(%)%(%)%'*/  
@@ -102,16 +97,7 @@ function LoadBase($element_id){
         $items = $this->GetItemsArray();
         //Генерируем атомные остатки
         foreach ($items as &$item) {
-            $item['id'] = $item['ID'];
-            $item['energy'] = $item['ENERGY'];
-
             $item['FULL_CONFIG'] = $item['CONFIG'];
-
-            $item['TERMPARITY'] = $item['TERMMULTIPLY'];
-            $item['TERMR'] = $item['TERMFIRSTPART'];
-            $item['JJ'] = $item['J'];
-            $item['TERMSEQ'] = $item['TERMSECONDPART'];
-
 
             //если есть атомный остаток, то выносим его в отдельный атрибут (ATOMICCORE), из CONFIG убираем
             if (preg_match('/^(.*)\(([^\)]*)\)([^\(\)]*)$/', $item['CONFIG'])){
@@ -122,15 +108,15 @@ function LoadBase($element_id){
 
             //устанавливаем поля с NULL в ''
             if ($item['ATOMICCORE'] == null) $item['ATOMICCORE'] = '';
-            if ($item['TERMSEQ'] == null) $item['TERMSEQ'] = '';
+            if ($item['TERMSECONDPART'] == null) $item['TERMSECONDPART'] = '';
             if ($item['TERMPREFIX'] == null) $item['TERMPREFIX'] = '';
-            if ($item['TERMR'] == null || $item['TERMR'] == '') $item['TERMR'] = '?';
+            if ($item['TERMFIRSTPART'] == null || $item['TERMFIRSTPART'] == '') $item['TERMFIRSTPART'] = '?';
 
             //убираем с конца конфигурации, j и терма незначащие символы, такие как '?', ', "
             $item['CONFIG'] = preg_replace('/^(.*?)([^a-zA-Z\}]*)$/', '$1', $item['CONFIG']);
-            $item['JJ'] = preg_replace('/^(.*?)([^0-9]*)$/', '$1', $item['JJ']);
-            $item['TERMR'] = preg_replace('/^(.*?)([^a-zA-Z0-9\)\}\]]*)$/', '$1', $item['TERMR']);
-            $item['TERMSEQ'] = trim($item['TERMSEQ']);
+            $item['J'] = preg_replace('/^(.*?)([^0-9]*)$/', '$1', $item['J']);
+            $item['TERMFIRSTPART'] = preg_replace('/^(.*?)([^a-zA-Z0-9\)\}\]]*)$/', '$1', $item['TERMFIRSTPART']);
+            $item['TERMSECONDPART'] = trim($item['TERMSECONDPART']);
 
             //убираем ~{...} c конца конфигурации
             $item['CONFIG'] = preg_replace('/^(.*)(~\{[^\{\}]*\})$/', '$1', $item['CONFIG']);
@@ -192,14 +178,14 @@ function LoadBase($element_id){
         unset($item);
 
         //Группируем элементы массива
-        $terms = $this->GroupArrayByKeys($items, ['CELLCONFIG', 'ATOMICCORE', 'TERMPREFIX', 'TERMPARITY', 'TERMR', 'TERMSEQ', 'JJ'], 'level');
+        $terms = $this->GroupArrayByKeys($items, ['CELLCONFIG', 'ATOMICCORE', 'TERMPREFIX', 'TERMMULTIPLY', 'TERMFIRSTPART', 'TERMSECONDPART', 'J'], 'level');
         //print_r($terms);
 
         //Сортируем термы учитывая четность, основной терм, энергии
         usort($terms, function($a, $b)
         {
             if ($a['level'][0]['ENERGY'] == 0 ){
-                if ($b['level'][0]['TERMPARITY'] == 1 ) {
+                if ($b['level'][0]['TERMMULTIPLY'] == 1 ) {
                     return 1;
                 }
                 else {
@@ -207,7 +193,7 @@ function LoadBase($element_id){
                 }
             }
             if ($b['level'][0]['ENERGY'] == 0 ){
-                if ($a['level'][0]['TERMPARITY'] == 1 ) {
+                if ($a['level'][0]['TERMMULTIPLY'] == 1 ) {
                     return -1;
                 }
                 else {
@@ -215,18 +201,18 @@ function LoadBase($element_id){
                 }
             }
 
-            if ($a['level'][0]['TERMPARITY'] > $b['level'][0]['TERMPARITY']){
+            if ($a['level'][0]['TERMMULTIPLY'] > $b['level'][0]['TERMMULTIPLY']){
                 return -1;
             }
-            if ($a['level'][0]['TERMPARITY'] < $b['level'][0]['TERMPARITY']){
+            if ($a['level'][0]['TERMMULTIPLY'] < $b['level'][0]['TERMMULTIPLY']){
                 return 1;
             }
             else{
-                if ($a['level'][0]['TERMPARITY'] == 1){
+                if ($a['level'][0]['TERMMULTIPLY'] == 1){
                     if ($a['level'][0]['ENERGY'] > $b['level'][0]['ENERGY']){
                         return 1;
                     }
-                    if ($a['level'][0]['TERMPARITY'] < $b['level'][0]['TERMPARITY']){
+                    if ($a['level'][0]['TERMMULTIPLY'] < $b['level'][0]['TERMMULTIPLY']){
                         return -1;
                     }
                     else{
@@ -237,7 +223,7 @@ function LoadBase($element_id){
                     if ($a['level'][0]['ENERGY'] < $b['level'][0]['ENERGY']){
                         return 1;
                     }
-                    if ($a['level'][0]['TERMPARITY'] > $b['level'][0]['TERMPARITY']){
+                    if ($a['level'][0]['TERMMULTIPLY'] > $b['level'][0]['TERMMULTIPLY']){
                         return -1;
                     }
                     else{
@@ -249,12 +235,10 @@ function LoadBase($element_id){
 
         });
 
-        $groups = $this->GroupArrayByKeys($terms, ['CELLCONFIG', 'ATOMICCORE', 'TERMPREFIX', 'TERMPARITY'], 'group');
-        $atomiccores = $this->GroupArrayByKeys($groups, ['CELLCONFIG', 'ATOMICCORE', 'TERMPARITY'], 'term');
-        $columns = $this->GroupArrayByKeys($atomiccores, ['CELLCONFIG', 'TERMPARITY'], 'atomiccore');
-
-        $diagramArray = ['Diagram'=>['Levels'=>['column'=>$columns]]];
-        return $diagramArray;
+        $groups = $this->GroupArrayByKeys($terms, ['CELLCONFIG', 'ATOMICCORE', 'TERMPREFIX', 'TERMMULTIPLY'], 'group');
+        $atomiccores = $this->GroupArrayByKeys($groups, ['CELLCONFIG', 'ATOMICCORE', 'TERMMULTIPLY'], 'term');
+        $columns = $this->GroupArrayByKeys($atomiccores, ['CELLCONFIG', 'TERMMULTIPLY'], 'atomiccore');
+        return $columns;
 }
 
     function GroupArrayByKeys($array, $keys, $groupName)
