@@ -19,7 +19,7 @@ function extend_energy($val, $n){
 function convert_energy($val){ //сложна€ логика условий. ѕеределать
     global $min_limit, $n_breaks, $diagram_h, $graph_y, $n_limits, $max_limit, $term_row_h;
     if ($val < $min_limit){
-        if ($n_breaks >= 1) return scale_with_breaks( 0, $val, $val);
+        if ($n_breaks >= 1) return scale_with_breaks($val);
         if ($n_breaks == 0) return round($diagram_h - (($val * $graph_y) / $min_limit), 2);
     }
     elseif ($n_limits == 1) return round($diagram_h - $graph_y, 2);
@@ -28,18 +28,14 @@ function convert_energy($val){ //сложна€ логика условий. ѕеределать
     else return round($diagram_h - $graph_y, 2);
 }
 
-function scale_with_breaks($n_break, $energy, $val){
+function scale_with_breaks($energy){
     global $breaks, $n_breaks, $diagram_h, $graph_y, $min_limit, $sum_breaks;
-    if ($n_break < $n_breaks){
-        if ($energy > $breaks[$n_break]['l2']['value'])
-            //≈сли уровень выше верхней границы предела, то отнимаем от энергии ширину разрыва и идем дальше
-            return scale_with_breaks($n_break + 1, $energy, $val - ($breaks[$n_break]['l2']['value'] - $breaks[$n_break]['l1']['value']));
-        elseif ($energy >= $breaks[$n_break]['l1']['value'])
-            //≈сли энерги€ попадает в разрыв, то устанавливаем значение в нижнуюю границу разрыва
-            return scale_with_breaks($n_break + 1, $energy, $breaks[$n_break]['l1']['value']);
-        else return scale_with_breaks($n_break + 1, $energy, $val);
+    $val = $energy;
+    foreach($breaks as $break){
+        if ($energy > $break['l2']['value']) $val -= $break['l2']['value'] - $break['l1']['value'];
+        elseif ($energy > $break['l1']['value']) $val -= $energy - $break['l1']['value'];
     }
-    else return round($diagram_h - (($val*$graph_y) / ($min_limit - $sum_breaks)));
+    return round($diagram_h - (($val*$graph_y) / ($min_limit - $sum_breaks)));
 }
 
 function set_labels($x, $dx, $class, $n, $kE, $energy){
@@ -74,7 +70,13 @@ function create_indexes($val){
     }
     else return $val;
 }
-
+function count_length($val){
+    $sym = array("@", "~", "{", "}");
+    $val = str_replace($sym, "", $val);
+    $len = strlen($val) * 7;
+    if ($len != 0) $len+=10;
+    return $len;
+}
 /*Xml2Array recursive parser*/
 function parseNode($node, $assocs = null, $valueName = 'value'){
     $arrayElement = [];
@@ -99,13 +101,9 @@ function parseNode($node, $assocs = null, $valueName = 'value'){
 }
 
 function parseXml($xmlBody, $assocs = null, $valueName = 'value'){
+    if (!$xmlBody || $xmlBody == "") return [];
     $DOM = new DOMDocument;
-    try{
-        $DOM->loadXML($xmlBody);
-    }
-    catch(Exception $e){
-        return null;
-    }
+    if (!$DOM->loadXML($xmlBody)) return [];
     return parseNode($DOM, $assocs, $valueName);
 }
 
@@ -118,19 +116,9 @@ if(isset($_GET['element_id'])) {
 
     $levelList = new LevelList();
     $levels = $levelList->LoadGrouped($element_id);
+    $levelsOrdered = $levelList->GetItemsArray();
     $transitionList = new TransitionList();
     $lines = $transitionList->LoadForDiagram($element_id);
-
-    $breaks = parseXml($atom_data['BREAKS'], ["breaks", "l1", "l2"]);
-    if (isset($breaks["breaks"]["break"])) $breaks = $breaks["breaks"]["break"];
-    $n_breaks = 0;
-    $sum_breaks = 0;
-    if (is_array($breaks))
-        foreach ($breaks as $break)
-            if (isset($break['l1']['value']) && $break['l2']['value']) {
-                $n_breaks++;
-                $sum_breaks += $break['l2']['value'] - $break['l1']['value'];
-            }
 
     $limits = parseXml($atom_data['LIMITS'], ["limits", "l1", "l2"]);
     if (isset($limits["limits"]["limit"])) $limits = $limits["limits"]["limit"];
@@ -145,6 +133,28 @@ if(isset($_GET['element_id'])) {
                 $n_limits++;
             }
 
+
+    $breaks = parseXml($atom_data['BREAKS'], ["breaks", "l1", "l2"]);
+    if (isset($breaks["breaks"]["break"])) $breaks = $breaks["breaks"]["break"];
+    if (count($breaks) == 0){
+        foreach ($levelsOrdered as $level){
+            if (isset($prevLevel) && $level['ENERGY'] < $min_limit && $level['ENERGY'] - $prevLevel['ENERGY'] > $min_limit * 0.15){
+                $breaks[] = ['l1' =>['value' => round($prevLevel['ENERGY'] + $min_limit*0.05, -1)],
+                             'l2' =>['value' => round($level['ENERGY'] - $min_limit*0.02, -1)]];
+            }
+            $prevLevel = $level;
+        }
+    }
+
+    $n_breaks = 0;
+    $sum_breaks = 0;
+    if (is_array($breaks))
+        foreach ($breaks as $break)
+            if (isset($break['l1']['value']) && $break['l2']['value']) {
+                $n_breaks++;
+                $sum_breaks += $break['l2']['value'] - $break['l1']['value'];
+            }
+
     $n_labels = 5;
     $toeV = 0.00012398;
     $Ecm_row_w = 50;
@@ -154,26 +164,35 @@ if(isset($_GET['element_id'])) {
     $diagram_w = 1000;
     $diagram_h = 700;
     $term_row_w = 30;
-    $term_row_h = 80;
-    $conf_row_h = 100;//150
+
     $dE = round(($min_limit - $sum_breaks) / ($n_labels * 100)) * 100;
+
+    $conf_row_h = 0; //100;//150
+    foreach ($levels as $column)
+        if (count_length($column['CELLCONFIG']) > $conf_row_h)
+            $conf_row_h = count_length($column['CELLCONFIG']);
 
     $core_row_h = 0;
     foreach ($levels as $column)
         foreach ($column['atomiccore'] as $atomiccore)
-            if (strlen($atomiccore['ATOMICCORE']) * 3 > $core_row_h)
-                $core_row_h = strlen($atomiccore['ATOMICCORE']) * 3;
+            if (count_length($atomiccore['ATOMICCORE']) > $core_row_h)
+                $core_row_h = count_length($atomiccore['ATOMICCORE']);
 
-
-    $graph_y = $diagram_h - $core_row_h - $conf_row_h - $term_row_h;
-
+    $term_row_h = 0;//80;
     $n_terms = 0;
     foreach($levels as $column)
         foreach($column['atomiccore'] as $atomiccore)
             foreach($atomiccore['term'] as $term)
-                foreach($term['group'] as $group)
+                foreach($term['group'] as $group) {
                     $n_terms++;
+                    $str = $group['TERMSECONDPART'] . $term['TERMPREFIX']
+                         . $group['TERMFIRSTPART'] . $term['TERMMULTIPLY'] . $group['J'];
+                    if (count_length($str) > $term_row_h)
+                        $term_row_h = count_length($str);
+                }
+    if ($n_limits >1) $term_row_h *= 2;
 
+    $graph_y = $diagram_h - $core_row_h - $conf_row_h - $term_row_h;
     $t_width = $term_row_w * $n_terms;
     $t_height = $diagram_h + 2;
 ?>
@@ -304,12 +323,12 @@ if(isset($_GET['element_id'])) {
                                                 y="<?=0.5*$term_row_h + $core_row_h + $conf_row_h?>"
                                             <?}?>
                                               rec_id="recTerm_<?=$n_term?>"><?=$group['TERMSECONDPART']?><tspan class="index" dx="<?=-$index_dx?>"
-                                                                                                         dy="<?=-$index_dy?>"><?=$term['TERMPREFIX']?></tspan><tspan dx="<?=-$index_dx?>"
-                                                                                                                                                                     dy="<?=$index_dy?>"><?=create_indexes($group['TERMFIRSTPART'])?></tspan><?if ($term['TERMMULTIPLY'] != ''){?><tspan class="index"
-                                                                                                                                                                                                                                                                               dx="<?=-$index_dx?>" dy="<?=-$index_dy?>">o</tspan><tspan class="index"
-                                                                                                                                                                                                                                                                                                                                         dx="<?=-$index_dy?>" dy="<?=2*$index_dy?>"><?=$group['J']?></tspan><?}else{?><tspan class="index"
-                                                                                                                                                                                                                                                                                                                                                                                                                              dx="<?=-$index_dx?>" dy="<?=$index_dy?>"><?=$group['J']?></tspan><?}?></text>
-                                        <g class="levels"><line class="level" x1="<?=$child_x + $dx?>" x2="<?=$child_x + $dx?>"
+dy="<?=-$index_dy?>"><?=$term['TERMPREFIX']?></tspan><tspan dx="<?=-$index_dx?>"
+dy="<?=$index_dy?>"><?=create_indexes($group['TERMFIRSTPART'])?></tspan><?if ($term['TERMMULTIPLY'] != 0){?><tspan class="index"
+dx="<?=-$index_dx?>" dy="<?=-$index_dy?>">o</tspan><tspan class="index"
+dx="<?=-$index_dy?>" dy="<?=2*$index_dy?>"><?=$group['J']?></tspan><?}else{?><tspan class="index"
+dx="<?=-$index_dx?>" dy="<?=$index_dy?>"><?=$group['J']?></tspan><?}?></text>
+<g class="levels"><line class="level" x1="<?=$child_x + $dx?>" x2="<?=$child_x + $dx?>"
                                                                 y2="<?=convert_energy($group['level'][0]['ENERGY'])?>"
                                                 <?if ($n_limits == 1){?>
                                                     y1="<?=convert_energy($min_limit)?>"

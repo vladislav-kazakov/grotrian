@@ -177,67 +177,72 @@ function LoadBase($element_id){
         }
         unset($item);
 
+        $ground_items = [];
+        if ($items[0]['ENERGY'] == 0) $ground_config = $items[0]['CELLCONFIG'];//Поскольку у нас $items отсортирован, то первый элемент - с энергией 0;
+        foreach($items as $i => &$item) {
+            if ($item['CELLCONFIG'] == $ground_config) {
+                $item['GROUNDCONFIG'] = 1;
+                $ground_items[] = $item;
+                unset($items[$i]);
+            }
+            else $item['GROUNDCONFIG'] = 0;
+        }
+        unset($item);
+
+        $odd_items = [];
+        $even_items = [];
+        foreach($items as $item) {
+            if ($item['TERMMULTIPLY'] == 1)
+                $odd_items[] = $item;
+            else
+                $even_items[] = $item;
+        }
+
         //Группируем элементы массива
-        $terms = $this->GroupArrayByKeys($items, ['CELLCONFIG', 'ATOMICCORE', 'TERMPREFIX', 'TERMMULTIPLY', 'TERMFIRSTPART', 'TERMSECONDPART', 'J'], 'level');
-        //print_r($terms);
+        $ground_terms = $this->GroupArrayByKeys($ground_items, ['CELLCONFIG', 'GROUNDCONFIG', 'ATOMICCORE', 'TERMPREFIX', 'TERMMULTIPLY', 'TERMFIRSTPART', 'TERMSECONDPART', 'J'], 'level');
+        $even_terms = $this->GroupArrayByKeys($even_items, ['CELLCONFIG', 'GROUNDCONFIG', 'ATOMICCORE', 'TERMPREFIX', 'TERMMULTIPLY', 'TERMFIRSTPART', 'TERMSECONDPART', 'J'], 'level');
+        $odd_terms = $this->GroupArrayByKeys($odd_items, ['CELLCONFIG', 'GROUNDCONFIG', 'ATOMICCORE', 'TERMPREFIX', 'TERMMULTIPLY', 'TERMFIRSTPART', 'TERMSECONDPART', 'J'], 'level');
+        $ground_groups = $this->GroupArrayByKeys($ground_terms, ['CELLCONFIG', 'ATOMICCORE', 'TERMPREFIX', 'TERMMULTIPLY'], 'group');
+        $ground_atomiccores = $this->GroupArrayByKeys($ground_groups, ['CELLCONFIG', 'ATOMICCORE', 'TERMMULTIPLY'], 'term');
+        $ground_columns = $this->GroupArrayByKeys($ground_atomiccores, ['CELLCONFIG', 'TERMMULTIPLY'], 'atomiccore');
+        $odd_groups = $this->GroupArrayByKeys($odd_terms, ['CELLCONFIG', 'ATOMICCORE', 'TERMPREFIX', 'TERMMULTIPLY'], 'group');
+        $odd_atomiccores = $this->GroupArrayByKeys($odd_groups, ['CELLCONFIG', 'ATOMICCORE', 'TERMMULTIPLY'], 'term');
+        $odd_columns = $this->GroupArrayByKeys($odd_atomiccores, ['CELLCONFIG', 'TERMMULTIPLY'], 'atomiccore');
+        $even_groups = $this->GroupArrayByKeys($even_terms, ['CELLCONFIG', 'ATOMICCORE', 'TERMPREFIX', 'TERMMULTIPLY'], 'group');
+        $even_atomiccores = $this->GroupArrayByKeys($even_groups, ['CELLCONFIG', 'ATOMICCORE', 'TERMMULTIPLY'], 'term');
+        $even_columns = $this->GroupArrayByKeys($even_atomiccores, ['CELLCONFIG', 'TERMMULTIPLY'], 'atomiccore');
 
-        //Сортируем термы учитывая четность, основной терм, энергии
-        usort($terms, function($a, $b)
-        {
-            if ($a['level'][0]['ENERGY'] == 0 ){
-                if ($b['level'][0]['TERMMULTIPLY'] == 1 ) {
-                    return 1;
+        foreach($even_columns as &$column) {
+            foreach ($column['atomiccore'] as &$atomiccore) {
+                foreach ($atomiccore['term'] as &$term) {
+                    $term['group'] = array_reverse($term['group']);
                 }
-                else {
-                    return -1;
-                }
+                unset($term);
+                $atomiccore['term'] = array_reverse($atomiccore['term']);
             }
-            if ($b['level'][0]['ENERGY'] == 0 ){
-                if ($a['level'][0]['TERMMULTIPLY'] == 1 ) {
-                    return -1;
-                }
-                else {
-                    return 1;
-                }
-            }
+            unset($atomiccore);
+            $column['atomiccore'] = array_reverse($column['atomiccore']);
+        }
+        unset($column);
+        $even_columns = array_reverse($even_columns);
 
-            if ($a['level'][0]['TERMMULTIPLY'] > $b['level'][0]['TERMMULTIPLY']){
-                return -1;
-            }
-            if ($a['level'][0]['TERMMULTIPLY'] < $b['level'][0]['TERMMULTIPLY']){
-                return 1;
-            }
-            else{
-                if ($a['level'][0]['TERMMULTIPLY'] == 1){
-                    if ($a['level'][0]['ENERGY'] > $b['level'][0]['ENERGY']){
-                        return 1;
+        if ($ground_columns[0]['TERMMULTIPLY'] == 1) {
+            foreach ($ground_columns as &$column) {
+                foreach ($column['atomiccore'] as &$atomiccore) {
+                    foreach ($atomiccore['term'] as &$term) {
+                        $term['group'] = array_reverse($term['group']);
                     }
-                    if ($a['level'][0]['TERMMULTIPLY'] < $b['level'][0]['TERMMULTIPLY']){
-                        return -1;
-                    }
-                    else{
-                        return 0;
-                    }
+                    unset($term);
+                    $atomiccore['term'] = array_reverse($atomiccore['term']);
                 }
-                else{
-                    if ($a['level'][0]['ENERGY'] < $b['level'][0]['ENERGY']){
-                        return 1;
-                    }
-                    if ($a['level'][0]['TERMMULTIPLY'] > $b['level'][0]['TERMMULTIPLY']){
-                        return -1;
-                    }
-                    else{
-                        return 0;
-                    }
-                }
-
+                unset($atomiccore);
+                $column['atomiccore'] = array_reverse($column['atomiccore']);
             }
+            unset($column);
+            $ground_columns = array_reverse($ground_columns);
+        }
 
-        });
-
-        $groups = $this->GroupArrayByKeys($terms, ['CELLCONFIG', 'ATOMICCORE', 'TERMPREFIX', 'TERMMULTIPLY'], 'group');
-        $atomiccores = $this->GroupArrayByKeys($groups, ['CELLCONFIG', 'ATOMICCORE', 'TERMMULTIPLY'], 'term');
-        $columns = $this->GroupArrayByKeys($atomiccores, ['CELLCONFIG', 'TERMMULTIPLY'], 'atomiccore');
+        $columns = array_merge($odd_columns, $ground_columns, $even_columns);
         return $columns;
 }
 
@@ -250,13 +255,10 @@ function LoadBase($element_id){
                 //проверяем совпадение $value и $newarrayvalue
                 $equal = true;
                 foreach ($keys as $key) {
-                    //echo var_dump($value[$key]), " ", var_dump($newarrayvalue[$key]), "->";
                     if ($value[$key] != $newarrayvalue[$key]) {
-                        //echo "not equal".PHP_EOL;
                         $equal = false;
                         break;
                     }
-                    //echo PHP_EOL;
                 }
                 //если всё совпало добавляем туда элемент
                 if ($equal) {
