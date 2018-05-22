@@ -88,15 +88,19 @@ function LoadBase($element_id){
                   FROM LEVELS 
                   WHERE ID_ATOM='$element_id' 
 				  /*AND Levels.CONFIG NOT LIKE '%(%)%(%)%'*/  
-                  AND Levels.CONFIG IS NOT NULL
+                  /*AND Levels.CONFIG IS NOT NULL
 				  AND Levels.CONFIG != '' 
-				  AND ENERGY IS NOT NULL
+				  AND ENERGY IS NOT NULL*/
 				  ORDER BY ENERGY";
         $this->LoadFromSQL($query);
 
         $items = $this->GetItemsArray();
+        //print_r($items);
+
         //Генерируем атомные остатки
         foreach ($items as &$item) {
+            if ($item['CONFIG'] == "(?)") $item['CONFIG'] = "?";
+            if ($item['TERMFIRSTPART'] == "(?)") $item['TERMFIRSTPART'] = "?";
             $item['FULL_CONFIG'] = $item['CONFIG'];
 
             //если есть атомный остаток, то выносим его в отдельный атрибут (ATOMICCORE), из CONFIG убираем
@@ -124,6 +128,7 @@ function LoadBase($element_id){
             $item['CONFIG'] = preg_replace('/^(.*[a-zA-Z])[a-zA-Z]$/', '$1', $item['CONFIG']);
             //если заканчивается на @{число}, то в CELLCONFIG копируем CONFIG %@{%}
             //если не заканчивается на @{число}, то в CELLCONFIG заносим CONFIG с заменой последнего числа на 'n'
+            $item['CELLCONFIG'] = $item['CONFIG'];
             if (!preg_match('/^(.*[@~]\{.*\})$/', $item['CONFIG'])) {
                 if (preg_match('/^(.*?)(\d*)([a-zA-Z])$/', $item['CONFIG']))
                     $item['CELLCONFIG'] = preg_replace('/^(.*?)(\d*)([a-zA-Z])$/', '$1n$3', $item['CONFIG']);
@@ -131,8 +136,11 @@ function LoadBase($element_id){
                 if ($item['CONFIG'] == null || $item['CONFIG'] == '')
                     $item['CELLCONFIG'] = $item['CONFIG'] = '?';
             }
-            else /*(preg_match('/^(.*@\{.*\})$/', $item['CONFIG']))*/
-                $item['CELLCONFIG'] = $item['CONFIG'];
+            if ($item['TERMFIRSTPART'] == null || $item['TERMFIRSTPART'] == '')
+                $item['TERMFIRSTPART'] = '?';
+
+            //            else /*(preg_match('/^(.*@\{.*\})$/', $item['CONFIG']))*/
+ //               $item['CELLCONFIG'] = $item['CONFIG'];
         }
         unset($item);
         //если у всех уровней с одинаковым CELLCONFIG совпадают и CONFIG, то CELLCONFIG = CONFIG
@@ -243,6 +251,7 @@ function LoadBase($element_id){
         }
 
         $columns = array_merge($odd_columns, $ground_columns, $even_columns);
+        //print_r($columns);
         return $columns;
 }
 
