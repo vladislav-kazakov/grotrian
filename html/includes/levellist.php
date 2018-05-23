@@ -13,15 +13,16 @@ function Load($element_id)
 		WHERE class_elements.ID='$element_id' ORDER BY ID";*/
 
 		//$query = "SELECT *, GetCfgType(CONFIG) AS config_type FROM LEVELS WHERE ID_ATOM='$element_id' ORDER BY ID";
-		$query = "SELECT LEVELS.* ,dbo.GetCfgType(CONFIG) AS config_type, dbo.ConcatSourcesID(ID,'L') AS SOURCE_IDS FROM LEVELS WHERE  ID_ATOM='$element_id' ORDER BY ENERGY asc";
-
+		$query = "SELECT LEVELS.* , dbo.ConcatSourcesID(ID,'L') AS SOURCE_IDS FROM LEVELS WHERE  ID_ATOM='$element_id' ORDER BY ENERGY asc";
 		$this->LoadFromSQL($query);
+        $this->LoadCellConfigs('config_type');
 	}
 
 function LoadBase($element_id){
-		$query = "SELECT LEVELS.* ,dbo.GetCfgType(CONFIG) AS config_type, dbo.ConcatSourcesID(ID,'L') AS SOURCE_IDS FROM LEVELS WHERE ID_ATOM='$element_id' AND ENERGY=0";
+		$query = "SELECT LEVELS.* , dbo.ConcatSourcesID(ID,'L') AS SOURCE_IDS FROM LEVELS WHERE ID_ATOM='$element_id' AND ENERGY=0";
 		$this->LoadFromSQL($query);
-	}
+        $this->LoadCellConfigs('config_type');
+}
 
 	/*
     function Load($element_id)
@@ -82,6 +83,35 @@ function LoadBase($element_id){
 		return $stmt->FetchField($query);
 	}
 
+	function LoadCellConfigs($name)
+    {
+//        $items = $this->GetItemsArray();
+        foreach ($this->items as &$item) {
+            $config = $item['CONFIG'];
+            if ($config == "(?)") $config = "?";
+
+            //убираем с конца конфигурации, j и терма незначащие символы, такие как '?', ', "
+            $config = preg_replace('/^(.*?)([^a-zA-Z\}\)]*)$/', '$1', $config);
+
+            //убираем ~{...} c конца конфигурации
+            $config = preg_replace('/^(.*)(~\{[^\{\}]*\})$/', '$1', $config);
+            //убираем последнюю букву из конфигурации, если их там две
+            $config = preg_replace('/^(.*[a-zA-Z])[a-zA-Z]$/', '$1', $config);
+
+            //если заканчивается на @{число}, то в CELLCONFIG копируем CONFIG %@{%}
+            //если не заканчивается на @{число}, то в CELLCONFIG заносим CONFIG с заменой последнего числа на 'n'
+            $item[$name] = $config;
+
+            if (!preg_match('/^(.*[@~]\{.*\})$/', $config)) {
+                if (preg_match('/^(.*?)(\d*)([a-zA-Z])$/', $config))
+                    $item[$name] = preg_replace('/^(.*?)(\d*)([a-zA-Z])$/', '$1n$3', $config);
+                //непонятно, почему это здесь. Исправить
+            }
+            if ($config == null || $config == '')
+                $item[$name] = $config = '?';
+        }
+    }
+
 	function LoadGrouped($element_id)
     {
         $query = "SELECT LEVELS.*, dbo.ConcatSourcesID(ID,'L') AS SOURCE_IDS 
@@ -94,53 +124,52 @@ function LoadBase($element_id){
 				  ORDER BY ENERGY";
         $this->LoadFromSQL($query);
 
+        $this->LoadCellConfigs('CELLCONFIG');
         $items = $this->GetItemsArray();
         //print_r($items);
 
         //Генерируем атомные остатки
         foreach ($items as &$item) {
-            if ($item['CONFIG'] == "(?)") $item['CONFIG'] = "?";
             if ($item['TERMFIRSTPART'] == "(?)") $item['TERMFIRSTPART'] = "?";
             $item['FULL_CONFIG'] = $item['CONFIG'];
 
-            //если есть атомный остаток, то выносим его в отдельный атрибут (ATOMICCORE), из CONFIG убираем
-            if (preg_match('/^(.*)\(([^\)]*)\)([^\(\)]*)$/', $item['CONFIG'])){
-                $item['ATOMICCORE'] = preg_replace('/^(.*)\(([^\)]*)\)([^\(\)]*)$/', '$2', $item['CONFIG']);
-                $item['CONFIG'] = preg_replace('/^(.*)\(([^\)]*)\)([^\(\)]*)$/', '$1$3', $item['CONFIG']);
-            }
-            else $item['ATOMICCORE'] = '';
+            if ($item['CONFIG'] == "(?)") $item['CONFIG'] = "?";
+            //убираем с конца конфигурации, j и терма незначащие символы, такие как '?', ', "
+            $item['CONFIG'] = preg_replace('/^(.*?)([^a-zA-Z\}\)]*)$/', '$1', $item['CONFIG']);
+            //убираем ~{...} c конца конфигурации
+            $item['CONFIG'] = preg_replace('/^(.*)(~\{[^\{\}]*\})$/', '$1', $item['CONFIG']);
+            //убираем последнюю букву из конфигурации, если их там две
+            $item['CONFIG'] = preg_replace('/^(.*[a-zA-Z])[a-zA-Z]$/', '$1', $item['CONFIG']);
 
             //устанавливаем поля с NULL в ''
-            if ($item['ATOMICCORE'] == null) $item['ATOMICCORE'] = '';
             if ($item['TERMSECONDPART'] == null) $item['TERMSECONDPART'] = '';
             if ($item['TERMPREFIX'] == null) $item['TERMPREFIX'] = '';
             if ($item['TERMFIRSTPART'] == null || $item['TERMFIRSTPART'] == '') $item['TERMFIRSTPART'] = '?';
 
             //убираем с конца конфигурации, j и терма незначащие символы, такие как '?', ', "
-            $item['CONFIG'] = preg_replace('/^(.*?)([^a-zA-Z\}]*)$/', '$1', $item['CONFIG']);
             $item['J'] = preg_replace('/^(.*?)([^0-9]*)$/', '$1', $item['J']);
             $item['TERMFIRSTPART'] = preg_replace('/^(.*?)([^a-zA-Z0-9\)\}\]]*)$/', '$1', $item['TERMFIRSTPART']);
             $item['TERMSECONDPART'] = trim($item['TERMSECONDPART']);
 
-            //убираем ~{...} c конца конфигурации
-            $item['CONFIG'] = preg_replace('/^(.*)(~\{[^\{\}]*\})$/', '$1', $item['CONFIG']);
-            //убираем последнюю букву из конфигурации, если их там две
-            $item['CONFIG'] = preg_replace('/^(.*[a-zA-Z])[a-zA-Z]$/', '$1', $item['CONFIG']);
-            //если заканчивается на @{число}, то в CELLCONFIG копируем CONFIG %@{%}
-            //если не заканчивается на @{число}, то в CELLCONFIG заносим CONFIG с заменой последнего числа на 'n'
-            $item['CELLCONFIG'] = $item['CONFIG'];
-            if (!preg_match('/^(.*[@~]\{.*\})$/', $item['CONFIG'])) {
-                if (preg_match('/^(.*?)(\d*)([a-zA-Z])$/', $item['CONFIG']))
-                    $item['CELLCONFIG'] = preg_replace('/^(.*?)(\d*)([a-zA-Z])$/', '$1n$3', $item['CONFIG']);
-                //непонятно, почему это здесь. Исправить
-                if ($item['CONFIG'] == null || $item['CONFIG'] == '')
-                    $item['CELLCONFIG'] = $item['CONFIG'] = '?';
+
+            //если есть атомный остаток, то выносим его в отдельный атрибут (ATOMICCORE), из CONFIG убираем
+            $regexp_ac = '/^(.*)\(([^\)]*)\)(\d+[a-z])$/';
+            $regexp_ac2 = '/^(.*)\(([^\)]*)\)(n[a-z])$/';
+            //echo PHP_EOL . $item['CONFIG'] . " : ";
+            if (preg_match($regexp_ac, $item['CONFIG'])){
+                $item['ATOMICCORE'] = preg_replace($regexp_ac, '$2', $item['CONFIG']);
+                //echo $item['ATOMICCORE'] . " : ";
+                $item['CONFIG'] =  preg_replace($regexp_ac, '$1$3', $item['CONFIG']);
+                $item['CELLCONFIG'] =  preg_replace($regexp_ac2, '$1$3', $item['CELLCONFIG']);
+                //echo $item['CONFIG'];
             }
+            else $item['ATOMICCORE'] = '';
+
+            if ($item['CONFIG']  == null || $item['CONFIG']  == '')
+                $item['CONFIG'] = '?';
+
             if ($item['TERMFIRSTPART'] == null || $item['TERMFIRSTPART'] == '')
                 $item['TERMFIRSTPART'] = '?';
-
-            //            else /*(preg_match('/^(.*@\{.*\})$/', $item['CONFIG']))*/
- //               $item['CELLCONFIG'] = $item['CONFIG'];
         }
         unset($item);
         //если у всех уровней с одинаковым CELLCONFIG совпадают и CONFIG, то CELLCONFIG = CONFIG
@@ -251,7 +280,6 @@ function LoadBase($element_id){
         }
 
         $columns = array_merge($odd_columns, $ground_columns, $even_columns);
-        //print_r($columns);
         return $columns;
 }
 

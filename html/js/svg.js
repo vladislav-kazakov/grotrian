@@ -61,8 +61,8 @@ function compress_table() {
                                     //var curJ = rect_terms.item(k).getAttribute('j');
                                     var toCompress = new Array();
                                     find_similar(-1, rect_terms, k, curL, curSeq, curPrefix, toCompress);
-                                    if (toCompress.length > 0) {
-                                        toCompress.push(k);
+                                    if (toCompress.length > 1) {
+                                        //toCompress.push(k);
                                         toCompress.sort(sort_numbers);
                                         k = toCompress[toCompress.length - 1] + 1;
                                         // compression
@@ -87,16 +87,7 @@ function compress_table() {
                                         else newJ = jArr[0] == ""?0:jArr[0];
                                         var tSpans = tJ.getElementsByTagName('tspan');
                                         tSpans.item(tSpans.length-1).innerHTML = newJ;
-                                        //tSpans.item(tSpans.length-1).setAttribute('display', 'none');
-                                        //tSpans.item(tSpans.length-1).appendChild(newJ);
-                                        //var newSpan = document.createElement('tspan');
 
-//                                        newSpan.setAttribute('class', 'index');
-//                                        newSpan.setAttribute('type', 'compressed');
-                                        //newSpan.setAttribute('dx', 5);
-                                        //newSpan.setAttribute('dy', 5);
-                                        //newSpan.appendChild(newJ);
-                                        //tJ.appendChild(newSpan);
                                         // shift levels of current term
                                         for (var ii = toCompress[toCompress.length - 1] + 1; ii < rect_terms.length; ii++) {
                                             shift_glevels(g_levels.item(ii), dx);
@@ -157,54 +148,14 @@ function sort_numbers(arg1, arg2) {
 }
 
 function find_similar(di, data, n, L, Seq, Prefix, result) {
-  /*  for (var i = 0; i < data.length; i++) {
+    for (var i = 0; i < data.length; i++) {
         var curEl = data.item(i);
         if (curEl.getAttribute('l') == L && curEl.getAttribute('seq') == Seq
             && curEl.getAttribute('prefix') == Prefix) {
             result.push(i);
         }
     }
-    */
-    if ((n + di) >= 0 && (n + di) < data.length)
-    {
-        var curEl = data.item(n + di);
-        var nL = curEl.getAttribute('l');
-        if (nL == L)
-        {
-            var nSeq = curEl.getAttribute('seq');
-            if (nSeq == Seq)
-            {
-                var nPrefix = curEl.getAttribute('prefix');
-                if (nPrefix == Prefix)
-                {
-                    result.push(n+di);
-                    find_similar(di + Math.abs(di)/di, data, n, L, Seq, Prefix, result);
-                }
-                else
-                {
-                    if (di > 0)	return 1;
-                    else find_similar(1, data, n, L, Seq, Prefix, result);
-                }
-            }
-            else
-            {
-                if (di > 0)	return 1;
-                else find_similar(1, data, n, L, Seq, Prefix, result);
-            }
-
-        }
-        else
-        {
-            if (di > 0)	return 1;
-            else find_similar(1, data, n, L, Seq, Prefix, result);
-        }
-    }
-    else
-    {
-        if (n+di < 0) find_similar(1, data, n, L, Seq, Prefix, result);
-        else return 1;
-    }
-}
+ }
 
 function fix_viewBox() {
     var nTW = table_width + 100;

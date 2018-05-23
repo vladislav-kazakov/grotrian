@@ -52,26 +52,21 @@ function set_labels($x, $dx, $class, $n, $kE, $energy){
 /*create a string with indexes instead of @{...} (supindex) and ~{...} (subindex)*/
 function create_indexes($val){
     global $index_dx, $index_dy;
-    if (strpos($val, '{') !== false){
-        if (strpos($val, '@') !== false)
-            return create_indexes(substr($val, 0, strpos($val, '@')))
-            . '<tspan class="index" dy="' . (-$index_dy) . '" dx="' . (-$index_dx) . '">'
-            . substr($val, strpos($val,  '{') + 1, strpos($val, '}') - strpos($val,  '{') - 1)
-            . '</tspan>'
-            . '<tspan dy="' . $index_dy . '" dx="' . (-$index_dx) .'">'
-            .  create_indexes(substr($val, strpos($val, '}') + 1))
-            . '</tspan>';
-        else
-            return substr($val, 0, strpos($val, '~'))
-            . '<tspan class="index" dx="' . (-$index_dx) . '" dy="' . ($index_dy) . '">'
-            . substr($val, strpos($val,  '{') + 1, strpos($val, '}') - strpos($val,  '{') - 1)
-            . '</tspan>'
-            . '<tspan dx="' . (-$index_dx) . '" dy="' . (-$index_dy) . '">'
-            . create_indexes(substr($val, strpos($val, '}') + 1))
-            . '</tspan>';
-    }
-    else return $val;
+
+    $val = preg_replace("/@\{([^\}]*)\}~\{([^\}]*)\}/", '<tspan class="index" dy="' . (-$index_dy) . '" dx="' . (-$index_dx) . '">$1</tspan>'
+                                                .'<tspan class="index" dy="' . (2*$index_dy) . '" dx="' . (-$index_dx) . '">$2</tspan>', $val);
+    $val = preg_replace("/<\/tspan>([^~@<]*)/", '</tspan><tspan dy="' . (-$index_dy) . '" dx="' . (-$index_dx) . '">$1</tspan>', $val);
+
+    $val = preg_replace("/@\{([^\}]*)\}/", '<tspan class="index" dy="' . (-$index_dy) . '" dx="' . (-$index_dx) . '">$1</tspan>', $val);
+
+    $val = preg_replace("/<\/tspan>([^~@<]+)/", '</tspan><tspan dy="' . ($index_dy) . '" dx="' . (-$index_dx) . '">$1</tspan>', $val);
+
+    $val = preg_replace("/~\{([^\}]*)\}/", '<tspan class="index" dy="' . ($index_dy) . '" dx="' . (-$index_dx) . '">$1</tspan>', $val);
+    $val = preg_replace("/<\/tspan>([^~@<]+)/", '</tspan><tspan dy="' . (-$index_dy) . '" dx="' . (-$index_dx) . '">$1</tspan>', $val);
+
+    return $val;
 }
+
 function count_length($val){
     $sym = array("@", "~", "{", "}");
     $val = str_replace($sym, "", $val);
@@ -352,7 +347,7 @@ dx="<?=-$index_dx?>" dy="<?=$index_dy?>"><?=$group['J']?></tspan><?}?></text>
                                                 ></line>
                                                 <text class="namelevel" id="conf_name_<?=$level['ID']?>" x="<?=$child_x + $level_dx + $dx?>" display="none"
                                                       y="<?=convert_energy($level['ENERGY'])?>"
-                                                ><?=create_indexes($level['CONFIG'])?><?if ($level['J'] != ''){?><?if ($level['CONFIG'] != ''){?>, <?}?>j=<?=$level['J']?><?}?></text>
+                                                ><?=create_indexes($level['FULL_CONFIG'])?><?if ($level['J'] != ''){?><?if ($level['CONFIG'] != ''){?>, <?}?>j=<?=$level['J']?><?}?></text>
                                             <?}?>
                                         </g>
                                     <?}?>
