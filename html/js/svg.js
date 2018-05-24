@@ -19,7 +19,7 @@ drawTransitions();
 
 //Sort function for j like "9/2"
 function slava_sort_function_j(j1, j2) {
-    return eval(j1 != ""? j1 : 0) - eval(j1 != ""? j2 : 0);
+    return eval(j1 != ""? j1 : 0) - eval(j2 != ""? j2 : 0);
 }
 
 function compress_table() {
@@ -31,7 +31,11 @@ function compress_table() {
             for (var j = 0; j < g_terms.length; j++) {
                 if (g_terms.item(j).getAttribute('class') == 'term') {
                     var compJ = false;
+
                     var rect_terms = g_terms.item(j).getElementsByTagName('rect');
+                    var g_levels = g_terms.item(j).getElementsByTagName('g');
+                    var text_terms = g_terms.item(j).getElementsByTagName('text');
+
                     if (rect_terms.length > 1) {
                         if (/*(rect_terms.length > 2) &&*/ (compression_rate >= 1.5)) {
                             var gL = rect_terms.item(0).getAttribute('l');
@@ -46,9 +50,6 @@ function compress_table() {
                             }
                         }
 
-                        var g_levels = g_terms.item(j).getElementsByTagName('g');
-                        var text_terms = g_terms.item(j).getElementsByTagName('text');
-
                         if (compJ || ((compression_rate < 1.7) /*|| (rect_terms.length < 3)*/)) {
                             // try to compress
                             for (var k = 0; k < rect_terms.length; k++) {
@@ -58,18 +59,26 @@ function compress_table() {
                                     var curL = rect_terms.item(k).getAttribute('l');
                                     var curSeq = rect_terms.item(k).getAttribute('seq');
                                     var curPrefix = rect_terms.item(k).getAttribute('prefix');
-                                    //var curJ = rect_terms.item(k).getAttribute('j');
                                     var toCompress = new Array();
-                                    find_similar(-1, rect_terms, k, curL, curSeq, curPrefix, toCompress);
+                                    find_similar(rect_terms, curL, curSeq, curPrefix, toCompress);
                                     if (toCompress.length > 1) {
-                                        //toCompress.push(k);
+
                                         toCompress.sort(sort_numbers);
                                         k = toCompress[toCompress.length - 1] + 1;
                                         // compression
+                                        var auto = false; //has autoionization state and we should half a term rect
+                                        for (var ii = 1; ii < toCompress.length; ii++) {
+                                            if (rect_terms.item(toCompress[ii]).getAttribute('type') == 'auto')
+                                                auto = true;
+                                        }
+                                        if (auto) rect_terms.item(toCompress[0]).setAttribute('height', term_row_h / 2);
+                                        if (auto) text_terms.item(toCompress[0]).setAttribute('y', 0.25 * term_row_h + core_row_h + conf_row_h);
                                         // hide levels
                                         for (var ii = 1; ii < toCompress.length; ii++) {
                                             dx = - term_row_w * ii;
                                             shift_glevels(g_levels.item(toCompress[ii]), dx, true);
+                                            if (auto) g_levels.item(toCompress[ii]).getElementsByTagName('line')
+                                                .item(0).setAttribute('y1', term_row_h /2  + core_row_h + conf_row_h);
                                             rect_terms.item(toCompress[ii]).setAttribute('display', 'none');
                                             rect_terms.item(toCompress[ii]).nextElementSibling.setAttribute('display', 'none');
                                         }
@@ -82,9 +91,17 @@ function compress_table() {
                                             jArr.sort(slava_sort_function_j);
                                         }
                                         var newJ;
-                                        if (jArr[0] != jArr[jArr.length - 1])
-                                            newJ = (jArr[0] == ""?0:jArr[0])  + '-' + (jArr[jArr.length - 1] == ""?0:jArr[jArr.length - 1]);
-                                        else newJ = jArr[0] == ""?0:jArr[0];
+                                        var jArrFirst = "";
+                                        for (var ii = 0; ii < jArr.length; ii++){
+                                            if (jArr[ii]!=""){
+                                                jArrFirst = jArr[ii];
+                                                break;
+                                            }
+                                        }
+
+                                        if (jArrFirst != jArr[jArr.length - 1])
+                                            newJ = (jArrFirst == ""?0:jArrFirst)  + '-' + (jArr[jArr.length - 1] == ""?0:jArr[jArr.length - 1]);
+                                        else newJ = jArrFirst == ""?0:jArrFirst;
                                         var tSpans = tJ.getElementsByTagName('tspan');
                                         tSpans.item(tSpans.length-1).innerHTML = newJ;
 
@@ -118,17 +135,27 @@ function compress_table() {
                                 // create new rectangle
                                 var newRect = rect_terms.item(0).cloneNode(false);
                                 newRect.setAttribute('type', 'compression');
+
+                                var auto = false; //has autoionization state and we should half a term rect
                                 // hide all texts and rectangles and shift levels
+                                for (var k = 0; k < rect_terms.length; k++) {
+                                    if (rect_terms.item(k).getAttribute('type') == 'auto') auto = true;
+                                }
                                 for (var k = 0; k < rect_terms.length; k++) {
                                     rect_terms.item(k).setAttribute('display', 'none');
                                     rect_terms.item(k).nextElementSibling.setAttribute('display', 'none');
                                     dx = - term_row_w * k;
                                     shift_glevels(g_levels.item(k), dx, true);
+                                    if (auto) g_levels.item(k).getElementsByTagName('line')
+                                        .item(0).setAttribute('y1', term_row_h /2  + core_row_h + conf_row_h);
+
                                 }
+                                if (auto) newRect.setAttribute('height', term_row_h / 2);
+                                if (auto) newText.setAttribute('y', 0.25*term_row_h + core_row_h + conf_row_h);
                                 // add new rect and text
                                 g_terms.item(j).insertBefore(newText, g_terms.item(j).firstChild);
                                 g_terms.item(j).insertBefore(newRect, g_terms.item(j).firstChild);
-                                compress_shift_data(g_terms.item(j), dx);
+                                compress_shift_data(g_terms.item(j), dx, auto);
                             }
                         }
                     }
@@ -147,7 +174,7 @@ function sort_numbers(arg1, arg2) {
     return parseInt(arg1) - parseInt(arg2);
 }
 
-function find_similar(di, data, n, L, Seq, Prefix, result) {
+function find_similar(data, L, Seq, Prefix, result) {
     for (var i = 0; i < data.length; i++) {
         var curEl = data.item(i);
         if (curEl.getAttribute('l') == L && curEl.getAttribute('seq') == Seq
@@ -204,9 +231,9 @@ function compress_shift_data(curTerm, dx) {
 
 function compress_group(gr, dx){
     var chG = gr.childNodes;
-    for (var i = 0; i < chG.length; i++){
+    for (var i = 0; i < chG.length; i++) {
         if (chG.item(i).nodeName == 'text')
-            chG.item(i).setAttribute('x', parseFloat(chG.item(i).getAttribute('x')) + dx/2.);
+            chG.item(i).setAttribute('x', parseFloat(chG.item(i).getAttribute('x')) + dx / 2.);
         if (chG.item(i).nodeName == 'rect')
             chG.item(i).setAttribute('width', parseFloat(chG.item(i).getAttribute('width')) + dx);
     }
@@ -215,13 +242,11 @@ function compress_group(gr, dx){
 function shift_group(gr, dx){
     var chG = gr.childNodes;
     for (var i = 0; i < chG.length; i++) {
-        var t = chG.item(i).nodeName;
-        if (t == 'rect' || t == 'text')
+        if (chG.item(i).nodeName == 'rect' || chG.item(i).nodeName == 'text')
             chG.item(i).setAttribute('x', parseFloat(chG.item(i).getAttribute('x')) + dx);
-        if (t == 'g') {
-            var cl = gr.getAttribute('class');
-            if (cl == 'column' || cl == 'core')  shift_group(chG.item(i), dx);
-            if (cl == 'term') shift_glevels(chG.item(i), dx, false);
+        if (chG.item(i).nodeName == 'g') {
+            if (gr.getAttribute('class') == 'column' || gr.getAttribute('class') == 'core')  shift_group(chG.item(i), dx);
+            if (gr.getAttribute('class') == 'term') shift_glevels(chG.item(i), dx, false);
         }
     }
 }
@@ -543,16 +568,6 @@ function get_real_line_x(level){
     var trM = get_line_CTM(level);
     var mx = (parseFloat(level.getAttribute('x1')) + parseFloat(level.getAttribute('x2')))/ 2. ;
     return trM.a * mx + trM.e;
-}
-
-function compare_hl_x(line1, line2){
-    var hl1 = document.getElementById(line1.getAttribute('high_level'));
-    var hl2 = document.getElementById(line2.getAttribute('high_level'));
-    var TrM1 = get_line_CTM(hl1);
-    var TrM2 = get_line_CTM(hl2);
-    var x1 = TrM1.a*(parseFloat(hl1.getAttribute('x1')) + parseFloat(hl1.getAttribute('x2'))/2.) + TrM1.e;
-    var x2 = TrM2.a*(parseFloat(hl2.getAttribute('x1')) + parseFloat(hl2.getAttribute('x2'))/2.) + TrM2.e;
-    return x2 - x1;
 }
 
 function set_invisible(line){

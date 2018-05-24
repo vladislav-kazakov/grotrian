@@ -405,6 +405,8 @@ dx="<?=-$index_dx?>" dy="<?=$index_dy?>"><?=$group['J']?></tspan><?}?></text>
             var table_height = <?=$t_height?>;
             var term_row_w = <?=$term_row_w?>;
             var term_row_h = <?=$term_row_h?>;
+            var core_row_h = <?=$core_row_h?>;
+            var conf_row_h = <?=$conf_row_h?>;
         </script>
         <script xmlns:xlink="http://www.w3.org/1999/xlink" type="text/ecmascript" xlink:href="/js/svg.js?v2"></script>
     </svg>
