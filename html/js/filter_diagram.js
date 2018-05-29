@@ -1,56 +1,31 @@
 					$(document).ready(function() {						
-						waveMinVal=0;
-						waveMaxVal=10000000;
-						energyMinVal=0;
-						energyMaxVal=10000000;									
-					
-						$.post('/a_svg.php',{ element_id: id }, function(data) {
-							$('#svg').html(data);	
-							$("#diagram").attr({
-								  width: "100%",
-								  height: "600px"
-								});
-                        });
-
 						$("#filterBtn").click(function(){
-
 							waveMinVal = document.inputform.waveMinVal.value;
 							waveMaxVal = document.inputform.waveMaxVal.value;
-
 							energyMinVal = document.inputform.energyMinVal.value;
 							energyMaxVal = document.inputform.energyMaxVal.value;
-							
-							if (waveMinVal=="") waveMinVal=0;
-							if (waveMaxVal=="") waveMaxVal=10000000;
-							if (energyMinVal=="") energyMinVal=0;
-							if (energyMaxVal=="") energyMaxVal=10000000;
-																
-							$.post('/a_svg.php',{ element_id: id }, function(data) {
-								$('#svg').html(data);
-								$("#diagram").attr({
-                                    width: "100%",
-                                    height: "600px"
-									});	
-							});
+                            widthVal = document.inputform.widthVal.value;
+
+							var query = new Array();
+							if (waveMinVal!="" && waveMinVal!=0)  query.push("wlmin=" + waveMinVal);
+							if (waveMaxVal!="" && waveMaxVal!=0) query.push("wlmax=" + waveMaxVal);
+							if (energyMinVal!="" && energyMinVal!=0) query.push("enmin=" + energyMinVal);
+							if (energyMaxVal!="" && energyMaxVal!=0) query.push("enmax=" + energyMaxVal);
+                            if (widthVal!="" && widthVal!=0) query.push("width=" + widthVal);
+							if (query.length > 0)
+                            	location.replace("?" + query.join("&"));
 						
 						});
-
 						$("#showAllBtn").click(function(){
-						
-							waveMinVal=0;
-							waveMaxVal=10000000;
-							energyMinVal=0;
-							energyMaxVal=10000000;
-							
-																						
-							$.post('/a_svg.php',{ element_id: id }, function(data) {
-								$('#svg').html(data);
-								$("#diagram").attr({
-                                    width: "100%",
-                                    height: "600px"
-									});	
-							});
-						
-						});					
+							location.replace("?");
+						});
+
+                        // Make slide search panel
+                        $(".btn-slide").unbind('click');
+                        $(".btn-slide").click(function(){
+                            $("#panel").slideToggle("slow");
+                            $(this).toggleClass("active");
+                            $("#panel div").addClass('tpanel');
+                        });
 						
 					});

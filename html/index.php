@@ -313,7 +313,21 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
     	}    	
 
     	case "diagram": {
-    		//указываем имя шаблона и название страницы    		
+            ob_start();
+            include "svg.php";
+            $svg = ob_get_contents();
+            ob_end_clean();
+            $smarty->assign('svg', $svg);
+            if (isset($_REQUEST['enmin'])) $smarty->assign('enmin', $_REQUEST['enmin']);
+            if (isset($_REQUEST['enmax'])) $smarty->assign('enmax', $_REQUEST['enmax']);
+            if (isset($_REQUEST['wlmin'])) $smarty->assign('wlmin', $_REQUEST['wlmin']);
+            if (isset($_REQUEST['wlmax'])) $smarty->assign('wlmax', $_REQUEST['wlmax']);
+            if (isset($_REQUEST['width'])) $smarty->assign('width', $_REQUEST['width']);
+            $url = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+            $url = str_replace("diagram", "newdiagram", $url);
+            $smarty->assign('new_window_url', $url);
+
+            //указываем имя шаблона и название страницы
 			$page_type="view_diagram.tpl"; 
     		$head="Grotrian_Charts";
     		$title="Grotrian_Charts";
@@ -389,7 +403,18 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
 		}
 
 	    case "newdiagram": {
-    		//указываем имя шаблона и название страницы    		
+            ob_start();
+            include "svg.php";
+            $svg = ob_get_contents();
+            ob_end_clean();
+            $smarty->assign('svg', $svg);
+            if (isset($_REQUEST['enmin'])) $smarty->assign('enmin', $_REQUEST['enmin']);
+            if (isset($_REQUEST['enmax'])) $smarty->assign('enmax', $_REQUEST['enmax']);
+            if (isset($_REQUEST['wlmin'])) $smarty->assign('wlmin', $_REQUEST['wlmin']);
+            if (isset($_REQUEST['wlmax'])) $smarty->assign('wlmax', $_REQUEST['wlmax']);
+            if (isset($_REQUEST['width'])) $smarty->assign('width', $_REQUEST['width']);
+
+    		//указываем имя шаблона и название страницы
 			$page_type="view_new_diagram.tpl"; 
     		$head="Grotrian_Charts";
     		$title="Grotrian_Charts";

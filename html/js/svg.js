@@ -7,7 +7,8 @@ var min_d = 15;
 var max_eq_dy = 7;
 var min_levels_count = 5;
 var part_after_begin = 0.25;
-var compression_rate = table_width / window.innerWidth;
+//var compression_rate = table_width / window.innerWidth;
+var compression_rate = table_width / diagram_w;
 if (compression_rate > 1.) compress_table();
 
 var visible_transitions = new Array();

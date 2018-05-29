@@ -2,7 +2,7 @@
 	<script type="text/javascript">										
 		var id={#$layout_element_id#};
 	</script>  						
-	<script type="text/javascript" src="/js/filter_new_diagrams.js?v2"></script>
+	<script type="text/javascript" src="/js/filter_diagram.js?v2"></script>
 {#/if#}
 							
 	</head>
@@ -23,43 +23,58 @@
                                         <td></td>
                                         <td></td> 
 		                			</tr>
-									
-                                    <tr>
+
+									<tr>
 										<td class="name">{#$l10n.Wavelength#}:</td>
 										<td>
-				                        	<input  size=12 type=text name=waveMinVal>
-											<input size=12 type=text name=waveMaxVal>											
+											<input  size="12" type="text" name="waveMinVal" value="{#$wlmin#}"/>
+											<input size="12" type="text" name="waveMaxVal" value="{#$wlmax#}"/>
 										</td>
-	                        			
-                                        <td class="dimension">
-	                        				[&#197;]
-	                      				 </td>
-	               						<td>
-	               							&nbsp;
-	               						</td> 
-	                      				 <td>
 
-	                      				 </td>
+										<td class="dimension">
+											[&#197;]
+										</td>
+										<td>
+											&nbsp;
+										</td>
+										<td>
+
+										</td>
 									</tr>
-			
+
 									<tr>
 										<td class="name">{#$l10n.Energy#}:</td>
 										<td>
-				                        	<input  size=12 type=text name=energyMinVal>
-											<input size=12 type=text name=energyMaxVal>											
+											<input  size="12" type="text" name="energyMinVal" value="{#$enmin#}"/>
+											<input size="12" type="text" name="energyMaxVal" value="{#$enmax#}"/>
 										</td>
-	                        			
-                                        <td class="dimension">
-	                        				{#$l10n.cm#}<sup>-1</sup>
-	                      				 </td>
-	               						<td>
-	               							&nbsp;
-	               						</td> 
-	                      				 <td>
 
-	                      				 </td>
-									</tr>	
-									
+										<td class="dimension">
+                                            {#$l10n.cm#}<sup>-1</sup>
+										</td>
+										<td>
+											&nbsp;
+										</td>
+										<td>
+
+										</td>
+									</tr>
+									<tr>
+										<td class="name">Ўирина диаграммы:</td>
+										<td>
+											<input  size="5" type="text" name="widthVal"  value="{#$width#}"/>
+										</td>
+
+										<td class="dimension">
+											px
+										</td>
+										<td>
+											&nbsp;
+										</td>
+										<td>
+
+										</td>
+									</tr>
 									<!--tr>
 										<td class="name">Width, Height:</td>
 										<td>
@@ -108,4 +123,4 @@
 
 				 	
 <p></p>
-							<span id="svg"></span>							 
+				<div id="svg" style="width: 100%; height: 85%; overflow-x:auto;">{#$svg#}</div>

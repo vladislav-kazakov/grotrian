@@ -112,21 +112,16 @@ function LoadBase($element_id){
         }
     }
 
-	function LoadGrouped($element_id)
+	function LoadGrouped($element_id, $min_energy = 0, $max_energy = 0)
     {
-        $query = "SELECT LEVELS.*, dbo.ConcatSourcesID(ID,'L') AS SOURCE_IDS 
-                  FROM LEVELS 
-                  WHERE ID_ATOM='$element_id' 
-				  /*AND Levels.CONFIG NOT LIKE '%(%)%(%)%'*/  
-                  /*AND Levels.CONFIG IS NOT NULL
-				  AND Levels.CONFIG != '' 
-				  AND ENERGY IS NOT NULL*/
-				  ORDER BY ENERGY";
-        $this->LoadFromSQL($query);
+        $query = "SELECT LEVELS.* FROM LEVELS WHERE ID_ATOM='$element_id'"
+            . ($min_energy > 0 ? "AND ENERGY >= $min_energy ":"")
+            . ($max_energy > 0 ? "AND ENERGY <= $max_energy ":"")
+            . " ORDER BY ENERGY";
 
+        $this->LoadFromSQL($query);
         $this->LoadCellConfigs('CELLCONFIG');
         $items = $this->GetItemsArray();
-        //print_r($items);
 
         //Генерируем атомные остатки
         foreach ($items as &$item) {

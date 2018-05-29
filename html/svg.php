@@ -1,4 +1,4 @@
-<?header("Content-type:text/html; charset=windows-1251");
+<?//header("Content-type:text/html; charset=windows-1251");
 
 require_once($_SERVER['DOCUMENT_ROOT']."/configure.php");
 require_once($_SERVER['DOCUMENT_ROOT']."/includes/atom.php");
@@ -29,7 +29,7 @@ function convert_energy($val){ //сложная логика условий. Переделать
 }
 
 function scale_with_breaks($energy){
-    global $breaks, $n_breaks, $diagram_h, $graph_y, $min_limit, $sum_breaks;
+    global $breaks, $diagram_h, $graph_y, $min_limit, $sum_breaks;
     $val = $energy;
     foreach($breaks as $break){
         if ($energy > $break['l2']['value']) $val -= $break['l2']['value'] - $break['l1']['value'];
@@ -104,15 +104,18 @@ function parseXml($xmlBody, $assocs = null, $valueName = 'value'){
     return parseNode($DOM, $assocs, $valueName);
 }
 
-if(isset($_GET['element_id'])) {
-    $element_id = $_GET['element_id'];
+if(isset($_REQUEST['element_id'])) {
+    $element_id = $_REQUEST['element_id'];
     $atom = new Atom();
     $atom->Load($element_id);
     $atom_data = $atom->GetAllProperties();
     $abbr = $atom->GetAbbr();
 
     $levelList = new LevelList();
-    $levels = $levelList->LoadGrouped($element_id);
+
+    if (isset($_REQUEST['enmin'])) $min_energy = $_REQUEST['enmin']; else $min_energy = 0;
+    if (isset($_REQUEST['enmax'])) $max_energy = $_REQUEST['enmax']; else $max_energy = 0;
+    $levels = $levelList->LoadGrouped($element_id, $min_energy, $max_energy);
     $levelsOrdered = $levelList->GetItemsArray();
     $transitionList = new TransitionList();
     $lines = $transitionList->LoadForDiagram($element_id);
@@ -158,13 +161,16 @@ if(isset($_GET['element_id'])) {
     $index_dy = 5;
     $index_dx = 1;
     $level_dx = 5;
+
     $diagram_w = 1000;
+    if (isset($_REQUEST['width'])) $diagram_w = $_REQUEST['width'];
+
     $diagram_h = 700;
     $term_row_w = 30;
 
     $dE = round(($min_limit - $sum_breaks) / ($n_labels * 100)) * 100;
 
-    $conf_row_h = 0; //100;//150
+    $conf_row_h = 0;
     foreach ($levels as $column)
         if (count_length($column['CELLCONFIG']) > $conf_row_h)
             $conf_row_h = count_length($column['CELLCONFIG']);
@@ -175,7 +181,7 @@ if(isset($_GET['element_id'])) {
             if (count_length($atomiccore['ATOMICCORE']) > $core_row_h)
                 $core_row_h = count_length($atomiccore['ATOMICCORE']);
 
-    $term_row_h = 0;//80;
+    $term_row_h = 0;
     $n_terms = 0;
     foreach($levels as $column)
         foreach($column['atomiccore'] as $atomiccore)
@@ -188,6 +194,8 @@ if(isset($_GET['element_id'])) {
                         $term_row_h = count_length($str);
                 }
     if ($n_limits >1) $term_row_h *= 2;
+
+    if ($term_row_w * $n_terms < $diagram_w) $term_row_w = $diagram_w / $n_terms;
 
     $graph_y = $diagram_h - $core_row_h - $conf_row_h - $term_row_h;
     $t_width = $term_row_w * $n_terms;
@@ -407,6 +415,7 @@ dx="<?=-$index_dx?>" dy="<?=$index_dy?>"><?=$group['J']?></tspan><?}?></text>
             var term_row_h = <?=$term_row_h?>;
             var core_row_h = <?=$core_row_h?>;
             var conf_row_h = <?=$conf_row_h?>;
+            var diagram_w = <?=$diagram_w?>;
         </script>
         <script xmlns:xlink="http://www.w3.org/1999/xlink" type="text/ecmascript" xlink:href="/js/svg.js?v2"></script>
     </svg>
