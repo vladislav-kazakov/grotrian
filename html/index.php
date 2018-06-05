@@ -270,6 +270,7 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
     	}
     	
 		case "addlevels": {
+			if ($interface != "edit") exit;
 	    //print_r($_GET);
 			if (isset($_GET['attribute2']) || isset($_GET['attribute3'])){
 				$level_list->LoadFiltered($element_id,$_GET['attribute2'], isset($_GET['attribute3'])?$_GET['attribute3']:null);
