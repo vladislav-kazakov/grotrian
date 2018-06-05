@@ -5,6 +5,7 @@
 							energyMinVal = document.inputform.energyMinVal.value;
 							energyMaxVal = document.inputform.energyMaxVal.value;
                             widthVal = document.inputform.widthVal.value;
+                            autoStates = document.inputform.autoStates.checked;
 
 							var query = new Array();
 							if (waveMinVal!="" && waveMinVal!=0)  query.push("wlmin=" + waveMinVal);
@@ -12,6 +13,7 @@
 							if (energyMinVal!="" && energyMinVal!=0) query.push("enmin=" + energyMinVal);
 							if (energyMaxVal!="" && energyMaxVal!=0) query.push("enmax=" + energyMaxVal);
                             if (widthVal!="" && widthVal!=0) query.push("width=" + widthVal);
+                            if (!autoStates) query.push("autoStatesOff");
 							if (query.length > 0)
                             	location.replace("?" + query.join("&"));
 						

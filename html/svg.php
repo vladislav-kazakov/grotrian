@@ -111,15 +111,6 @@ if(isset($_REQUEST['element_id'])) {
     $atom_data = $atom->GetAllProperties();
     $abbr = $atom->GetAbbr();
 
-    $levelList = new LevelList();
-
-    if (isset($_REQUEST['enmin'])) $min_energy = $_REQUEST['enmin']; else $min_energy = 0;
-    if (isset($_REQUEST['enmax'])) $max_energy = $_REQUEST['enmax']; else $max_energy = 0;
-    $levels = $levelList->LoadGrouped($element_id, $min_energy, $max_energy);
-    $levelsOrdered = $levelList->GetItemsArray();
-    $transitionList = new TransitionList();
-    $lines = $transitionList->LoadForDiagram($element_id);
-
     $limits = parseXml($atom_data['LIMITS'], ["limits", "l1", "l2"]);
     if (isset($limits["limits"]["limit"])) $limits = $limits["limits"]["limit"];
     $n_limits = 0;
@@ -132,6 +123,16 @@ if(isset($_REQUEST['element_id'])) {
                 if ($limit['value'] < $min_limit || $min_limit == 0) $min_limit = $limit['value'];
                 $n_limits++;
             }
+
+    if (isset($_REQUEST['enmin'])) $min_energy = $_REQUEST['enmin']; else $min_energy = 0;
+    if (isset($_REQUEST['enmax'])) $max_energy = $_REQUEST['enmax']; else $max_energy = 0;
+    if (isset($_REQUEST['autoStatesOff'])) $max_energy = ($max_energy == 0) ? $min_limit : min($max_energy, $min_limit);
+
+    $levelList = new LevelList();
+    $levels = $levelList->LoadGrouped($element_id, $min_energy, $max_energy);
+    $levelsOrdered = $levelList->GetItemsArray();
+    $transitionList = new TransitionList();
+    $lines = $transitionList->LoadForDiagram($element_id);
 
 
     $breaks = parseXml($atom_data['BREAKS'], ["breaks", "l1", "l2"]);

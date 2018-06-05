@@ -61,7 +61,20 @@
 	                      				 </td>
 									</tr>
 									<tr>
-										<td class="name">Ўирина диаграммы:</td>
+										<td class="name">{#$l10n.Auto_states#}:</td>
+										<td>
+											<input  type="checkbox" name="autoStates" {#if (!$autoStatesOff)#}checked{#/if#}/>
+										</td>
+										<td class="dimension">
+										</td>
+										<td>
+											&nbsp;
+										</td>
+										<td>
+										</td>
+									</tr>
+									<tr>
+										<td class="name">{#$l10n.Diagram_width#}:</td>
 										<td>
 											<input  size="5" type="text" name="widthVal"  value="{#$width#}"/>
 										</td>

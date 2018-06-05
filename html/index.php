@@ -323,6 +323,8 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
             if (isset($_REQUEST['wlmin'])) $smarty->assign('wlmin', $_REQUEST['wlmin']);
             if (isset($_REQUEST['wlmax'])) $smarty->assign('wlmax', $_REQUEST['wlmax']);
             if (isset($_REQUEST['width'])) $smarty->assign('width', $_REQUEST['width']);
+            if (isset($_REQUEST['autoStatesOff'])) $smarty->assign('autoStatesOff', true);
+
             $url = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
             $url = str_replace("diagram", "newdiagram", $url);
             $smarty->assign('new_window_url', $url);

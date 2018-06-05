@@ -34,6 +34,8 @@ $dictionary = array (
 	'from'=>array('ru'=>'от','en'=>'from'),
 	'to'=>array('ru'=>'до','en'=>'to'),
 	'Wavelength'=>array('ru'=>'Длина волны','en'=>'Wavelength'),
+    'Diagram_width'=>array('ru'=>'Ширина диаграммы','en'=>'Diagram width'),
+    'Auto_states'=>array('ru'=>'Включить автоионизационные состояния','en'=>'Enable autoionization states'),
 	'Apply'=>array('ru'=>'Применить','en'=>'Apply'),
 	'Show_All'=>array('ru'=>'Показать всё','en'=>'Show All'),
 	'Overview'=>array('ru'=>'Описание','en'=>'Overview'),
