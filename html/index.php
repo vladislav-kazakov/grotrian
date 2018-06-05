@@ -415,6 +415,7 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
             if (isset($_REQUEST['wlmin'])) $smarty->assign('wlmin', $_REQUEST['wlmin']);
             if (isset($_REQUEST['wlmax'])) $smarty->assign('wlmax', $_REQUEST['wlmax']);
             if (isset($_REQUEST['width'])) $smarty->assign('width', $_REQUEST['width']);
+            if (isset($_REQUEST['autoStatesOff'])) $smarty->assign('autoStatesOff', true);
 
     		//указываем имя шаблона и название страницы
 			$page_type="view_new_diagram.tpl"; 
