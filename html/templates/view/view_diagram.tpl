@@ -11,7 +11,7 @@
 
 				<div id="panel">
     				<div class="container_12">        
-						<div class="grid_8">
+						<div class="grid_9">
             				<h4>{#$l10n.Data_filter#}</h4>
             				
             				<form name="inputform" action="">
@@ -64,6 +64,87 @@
 										<td class="name">{#$l10n.Auto_states#}:</td>
 										<td>
 											<input  type="checkbox" name="autoStates" {#if (!$autoStatesOff)#}checked{#/if#}/>
+										</td>
+										<td class="dimension">
+										</td>
+										<td>
+											&nbsp;
+										</td>
+										<td>
+										</td>
+									</tr>
+									<tr>
+										<td class="name">{#$l10n.Max_n#}:</td>
+										<td>
+											<input size="1" type="text" name="nMaxVal" value="{#$nmax#}"/>
+										</td>
+										<td class="dimension">
+										</td>
+										<td>
+											&nbsp;
+										</td>
+										<td>
+										</td>
+									</tr>
+									<tr>
+										<td class="name">{#$l10n.Max_l#}:</td>
+										<td>
+											<input size="1" type="text" name="lMaxVal" value="{#$lmax#}"/>
+										</td>
+										<td class="dimension">
+										</td>
+										<td>
+											&nbsp;
+										</td>
+										<td>
+										</td>
+									</tr>
+									<tr>
+										<td class="name">{#$l10n.Group_by_multiplicity#}:</td>
+										<td>
+											<input  type="checkbox" name="groupbyMu" {#if ($groupbyMu)#}checked{#/if#}/>
+										</td>
+										<td class="dimension">
+										</td>
+										<td>
+											&nbsp;
+										</td>
+										<td>
+										</td>
+									</tr>
+									<tr>
+										<td class="name">{#$l10n.Prohibited_by_multiplicity#}:</td>
+										<td>
+											<input  type="checkbox" name="prohibitedbyMuOff" {#if (!$prohibitedbyMuOff)#}checked{#/if#}/>
+										</td>
+										<td class="dimension">
+										</td>
+										<td>
+											&nbsp;
+										</td>
+										<td>
+										</td>
+									</tr>
+									<tr>
+										<td class="name">{#$l10n.Prohibited_by_parity#}:</td>
+										<td>
+											<input  type="checkbox" name="prohibitedbyParOff" {#if (!$prohibitedbyParOff)#}checked{#/if#}/>
+										</td>
+										<td class="dimension">
+										</td>
+										<td>
+											&nbsp;
+										</td>
+										<td>
+										</td>
+									</tr>
+									<tr>
+										<td class="name">{#$l10n.Grouping#}:</td>
+										<td>
+											<input  type="radio" name="grouping" value="term" {#if ($grouping == "term")#}checked{#/if#}/>{#$l10n.ByTerm#}<br>
+											<input  type="radio" name="grouping" value="J" {#if ($grouping == "J")#}checked{#/if#}/>{#$l10n.ByJ#}<br>
+											<input  type="radio" name="grouping" value="full" {#if ($grouping == "full")#}checked{#/if#}/>{#$l10n.Full#}<br>
+											<input  type="radio" name="grouping" value="auto" {#if (!$grouping)#}checked{#/if#}/>{#$l10n.Auto#}<br>
 										</td>
 										<td class="dimension">
 										</td>

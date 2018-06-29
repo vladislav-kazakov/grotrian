@@ -129,8 +129,13 @@ if(isset($_REQUEST['element_id'])) {
     if (isset($_REQUEST['autoStatesOff'])) $max_energy = ($max_energy == 0) ? $min_limit : min($max_energy, $min_limit);
 
     $levelList = new LevelList();
-    $levels = $levelList->LoadGrouped($element_id, $min_energy, $max_energy);
+    $options = [];
+    if (isset($_REQUEST['nmax'])) $options['nmax'] = $_REQUEST['nmax'];
+    if (isset($_REQUEST['lmax'])) $options['lmax'] = $_REQUEST['lmax'];
+    if (isset($_REQUEST['groupbyMu'])) $levels = $levelList->LoadGroupedByMultiplet($element_id, $min_energy, $max_energy, $options);
+    else $levels = $levelList->LoadGrouped($element_id, $min_energy, $max_energy, $options);
     $levelsOrdered = $levelList->GetItemsArray();
+
     $transitionList = new TransitionList();
     $lines = $transitionList->LoadForDiagram($element_id);
 
@@ -172,6 +177,7 @@ if(isset($_REQUEST['element_id'])) {
     $dE = round(($min_limit - $sum_breaks) / ($n_labels * 100)) * 100;
 
     $conf_row_h = 0;
+
     foreach ($levels as $column)
         if (count_length($column['CELLCONFIG']) > $conf_row_h)
             $conf_row_h = count_length($column['CELLCONFIG']);
@@ -334,7 +340,7 @@ dy="<?=$index_dy?>"><?=$group['TERMFIRSTPART']?></tspan><?if ($term['TERMMULTIPL
 dx="<?=-$index_dx?>" dy="<?=-$index_dy?>">o</tspan><tspan class="index"
 dx="<?=-$index_dy?>" dy="<?=2*$index_dy?>"><?=$group['J']?></tspan><?}else{?><tspan class="index"
 dx="<?=-$index_dx?>" dy="<?=$index_dy?>"><?=$group['J']?></tspan><?}?></text>
-<g class="levels"><line class="level" x1="<?=$child_x + $dx?>" x2="<?=$child_x + $dx?>"
+<g class="levels"><line class="<?=$level['TERMMULTIPLY']!=0?'odd_level':'level'?>" x1="<?=$child_x + $dx?>" x2="<?=$child_x + $dx?>"
                                                                 y2="<?=convert_energy($group['level'][0]['ENERGY'])?>"
                                                 <?if ($n_limits == 1){?>
                                                     y1="<?=convert_energy($min_limit)?>"
@@ -345,7 +351,8 @@ dx="<?=-$index_dx?>" dy="<?=$index_dy?>"><?=$group['J']?></tspan><?}?></text>
                                                 <?}?>
                                             ></line>
                                             <?foreach($group['level'] as $level){?>
-                                                <line class="level" energy="<?=$level['ENERGY']?>" onmouseover="mouse_on_level(evt, this)" onmouseout="mouse_out_level(evt, this)"
+                                                <line class="<?=$level['TERMMULTIPLY']!=0?'odd_level':'level'?>"
+                                                      energy="<?=$level['ENERGY']?>" onmouseover="mouse_on_level(evt, this)" onmouseout="mouse_out_level(evt, this)"
                                                       config="<?=$level['CONFIG']?>" j="<?=$level['J']?>"
                                                       id="<?=$level['ID']?>"
                                                       y1="<?=convert_energy($level['ENERGY'])?>"
@@ -354,9 +361,13 @@ dx="<?=-$index_dx?>" dy="<?=$index_dy?>"><?=$group['J']?></tspan><?}?></text>
                                                       x2="<?=$child_x + $level_dx + $dx?>"
                                                       <?if($level['long'] == 1){?>long="1"<?}?>
                                                 ></line>
+                                                <circle class="<?=$level['TERMMULTIPLY']!=0?'odd_level':'level'?>" cx="<?=$child_x + $dx?>" cy="<?=convert_energy($level['ENERGY'])?>" r="3"/>
                                                 <text class="namelevel" id="conf_name_<?=$level['ID']?>" x="<?=$child_x + $level_dx + $dx?>" display="none"
                                                       y="<?=convert_energy($level['ENERGY'])?>"
-                                                ><?=create_indexes($level['FULL_CONFIG'])?><?if ($level['J'] != ''){?><?if ($level['CONFIG'] != ''){?>, <?}?>j=<?=$level['J']?><?}?></text>
+                                                ><?$text = []; $text[] = $level['FULL_CONFIG'];
+                                                    if ($level['J'] != '') $text[] = 'j=' .$level['J'];
+                                                    echo create_indexes(implode(', ', $text));?>
+                                                    </text>
                                             <?}?>
                                         </g>
                                     <?}?>
@@ -372,18 +383,23 @@ dx="<?=-$index_dx?>" dy="<?=$index_dy?>"><?=$group['J']?></tspan><?}?></text>
 
             <!-- transitions-->
             <g id="transitions">
-                <?foreach($lines as $line){?>
-                    <line class="transition" onmouseover="mouse_on_tr(evt, this)" onmouseout="mouse_out_tr(evt, this)"
+                <?foreach($lines as $line){
+                    if (isset($_REQUEST['prohibitedbyMuOff']) && isset($line['prohibited']) && $line['prohibited'] == 'multiplicity') continue;
+                    if (isset($_REQUEST['prohibitedbyParOff']) && isset($line['prohibited']) && $line['prohibited'] == 'parity') continue;?>
+                    <line class="transition" onclick="click_on_tr(evt, '<?=$line['ID']?>')" onmouseover="mouse_on_tr(evt, '<?=$line['ID']?>')" onmouseout="mouse_out_tr(evt, '<?=$line['ID']?>')"
                           id="<?=$line['ID']?>"
                           low_level="<?=$line['lower_level_id']?>"
                           high_level="<?=$line['upper_level_id']?>"
                           rating="<?=$line['rating']?>"
                           dx="0"
+                          <?if(isset($line['prohibited']) && $line['prohibited'] == 'multiplicity'){?>stroke-dasharray="5, 2"<?}?>
+                          <?if(isset($line['prohibited']) && $line['prohibited'] == 'parity'){?>stroke-dasharray="2, 5"<?}?>
                           wavelength="<?=$line['WAVELENGTH']?>"></line>
                     <rect class="fortext" width="1" height="6" transform="" display="none"
                           id="rect_<?=$line['ID']?>"></rect>
                     <text class="transition" transform="" display="none"
-                          id="txt_<?=$line['ID']?>"><?=$line['WAVELENGTH']?></text>
+                          id="txt_<?=$line['ID']?>"
+                          onclick="click_on_tr_text(evt, '<?=$line['ID']?>')" onmouseover="mouse_on_tr(evt, '<?=$line['ID']?>')" onmouseout="mouse_out_tr(evt, '<?=$line['ID']?>')"><?=$line['WAVELENGTH']?></text>
                 <?}?>
             </g>
             <text class="name" id="Abbr" x="<?=$term_row_w*$n_terms - 5?>" y="<?=$diagram_h - 5?>"><?=$abbr?></text>
@@ -417,6 +433,8 @@ dx="<?=-$index_dx?>" dy="<?=$index_dy?>"><?=$group['J']?></tspan><?}?></text>
             var core_row_h = <?=$core_row_h?>;
             var conf_row_h = <?=$conf_row_h?>;
             var diagram_w = <?=$diagram_w?>;
+            <?if (isset($_REQUEST['grouping'])) echo 'var grouping = "' . $_REQUEST['grouping'] . '";';
+            else echo 'var grouping = "auto";';?>
         </script>
         <script xmlns:xlink="http://www.w3.org/1999/xlink" type="text/ecmascript" xlink:href="/js/svg.js?v2"></script>
     </svg>

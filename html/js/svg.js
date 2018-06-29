@@ -9,7 +9,7 @@ var min_levels_count = 5;
 var part_after_begin = 0.25;
 //var compression_rate = table_width / window.innerWidth;
 var compression_rate = table_width / diagram_w;
-if (compression_rate > 1.) compress_table();
+if (compression_rate > 1 || grouping == 'term' || grouping == 'J' ) compress_table();
 
 var visible_transitions = new Array();
 var right_transitions = new Array();
@@ -38,7 +38,7 @@ function compress_table() {
                     var text_terms = g_terms.item(j).getElementsByTagName('text');
 
                     if (rect_terms.length > 1) {
-                        if (/*(rect_terms.length > 2) &&*/ (compression_rate >= 1.5)) {
+                        if (compression_rate >= 1.5 || grouping != 'auto'/* &&(rect_terms.length > 2)*/) {
                             var gL = rect_terms.item(0).getAttribute('l');
                             var gSeq = rect_terms.item(0).getAttribute('seq');
                             if (!is_equal_attribute(rect_terms, 'l', gL)) gL = '(...)';
@@ -51,11 +51,11 @@ function compress_table() {
                             }
                         }
 
-                        if (compJ || ((compression_rate < 1.7) /*|| (rect_terms.length < 3)*/)) {
+                        if (grouping != 'full' && (grouping == 'J' || compJ || ((compression_rate < 1.7) /*|| (rect_terms.length < 3)*/))) {
                             // try to compress
                             for (var k = 0; k < rect_terms.length; k++) {
-                                if (compJ || ((min_levels_count > parseInt(rect_terms.item(k).getAttribute('n_levels')))
-                                    || rect_terms.item(k).getAttribute('info')) == 'no')
+                                if (true/*compJ || parseInt(rect_terms.item(k).getAttribute('n_levels')) < min_levels_count
+                                    || rect_terms.item(k).getAttribute('info') == 'no'*/)
                                 { // too little count of levels for term => compress
                                     var curL = rect_terms.item(k).getAttribute('l');
                                     var curSeq = rect_terms.item(k).getAttribute('seq');
@@ -63,7 +63,6 @@ function compress_table() {
                                     var toCompress = new Array();
                                     find_similar(rect_terms, curL, curSeq, curPrefix, toCompress);
                                     if (toCompress.length > 1) {
-
                                         toCompress.sort(sort_numbers);
                                         k = toCompress[toCompress.length - 1] + 1;
                                         // compression
@@ -120,14 +119,14 @@ function compress_table() {
                             }
                         }
                         else {
-                            if (/*(rect_terms.length > 2) && */(compression_rate >= 1.7)) {// compress term
+                            if (/*(rect_terms.length > 2) && */grouping != 'full' && grouping != 'J' && (grouping == 'term' || compression_rate >= 1.7)) {// compress term
                                 // create new text
                                 var newText = text_terms.item(0).cloneNode(true);
                                 if (newText.hasAttribute('transform')) newText.removeAttribute('transform');
                                 var nTextSpans = newText.getElementsByTagName('tspan');
                                 newText.removeChild(nTextSpans.item(nTextSpans.length - 1));
 
-                                if ('' == gSeq && ('#text' == newText.firstChild.nodeName))
+                                if (gSeq == '' &&  newText.firstChild.nodeName == '#text')
                                     newText.removeChild(newText.firstChild);
                                 var nL = document.createTextNode(gL);
                                 if (nTextSpans.item(1).hasChildNodes())
@@ -263,6 +262,10 @@ function shift_glevels(gLevels, dx, hide){
         for (var j = 0; j < txt_l.length; j++){
             txt_l.item(j).setAttribute('x', parseFloat(txt_l.item(j).getAttribute('x')) + dx);
             if (hide) txt_l.item(j).setAttribute('display', 'none');
+        }
+        var circle_l = gLevels.getElementsByTagName('circle');
+        for (var j = 0; j < circle_l.length; j++){
+            circle_l.item(j).setAttribute('cx', parseFloat(circle_l.item(j).getAttribute('cx')) + dx);
         }
         return 1;
     }
@@ -419,7 +422,7 @@ function show_transition_text(transition, a, rH){
     txtE.setAttribute('transform', 'rotate(' + a + ' ' + gx + ' ' + gy +')');
     txtE.setAttribute('display', '');
     txtE.setAttribute('x', gx);
-    txtE.setAttribute('y', gy + rH);
+    txtE.setAttribute('y', gy + rH * 0);
     txtR.setAttribute('width', txtE.getComputedTextLength());
 }
 
@@ -631,17 +634,39 @@ function getTarget(e){
     else return e.relatedTarget;
 }
 
-function mouse_on_tr(evt, target){
-    if (target.nodeName != 'line') target = getTarget(evt);
+function mouse_on_tr(evt, id){
+//    if (target.nodeName != 'line') target = getTarget(evt);
+    target = document.getElementById(id);
     show_level_info(document.getElementById(target.getAttribute('low_level')));
     show_level_info(document.getElementById(target.getAttribute('high_level')));
+}
+
+function click_on_tr(evt, id){
+//    if (target.nodeName != 'line') target = getTarget(evt);
+    target = document.getElementById(id);
+    if (target.getAttribute('display') == 'none') target.setAttribute('display', '');
+    else target.setAttribute('display', 'none');
+}
+function click_on_tr_text(evt, id){
+//    if (target.nodeName != 'line') target = getTarget(evt);
+    txt = document.getElementById('txt_' + id);
+    rect = document.getElementById('rect_' + id);
+    if (txt.getAttribute('display') == 'none') {
+        txt.setAttribute('display', '');
+        rect.setAttribute('display', '');
+    }
+    else {
+        txt.setAttribute('display', 'none');
+        rect.setAttribute('display', 'none');
+    }
 }
 
 function mouse_move_tr(evt){
 }
 
-function mouse_out_tr(evt, target){
-    if (target.nodeName!='line') target = getTarget(evt);
+function mouse_out_tr(evt, id){
+    //if (target.nodeName!='line') target = getTarget(evt);
+    target = document.getElementById(id);
     hide_level_info(document.getElementById(target.getAttribute('low_level')));
     hide_level_info(document.getElementById(target.getAttribute('high_level')));
 }
