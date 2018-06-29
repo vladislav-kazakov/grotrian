@@ -11,7 +11,7 @@
 
 				<div id="panel">
     				<div class="container_12">        
-						<div class="grid_8">
+						<div class="grid_9">
             				<h4>{#$l10n.Data_filter#}</h4>
             				
             				<form name="inputform" action="">
@@ -28,8 +28,8 @@
                                     <tr>
 										<td class="name">{#$l10n.Wavelength#}:</td>
 										<td>
-				                        	<input  size="12" type="text" name="waveMinVal"/>
-											<input size="12" type="text" name="waveMaxVal"/>											
+				                        	<input  size="12" type="text" name="waveMinVal" value="{#$wlmin#}"/>
+											<input size="12" type="text" name="waveMaxVal" value="{#$wlmax#}"/>
 										</td>
 	                        			
                                         <td class="dimension">
@@ -46,8 +46,8 @@
 									<tr>
 										<td class="name">{#$l10n.Energy#}:</td>
 										<td>
-				                        	<input  size="12" type="text" name="energyMinVal"/>
-											<input size="12" type="text" name="energyMaxVal"/>											
+				                        	<input  size="12" type="text" name="energyMinVal" value="{#$enmin#}"/>
+											<input size="12" type="text" name="energyMaxVal" value="{#$enmax#}"/>
 										</td>
 	                        			
                                         <td class="dimension">
@@ -59,8 +59,118 @@
 	                      				 <td>
 
 	                      				 </td>
-									</tr>	
-									
+									</tr>
+									<tr>
+										<td class="name">{#$l10n.Auto_states#}:</td>
+										<td>
+											<input  type="checkbox" name="autoStates" {#if (!$autoStatesOff)#}checked{#/if#}/>
+										</td>
+										<td class="dimension">
+										</td>
+										<td>
+											&nbsp;
+										</td>
+										<td>
+										</td>
+									</tr>
+									<tr>
+										<td class="name">{#$l10n.Max_n#}:</td>
+										<td>
+											<input size="1" type="text" name="nMaxVal" value="{#$nmax#}"/>
+										</td>
+										<td class="dimension">
+										</td>
+										<td>
+											&nbsp;
+										</td>
+										<td>
+										</td>
+									</tr>
+									<tr>
+										<td class="name">{#$l10n.Max_l#}:</td>
+										<td>
+											<input size="1" type="text" name="lMaxVal" value="{#$lmax#}"/>
+										</td>
+										<td class="dimension">
+										</td>
+										<td>
+											&nbsp;
+										</td>
+										<td>
+										</td>
+									</tr>
+									<tr>
+										<td class="name">{#$l10n.Group_by_multiplicity#}:</td>
+										<td>
+											<input  type="checkbox" name="groupbyMu" {#if ($groupbyMu)#}checked{#/if#}/>
+										</td>
+										<td class="dimension">
+										</td>
+										<td>
+											&nbsp;
+										</td>
+										<td>
+										</td>
+									</tr>
+									<tr>
+										<td class="name">{#$l10n.Prohibited_by_multiplicity#}:</td>
+										<td>
+											<input  type="checkbox" name="prohibitedbyMuOff" {#if (!$prohibitedbyMuOff)#}checked{#/if#}/>
+										</td>
+										<td class="dimension">
+										</td>
+										<td>
+											&nbsp;
+										</td>
+										<td>
+										</td>
+									</tr>
+									<tr>
+										<td class="name">{#$l10n.Prohibited_by_parity#}:</td>
+										<td>
+											<input  type="checkbox" name="prohibitedbyParOff" {#if (!$prohibitedbyParOff)#}checked{#/if#}/>
+										</td>
+										<td class="dimension">
+										</td>
+										<td>
+											&nbsp;
+										</td>
+										<td>
+										</td>
+									</tr>
+									<tr>
+										<td class="name">{#$l10n.Grouping#}:</td>
+										<td>
+											<input  type="radio" name="grouping" value="term" {#if ($grouping == "term")#}checked{#/if#}/>{#$l10n.ByTerm#}<br>
+											<input  type="radio" name="grouping" value="J" {#if ($grouping == "J")#}checked{#/if#}/>{#$l10n.ByJ#}<br>
+											<input  type="radio" name="grouping" value="full" {#if ($grouping == "full")#}checked{#/if#}/>{#$l10n.Full#}<br>
+											<input  type="radio" name="grouping" value="auto" {#if (!$grouping)#}checked{#/if#}/>{#$l10n.Auto#}<br>
+										</td>
+										<td class="dimension">
+										</td>
+										<td>
+											&nbsp;
+										</td>
+										<td>
+										</td>
+									</tr>
+									<tr>
+										<td class="name">{#$l10n.Diagram_width#}:</td>
+										<td>
+											<input  size="5" type="text" name="widthVal"  value="{#$width#}"/>
+										</td>
+
+										<td class="dimension">
+                                            px
+										</td>
+										<td>
+											&nbsp;
+										</td>
+										<td>
+
+										</td>
+									</tr>
+
 									<tr>
 										<td  class="name"></td>
 										<td>&nbsp;</td>
@@ -89,13 +199,12 @@
 
 <!--End of Slide-->
 
-			<div id="svg"></div>
+			<div id="svg" style="width: 100%; height: 600px; overflow-x:auto">{#$svg#}</div>
 
 			<div class="container_12">
 				 	<div class="grid_12" id="main">
 							<br/>
-							<a class="nav" target="_blank" href="/{#$locale#}/newdiagram/{#$layout_element_id#}">[{#$l10n.Open_in_new_window#}]</a><br/><b>{#$l10n.To_view_a_chart_you_need#} <a href="http://www.adobe.com/svg/viewer/install/main.html" target="_blank">Adobe SVG Viewer</a></b>
-
+							<a class="nav" target="_blank" href="{#$new_window_url#}">[{#$l10n.Open_in_new_window#}]</a>
                     </div>
 		    </div>
 

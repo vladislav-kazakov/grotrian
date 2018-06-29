@@ -9,7 +9,16 @@ class Atom extends LocalObject
 		else 		 $query = "SELECT SPECTRUM_IMG, IONIZATION,Z,ATOM_MASS,IONIZATION_POTENCIAL,ABBR,TABLEPERIOD,TABLEGROUP,NAME_EN,NAME_RU,NAME_RU_ALT,PERIODICTABLE.[TYPE] AS ELEMENT_TYPE,PERIODICTABLE.ID AS ELEMENT_ID, LIMITS, BREAKS, INTERFACE_CONTENT.* FROM  ATOMS,PERIODICTABLE,INTERFACE_CONTENT WHERE ATOMS.ID='$element_id' AND ATOMS.ID_ELEMENT = PERIODICTABLE.ID AND INTERFACE_CONTENT.ID=ATOMS.DESCRIPTION";
 		$this->LoadFromSQL($query);
 		
-	}	
+	}
+
+	function GetAbbr()
+    {
+        $atom_data = $this->GetAllProperties();
+        $abbr = $atom_data['ABBR'] .
+            (($atom_data['ABBR'] != 'H' && $atom_data['ABBR'] != 'D' && $atom_data['ABBR'] != 'T') ?
+                " " . numberToRoman(intval($atom_data['IONIZATION']) + 1) : "");
+        return $abbr;
+    }
 
 	function Create($element_id)
 	{		

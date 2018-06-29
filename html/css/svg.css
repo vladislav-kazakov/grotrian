@@ -30,6 +30,16 @@ line.level {
     stroke: red;
     stroke-width:2px;
 }
+circle.level {
+    fill: red;
+}
+line.odd_level {
+    stroke: green;
+    stroke-width:2px;
+}
+circle.odd_level {
+    fill: green;
+}
 text.config {
     font-family: Verdana;
     font-size: 12px;

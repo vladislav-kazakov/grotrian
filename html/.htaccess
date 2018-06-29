@@ -27,6 +27,6 @@ RewriteRule ^(admin)[/]?$ index.php?interface=admin&pagetype=index [L]
 RewriteCond %{REQUEST_FILENAME} -f [OR] 
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule .* - [S=3]
-RewriteRule ^([a-zA-Z]+)/([a-zA-Z]+)/([0-9_-]+)$ index.php?lang=$1&pagetype=$2&element_id=$3
-RewriteRule ^([a-zA-Z]+)/([a-zA-Z]+)[/]?$ index.php?lang=$1&pagetype=$2
-RewriteRule ^([a-zA-Z]+)[/]?$ index.php?lang=$1&pagetype=index
+RewriteRule ^([a-zA-Z]+)/([a-zA-Z]+)/([0-9_-]+)$ index.php?lang=$1&pagetype=$2&element_id=$3 [QSA]
+RewriteRule ^([a-zA-Z]+)/([a-zA-Z]+)[/]?$ index.php?lang=$1&pagetype=$2 [QSA]
+RewriteRule ^([a-zA-Z]+)[/]?$ index.php?lang=$1&pagetype=index [QSA]
