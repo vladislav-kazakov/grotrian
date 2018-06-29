@@ -212,7 +212,7 @@ if(isset($_REQUEST['element_id'])) {
           xmlns:xlink="http://www.w3.org/1999/xlink"
           rel="stylesheet"
           type="text/css"
-          href="/css/svg.css?v3">
+          href="/css/svg.css?v4">
     </link>
     <svg xmlns="http://www.w3.org/2000/svg"
          preserveAspectRatio="xMinYMin"
@@ -436,6 +436,6 @@ dx="<?=-$index_dx?>" dy="<?=$index_dy?>"><?=$group['J']?></tspan><?}?></text>
             <?if (isset($_REQUEST['grouping'])) echo 'var grouping = "' . $_REQUEST['grouping'] . '";';
             else echo 'var grouping = "auto";';?>
         </script>
-        <script xmlns:xlink="http://www.w3.org/1999/xlink" type="text/ecmascript" xlink:href="/js/svg.js?v2"></script>
+        <script xmlns:xlink="http://www.w3.org/1999/xlink" type="text/ecmascript" xlink:href="/js/svg.js?v3"></script>
     </svg>
 <?}?>
