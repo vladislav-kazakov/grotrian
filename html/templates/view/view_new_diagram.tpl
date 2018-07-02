@@ -2,7 +2,7 @@
 	<script type="text/javascript">										
 		var id={#$layout_element_id#};
 	</script>  						
-	<script type="text/javascript" src="/js/filter_diagram.js?v2"></script>
+	<script type="text/javascript" src="/js/filter_diagram.js?v4"></script>
 {#/if#}
 							
 	</head>
