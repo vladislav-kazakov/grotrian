@@ -290,10 +290,11 @@ function drawTransitions(){
 function drawTransitionsWaveEnergyRange(minWave, maxWave, minEnergy, maxEnergy){
     var transitions = document.getElementById('transitions');
     if (transitions == null) return 1;
-    transitions = transitions.children;
+    transitions = transitions.childNodes;
     var rating, val;
 
     for (var i=0; i<transitions.length; i++){
+        if (transitions.item(i).nodeType == Node.TEXT_NODE) continue;
         if (document.getElementById(transitions.item(i).getAttribute('high_level'))
             && document.getElementById(transitions.item(i).getAttribute('low_level'))
             && transitions.item(i).nodeName == 'line'
