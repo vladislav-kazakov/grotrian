@@ -516,8 +516,14 @@ $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique,
 			
 			
 				
-			$("#saveLevels").click(function(){		
-					  
+			$("#saveLevels").click(function(){
+				var hasemptybib = false;
+                $('.row_selected ').each(function() {
+                    if (!$(this).children('.source').data("source")){
+                    	hasemptybib = true;
+					}
+                });
+                if (hasemptybib) alert("Уважаемый Алексей Степанович! Чтобы сохранить изменения, Вам необходимо подключить ссылку на источник! Как это сделать, можно спросить у Славы или Каира. Хорошего дня!"); return;
 				var str = $(".row_selected input").serialize();
 				str+="&action=saveLevels&count="+$(".row_selected .row_id").length;					
 				$.post("/levels_admin.php", str, function(data){					
