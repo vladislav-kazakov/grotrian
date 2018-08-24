@@ -580,7 +580,7 @@ $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique,
 							'<td class="j"><input type="text" name="j[]" value=""></td>' +
 							'<td class="energy"><input type="text" name="energy[]" value=""></td>' +
 							'<td class="lifetime"><input type="text" name="lifetime[]" value=""></td>' +
-                            '<td class="bibliolink"><input type="text" name="bibliolink" value=""></td>' +
+                            '<td class="bibliolink"><input type="text" name="bibliolink[]" value=""></td>' +
 							'<td class="source"><a href="#" class="button white" id="add_source">+</a></td></tr>';
 						//alert(data);
 						$('#table1').prepend(str);
