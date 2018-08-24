@@ -340,7 +340,7 @@
 					else return "";
 				}
 			},
-						
+            { "type": "html" },
 						{ "type": "html" }
 					], 
 		
@@ -394,8 +394,10 @@
 		    		transition.children('.a_ki').html('<input size="" type="text" name="a_ki[]" value="'+a_ki+'"/>');
 
 					excitation = transition.children('.excitation').text();
-		    		transition.children('.excitation').html('<input size="" type="text" name="excitation[]" value="'+excitation+'"/>');		    		
+		    		transition.children('.excitation').html('<input size="" type="text" name="excitation[]" value="'+excitation+'"/>');
 
+                    bibliolink = transition.children('.bibliolink').html();
+                    transition.children('.bibliolink').html('<input size="" type="text" name="bibliolink[]" value="'+bibliolink+'"/>');
 		    		    		
 		    		if (transition.find('.links').children('a').html() !=null) {
 		    			transition.children('.source').data("source", transition.find('.links').html());
@@ -427,7 +429,10 @@
 	    		if (transition.children('.upper_level_config').data("cfg")){
 	    			transition.children('.upper_level_config').html(transition.children('.upper_level_config').data("cfg"));
 	    		}else transition.children('.upper_level_config').html('');
-	    		
+
+                bibliolink = transition.children('.bibliolink').children().prop('value');
+                transition.children('.bibliolink').html(bibliolink);
+
 	    		if (transition.children('.source').data("source")){
 	    			transition.children('.source').html('<span class="links">'+transition.children('.source').data("source")+"</span>");
 	    		}else transition.children('.source').html('<span class="links"></span>');
@@ -455,15 +460,17 @@
 			$("#saveTransitions").click(function(){
                 var hasemptybib = false;
                 $('.row_selected ').each(function() {
-                    if (!$(this).children('.source').data("source")){
+                    if (!$(this).children('.source').data("source") && !$(this).children('.bibliolink').children().prop("value")){
                         hasemptybib = true;
                     }
                 });
-                if (hasemptybib) alert("Уважаемый Алексей Степанович! Чтобы сохранить изменения, Вам необходимо подключить ссылку на источник! Как это сделать, можно спросить у Славы или Каира. Хорошего дня!"); return;
+                if (hasemptybib) {
+                    alert("Уважаемый Алексей Степанович! Чтобы сохранить изменения, Вам необходимо подключить ссылку на источник! Как это сделать, можно спросить у Славы или Каира. Хорошего дня!");
+                    return;
+                }
 				var str = $(".row_selected input").serialize();
 				str+="&action=saveTransitions&count="+$(".row_selected .row_id").length;		
-				//alert(str);
-				$.post("/transitions_admin.php", str, function(data){													
+				$.post("/transitions_admin.php", str, function(data){
 					$('.row_selected').each(function() {
 						//console.log(data);
 						removeSelection($(this));

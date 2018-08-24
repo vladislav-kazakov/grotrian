@@ -74,7 +74,8 @@
 								<th style="width: 120px;">{#$l10n.Term#}</th>
 		                        <th>&nbsp;&nbsp;J&nbsp;&nbsp;</th>
 								<th>{#$l10n.Energy#} ({#$l10n.cm#} <sup>-1</sup>)</th>
-								<th>{#$l10n.Lifetime#} <br/>({#$l10n.ns#})</th>   
+								<th>{#$l10n.Lifetime#} <br/>({#$l10n.ns#})</th>
+								<th style="width: 120px;">Источник строкой (deprecated)</th>
 								<th>{#$l10n.Source#}</th>
 							</tr>	
 						</thead>
@@ -91,10 +92,10 @@
 				        </td>
 				        <td class="j">{#$level.J#}</td>
                         <td class="energy">{#$level.ENERGY#}</td>
-                        <td class="lifetime">{#$level.LIFETIME#}</td>                        
-                        
-                           
-						<td class="source">							
+                        <td class="lifetime">{#$level.LIFETIME#}</td>
+
+						<td class="bibliolink">{#$level.BIBLIOLINK#}</td>
+						<td class="source">
 							{# if $level.SOURCE_IDS !='' #}
 							<span class="links">							
 								{# assign var=sources value=","|explode:$level.SOURCE_IDS#}

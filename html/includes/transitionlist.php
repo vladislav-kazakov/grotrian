@@ -168,16 +168,25 @@ WHERE TRANSITIONS.ID_ATOM='$element_id' AND upper_level.energy < 200000 GROUP BY
 
 	function Save($post){
 		$count=$post['count'];
+        $query="";
+
 		for ($i=0; $i<$count; $i++) {
-				$transition_id = $post['row_id'][$i];
-				$wavelength = empty($post['wavelength'][$i]) ? "NULL" : $post['wavelength'][$i];
-				$intensity = empty($post['intensity'][$i]) ? "NULL" : $post['intensity'][$i];
-				$f_ik = empty($post['f_ik'][$i]) ? "NULL" : $post['f_ik'][$i];
-				$a_ki = empty($post['a_ki'][$i]) ? "NULL" : ($post['a_ki'][$i]*100000000);
-				$excitation = empty($post['excitation'][$i]) ? "NULL" : $post['excitation'][$i];					
-				
-				$query .= " UPDATE TRANSITIONS SET [WAVELENGTH] = ".$wavelength." ,[PROBABILITY] = ".$a_ki.", [OSCILLATOR_F] = ".$f_ik.",[CROSSECTION] = ".$excitation.",[INTENSITY] = ".$intensity." WHERE ID =".$transition_id;
-				//echo $query;			
+            $transition_id = $post['row_id'][$i];
+            $wavelength = empty($post['wavelength'][$i]) ? "NULL" : $post['wavelength'][$i];
+            $intensity = empty($post['intensity'][$i]) ? "NULL" : $post['intensity'][$i];
+            $f_ik = empty($post['f_ik'][$i]) ? "NULL" : $post['f_ik'][$i];
+            $a_ki = empty($post['a_ki'][$i]) ? "NULL" : ($post['a_ki'][$i]*100000000);
+            $excitation = empty($post['excitation'][$i]) ? "NULL" : $post['excitation'][$i];
+            $bibliolink       = ($post['bibliolink'][$i] == "")    ? 'NULL' :  "'" . $post['bibliolink'][$i] .  "'";
+
+            $query .= " UPDATE TRANSITIONS SET [WAVELENGTH] = " . $wavelength
+                . " ,[PROBABILITY] = " . $a_ki
+                . ", [OSCILLATOR_F] = " . $f_ik
+                . ",[CROSSECTION] = " . $excitation
+                . ",[INTENSITY] = " . $intensity
+                . ", [BIBLIOLINK] = " . $bibliolink
+                . " WHERE ID =".$transition_id;
+            echo $query;
 		}
 		
 		$this->LoadFromSQL($query);

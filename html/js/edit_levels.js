@@ -199,7 +199,7 @@ $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique,
 					else return "";
 				}
 			},
-			
+            { "type": "html" },
 			{ "type": "html" }
 		], 
 		
@@ -325,7 +325,10 @@ $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique,
 		    		level.children('.lifetime').html('<input size="" type="text" name="lifetime[]" value="'+lifetime+'"/>');
 
 		    		//levelSources = level.children('.source').html();
-		    		
+
+                    bibliolink = level.children('.bibliolink').html();
+                    level.children('.bibliolink').html('<input size="" type="text" name="bibliolink[]" value="'+bibliolink+'"/>');
+
 		    		    		
 		    		if (level.find('.links').children('a').html() !=null) {
 		    			level.children('.source').data("source", level.find('.links').html());
@@ -454,17 +457,21 @@ $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique,
 	    		level.children('.energy').html(energy);
 
 	    		lifetime = level.children('.lifetime').children().prop('value');
-	    		level.children('.lifetime').html(lifetime); 
-/*
-				rts ="level_id="+level.find('.level_id').val();						
-				rts+="&action=getSourceIDs";
-	
-				$.post("/levels_admin.php", rts,function(data) {
-					//removeSelection(level);
-					//alert(data);
-					level.children('.source').html(data);
-				});
-	*/			
+	    		level.children('.lifetime').html(lifetime);
+
+                bibliolink = level.children('.bibliolink').children().prop('value');
+                level.children('.bibliolink').html(bibliolink);
+
+                /*
+                                rts ="level_id="+level.find('.level_id').val();
+                                rts+="&action=getSourceIDs";
+
+                                $.post("/levels_admin.php", rts,function(data) {
+                                    //removeSelection(level);
+                                    //alert(data);
+                                    level.children('.source').html(data);
+                                });
+                    */
  		
 	    		if (level.children('.source').data("source")){
 	    			//alert(level.children('.source').data("source"));
@@ -519,11 +526,14 @@ $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique,
 			$("#saveLevels").click(function(){
 				var hasemptybib = false;
                 $('.row_selected ').each(function() {
-                    if (!$(this).children('.source').data("source")){
+                    if (!$(this).children('.source').data("source") && !$(this).children('.bibliolink').children().prop("value")){
                     	hasemptybib = true;
 					}
                 });
-                if (hasemptybib) alert("Уважаемый Алексей Степанович! Чтобы сохранить изменения, Вам необходимо подключить ссылку на источник! Как это сделать, можно спросить у Славы или Каира. Хорошего дня!"); return;
+                if (hasemptybib) {
+                    alert("Уважаемый Алексей Степанович! Чтобы сохранить изменения, Вам необходимо ввести ссылку на источник! Как это сделать, можно спросить у Славы или Каира. Хорошего дня!");
+                    return;
+                }
 				var str = $(".row_selected input").serialize();
 				str+="&action=saveLevels&count="+$(".row_selected .row_id").length;					
 				$.post("/levels_admin.php", str, function(data){					

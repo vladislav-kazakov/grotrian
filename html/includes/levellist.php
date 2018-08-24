@@ -557,15 +557,25 @@ function LoadBase($element_id){
 		for ($i=0; $i<$count; $i++) {
 				$level_id = $post['row_id'][$i];
 				$level_config   = empty($post['level_config'][$i])     ? "" : "'".$post['level_config'][$i]."'";
-				$termSecondpart = ($post['termSecondpart'][$i] == "")  ? 'NULL' : "'".$post['termSecondpart'][$i]."'";
-				$termPrefix     = ($post['termPrefix'][$i] == "")      ? 'NULL' : "'".$post['termPrefix'][$i]."'";
+				$termSecondpart = ($post['termSecondpart'][$i] == "")  ? 'NULL' : "'" . $post['termSecondpart'][$i] . "'";
+				$termPrefix     = ($post['termPrefix'][$i] == "")      ? 'NULL' : "'" . $post['termPrefix'][$i] . "'";
 				$termFirstpart  = empty($post['termFirstpart'][$i])    ? " " : $post['termFirstpart'][$i];
 				$termMultiply   = ($post['termMultiply'][$i]<>"")      ? 1 : 0;
 				$j              = ($post['j'][$i] == "")               ? 'NULL' : "'".$post['j'][$i]."'";
 				$energy         = ($post['energy'][$i] == "")          ? 'NULL' : $post['energy'][$i];
-				$lifetime       = ($post['lifetime'][$i] == "")        ? 'NULL' : $post['lifetime'][$i];		
-				
-				$query .= " UPDATE LEVELS SET [CONFIG] = ".$level_config." ,[ENERGY] = ".$energy.",[LIFETIME] = ".$lifetime.", [J] = ".$j.", [TERMSECONDPART] = ".$termSecondpart." , [TERMPREFIX] = ".$termPrefix." ,[TERMMULTIPLY] = ".$termMultiply.", [TERMFIRSTPART] = '".$termFirstpart."' WHERE ID =".$level_id;
+				$lifetime       = ($post['lifetime'][$i] == "")        ? 'NULL' : $post['lifetime'][$i];
+                $bibliolink       = ($post['bibliolink'][$i] == "")    ? 'NULL' :  "'" . $post['bibliolink'][$i] .  "'";
+
+            $query .= " UPDATE LEVELS SET [CONFIG] = " . $level_config
+                . ", [ENERGY] = " . $energy
+                . ", [LIFETIME] = " . $lifetime
+                . ", [J] = " . $j
+                . ", [TERMSECONDPART] = " . $termSecondpart
+                . ", [TERMPREFIX] = " . $termPrefix
+                . ", [TERMMULTIPLY] = " . $termMultiply
+                . ", [TERMFIRSTPART] = '" . $termFirstpart . "'"
+                . ", [BIBLIOLINK] = " . $bibliolink
+                . " WHERE ID =" . $level_id;
 			}		
 		$this->LoadFromSQL($query);
 	}
