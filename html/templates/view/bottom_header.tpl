@@ -134,7 +134,11 @@
                         			{#else#}
                         			<a href="{#$ion.ID#}" class="button white ions" >
                         		{#/if#}
-                        		{#$ion.IVAL+1|toRoman#}</a>
+								{#if $ion.IVAL==-1#}&ndash;
+								{#else#}
+								{#$ion.IVAL+1|toRoman#}
+								{#/if#}
+									</a>
                        		{#/foreach#}
 						{#/if#}
 					</span>                        		                        		
