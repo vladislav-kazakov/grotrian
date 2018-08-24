@@ -564,7 +564,7 @@ function LoadBase($element_id){
 				$j              = ($post['j'][$i] == "")               ? 'NULL' : "'".$post['j'][$i]."'";
 				$energy         = ($post['energy'][$i] == "")          ? 'NULL' : $post['energy'][$i];
 				$lifetime       = ($post['lifetime'][$i] == "")        ? 'NULL' : $post['lifetime'][$i];
-                $bibliolink       = ($post['bibliolink'][$i] == "")    ? 'NULL' :  "'" . $post['bibliolink'][$i] .  "'";
+                $bibliolink       = ($post['bibliolink'][$i] == "")    ? 'NULL' :  "'" . iconv("UTF-8", "Windows-1251",$post['bibliolink'][$i]) .  "'";
 
             $query .= " UPDATE LEVELS SET [CONFIG] = " . $level_config
                 . ", [ENERGY] = " . $energy

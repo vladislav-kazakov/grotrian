@@ -499,7 +499,19 @@
 						//alert(data);
 						if ($('tr:first').hasClass("odd")) p="even"; else p="odd";  
 						//var str ='<tr class="'+p+' row_selected"><input type="hidden" class="level_id" name="level_id[]" value="'+data+'"><td class=""><input type="checkbox" checked="checked"></td><!--  <td></td>--><td id="level_config" class=" sorting_1"><input size="" type="text" name="level_config[]" value=""></td><td id="term"><input size="1" type="text" id="termPrefix" name="termPrefix[]" value=""><input size="1" type="text" id="termFirstpart" name="termFirstpart[]" value=""><input size="1" type="text" id="termMultiply" name="termMultiply[]" value=""></td><td id="j"><input size="" type="text" name="j[]" value=""></td><td id="energy"><input size="" type="text" name="energy[]" value=""></td><td id="lifetime"><input size="" type="text" name="lifetime[]" value=""></td><td id="source"><a href="#" class="button white" id="add_source">+</a><a class="button white" id="remove_source">-</a></td></tr>';
-						var str ='<tr class="'+p+' row_selected"><input type="hidden" class="row_id" name="row_id[]" value="'+data+'"><td class=""><input type="hidden" class="lower_level_id" value=""/><input type="hidden" class="upper_level_id" value="" /><input type="checkbox" checked="true"></td><td class="lower_level_config"><a href="#" class="button white" id="select_lower_level">выбрать</a></td><td class="upper_level_config"><a href="#" class="button white" id="select_upper_level">выбрать</a></td><td class="wavelength"><input size="" type="text" name="wavelength[]" value=""></td><td class="intensity"><input size="" type="text" name="intensity[]" value=""></td><td class="f_ik"><input size="" type="text" name="f_ik[]" value=""></td><td class="a_ki"><input size="" type="text" name="a_ki[]" value=""></td><td class="excitation"><input size="" type="text" name="excitation[]" value=""></td><td class="source"><span id="links"></span><span id="buttons"><a href="#" class="button white" id="add_source">+</a></span></td></tr>';
+						var str ='<tr class="'+p+' row_selected"><input type="hidden" class="row_id" name="row_id[]" value="'+data+'">' +
+							'<td class=""><input type="hidden" class="lower_level_id" value=""/>' +
+							'<input type="hidden" class="upper_level_id" value="" />' +
+							'<input type="checkbox" checked="true"></td>' +
+							'<td class="lower_level_config"><a href="#" class="button white" id="select_lower_level">выбрать</a></td>' +
+							'<td class="upper_level_config"><a href="#" class="button white" id="select_upper_level">выбрать</a></td>' +
+							'<td class="wavelength"><input size="" type="text" name="wavelength[]" value=""></td>' +
+							'<td class="intensity"><input size="" type="text" name="intensity[]" value=""></td>' +
+							'<td class="f_ik"><input size="" type="text" name="f_ik[]" value=""></td>' +
+							'<td class="a_ki"><input size="" type="text" name="a_ki[]" value=""></td>' +
+							'<td class="excitation"><input size="" type="text" name="excitation[]" value=""></td>' +
+                            '<td class="bibliolink"><input size="" type="text" name="bibliolink[]" value=""></td>' +
+							'<td class="source"><span id="links"></span><span id="buttons"><a href="#" class="button white" id="add_source">+</a></span></td></tr>';
 						//alert (str);
 						$('#table1').prepend(str);						
 						

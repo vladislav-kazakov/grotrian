@@ -177,7 +177,7 @@ WHERE TRANSITIONS.ID_ATOM='$element_id' AND upper_level.energy < 200000 GROUP BY
             $f_ik = empty($post['f_ik'][$i]) ? "NULL" : $post['f_ik'][$i];
             $a_ki = empty($post['a_ki'][$i]) ? "NULL" : ($post['a_ki'][$i]*100000000);
             $excitation = empty($post['excitation'][$i]) ? "NULL" : $post['excitation'][$i];
-            $bibliolink       = ($post['bibliolink'][$i] == "")    ? 'NULL' :  "'" . $post['bibliolink'][$i] .  "'";
+            $bibliolink       = ($post['bibliolink'][$i] == "")    ? 'NULL' :  "'" . iconv("UTF-8", "Windows-1251", $post['bibliolink'][$i]) .  "'";
 
             $query .= " UPDATE TRANSITIONS SET [WAVELENGTH] = " . $wavelength
                 . " ,[PROBABILITY] = " . $a_ki

@@ -569,7 +569,19 @@ $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique,
 					$.post("/levels_admin.php",  { atom_id: atom_id , action: "createLevel" }, function(data) {
 						if (p=="") p="even"; else if ($('tr:first').hasClass("odd")) p="even"; else p="odd";  
 						//var str ='<tr class="'+p+' row_selected"><input type="hidden" class="level_id" name="level_id[]" value="'+data+'"><td class=""><input type="checkbox" checked="checked"></td><!--  <td></td>--><td id="level_config" class=" sorting_1"><input size="" type="text" name="level_config[]" value=""></td><td id="term"><input size="1" type="text" class="termPrefix" name="termPrefix[]" value=""><input size="1" type="text" id="termFirstpart" name="termFirstpart[]" value=""><input size="1" type="text" id="termMultiply" name="termMultiply[]" value=""></td><td id="j"><input size="" type="text" name="j[]" value=""></td><td id="energy"><input size="" type="text" name="energy[]" value=""></td><td id="lifetime"><input size="" type="text" name="lifetime[]" value=""></td><td id="source"><a href="#" class="button white" id="add_source">+</a><a class="button white" id="remove_source">-</a></td></tr>';
-						var str ='<tr class="'+p+' row_selected"><td class=""><input type="checkbox" checked="checked"><input type="hidden" class="row_id" name="row_id[]" value="'+data+'"></td><td class="level_config"><input type="text" name="level_config[]" value=""></td><td class="term"><input size="1" type="text" class="termSecondpart" name="termSecondpart[]" value=""><input size="1" type="text" class="termPrefix" name="termPrefix[]" value=""><input size="1" type="text" class="termFirstpart" name="termFirstpart[]" value=""><input size="1" type="text" class="termMultiply" name="termMultiply[]" value=""></td><td class="j"><input type="text" name="j[]" value=""></td><td class="energy"><input type="text" name="energy[]" value=""></td><td class="lifetime"><input type="text" name="lifetime[]" value=""></td><td class="source"><a href="#" class="button white" id="add_source">+</a></td></tr>';
+						var str ='<tr class="'+p+' row_selected"><td class="">' +
+							'<input type="checkbox" checked="checked">' +
+							'<input type="hidden" class="row_id" name="row_id[]" value="'+data+'"></td>' +
+							'<td class="level_config"><input type="text" name="level_config[]" value=""></td>' +
+							'<td class="term"><input size="1" type="text" class="termSecondpart" name="termSecondpart[]" value="">' +
+							'<input size="1" type="text" class="termPrefix" name="termPrefix[]" value="">' +
+							'<input size="1" type="text" class="termFirstpart" name="termFirstpart[]" value="">' +
+							'<input size="1" type="text" class="termMultiply" name="termMultiply[]" value=""></td>' +
+							'<td class="j"><input type="text" name="j[]" value=""></td>' +
+							'<td class="energy"><input type="text" name="energy[]" value=""></td>' +
+							'<td class="lifetime"><input type="text" name="lifetime[]" value=""></td>' +
+                            '<td class="bibliolink"><input type="text" name="bibliolink" value=""></td>' +
+							'<td class="source"><a href="#" class="button white" id="add_source">+</a></td></tr>';
 						//alert(data);
 						$('#table1').prepend(str);
 						//alert(data);
