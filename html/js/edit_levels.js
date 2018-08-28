@@ -539,6 +539,7 @@ $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique,
 				$.post("/levels_admin.php", str, function(data){					
 					$('.row_selected').each(function() {
 						removeSelection($(this));
+						location.reload();
 					  });
 
 					//$('.row_selected').removeClass('row_selected').addClass('selectable');

@@ -556,7 +556,7 @@ function LoadBase($element_id){
 		$query="";
 		for ($i=0; $i<$count; $i++) {
 				$level_id = $post['row_id'][$i];
-				$level_config   = empty($post['level_config'][$i])     ? "" : "'".$post['level_config'][$i]."'";
+				$level_config   = empty($post['level_config'][$i])     ? "''" : "'".$post['level_config'][$i]."'";
 				$termSecondpart = ($post['termSecondpart'][$i] == "")  ? 'NULL' : "'" . $post['termSecondpart'][$i] . "'";
 				$termPrefix     = ($post['termPrefix'][$i] == "")      ? 'NULL' : "'" . $post['termPrefix'][$i] . "'";
 				$termFirstpart  = empty($post['termFirstpart'][$i])    ? " " : $post['termFirstpart'][$i];
@@ -576,7 +576,8 @@ function LoadBase($element_id){
                 . ", [TERMFIRSTPART] = '" . $termFirstpart . "'"
                 . ", [BIBLIOLINK] = " . $bibliolink
                 . " WHERE ID =" . $level_id;
-			}		
+			}
+			print_r($query);
 		$this->LoadFromSQL($query);
 	}
 	
