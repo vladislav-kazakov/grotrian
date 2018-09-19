@@ -524,6 +524,7 @@ $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique,
 			
 				
 			$("#saveLevels").click(function(){
+/*
 				var hasemptybib = false;
                 $('.row_selected ').each(function() {
                     if (!$(this).children('.source').data("source") && !$(this).children('.bibliolink').children().prop("value")){
@@ -534,6 +535,7 @@ $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique,
                     alert("Уважаемый Алексей Степанович! Чтобы сохранить изменения, Вам необходимо ввести ссылку на источник! Как это сделать, можно спросить у Славы или Каира. Хорошего дня!");
                     return;
                 }
+commented after megascandal with yatsenko*/
 				var str = $(".row_selected input").serialize();
 				str+="&action=saveLevels&count="+$(".row_selected .row_id").length;					
 				$.post("/levels_admin.php", str, function(data){					
