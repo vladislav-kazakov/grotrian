@@ -106,7 +106,7 @@ function LoadBase($element_id){
                 if (preg_match('/^(.*?)(\d+)([a-z])$/', $config))
                     $item[$name] = preg_replace('/^(.*?)(\d+)([a-z])$/', '$1n$3', $config);
             }
-            else{
+/*            else{
                 $item[$name] = preg_replace_callback('/^(.*?)(\d+)([a-z])@\{(\d+)\}$/',
                     function ($matches) {
                         if (($matches[4] - 1)  == 1) $index = '';
@@ -117,6 +117,7 @@ function LoadBase($element_id){
                     $config
                 );
             }
+*/
             if ($config == null || $config == '')
                 $item[$name] = $config = '?';
         }
@@ -125,6 +126,7 @@ function LoadBase($element_id){
 	function LoadGrouped($element_id, $min_energy = 0, $max_energy = 0, $options = [])
     {
         $query = "SELECT LEVELS.* FROM LEVELS WHERE ID_ATOM='$element_id'"
+            . " AND ENERGY IS NOT NULL "
             . ($min_energy > 0 ? "AND ENERGY >= $min_energy ":"")
             . ($max_energy > 0 ? "AND ENERGY <= $max_energy ":"")
             . " ORDER BY ENERGY";
@@ -305,6 +307,7 @@ function LoadBase($element_id){
     function LoadGroupedByMultiplet($element_id, $min_energy = 0, $max_energy = 0, $options = [])
     {
         $query = "SELECT LEVELS.* FROM LEVELS WHERE ID_ATOM='$element_id'"
+            . " AND ENERGY IS NOT NULL "
             . ($min_energy > 0 ? "AND ENERGY >= $min_energy ":"")
             . ($max_energy > 0 ? "AND ENERGY <= $max_energy ":"")
             . " ORDER BY ENERGY";

@@ -385,7 +385,10 @@ dx="<?=-$index_dx?>" dy="<?=$index_dy?>"><?=$group['J']?></tspan><?}?></text>
             <g id="transitions">
                 <?foreach($lines as $line){
                     if (isset($_REQUEST['prohibitedbyMuOff']) && isset($line['prohibited']) && $line['prohibited'] == 'multiplicity') continue;
-                    if (isset($_REQUEST['prohibitedbyParOff']) && isset($line['prohibited']) && $line['prohibited'] == 'parity') continue;?>
+                    if (isset($_REQUEST['prohibitedbyParOff']) && isset($line['prohibited']) && $line['prohibited'] == 'parity') continue;
+                    if (isset($_REQUEST['wlmax']) && $line['WAVELENGTH'] > $_REQUEST['wlmax']) continue;
+                    if (isset($_REQUEST['wlmin']) && $line['WAVELENGTH'] < $_REQUEST['wlmin']) continue;
+                    ?>
                     <line class="transition" onclick="click_on_tr(evt, '<?=$line['ID']?>')" onmouseover="mouse_on_tr(evt, '<?=$line['ID']?>')" onmouseout="mouse_out_tr(evt, '<?=$line['ID']?>')"
                           id="<?=$line['ID']?>"
                           low_level="<?=$line['lower_level_id']?>"
