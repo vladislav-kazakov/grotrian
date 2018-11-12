@@ -102,8 +102,12 @@ WHERE TRANSITIONS.ID_ATOM='$element_id' ORDER BY WAVELENGTH";
 
 	function LoadForCircleSpectrum($element_id)
 	{
-		$query = "SELECT TRANSITIONS.*,lower_level.ID AS lower_level_id,lower_level.energy AS lower_level_energy,lower_level.termmultiply AS lower_level_termmultiply, lower_level.CONFIG AS lower_level_config,lower_level.J AS lower_level_j,lower_level.TERMPREFIX AS lower_level_termprefix,lower_level.TERMMULTIPLY AS lower_level_termmultiply,lower_level.TERMFIRSTPART AS lower_level_termfirstpart,lower_level.TERMSECONDPART AS lower_level_termsecondpart,
-upper_level.ID AS upper_level_id,upper_level.energy AS upper_level_energy, upper_level.termmultiply as upper_level_termmultiply, upper_level.CONFIG AS upper_level_config,upper_level.J AS upper_level_j,upper_level.TERMPREFIX AS upper_level_termprefix,upper_level.TERMMULTIPLY AS upper_level_termmultiply,upper_level.TERMFIRSTPART AS upper_level_termfirstpart,upper_level.TERMSECONDPART AS upper_level_termsecondpart,
+		$query = "SELECT TRANSITIONS.*,lower_level.ID AS lower_level_id,lower_level.energy AS lower_level_energy,lower_level.termmultiply AS lower_level_termmultiply,
+ lower_level.CONFIG AS lower_level_config,lower_level.J AS lower_level_j,lower_level.TERMPREFIX AS lower_level_termprefix,lower_level.TERMMULTIPLY AS lower_level_termmultiply,
+ lower_level.TERMFIRSTPART AS lower_level_termfirstpart,lower_level.TERMSECONDPART AS lower_level_termsecondpart,
+upper_level.ID AS upper_level_id,upper_level.energy AS upper_level_energy, upper_level.termmultiply as upper_level_termmultiply, 
+upper_level.CONFIG AS upper_level_config,upper_level.J AS upper_level_j,upper_level.TERMPREFIX AS upper_level_termprefix,upper_level.TERMMULTIPLY AS upper_level_termmultiply,
+upper_level.TERMFIRSTPART AS upper_level_termfirstpart,upper_level.TERMSECONDPART AS upper_level_termsecondpart,
 [Grotrian_v2].[dbo].GetCfgType(upper_level.CONFIG) AS upper_level_config_type, dbo.ConcatSourcesID(TRANSITIONS.ID,'T') AS SOURCE_IDS
 FROM TRANSITIONS LEFT JOIN LEVELS AS lower_level ON TRANSITIONS.ID_LOWER_LEVEL=lower_level.ID LEFT JOIN LEVELS AS upper_level ON TRANSITIONS.ID_UPPER_LEVEL=upper_level.ID 
 WHERE TRANSITIONS.ID_ATOM='$element_id' AND upper_level.energy < 200000 ORDER BY ROUND(lower_level.energy, -3), upper_level.energy";

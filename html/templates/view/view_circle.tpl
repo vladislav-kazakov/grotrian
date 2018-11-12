@@ -17,7 +17,7 @@
 											<input type='button' id='filter' value='OK' class="bluebtn">
 										</div>
 										<div id='visible_container' style="clear:both; margin-top: 10px;">
-											<input type='button' id='visible' value='{#$l10n.VisibleSpectrum#}' class='bluebtn'><span style="width: 20px">
+											<input type='button' id='visible' value='{#$l10n.VisibleSpectrum#}' class='bluebtn'><span style="width: 20px"></span>
 											<input type='button' id='all_spectrum' value='{#$l10n.AllSpectrum#}' class='bluebtn'>
 										</div>
 
