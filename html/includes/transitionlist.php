@@ -70,6 +70,8 @@ WHERE TRANSITIONS.ID_ATOM='$element_id' ORDER BY WAVELENGTH";
 
         foreach ($items as &$item) {
             if ($item['lower_level_termprefix'] != $item['upper_level_termprefix'] //and it must be LS-coupling!
+                && is_string($item['lower_level_termfirstpart']) && is_string($item['upper_level_termfirstpart'])
+                && strlen($item['lower_level_termfirstpart']) > 0 && strlen($item['upper_level_termfirstpart']) > 0
                 && $item['lower_level_termfirstpart'][0] >='A' && $item['lower_level_termfirstpart'][0] <='Z'
                 && $item['upper_level_termfirstpart'][0] >='A' && $item['upper_level_termfirstpart'][0] <='Z'
                 )

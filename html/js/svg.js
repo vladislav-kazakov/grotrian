@@ -1,3 +1,60 @@
+//ie array.includes() workaround polyfill
+// https://tc39.github.io/ecma262/#sec-array.prototype.includes
+if (!Array.prototype.includes) {
+    Object.defineProperty(Array.prototype, 'includes', {
+        value: function(searchElement, fromIndex) {
+
+            if (this == null) {
+                throw new TypeError('"this" is null or not defined');
+            }
+
+            // 1. Let O be ? ToObject(this value).
+            var o = Object(this);
+
+            // 2. Let len be ? ToLength(? Get(O, "length")).
+            var len = o.length >>> 0;
+
+            // 3. If len is 0, return false.
+            if (len === 0) {
+                return false;
+            }
+
+            // 4. Let n be ? ToInteger(fromIndex).
+            //    (If fromIndex is undefined, this step produces the value 0.)
+            var n = fromIndex | 0;
+
+            // 5. If n ? 0, then
+            //  a. Let k be n.
+            // 6. Else n < 0,
+            //  a. Let k be len + n.
+            //  b. If k < 0, let k be 0.
+            var k = Math.max(n >= 0 ? n : len - Math.abs(n), 0);
+
+            function sameValueZero(x, y) {
+                return x === y || (typeof x === 'number' && typeof y === 'number' && isNaN(x) && isNaN(y));
+            }
+
+            // 7. Repeat, while k < len
+            while (k < len) {
+                // a. Let elementK be the result of ? Get(O, ! ToString(k)).
+                // b. If SameValueZero(searchElement, elementK) is true, return true.
+                if (sameValueZero(o[k], searchElement)) {
+                    return true;
+                }
+                // c. Increase k by 1.
+                k++;
+            }
+
+            // 8. Return false
+            return false;
+        }
+    });
+}
+
+
+
+
+
 var tga = 0.3;
 var txt_angle=17;
 var count_visible=0;
@@ -17,6 +74,7 @@ var left_transitions = new Array();
 fix_viewBox();
 checkTexts();
 drawTransitions();
+
 
 //Sort function for j like "9/2"
 function slava_sort_function_j(j1, j2) {
@@ -54,7 +112,8 @@ function compress_table() {
                         if (grouping != 'full' && (grouping == 'J' || compJ || ((compression_rate < 1.7) /*|| (rect_terms.length < 3)*/))) {
                             // try to compress
                             for (var k = 0; k < rect_terms.length; k++) {
-                                if (true/*compJ || parseInt(rect_terms.item(k).getAttribute('n_levels')) < min_levels_count
+                                if (rect_terms[k].getAttribute('display') != 'none'
+                                    /*compJ || parseInt(rect_terms.item(k).getAttribute('n_levels')) < min_levels_count
                                     || rect_terms.item(k).getAttribute('info') == 'no'*/)
                                 { // too little count of levels for term => compress
                                     var curL = rect_terms.item(k).getAttribute('l');
@@ -64,7 +123,7 @@ function compress_table() {
                                     find_similar(rect_terms, curL, curSeq, curPrefix, toCompress);
                                     if (toCompress.length > 1) {
                                         toCompress.sort(sort_numbers);
-                                        k = toCompress[toCompress.length - 1] + 1;
+                                        //k = toCompress[toCompress.length - 1] + 1;
                                         // compression
                                         var auto = false; //has autoionization state and we should half a term rect
                                         for (var ii = 1; ii < toCompress.length; ii++) {
@@ -75,13 +134,14 @@ function compress_table() {
                                         if (auto) text_terms.item(toCompress[0]).setAttribute('y', 0.25 * term_row_h + core_row_h + conf_row_h);
                                         // hide levels
                                         for (var ii = 1; ii < toCompress.length; ii++) {
-                                            dx = - term_row_w * ii;
+                                            dx = rect_terms.item(toCompress[0]).getAttribute('x') - rect_terms.item(toCompress[ii]).getAttribute('x')
                                             shift_glevels(g_levels.item(toCompress[ii]), dx, true);
                                             if (auto) g_levels.item(toCompress[ii]).getElementsByTagName('line')
                                                 .item(0).setAttribute('y1', term_row_h /2  + core_row_h + conf_row_h);
                                             rect_terms.item(toCompress[ii]).setAttribute('display', 'none');
                                             rect_terms.item(toCompress[ii]).nextElementSibling.setAttribute('display', 'none');
                                         }
+                                        dx = -(toCompress.length - 1)*term_row_w;
                                         // append J
                                         var tJ = rect_terms.item(toCompress[0]).nextElementSibling;
 
@@ -106,11 +166,20 @@ function compress_table() {
                                         tSpans.item(tSpans.length-1).innerHTML = newJ;
 
                                         // shift levels of current term
-                                        for (var ii = toCompress[toCompress.length - 1] + 1; ii < rect_terms.length; ii++) {
-                                            shift_glevels(g_levels.item(ii), dx);
-                                            rect_terms.item(ii).setAttribute('x', parseFloat(rect_terms.item(ii).getAttribute('x')) + dx);
-                                            rect_terms.item(ii).nextElementSibling.setAttribute('x', parseFloat(rect_terms.item(ii).nextElementSibling.getAttribute('x')) + dx);
+                                        //for (var ii = toCompress[toCompress.length - 1] + 1; ii < rect_terms.length; ii++) {
+                                        for (var ii = 0; ii < rect_terms.length; ii++){
+                                            //count blanks before this term
+                                            dx2 = 0;
+                                            for (var iii = 1; iii < toCompress.length; iii++)
+                                                if (toCompress[iii]< ii) dx2 -= term_row_w;
+                                            if (dx2 != 0 && !toCompress.includes(ii)) {//array.includes() doesn't supported in fucking IE
+                                                shift_glevels(g_levels.item(ii), dx2);
+                                                rect_terms.item(ii).setAttribute('x', parseFloat(rect_terms.item(ii).getAttribute('x')) + dx2);
+                                                rect_terms.item(ii).nextElementSibling.setAttribute('x', parseFloat(rect_terms.item(ii).nextElementSibling.getAttribute('x')) + dx2);
+                                            }
                                         }
+                                        //shift intermediate terms
+
                                         // shift next terms
                                         var curTerm = g_terms.item(j);
                                         compress_shift_data(curTerm, dx);
@@ -611,7 +680,7 @@ function checkTexts(){
             for (var j = 0; j < curChilds.length; j++){
                 if (curChilds.item(j).nodeName == 'rect' && curChilds.item(j).hasAttribute('id')
                     && svgTextNode.getAttribute('rec_id') == curChilds.item(j).getAttribute('id')
-                    && svgTextNode.getComputedTextLength > curChilds.item(j).getAttribute('width')){
+                    /*&& svgTextNode.getComputedTextLength() > curChilds.item(j).getAttribute('width')*/){//let it rotate all labels
                     // compare Rectangle width and text ComputedTextLength
                     rotateText(svgTextNode);
                     break;
