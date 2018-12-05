@@ -439,6 +439,6 @@ dx="<?=-$index_dx?>" dy="<?=$index_dy?>"><?=$group['J']?></tspan><?}?></text>
             <?if (isset($_REQUEST['grouping'])) echo 'var grouping = "' . $_REQUEST['grouping'] . '";';
             else echo 'var grouping = "auto";';?>
         </script>
-        <script xmlns:xlink="http://www.w3.org/1999/xlink" type="text/ecmascript" xlink:href="/js/svg.js?v4"></script>
+        <script xmlns:xlink="http://www.w3.org/1999/xlink" type="text/ecmascript" xlink:href="/js/svg.js?v5"></script>
     </svg>
 <?}?>
