@@ -163,7 +163,7 @@ function compress_table() {
                                             newJ = (jArrFirst == ""?0:jArrFirst)  + '-' + (jArr[jArr.length - 1] == ""?0:jArr[jArr.length - 1]);
                                         else newJ = jArrFirst == ""?0:jArrFirst;
                                         var tSpans = tJ.getElementsByTagName('tspan');
-                                        tSpans.item(tSpans.length-1).innerHTML = newJ;
+                                        tSpans.item(tSpans.length-1).textContent = newJ;
 
                                         // shift levels of current term
                                         //for (var ii = toCompress[toCompress.length - 1] + 1; ii < rect_terms.length; ii++) {
