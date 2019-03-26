@@ -139,7 +139,8 @@
         	    <h3>Атом {#$atom.NAME_RU_ALT#}</h3>
         	    
         	    <form id="inputAtomform" action="">
-        	    	<input type="hidden" name="action" value="saveAtom"/>        	    	
+        	    	<input type="hidden" name="action" value="saveAtom"/>
+					Массовое число: <input id="atomMassNumber" size="1" maxlength="3" type="text" name="atomMassNumber" value="{#$atom.MASS_NUMBER#}"/>
         	    	Степень ионизации: <input id="atomIonization" size="1" maxlength="3" type="text" name="atomIonization" value="{#$atom.IONIZATION#}"/>
         	    	Потенциал ионизации: <input maxlength="20" type="text" name="atomIonizationPotencial" value="{#$atom.IONIZATION_POTENCIAL#}"/>
         	    	
