@@ -129,7 +129,8 @@
                             <a href="{#$ion.ID#}" class="button white ions" >
 				{#/if#}
                                 {#if $ion.IVAL==-1#}{#$layout_element_name#}<sup>&ndash;</sup>
-                                {#else#}
+                                {#elseif $ion.MASS_NUMBER!='' && $ion.MASS_NUMBER!=0#}<sup>{#$ion.MASS_NUMBER#}</sup>{#$layout_element_name#}
+								{#else#}
                                 {#$ion.IVAL+1|toRoman#}
                                 {#/if#}
 					</a>
