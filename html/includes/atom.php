@@ -41,10 +41,10 @@ SELECT TOP 1 ID FROM ATOMS WHERE ID_ELEMENT=".$element_id." ORDER BY CAST(IONIZA
 		$content_en = iconv("UTF-8", "Windows-1251", $post['atomDescription_en']);
 		$references = iconv("UTF-8", "Windows-1251", $post['references']);
 
-		
-	$query = "UPDATE ATOMS SET [MASS_NUMBER] = ".$post['atomMassNumber'].",[IONIZATION] = ".$post['atomIonization'].",[IONIZATION_POTENCIAL] = '".$post['atomIonizationPotencial']."'  WHERE ID = ".$post['atom_id']." 
+	$query = "UPDATE ATOMS SET "
+        . (!empty($post['atomMassNumber']) ? "[MASS_NUMBER] = " . $post['atomMassNumber'] . ", ": "")
+        ."[IONIZATION] = ".$post['atomIonization'].",[IONIZATION_POTENCIAL] = '".$post['atomIonizationPotencial']."'  WHERE ID = ".$post['atom_id']." 
 	UPDATE INTERFACE_CONTENT SET [CONTAINMENT_ENG] ='".$content_en."',[CONTAINMENT_RUS] ='".$content_ru."',[USED_BOOKS] ='".$references."' WHERE ID=(SELECT [DESCRIPTION] FROM ATOMS WHERE ID = ".$post['atom_id'].") ";
-		
 		$this->LoadFromSQL($query);
 	}
 	
