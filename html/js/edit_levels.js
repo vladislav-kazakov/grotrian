@@ -183,7 +183,11 @@ $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique,
 					return String(oObj).replace(",",".");
 				}
 			},
-									
+            {
+                "render": function ( oObj ) {
+                    return String(oObj).replace(",",".");
+                }
+            },
 			{ "type": "numeric",
 				"render": function ( oObj ) {
 					if (String(oObj) != "")
@@ -191,7 +195,13 @@ $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique,
 					else return "";
 				}
 			},
-									
+            { "type": "numeric",
+                "render": function ( oObj ) {
+                    if (String(oObj) != "")
+                        return Number(oObj);
+                    else return "";
+                }
+            },
 			{ "type": "numeric",
 				"render": function ( oObj ) {
 					if (String(oObj) != "" )
@@ -318,10 +328,16 @@ $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique,
 		    		j = level.children('.j').html();
 		    		level.children('.j').html('<input size="" type="text" name="j[]" value="'+j+'"/>');
 
-		    		energy = level.children('.energy').html();
+                    f = level.children('.f').html();
+                    level.children('.f').html('<input size="" type="text" name="f[]" value="'+f+'"/>');
+
+                    energy = level.children('.energy').html();
 		    		level.children('.energy').html('<input size="" type="text" name="energy[]" value="'+energy+'"/>');
 
-		    		lifetime = level.children('.lifetime').html();
+                    energy_mhz = level.children('.energy_mhz').html();
+                    level.children('.energy_mhz').html('<input size="" type="text" name="energy_mhz[]" value="'+energy_mhz+'"/>');
+
+                    lifetime = level.children('.lifetime').html();
 		    		level.children('.lifetime').html('<input size="" type="text" name="lifetime[]" value="'+lifetime+'"/>');
 
 		    		//levelSources = level.children('.source').html();

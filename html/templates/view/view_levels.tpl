@@ -78,8 +78,12 @@
 								<th>{#$l10n.Configuration#}</th>
 								<th>{#$l10n.Term#}</th>
 		                        <th>J  </th>
+								{#if $atom.ENERGY_DIMENSION=="MHz" #}
+								<th>{#$l10n.Energy#} ({#$l10n.MHz#})</th>
+								{#else#}
 								<th>{#$l10n.Energy#} ({#$l10n.cm#} <sup>-1</sup>)</th>
-								<th>{#$l10n.Lifetime#} <br/>({#$l10n.ns#})</th>   
+								{#/if#}
+								<th>{#$l10n.Lifetime#} <br/>({#$l10n.ns#})</th>
 								<th>{#$l10n.Source#}</th>
 							</tr>	
 						</thead>	
@@ -97,7 +101,11 @@
 				        
 				        </td>
                         <td>{#$level.J#}</td>
-                        <td>{#$level.ENERGY#}</td>
+                        {#if $atom.ENERGY_DIMENSION=="MHz" #}
+						<td>{#$level.ENERGY_MHZ#}</td>
+                        {#else#}
+						<td>{#$level.ENERGY#}</td>
+                        {#/if#}
                         <td>{#$level.LIFETIME#}</td>
                         <td class="source">	
                         {# if $level.SOURCE_IDS !='' #}

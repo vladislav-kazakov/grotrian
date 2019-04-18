@@ -87,6 +87,7 @@ $dictionary = array (
 	'Term'=>array('ru'=>'Терм','en'=>'Term'),
 	'Lifetime'=>array('ru'=>'Время жизни','en'=>'Lifetime'),
 	'cm'=>array('ru'=>'см','en'=>'cm'),
+    'MHz'=>array('ru'=>'МГц','en'=>'MHz'),
 	'ns'=>array('ru'=>'нс','en'=>'ns'),
 	'Atomic_transitions'=>array('ru'=>'Переходы атома','en'=>'Atomic transitions'),
 	'Export_to_Excel'=>array('ru'=>'Экспорт в Excel','en'=>'Export to Excel'),	

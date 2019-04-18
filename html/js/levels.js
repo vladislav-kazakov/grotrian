@@ -196,7 +196,9 @@ $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique,
 									{ 
 									},
 									
-									{ "sType": "numeric" },	
+									{ "fnRender": function ( oObj ) {
+                                        return isNaN(parseFloat(oObj.aData[4]))?oObj.aData[4]:parseFloat(oObj.aData[4]);
+                                    } },
 									
 									{ "sType": "numeric" },
 									{ "sType": "numeric" }

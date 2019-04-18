@@ -565,14 +565,18 @@ function LoadBase($element_id){
 				$termFirstpart  = empty($post['termFirstpart'][$i])    ? " " : $post['termFirstpart'][$i];
 				$termMultiply   = ($post['termMultiply'][$i]<>"")      ? 1 : 0;
 				$j              = ($post['j'][$i] == "")               ? 'NULL' : "'".$post['j'][$i]."'";
+                $f              = ($post['f'][$i] == "")               ? 'NULL' : "'".$post['f'][$i]."'";
 				$energy         = ($post['energy'][$i] == "")          ? 'NULL' : $post['energy'][$i];
+                $energy_mhz         = ($post['energy_mhz'][$i] == "")  ? 'NULL' : $post['energy_mhz'][$i];
 				$lifetime       = ($post['lifetime'][$i] == "")        ? 'NULL' : $post['lifetime'][$i];
                 $bibliolink       = ($post['bibliolink'][$i] == "")    ? 'NULL' :  "'" . iconv("UTF-8", "Windows-1251",$post['bibliolink'][$i]) .  "'";
 
             $query .= " UPDATE LEVELS SET [CONFIG] = " . $level_config
                 . ", [ENERGY] = " . $energy
+                . ", [ENERGY_MHZ] = " . $energy_mhz
                 . ", [LIFETIME] = " . $lifetime
                 . ", [J] = " . $j
+                . ", [F] = " . $f
                 . ", [TERMSECONDPART] = " . $termSecondpart
                 . ", [TERMPREFIX] = " . $termPrefix
                 . ", [TERMMULTIPLY] = " . $termMultiply
@@ -580,7 +584,7 @@ function LoadBase($element_id){
                 . ", [BIBLIOLINK] = " . $bibliolink
                 . " WHERE ID =" . $level_id;
 			}
-			print_r($query);
+			//print_r($query);
 		$this->LoadFromSQL($query);
 	}
 	
