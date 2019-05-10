@@ -133,6 +133,7 @@ $dictionary = array (
 	'Sensibility'=>array('ru'=>'Чувствительность','en'=>'Sensibility'),
 	'Compare'=>array('ru'=>'Сравнить','en'=>'Compare'),
 	'No_transitions'=>array('ru'=>'Невозможно построить диаграмму: для данного элемента пока не введено ни одного перехода','en'=>"Chart can't be built: no transitions for this element yet"),
+    'No_diagram_for_isotop'=>array('ru'=>'На данный момент не реализовано отображение диаграмм для изотопов','en'=>"There is currently no diagrams for isotops"),
 	'Load_file'=>array('ru'=>'Загрузите файл или выберите из списка','en'=>"Load file or select one from list"),
 	'Mercury_lamp_spectrum'=>array('ru'=>'Спектр ртутной лампы', 'en'=>'Mercury lamp spectrum'),
 	'DDS_lamp_spectrum'=>array('ru'=>'Спектр дейтериевой дуговой лампы ДДС-30', 'en'=>'Deuterium arc lamp spectrum'),

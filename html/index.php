@@ -95,6 +95,10 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
 			$e_count = intval($atom_sys['Z']) - intval($atom_sys['IONIZATION']);
 			$smarty->assign('e_count', $e_count);
 
+            $isotop = FALSE;
+			if (isset($atom_sys['MASS_NUMBER']) and $atom_sys['MASS_NUMBER']!= "") $isotop = TRUE;
+            $smarty->assign('isotop', $isotop);
+
 			//Уровни
 			$level_list = new LevelList;
 			// отдаём в смарти число уровней
@@ -370,7 +374,8 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
             $level_list = new LevelList;
             $level_list->LoadBase($element_id);
             $levels_array = $level_list->GetItemsArray();
-            $smarty->assign('base_level', $levels_array[0]['CONFIG']);
+            if (isset($levels_array[0]['CONFIG']))
+            	$smarty->assign('base_level', $levels_array[0]['CONFIG']);
 
             //указываем имя шаблона и название страницы
             $page_type="view_spectrum.tpl";

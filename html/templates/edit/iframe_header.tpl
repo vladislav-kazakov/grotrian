@@ -22,6 +22,6 @@
 				var position="{#$position#}";								
 			</script>  				  				
 
-			<script type="text/javascript" charset="windows-1251" src="/js/add_levels.js?v3" ></script>
+			<script type="text/javascript" charset="windows-1251" src="/js/add_levels.js?v4" ></script>
 			
 			<body style="background:none;">

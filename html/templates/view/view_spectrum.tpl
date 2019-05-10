@@ -1,5 +1,7 @@
     				<div class="container_12">
-						{#if ($transition_count != 0)#}
+                        {#if $isotop#}
+                        {#$l10n.No_diagram_for_isotop#}
+                        {#elseif ($transition_count != 0)#}
 						<div class="grid_12" id="main">
 							<div class="brake"></div>
 							<div>

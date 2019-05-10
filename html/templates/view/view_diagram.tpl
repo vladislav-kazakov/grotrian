@@ -1,4 +1,11 @@
-{#if ($transition_count != 0)#}
+{#if $isotop#}
+<div class="container_12">
+	<div class="brake"></div>
+	<div>
+        {#$l10n.No_diagram_for_isotop#}
+	</div>
+</div>
+{#elseif ($transition_count != 0)#}
 
   		{# if $layout_element_id #}
 			<script type="text/javascript" charset="utf-8">

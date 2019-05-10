@@ -179,6 +179,7 @@ WHERE TRANSITIONS.ID_ATOM='$element_id' AND upper_level.energy < 200000 GROUP BY
 		for ($i=0; $i<$count; $i++) {
             $transition_id = $post['row_id'][$i];
             $wavelength = empty($post['wavelength'][$i]) ? "NULL" : $post['wavelength'][$i];
+            $wavelength_mhz = empty($post['wavelength_mhz'][$i]) ? "NULL" : $post['wavelength_mhz'][$i];
             $intensity = empty($post['intensity'][$i]) ? "NULL" : $post['intensity'][$i];
             $f_ik = empty($post['f_ik'][$i]) ? "NULL" : $post['f_ik'][$i];
             $a_ki = empty($post['a_ki'][$i]) ? "NULL" : ($post['a_ki'][$i]*100000000);
@@ -186,6 +187,7 @@ WHERE TRANSITIONS.ID_ATOM='$element_id' AND upper_level.energy < 200000 GROUP BY
             $bibliolink       = ($post['bibliolink'][$i] == "")    ? 'NULL' :  "'" . iconv("UTF-8", "Windows-1251", $post['bibliolink'][$i]) .  "'";
 
             $query .= " UPDATE TRANSITIONS SET [WAVELENGTH] = " . $wavelength
+                . " ,[WAVELENGTH_MHZ] = " . $wavelength_mhz
                 . " ,[PROBABILITY] = " . $a_ki
                 . ", [OSCILLATOR_F] = " . $f_ik
                 . ",[CROSSECTION] = " . $excitation

@@ -90,7 +90,7 @@
 						{#if $level.TERMSECONDPART!="NULL" #}<span>{#$level.TERMSECONDPART#}</span>{#else#}<span></span>{#/if#}
 				        {#if $level.TERMPREFIX!="" #}<sup>{#$level.TERMPREFIX#}</sup>{#else#}<sup></sup>{#/if#}
 				        {#if $level.TERMFIRSTPART=="" || $level.TERMFIRSTPART==" " #}<span></span>{#else#}<span>{#$level.TERMFIRSTPART#}</span>{#/if#}
-				        {#if $level.TERMMULTIPLY==TRUE#}<sup>0</sup>{#else#}<sup></sup>{#/if#}
+				        {#if $level.TERMMULTIPLY==TRUE#}<sup>o</sup>{#else#}<sup></sup>{#/if#}
 				        </td>
 				        <td class="j">{#$level.J#}</td>
 						<td class="f">{#$level.F#}</td>

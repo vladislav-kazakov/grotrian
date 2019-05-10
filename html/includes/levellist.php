@@ -1,6 +1,8 @@
 <?
 require_once("locallist.php");
 require_once("transitionlist.php");
+require_once("atom.php");
+
 
 class LevelList extends LocalList
 {
@@ -19,7 +21,7 @@ function Load($element_id)
 	}
 
 function LoadBase($element_id){
-		$query = "SELECT LEVELS.* , dbo.ConcatSourcesID(ID,'L') AS SOURCE_IDS FROM LEVELS WHERE ID_ATOM='$element_id' AND ENERGY=0";
+		$query = "SELECT LEVELS.* , dbo.ConcatSourcesID(ID,'L') AS SOURCE_IDS FROM LEVELS WHERE ID_ATOM='$element_id' AND (ENERGY=0 OR ENERGY_MHZ=0)";
 		$this->LoadFromSQL($query);
         $this->LoadCellConfigs('config_type');
 }
@@ -650,11 +652,16 @@ function LoadBase($element_id){
 	}*/	
 	
 	function LoadFiltered($atom_id,$position,$level_id)
-	{		
+	{
+        $atom = new Atom();
+        $atom->Load($atom_id);
+        $atom_sys = $atom->GetAllProperties();
+        $energy_field = $atom_sys['ENERGY_DIMENSION']== "MHz"? "ENERGY_MHZ" : "ENERGY";
+
 		//echo "levId=".$level_id;
 		$position = ($position == 'lower') ? "<" : ">";
-		if (empty($level_id)) $query = "SELECT LEVELS.* ,dbo.GetCfgType(CONFIG) AS config_type, dbo.ConcatSourcesID(ID,'L') AS SOURCE_IDS FROM LEVELS WHERE  ID_ATOM=".$atom_id." ORDER BY ENERGY asc";
-		else $query = "SELECT LEVELS.* ,dbo.GetCfgType(CONFIG) AS config_type, dbo.ConcatSourcesID(ID,'L') AS SOURCE_IDS FROM LEVELS WHERE  ID_ATOM=".$atom_id."  AND TERMMULTIPLY != (Select TERMMULTIPLY FROM LEVELS WHERE ID = ".$level_id.") AND ENERGY ".$position." (Select ENERGY FROM LEVELS WHERE ID = ".$level_id.") ORDER BY ENERGY asc";
+		if (empty($level_id)) $query = "SELECT LEVELS.* ,dbo.GetCfgType(CONFIG) AS config_type, dbo.ConcatSourcesID(ID,'L') AS SOURCE_IDS FROM LEVELS WHERE  ID_ATOM=".$atom_id." ORDER BY " . $energy_field. " asc";
+		else $query = "SELECT LEVELS.* ,dbo.GetCfgType(CONFIG) AS config_type, dbo.ConcatSourcesID(ID,'L') AS SOURCE_IDS FROM LEVELS WHERE  ID_ATOM=".$atom_id."  AND TERMMULTIPLY != (Select TERMMULTIPLY FROM LEVELS WHERE ID = ".$level_id.") AND " . $energy_field. " ".$position." (Select " . $energy_field. " FROM LEVELS WHERE ID = ".$level_id.") ORDER BY " . $energy_field. " asc";
 	
 		//echo $query; 			
 		$this->LoadFromSQL($query);

@@ -78,6 +78,7 @@
 								<th>{#$l10n.Configuration#}</th>
 								<th>{#$l10n.Term#}</th>
 		                        <th>J  </th>
+								<th>F  </th>
 								{#if $atom.ENERGY_DIMENSION=="MHz" #}
 								<th>{#$l10n.Energy#} ({#$l10n.MHz#})</th>
 								{#else#}
@@ -97,10 +98,11 @@
 				        {#if $level.TERMSECONDPART!="NULL" #}<span>{#$level.TERMSECONDPART#}</span>{#/if#}
 						{#if $level.TERMPREFIX!="" #}<sup>{#$level.TERMPREFIX#}</sup>{#/if#}
 				        {#if $level.TERMFIRSTPART=="" || $level.TERMFIRSTPART==" " #}(?){#else#}<span>{#$level.TERMFIRSTPART#}</span>{#/if#}
-				        {#if $level.TERMMULTIPLY == TRUE#}<span>&deg;</span>{#/if#}
+				        {#if $level.TERMMULTIPLY == TRUE#}<sup>o</sup>{#/if#}
 				        
 				        </td>
                         <td>{#$level.J#}</td>
+						<td>{#$level.F#}</td>
                         {#if $atom.ENERGY_DIMENSION=="MHz" #}
 						<td>{#$level.ENERGY_MHZ#}</td>
                         {#else#}

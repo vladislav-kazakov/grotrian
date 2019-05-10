@@ -14,10 +14,10 @@
 				</p>
 			</div>
 			<div><p style="text-align: left; color: #ffbbbb">
-					{#$l10n.Reference_on_this_resource#}:<br>
-					V. Kazakov, V. Kazakov, O. Meshkov, A. Yatsenko and others, Information system
-					”Electronic Structure of Atoms”, Novosibirsk State University.
-					http://grotrian.nsu.ru/en. Accessed [{#$cur_en_date#}].
+                    {#$l10n.Reference_on_this_resource#}:
+					Kazakov, V. V., Kazakov, V. G., Kovalev, V. S., Meshkov, O. I., Yatsenko, A. S.
+					Electronic structure of atoms: atomic spectroscopy information system. Physica Scripta, 2017,
+					Volume: 92, Issue: 10. DOI: 10.1088/1402-4896/aa822e.
 					<a href="/reference.php" onclick="window.open('/reference.php', 'newwindow', 'width=800, height=250'); return false;">{#$l10n.BibTex_Citation#}</a>
 				</p></div>
 		</div>
