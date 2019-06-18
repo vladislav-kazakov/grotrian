@@ -547,7 +547,29 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
     		$footer_type="footer.tpl";
     		break;
     	}
-    	
+        case "isotopes": {
+
+            $isotope_list = new ElementList;
+            $isotope_list->LoadAllIsotopes();
+            $isotope_arr = $isotope_list->GetItemsArray();
+            $isotopes_grouped = array();
+            foreach ($isotope_arr as $isotope) {
+                $isotopes_grouped[$isotope['Z']][] = $isotope;
+            }
+            ksort($isotopes_grouped);
+            //print_r($isotopes_grouped);
+            $smarty->assign('isotopes', $isotopes_grouped);
+
+            //указываем имя шаблона и название страницы
+            $page_type="view_isotopes.tpl";
+            $head="Isotope_table";
+            $title="Isotope_table";
+            $headline="Isotope_table";
+            $bodyclass="isotopes";
+            $header_type="header.tpl";
+            $footer_type="footer.tpl";
+            break;
+        }
 		case "links": {
     		//указываем имя шаблона и название страницы    		
 			$page_type=$l10n->locale."/links.tpl";

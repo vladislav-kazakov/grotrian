@@ -42,12 +42,19 @@ class ElementList extends LocalList
 		$this->LoadFromSQL($query);
 	}
 	
-		function Loadions($element_id)
+    function Loadions($element_id)
 	{
 		$query = "SELECT ATOMS.ID, ABBR AS 'ELNAME', IONIZATION AS 'IVAL', MASS_NUMBER FROM ATOMS,PERIODICTABLE WHERE ID_ELEMENT = PERIODICTABLE.ID AND PERIODICTABLE.ID = (SELECT ID_ELEMENT FROM ATOMS WHERE ID = '$element_id');";
 		if (!$this->LoadFromSQL($query)) return FALSE;
 	}
-	
+
+    function LoadAllIsotopes()
+    {
+        $query = "SELECT ATOMS.ID, Z, ABBR AS 'ELNAME', IONIZATION AS 'IVAL', MASS_NUMBER FROM ATOMS,PERIODICTABLE WHERE ID_ELEMENT = PERIODICTABLE.ID AND MASS_NUMBER IS NOT NULL;";
+        if (!$this->LoadFromSQL($query)) return FALSE;
+    }
+
+
 	function LoadPereodicTable($lang,$ionization)
 	{
 
