@@ -41,7 +41,7 @@ SELECT TOP 1 ID FROM ATOMS WHERE ID_ELEMENT=".$element_id." ORDER BY CAST(IONIZA
 		$content_en = iconv("UTF-8", "Windows-1251", $post['atomDescription_en']);
 		$references = iconv("UTF-8", "Windows-1251", $post['references']);
 	$query = "UPDATE ATOMS SET "
-        . (!empty($post['atomMassNumber']) ? "[MASS_NUMBER] = " . $post['atomMassNumber'] . ", ": "")
+        . (!empty($post['atomMassNumber']) ? "[MASS_NUMBER] = " . $post['atomMassNumber'] : "[MASS_NUMBER] = NULL"). ", "
         ."[IONIZATION] = ".$post['atomIonization'].", [IONIZATION_POTENCIAL] = '".$post['atomIonizationPotencial']."', "
         ." [ENERGY_DIMENSION] = '" . $post['atomEnergyDimension'] . "'"
         . " WHERE ID = ".$post['atom_id']." 
