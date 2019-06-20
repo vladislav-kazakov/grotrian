@@ -12,9 +12,11 @@ $dictionary = array (
 	///
 	'Spectra'=>array('ru'=>'Спектры','en'=>'Spectra'),
 	///
-	///Title entries 
+    'Isotopes'=>array('ru'=>'Изотопы','en'=>'Isotopes'),
+    ///Title entries
 	'Articles_title'=>array('ru'=>'Публикации','en'=>'Articles'),
 	'Atomic_levels_title'=>array('ru'=>'Уровни атома','en'=>'Atomic levels'),
+    'Isotope_table_title'=>array('ru'=>'Таблица изотопов','en'=>'Isotope table'),
 	'Grotrian_Charts_title'=>array('ru'=>'Диаграмма Гротриана','en'=>'Grotrian Chart'),
 	'Spectrogram_title'=>array('ru'=>'Спектрограмма','en'=>'Spectrogram'),
 	'Compare_spectra_title'=>array('ru'=>'Сравнение спектров','en'=>'Compare spectra'),
@@ -74,6 +76,7 @@ $dictionary = array (
     'Cognitive_diagram'=>array('ru'=>'Когнитивная диаграмма','en'=>'Cognitive diagram'),
     'Regular_spectrum'=>array('ru'=>'Обычный спектр','en'=>'Regular spectrum'),
 	'Atomic_levels'=>array('ru'=>'Уровни атома','en'=>'Atomic levels'),
+    'Isotope_table'=>array('ru'=>'Таблица изотопов','en'=>'Isotope table'),
 	'Table_lookup'=>array('ru'=>'Поиск в таблице','en'=>'Table lookup'),
 	'Energy'=>array('ru'=>'Энергия','en'=>'Energy'),
 	'Parity'=>array('ru'=>'Чётность','en'=>'Parity'),

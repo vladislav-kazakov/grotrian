@@ -52,6 +52,9 @@
 				<div class="grid_10">
 		        	<h1>{#$l10n.Information_system_Electronic_structure_of_atoms#}</h1>
 		        </div>
+				<div class="grid_10">
+					<!--a>Атомы и ионы</a> <a>Отрицательные ионы</a--><a href="/{#$locale#}/isotopes">{#$l10n.Isotopes#}</a>
+				</div>
 		        <div class="locale">
 		        	<a {# if $locale=='ru'#}id="act"{#/if#} class="ru_lang" href="/ru/{# if $bodyclass!='index'#}{#$bodyclass#}/{#/if#}{#$layout_element_id#}">RU</a> <a {# if $locale=='en'#}id="act"{#/if#} class="en_lang" href="/en/{# if $bodyclass!='index'#}{#$bodyclass#}/{#/if#}{#$layout_element_id#}">EN</a>
 	        	</div>            		
