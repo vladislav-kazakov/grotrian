@@ -73,8 +73,11 @@
 								<th>{#$l10n.Configuration#}</th>
 								<th style="width: 120px;">{#$l10n.Term#}</th>
 		                        <th>&nbsp;&nbsp;J&nbsp;&nbsp;</th>
+								<th>&nbsp;&nbsp;F&nbsp;&nbsp;</th>
 								<th>{#$l10n.Energy#} ({#$l10n.cm#} <sup>-1</sup>)</th>
-								<th>{#$l10n.Lifetime#} <br/>({#$l10n.ns#})</th>   
+								<th>{#$l10n.Energy#} ({#$l10n.MHz#})</th>
+								<th>{#$l10n.Lifetime#} <br/>({#$l10n.ns#})</th>
+								<th style="width: 120px;">Источник строкой (deprecated)</th>
 								<th>{#$l10n.Source#}</th>
 							</tr>	
 						</thead>
@@ -87,14 +90,16 @@
 						{#if $level.TERMSECONDPART!="NULL" #}<span>{#$level.TERMSECONDPART#}</span>{#else#}<span></span>{#/if#}
 				        {#if $level.TERMPREFIX!="" #}<sup>{#$level.TERMPREFIX#}</sup>{#else#}<sup></sup>{#/if#}
 				        {#if $level.TERMFIRSTPART=="" || $level.TERMFIRSTPART==" " #}<span></span>{#else#}<span>{#$level.TERMFIRSTPART#}</span>{#/if#}
-				        {#if $level.TERMMULTIPLY==TRUE#}<sup>0</sup>{#else#}<sup></sup>{#/if#}
+				        {#if $level.TERMMULTIPLY==TRUE#}<sup>o</sup>{#else#}<sup></sup>{#/if#}
 				        </td>
 				        <td class="j">{#$level.J#}</td>
+						<td class="f">{#$level.F#}</td>
                         <td class="energy">{#$level.ENERGY#}</td>
-                        <td class="lifetime">{#$level.LIFETIME#}</td>                        
-                        
-                           
-						<td class="source">							
+						<td class="energy_mhz">{#$level.ENERGY_MHZ#}</td>
+                        <td class="lifetime">{#$level.LIFETIME#}</td>
+
+						<td class="bibliolink">{#$level.BIBLIOLINK#}</td>
+						<td class="source">
 							{# if $level.SOURCE_IDS !='' #}
 							<span class="links">							
 								{# assign var=sources value=","|explode:$level.SOURCE_IDS#}

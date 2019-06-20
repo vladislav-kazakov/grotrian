@@ -95,6 +95,10 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
 			$e_count = intval($atom_sys['Z']) - intval($atom_sys['IONIZATION']);
 			$smarty->assign('e_count', $e_count);
 
+            $isotop = FALSE;
+			if (isset($atom_sys['MASS_NUMBER']) and $atom_sys['MASS_NUMBER']!= "") $isotop = TRUE;
+            $smarty->assign('isotop', $isotop);
+
 			//Уровни
 			$level_list = new LevelList;
 			// отдаём в смарти число уровней
@@ -270,6 +274,7 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
     	}
     	
 		case "addlevels": {
+			if ($interface != "edit") exit;
 	    //print_r($_GET);
 			if (isset($_GET['attribute2']) || isset($_GET['attribute3'])){
 				$level_list->LoadFiltered($element_id,$_GET['attribute2'], isset($_GET['attribute3'])?$_GET['attribute3']:null);
@@ -312,18 +317,46 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
 
     	}    	
 
-    	case "diagram": {
-    		//указываем имя шаблона и название страницы    		
-			$page_type="view_diagram.tpl"; 
-    		$head="Grotrian_Charts";
-    		$title="Grotrian_Charts";
-    		$headline="Atomic_charts";
-    		$bodyclass="diagram";
-    		$header_type="header.tpl";
-    		$footer_type="footer.tpl";
-    		break;
-    	}
+    	case "diagram":
+        case "newdiagram":
+            ob_start();
+            include "svg.php";
+            $svg = ob_get_contents();
+            ob_end_clean();
+            $smarty->assign('svg', $svg);
+            if (isset($_REQUEST['enmin'])) $smarty->assign('enmin', $_REQUEST['enmin']);
+            if (isset($_REQUEST['enmax'])) $smarty->assign('enmax', $_REQUEST['enmax']);
+            if (isset($_REQUEST['wlmin'])) $smarty->assign('wlmin', $_REQUEST['wlmin']);
+            if (isset($_REQUEST['wlmax'])) $smarty->assign('wlmax', $_REQUEST['wlmax']);
+	        if (isset($_REQUEST['nmax'])) $smarty->assign('nmax', $_REQUEST['nmax']);
+    	    if (isset($_REQUEST['lmax'])) $smarty->assign('lmax', $_REQUEST['lmax']);
+            if (isset($_REQUEST['width'])) $smarty->assign('width', $_REQUEST['width']);
+            if (isset($_REQUEST['groupbyMu'])) $smarty->assign('groupbyMu', true);
+            if (isset($_REQUEST['prohibitedbyMuOff'])) $smarty->assign('prohibitedbyMuOff', true);
+            if (isset($_REQUEST['prohibitedbyParOff'])) $smarty->assign('prohibitedbyParOff', true);
+            if (isset($_REQUEST['autoStatesOff'])) $smarty->assign('autoStatesOff', true);
+            if (isset($_REQUEST['grouping'])) $smarty->assign('grouping', $_REQUEST['grouping']);
 
+            $head="Grotrian_Charts";
+            $title="Grotrian_Charts";
+            $headline="Atomic_charts";
+            //указываем имя шаблона и название страницы
+        	if ($pagetype == "diagram") {
+                $page_type = "view_diagram.tpl";
+                $bodyclass = "diagram";
+                $header_type = "header.tpl";
+                $footer_type = "footer.tpl";
+                $url = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+                $url = str_replace("diagram", "newdiagram", $url);
+                $smarty->assign('new_window_url', $url);
+            }
+			if ($pagetype == "newdiagram") {
+				$page_type = "view_new_diagram.tpl";
+				$bodyclass = "new_diagram";
+				$header_type = "top_header.tpl";
+				$footer_type = "bottom_footer.tpl";
+			}
+    		break;
         case "spectrum": {
             $transition_list->LoadWithLevels($element_id);
             $transitions=$transition_list->GetItemsArray();
@@ -341,7 +374,8 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
             $level_list = new LevelList;
             $level_list->LoadBase($element_id);
             $levels_array = $level_list->GetItemsArray();
-            $smarty->assign('base_level', $levels_array[0]['CONFIG']);
+            if (isset($levels_array[0]['CONFIG']))
+            	$smarty->assign('base_level', $levels_array[0]['CONFIG']);
 
             //указываем имя шаблона и название страницы
             $page_type="view_spectrum.tpl";

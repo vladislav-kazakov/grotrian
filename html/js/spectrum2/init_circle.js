@@ -172,11 +172,24 @@ var lines_data;
 var max_e = 0;
 
 function init_levels(levels) {
+    var svg =  document.getElementById('svg');
+
+//    var str = $('#svg_wrapper').html();
+//    str.replace("</svg>", "");
     for (var key in levels) {
-        $('#svg').append("<circle cx='400' cy='300' r='" + key / max_e * 250 + "' stroke-width='1' stroke='rgba(255,255,0,0.3)' fill='rgba(0,0,0,0)'></circle>");
+        var circle = document.createElementNS('http://www.w3.org/2000/svg', "circle");
+        circle.setAttribute("cx", "400");
+        circle.setAttribute("cy", "300");
+        circle.setAttribute("r",  key / max_e * 250);
+        circle.setAttribute("stroke-width", "1");
+        circle.setAttribute("stroke", "rgba(255,255,0,0.3)");
+        circle.setAttribute("fill", "rgba(0,0,0,0)");
+        svg.appendChild(circle);
         //console.log(key, max_e, key / max_e * 250);
     }
-    $("#svg").html($("#svg").html());
+//    var $wrapper = $('#svg_wrapper');
+//    $wrapper.empty();
+//    $wrapper.prepend(str + "</svg>");
 }
 
 function init(waves, element, base_level, n) {

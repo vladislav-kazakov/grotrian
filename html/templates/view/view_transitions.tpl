@@ -105,7 +105,11 @@
 								<th>{#$l10n.Serie#}</th>
 								<th>{#$l10n.Lower#} {#$l10n.Level#}</th>
 								<th>{#$l10n.Upper#} {#$l10n.Level#}</th>
+                                {#if $atom.ENERGY_DIMENSION=="MHz" #}
+								<th>{#$l10n.Wavelength#}[{#$l10n.MHz#}]</th>
+                                {#else#}
 								<th>{#$l10n.Wavelength#}[<i>&#197;</i>]</th>
+                                {#/if#}
 								<th>{#$l10n.Intensity#}</th>
 								<th><i>f<sub>ik</sub></i></th>
 					            <th>A<sub><i>ki</i></sub><br/>[<i>10<sup>8</sup>сек<sup>-1</sup></i>]</th>
@@ -156,7 +160,11 @@
                                 {#if $transition.upper_level_j!=""#}<sub>{#$transition.upper_level_j#}</sub>{#/if#}
                                 
                                 </td>
-   							 	<td>{#$transition.WAVELENGTH#}</td>
+								{#if $atom.ENERGY_DIMENSION=="MHz" #}
+								<td>{#$transition.WAVELENGTH_MHZ#}</td>
+								{#else#}
+								<td>{#$transition.WAVELENGTH#}</td>
+								{#/if#}
 						        <td>{#$transition.INTENSITY#}</td>
 						        <td>{#$transition.OSCILLATOR_F#}</td>
 				        		<td>

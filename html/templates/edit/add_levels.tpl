@@ -74,14 +74,16 @@
 						<thead>
 							<tr>								
 								<th class="sorting_asc" style="width: 173px; ">Тип конфигурации</th>	
-								<th class="sorting" style="width: 164px; ">Конфигурация</th>
-								<th class="sorting" style="width: 53px; ">Терм</th>
+								<th class="sorting" style="width: 164px; ">{#$l10n.Configuration#}</th>
+								<th class="sorting" style="width: 53px; ">{#$l10n.Term#}</th>
 		                        <th class="sorting" style="width: 36px; ">J  </th>
+								<th class="sorting" style="width: 36px; ">F  </th>
 								<th class="sorting" style="width: 0px; ">Чётность</th>
-								<th class="sorting" style="width: 135px; ">Энергия (см <sup>-1</sup>)</th>
-								<th class="sorting" style="width: 131px; ">Время жизни <br>(нс)</th>   
-								<th class="sorting" style="width: 92px; ">Источник</th>								
-							</tr>	
+								<th class="sorting" style="width: 135px; ">{#$l10n.Energy#} ({#$l10n.cm#} <sup>-1</sup>)</th>
+								<th class="sorting" style="width: 135px; ">{#$l10n.Energy#} ({#$l10n.MHz#})</th>
+								<th class="sorting" style="width: 131px; ">{#$l10n.Lifetime#} <br/>({#$l10n.ns#})</th>
+								<th class="sorting" style="width: 92px; ">{#$l10n.Source#}</th>
+							</tr>
 						</thead>	
                         
                     {# foreach item=level from=$level_list#}
@@ -94,12 +96,14 @@
 				        {#if $level.TERMSECONDPART!="NULL" #}<span>{#$level.TERMSECONDPART#}</span>{#/if#}
 						{#if $level.TERMPREFIX!="" #}<sup>{#$level.TERMPREFIX#}</sup>{#/if#}
 				        {#if $level.TERMFIRSTPART=="" || $level.TERMFIRSTPART==" " #}?{#else#}<span>{#$level.TERMFIRSTPART#}</span>{#/if#}
-				        {#if $level.TERMMULTIPLY == TRUE#}<sup>0</sup>{#/if#}				        
+				        {#if $level.TERMMULTIPLY == TRUE#}<sup>o</sup>{#/if#}
 				        </td>
                         <td>{#$level.J#}</td>
+						<td>{#$level.F#}</td>
 						<td>{#$level.TERMMULTIPLY#}</td>
                         <td>{#$level.ENERGY#}</td>
-                        <td>{#$level.LIFETIME#}</td>
+						<td>{#$level.ENERGY_MHZ#}</td>
+						<td>{#$level.LIFETIME#}</td>
                         <td><a href="" class="source_id"><input type="hidden" name="source_id" value="{#$level.SOURCE_ID#}">{#$level.SOURCE_ABBR#}</a></td>
                     </tr>
                     {#/foreach#}

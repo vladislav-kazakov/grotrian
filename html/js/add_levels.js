@@ -115,27 +115,41 @@ $.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique,
 						"aoColumns": 
 						[	{ "fnRender": function ( oObj ) {
 							return oObj.aData[0].replace(/@\{([^\}\{]*)\}/gi,"<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi,"<sub>$1</sub>");
-						} , "sType": "html"},
+						} , "sType": "html"}, //configurationType
 					
 						{ "fnRender": function ( oObj ) {
 							return oObj.aData[1].replace(/@\{([^\}\{]*)\}/gi,"<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi,"<sub>$1</sub>");
-						} },
+						} },//configuration
 						
-						{ "fnRender": function ( oObj ) {
+/*						{ "fnRender": function ( oObj ) {
 							return oObj.aData[2].replace(/<sup><pr>0<\/sup>/gi,"").replace(/<sup><suf>1<\/sup>/gi,"").replace(/[^0-9a-z<>?\\\/\(\)\[\]]/gi,"");
-						} },
-						
+						} },//Term
+*/
 						{ "fnRender": function ( oObj ) {
-							return oObj.aData[3].replace(",",".");
+							return oObj.aData[2].replace(/\s/gi,"");
+						} },//Term
+
+						{ "sType": "numeric" },//J
+						{ "sType": "numeric" },//F
+						{ "sType": "numeric" , "bVisible":false },//parity
+
+						{ "fnRender": function ( oObj ) {
+								if (String(oObj.aData[6]) != "" )
+									return Number(oObj.aData[6]);
+								else return "";
 							}
-						},
-						
-						{ "sType": "numeric" , "bVisible":false },	
-						{ "sType": "numeric" },	
-						
-						{ "sType": "numeric" },
-						{ "sType": "numeric" }
-						], 
+						},//Energy
+
+						{ "fnRender": function ( oObj ) {
+                                if (String(oObj.aData[7]) != "" )
+                                    return Number(oObj.aData[7]);
+                                else return "";
+                            }
+						},//Energy MHz
+
+						{ "sType": "numeric" },	//LifeTime
+						{}, //Source
+						],
 						
 						"iDisplayLength": 25,
 						"bLengthChange": true,

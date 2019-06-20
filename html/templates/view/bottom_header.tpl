@@ -117,30 +117,36 @@
 <!--End of menu-->
 		<div class="container_12">
 			<div class="grid_12">
-	  		  	<h2>
-                 	{#$headline#}
-					{# if $ions #}
-						<span class="button white selected" id="element_btn">{#$layout_element_name#}</span><span id="ions">                        
-						{#if $layout_element_id == "2511" #}
-							{#$l10n.isotopes#} <a href="2817" class="button white" >D</a><a href="39762" class="button white" >T</a>
-                        {#elseif $layout_element_id == "2817" #}
-							{#$l10n.isotopes#} <a href="2511" class="button white" >H</a><a href="39762" class="button white" >T</a>                                                                        
-                        {#elseif $layout_element_id == "39762" #}
-                        	{#$l10n.isotopes#} <a href="2511" class="button white" >H</a><a href="2817" class="button white" >D</a>                        
-                        {#else#}                       
-                           	{#$l10n.ions#}
-                        	{#foreach from=$ions key=myId item=ion#}
-                        		{#if $ion.ID==$layout_element_id#}
-                        			<a href="{#$ion.ID#}" class="button white ions selected" >
-                        			{#else#}
-                        			<a href="{#$ion.ID#}" class="button white ions" >
-                        		{#/if#}
-                        		{#$ion.IVAL+1|toRoman#}</a>
-                       		{#/foreach#}
-						{#/if#}
-					</span>                        		                        		
-                  	{#/if#}
-                </h2>    
+                <h2>
+                    {#$headline#}
+                    {# if $ions #}
+
+                    <span class="button white selected" id="element_btn">{#$layout_element_name#}</span><span id="ions">
+			{#$l10n.ions#}
+                        {#foreach from=$ions key=myId item=ion#}
+                        {#if $ion.ID==$layout_element_id#}
+                        <a href="{#$ion.ID#}" class="button white ions selected" >
+					{#else#}
+                            <a href="{#$ion.ID#}" class="button white ions" >
+				{#/if#}
+                                {#if $ion.IVAL==-1#}{#$layout_element_name#}<sup>&ndash;</sup>
+                                {#elseif $ion.MASS_NUMBER!='' && $ion.MASS_NUMBER!=0#}<sup>{#$ion.MASS_NUMBER#}</sup>{#$layout_element_name#}
+								{#else#}
+                                {#$ion.IVAL+1|toRoman#}
+                                {#/if#}
+					</a>
+                            {#/foreach#}
+                            {#/if#}
+                            {#if $layout_element_id == "2511" #}
+                            {#$l10n.isotopes#} <a href="2817" class="button white" >D</a><a href="39762" class="button white" >T</a>
+
+                            {#elseif $layout_element_id == "2817" #}
+                            {#$l10n.isotopes#} <a href="2511" class="button white" >H</a><a href="39762" class="button white" >T</a>
+                            {#elseif $layout_element_id == "39762" #}
+                            {#$l10n.isotopes#} <a href="2511" class="button white" >H</a><a href="2817" class="button white" >D</a>
+                            {#/if#}
+		</span>
+                </h2>
 			</div>
 		</div>
     	<div class="clear"></div>		

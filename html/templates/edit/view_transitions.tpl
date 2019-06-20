@@ -83,11 +83,13 @@
 								<th>{#$l10n.Lower#} {#$l10n.Level#}</th>
 								<th>{#$l10n.Upper#} {#$l10n.Level#}</th>
 								<th>{#$l10n.Wavelength#}[<i>&#197;</i>]</th>
+								<th>{#$l10n.Wavelength#}[<i>{#$l10n.MHz#}</i>]</th>
 								<th>{#$l10n.Intensity#}</th>
 								<th><i>f<sub>ik</sub></i></th>
 					            <th>A<sub><i>ki</i></sub><br/>[<i>10<sup>8</sup>сек<sup>-1</sup></i>]</th>
 					            <th>{#$l10n.The_excitation_cross_section#} <br/> Q<sub>max</sub>* 10<sup>18</sup>, <i>{#$l10n.cm#}<sup>2</sup></i></th>
-					            <th>{#$l10n.Source#}</th>                        
+								<th style="width: 120px;">Источник строкой (deprecated)</th>
+					            <th>{#$l10n.Source#}</th>
 							</tr>
 						</thead>	
                         
@@ -139,10 +141,13 @@
                                 {#/if#}
                                 </td>
    							 	<td class="wavelength">{#$transition.WAVELENGTH#}</td>
+								<td class="wavelength_mhz">{#$transition.WAVELENGTH_MHZ#}</td>
 						        <td class="intensity">{#$transition.INTENSITY#}</td>
 						        <td class="f_ik">{#$transition.OSCILLATOR_F#}</td>
 				        		<td class="a_ki">{#if $transition.PROBABILITY!=""#}{#$transition.PROBABILITY/100000000#}{#/if#}</td>
         		                <td class="excitation">{#$transition.CROSSECTION#}</td>
+								<td class="bibliolink">{#$transition.BIBLIOLINK#}</td>
+
         		               	<td class="source">        		               											
 									{# if $transition.SOURCE_IDS !='' #}	
 									<span class="links">									

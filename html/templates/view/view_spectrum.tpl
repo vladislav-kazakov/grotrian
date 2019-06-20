@@ -1,5 +1,7 @@
     				<div class="container_12">
-						{#if ($transition_count != 0)#}
+                        {#if $isotop#}
+                        {#$l10n.No_diagram_for_isotop#}
+                        {#elseif ($transition_count != 0)#}
 						<div class="grid_12" id="main">
 							<div class="brake"></div>
 							<div>
@@ -17,7 +19,7 @@
 											<input type='button' id='filter' value='OK' class="bluebtn">
 										</div>
 										<div id='visible_container' style="clear:both; margin-top: 10px;">
-											<input type='button' id='visible' value='{#$l10n.VisibleSpectrum#}' class='bluebtn'><span style="width: 20px">
+											<input type='button' id='visible' value='{#$l10n.VisibleSpectrum#}' class='bluebtn'><span style="width: 20px"></span>
 											<input type='button' id='all_spectrum' value='{#$l10n.AllSpectrum#}' class='bluebtn'>
 										</div>
 

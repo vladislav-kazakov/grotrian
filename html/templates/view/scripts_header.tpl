@@ -100,7 +100,13 @@
 	{#/if#}
 
 	{# if $bodyclass=="levels" || $bodyclass=="transitions"#}
-		<script type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
+	<script>
+		isotop = false;
+		{# if $isotop == TRUE#}
+		isotop = true;
+		{# /if #}
+	</script>
+	<script type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
 	{# /if #}
 
 	{# if $bodyclass=="bibliography"#}
@@ -115,11 +121,11 @@
 	<script type="text/javascript" charset="windows-1251">var locale="{#$locale#}";</script>
 	
 	{# if $bodyclass=="levels" #}
-	<script type="text/javascript" charset="windows-1251" src="/js/levels.js?v3"></script>
+	<script type="text/javascript" charset="windows-1251" src="/js/levels.js?v5"></script>
 	{# /if #}
 
 	{# if $bodyclass=="transitions" #}
-	<script type="text/javascript" src="/js/transitions.js?v2"></script>
+	<script type="text/javascript" src="/js/transitions.js?v3"></script>
 	{#/if#}
 
 	<script type="text/javascript" charset="windows-1251">					
