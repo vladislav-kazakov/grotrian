@@ -357,6 +357,18 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
 				$footer_type = "bottom_footer.tpl";
 			}
     		break;
+        case "json":
+            header('Content-Type: application/json');
+            $transition_list->LoadWithLevels($element_id);
+            $transitions=$transition_list->GetItemsArray();
+            $spectrum = new Spectrum();
+            foreach ($transitions as &$transition) {
+                $transition['color'] = $spectrum->wavelength2RGB($transition['WAVELENGTH']);
+			}
+            unset($transition);
+            //$data = $spectrum->getSpectraSVG($transitions,0,1599900000);
+            echo json_encode($transitions);
+            break;
         case "spectrum": {
             $transition_list->LoadWithLevels($element_id);
             $transitions=$transition_list->GetItemsArray();
@@ -740,6 +752,7 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
 		if(isset($header_type)) $smarty->display("$interface/".$header_type);
 
 		switch ($pagetype) {
+			case 'json': break;
 			case 'diagram':
 			case 'spectrum':
 			case 'compare':

@@ -1,7 +1,7 @@
 <?php 
 class Spectrum{
 
-	private function wavelength2RGB($length){		//Функция генерирования RGB цвета по длине волны		
+	public function wavelength2RGB($length){		//Функция генерирования RGB цвета по длине волны
 	
 		$gamma=1;								
 		$Violet=380;

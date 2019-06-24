@@ -2,9 +2,9 @@
 	<div class="grid_12" id="main">   
 		<div class="brake"></div>				
 		{#if $locale=="ru"#}			
-		<h3>јтом {#$atom.NAME_RU_ALT#}, Z={#$atom.Z#}, I.P.={#$atom.IONIZATION_POTENCIAL#} см<sup>-1</sup>, InChI: {#$ichi#}<!--, ichi_key: {#$ichi_key#}--></h3>
+		<h3>{#if $atom.MASS_NUMBER>0#}»зотоп{#elseif $atom.IONIZATION==0#}јтом{#elseif $atom.IONIZATION==-1#}ќтрицательный ион{#else#}»он{#/if#}  {#$atom.NAME_RU_ALT#}, Z={#$atom.Z#}, I.P.={#$atom.IONIZATION_POTENCIAL#} см<sup>-1</sup>, InChI: {#$ichi#}<!--, ichi_key: {#$ichi_key#}--></h3>
 		{#else#}
-		<h3>Atom of {#$atom.NAME_EN#}, Z={#$atom.Z#}, I.P.={#$atom.IONIZATION_POTENCIAL#} см<sup>-1</sup></h3>
+		<h3>{#if $atom.MASS_NUMBER>0#}Isotope{#elseif $atom.IONIZATION==-1#}Negative ion{#else#}Ion{#/if#} of {#$atom.NAME_EN#}, Z={#$atom.Z#}, I.P.={#$atom.IONIZATION_POTENCIAL#} cm<sup>-1</sup></h3>
 		{#/if#}
 
 		{#if $atom.SPECTRUM_IMG!=""#}
