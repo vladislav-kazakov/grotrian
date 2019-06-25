@@ -10,6 +10,11 @@ class AtomList extends LocalList
 		$query = "SELECT ATOMS.ID, ATOMS.IONIZATION, ATOMS.SPECTRUM_IMG, PERIODICTABLE.NAME_EN, PERIODICTABLE.NAME_RU_ALT, PERIODICTABLE.ABBR FROM ATOMS JOIN PERIODICTABLE ON ATOMS.ID_ELEMENT=PERIODICTABLE.ID";
 		$this->LoadFromSQL($query);
 	}
+    function Load()
+    {
+        $query = "SELECT ATOMS.ID, ATOMS.IONIZATION, ATOMS.MASS_NUMBER, PERIODICTABLE.NAME_EN, NAME_RU, PERIODICTABLE.ABBR FROM ATOMS JOIN PERIODICTABLE ON ATOMS.ID_ELEMENT=PERIODICTABLE.ID";
+        $this->LoadFromSQL($query);
+    }
 
 	function LoadCountByIonization($ion = NULL, $operator = "=", $group = true) //For statistics page
 	{

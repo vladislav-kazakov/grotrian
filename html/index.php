@@ -462,79 +462,92 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
 	} else
 	//Если нет информации об элементе
 	switch ($pagetype) {
-		case "stats": {
+        case "stats": {
 
-			$atom_list = new AtomList;
+            $atom_list = new AtomList;
 
-			$atom_count = $atom_list->LoadCountByIonization();
-			echo "Всего атомных систем описано: " . $atom_count . "<br>\r\n";
+            $atom_count = $atom_list->LoadCountByIonization();
+            echo "Всего атомных систем описано: " . $atom_count . "<br>\r\n";
 
-			$atom_count = $atom_list->LoadCountByIonization(0);
-			echo "Нейтральных атомов описано: " . $atom_count . "<br>\r\n";
+            $atom_count = $atom_list->LoadCountByIonization(0);
+            echo "Нейтральных атомов описано: " . $atom_count . "<br>\r\n";
 
-			$atom_count = $atom_list->LoadCountByIonization(0, ">");
-			echo "Ионов описано: " . $atom_count . "<br>\r\n";
+            $atom_count = $atom_list->LoadCountByIonization(0, ">");
+            echo "Ионов описано: " . $atom_count . "<br>\r\n";
 
-			$atom_count = $atom_list->LoadCountByIonizationWithLevels();
-			echo "Атомных систем с уровнями описано: " . $atom_count . "<br>\r\n";
+            $atom_count = $atom_list->LoadCountByIonizationWithLevels();
+            echo "Атомных систем с уровнями описано: " . $atom_count . "<br>\r\n";
 
-			$atom_count = $atom_list->LoadCountByIonizationWithLevels(0);
-			echo "Нейтральных атомов с уровнями  описано: " . $atom_count . "<br>\r\n";
+            $atom_count = $atom_list->LoadCountByIonizationWithLevels(0);
+            echo "Нейтральных атомов с уровнями  описано: " . $atom_count . "<br>\r\n";
 
-			$atom_count = $atom_list->LoadCountByIonizationWithLevels(0, ">");
-			echo "Ионов описано с уровнями: " . $atom_count . "<br>\r\n";
+            $atom_count = $atom_list->LoadCountByIonizationWithLevels(0, ">");
+            echo "Ионов описано с уровнями: " . $atom_count . "<br>\r\n";
 
-			$atom_count = $atom_list->LoadCountByIonizationWithTransitions();
-			echo "Атомных систем с переходами описано: " . $atom_count . "<br>\r\n";
+            $atom_count = $atom_list->LoadCountByIonizationWithTransitions();
+            echo "Атомных систем с переходами описано: " . $atom_count . "<br>\r\n";
 
-			$atom_count = $atom_list->LoadCountByIonizationWithTransitions(0);
-			echo "Нейтральных атомов с переходами  описано: " . $atom_count . "<br>\r\n";
+            $atom_count = $atom_list->LoadCountByIonizationWithTransitions(0);
+            echo "Нейтральных атомов с переходами  описано: " . $atom_count . "<br>\r\n";
 
-			$atom_count = $atom_list->LoadCountByIonizationWithTransitions(0, ">");
-			echo "Ионов описано с переходами: " . $atom_count . "<br>\r\n";
+            $atom_count = $atom_list->LoadCountByIonizationWithTransitions(0, ">");
+            echo "Ионов описано с переходами: " . $atom_count . "<br>\r\n";
 
-			$level_list = new LevelList;
-			$level_count = $level_list->LoadCountByIonization();
-			echo "Всего уровней: " . $level_count . "<br>\r\n";
+            $level_list = new LevelList;
+            $level_count = $level_list->LoadCountByIonization();
+            echo "Всего уровней: " . $level_count . "<br>\r\n";
 
-			$level_count = $level_list->LoadCountByIonization(0);
-			echo "Уровней нейтральных атомов: " . $level_count . "<br>\r\n";
+            $level_count = $level_list->LoadCountByIonization(0);
+            echo "Уровней нейтральных атомов: " . $level_count . "<br>\r\n";
 
-			$level_count = $level_list->LoadCountByIonization(0, ">");
-			echo "Уровней ионов: " . $level_count . "<br>\r\n";
+            $level_count = $level_list->LoadCountByIonization(0, ">");
+            echo "Уровней ионов: " . $level_count . "<br>\r\n";
 
-			$level_count = $level_list->LoadClassifiedCountByIonization();
-			echo "Всего классифицированных уровней: " . $level_count . "<br>\r\n";
+            $level_count = $level_list->LoadClassifiedCountByIonization();
+            echo "Всего классифицированных уровней: " . $level_count . "<br>\r\n";
 
-			$level_count = $level_list->LoadClassifiedCountByIonization(0);
-			echo "Классифицированных уровней нейтральных атомов: " . $level_count . "<br>\r\n";
+            $level_count = $level_list->LoadClassifiedCountByIonization(0);
+            echo "Классифицированных уровней нейтральных атомов: " . $level_count . "<br>\r\n";
 
-			$level_count = $level_list->LoadClassifiedCountByIonization(0, ">");
-			echo "Классифицированных уровней ионов: " . $level_count . "<br>\r\n";
+            $level_count = $level_list->LoadClassifiedCountByIonization(0, ">");
+            echo "Классифицированных уровней ионов: " . $level_count . "<br>\r\n";
 
-			$transition_list = new TransitionList;
-			$transition_count = $transition_list->LoadCountByIonization();
-			echo "Всего переходов: " . $transition_count . "<br>\r\n";
+            $transition_list = new TransitionList;
+            $transition_count = $transition_list->LoadCountByIonization();
+            echo "Всего переходов: " . $transition_count . "<br>\r\n";
 
-			$transition_count = $transition_list->LoadCountByIonization(0);
-			echo "Переходов нейтральных атомов: " . $transition_count . "<br>\r\n";
+            $transition_count = $transition_list->LoadCountByIonization(0);
+            echo "Переходов нейтральных атомов: " . $transition_count . "<br>\r\n";
 
-			$transition_count = $transition_list->LoadCountByIonization(0, ">");
-			echo "Переходов ионов: " . $transition_count . "<br>\r\n";
+            $transition_count = $transition_list->LoadCountByIonization(0, ">");
+            echo "Переходов ионов: " . $transition_count . "<br>\r\n";
 
-			$transition_count = $transition_list->LoadClassifiedCountByIonization();
-			echo "Всего классифицированных переходов: " . $transition_count . "<br>\r\n";
+            $transition_count = $transition_list->LoadClassifiedCountByIonization();
+            echo "Всего классифицированных переходов: " . $transition_count . "<br>\r\n";
 
-			$transition_count = $transition_list->LoadClassifiedCountByIonization(0);
-			echo "Классифицированных переходов нейтральных атомов: " . $transition_count . "<br>\r\n";
+            $transition_count = $transition_list->LoadClassifiedCountByIonization(0);
+            echo "Классифицированных переходов нейтральных атомов: " . $transition_count . "<br>\r\n";
 
-			$transition_count = $transition_list->LoadClassifiedCountByIonization(0, ">");
-			echo "Классифицированных переходов ионов: " . $transition_count . "<br>\r\n";
+            $transition_count = $transition_list->LoadClassifiedCountByIonization(0, ">");
+            echo "Классифицированных переходов ионов: " . $transition_count . "<br>\r\n";
 
-			exit;
-			break;
-		}
-
+            exit;
+            break;
+        }
+        case "json":
+            header('Content-Type: application/json');
+            $atom_list = new AtomList;
+            $atom_list->Load();
+            $atom_array = $atom_list->GetItemsArray();
+            foreach ($atom_array as &$array){
+                foreach (array_keys($array) as $key) {
+                    $array[$key] = iconv("Windows-1251", "UTF-8", $array[$key]);
+                }
+    		}
+    		unset($array);
+            print_r($atom_array);
+            echo json_encode($atom_array, JSON_UNESCAPED_UNICODE);
+            break;
 		case "index": {
 	    	
 	    	//Уровни
