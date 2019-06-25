@@ -545,7 +545,6 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
                 }
     		}
     		unset($array);
-            print_r($atom_array);
             echo json_encode($atom_array, JSON_UNESCAPED_UNICODE);
             break;
 		case "index": {
