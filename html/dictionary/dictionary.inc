@@ -71,6 +71,7 @@ $dictionary = array (
 	'Hydrogen'=>array('ru'=>'Водород','en'=>'Hydrogen'),
 	'Compare_spectra'=>array('ru'=>'Сравнение спектров','en'=>'Compare spectra'),
     'Circle_spectrum'=>array('ru'=>'Круговой спектр','en'=>'Circle spectrum'),
+    'Cognitive_diagram'=>array('ru'=>'Когнитивная диаграмма','en'=>'Cognitive diagram'),
     'Regular_spectrum'=>array('ru'=>'Обычный спектр','en'=>'Regular spectrum'),
 	'Atomic_levels'=>array('ru'=>'Уровни атома','en'=>'Atomic levels'),
 	'Table_lookup'=>array('ru'=>'Поиск в таблице','en'=>'Table lookup'),

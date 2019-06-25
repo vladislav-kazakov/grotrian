@@ -29,7 +29,7 @@
 	//]]>			
 </script>
 
-	{# if $bodyclass=="spectrum" || $bodyclass=="compare" || $bodyclass=="circle"#}
+	{# if $bodyclass=="spectrum" || $bodyclass=="compare" || $bodyclass=="circle" || $bodyclass=="cf"#}
 	<link rel="stylesheet" type="text/css" href="/css/spectrum2.css?v2" />
 
 	{# if $bodyclass=="spectrum" || $bodyclass=="compare"#}
@@ -40,6 +40,15 @@
 	{#/if#}
 	{# if $bodyclass == "circle" #}
 	<script type="text/javascript" src="/js/spectrum2/init_circle.js"></script>
+	{#/if#}
+	{# if $bodyclass == "cf" #}
+	<!--script type="text/javascript" src="/js/spectrum2/init_cf.js"></script-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.js"></script>
+	<script src="/js/cf/chart.js/samples/utils.js"></script>
+	<script src="/js/cf/graph.js"></script>
+	<script src="/js/cf/hammer.min.js"></script>
+	<script src="/js/cf/chartzoom/chartjs-plugin-zoom.js"></script>
+
 	{#/if#}
 
 	<script type="text/javascript">
@@ -79,12 +88,13 @@
 			{# if $pagetype == "compare" #}
 			spectr_list_uploaded = {#$spectrum_json_uploaded#};
 			{#/if#}
+            {# if $pagetype != "cf" #}
 			init_all();
 			$(document).on('click', '#filter', function() {
 				init_all();
 			});
-
-		});		
+            {#/if#}
+		});
 	</script>
 
 	{#/if#}
