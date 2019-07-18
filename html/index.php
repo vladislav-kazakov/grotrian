@@ -363,7 +363,7 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
             $transitions=$transition_list->GetItemsArray();
             $spectrum = new Spectrum();
             foreach ($transitions as &$transition) {
-                $transition['color'] = $spectrum->wavelength2RGB($transition['WAVELENGTH']);
+                $transition['color'] = $spectrum->wavelength2RGB(round($transition['WAVELENGTH']/10));
 			}
             unset($transition);
             //$data = $spectrum->getSpectraSVG($transitions,0,1599900000);
