@@ -29,7 +29,18 @@
 	//]]>			
 </script>
 
-	{# if $bodyclass=="spectrum" || $bodyclass=="compare" || $bodyclass=="circle" || $bodyclass=="cf"#}
+{# if $bodyclass == "cf" #}
+<link rel="stylesheet" type="text/css" href="/css/spectrum2.css?v2" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script src="/js/cf/chart.js/dist/Chart.bundle.js"></script>
+<script src="/js/cf/hammer.min.js"></script>
+<script src="/js/cf/chartzoom/chartjs-plugin-zoom.js"></script>
+<link href="/css/cf.css" rel="stylesheet">
+
+{#/if#}
+
+	{# if $bodyclass=="spectrum" || $bodyclass=="compare" || $bodyclass=="circle"#}
 	<link rel="stylesheet" type="text/css" href="/css/spectrum2.css?v2" />
 
 	{# if $bodyclass=="spectrum" || $bodyclass=="compare"#}
@@ -41,16 +52,6 @@
 	{# if $bodyclass == "circle" #}
 	<script type="text/javascript" src="/js/spectrum2/init_circle.js"></script>
 	{#/if#}
-	{# if $bodyclass == "cf" #}
-	<!--script type="text/javascript" src="/js/spectrum2/init_cf.js"></script-->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.js"></script>
-	<script src="/js/cf/chart.js/samples/utils.js"></script>
-	<script src="/js/cf/graph.js"></script>
-	<script src="/js/cf/hammer.min.js"></script>
-	<script src="/js/cf/chartzoom/chartjs-plugin-zoom.js"></script>
-
-	{#/if#}
-
 	<script type="text/javascript">
 		var spectr_list, spectr_list_uploaded;
 		var e_count = "{#$e_count#}";

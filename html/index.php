@@ -434,110 +434,27 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
 			break;
 		}
         case "cf": {
-
-
-            $transition_list->LoadWithLevels($element_id);
-            $transitions=$transition_list->GetItemsArray();
-
-            $max =  $transition_list->LoadMaxIntensity($element_id);
-
-			$max_i = $max;//$max[0]['max_i'];
-			$max_e = 0;
-			$min_e['l'] = 100000;
-			$min_e['u'] = 100000;
-			foreach ($transitions as $item) {
-				if($item['upper_level_energy'] <= $atom_sys['IONIZATION_POTENCIAL'] and $item['INTENSITY'] > 0) {
-					$test = $item['upper_level_termmultiply'] * 1;
-					if ($test) {
-						$arr_tmp['x'] = $item['upper_level_energy'];
-						$arr_tmp['y'] = $item['lower_level_energy'];
-						//            $arr_tmp['x'] = $item['LOWER_ENERGY'];
-						//            $arr_tmp['y'] = $item['UPPER_ENERGY'] - $item['LOWER_ENERGY'];
-						$arr_tmp['bgc'] = ['R' => 0, 'G' => 189, 'B' => 232];
-
-					} else {
-						$arr_tmp['x'] = $item['lower_level_energy'];
-						$arr_tmp['y'] = $item['upper_level_energy'];
-						//            $arr_tmp['x'] = $item['UPPER_ENERGY'] - $item['LOWER_ENERGY'];
-						//            $arr_tmp['y'] = $item['LOWER_ENERGY'];
-						$arr_tmp['bgc'] = ['R' => 227, 'G' => 30, 'B' => 36];
-					}
-					//        $arr_tmp['x'] = $item['LOWER_ENERGY'];
-					//        $arr_tmp['y'] = $item['UPPER_ENERGY'];
-					//        $arr_tmp['i'] = $item['WAVELENGTH'];
-
-					$arr_tmp['intensity'] = $item['INTENSITY'];
-					$r = 0;
-					$g = 0;
-					$b = 0;
-					$a = 1;
-					//        $a = $item['INTENSITY'] / $max_i;
-					if($item['INTENSITY'] < $max_i / 2){
-						$r = (int)($item['INTENSITY'] / $max_i * 255 );
-						$b = 255;
-					}else{
-						$r = 255;
-						$b = 255 - (int)($item['INTENSITY'] / $max_i) * 255;
-
-					}
-					//        $arr_tmp['c'] = ['R' => $color, 'G' => $color, 'B' => $color];
-
-					$arr_tmp['c'] = ['R' => $r, 'G' => $g, 'B' => $b, "A" => $a];
-					$config = "{$item['lower_level_config']} - {$item['upper_level_config']}";
-					$rg = ['/\@{([1-9])}/i','/\~{(.*?)}/i','/\@{([0])}/i'];
-					$rp = ['<sup>$1</sup>','<sub>$1</sub>','&deg;'];
-					$arr_tmp['lu'] = iconv('cp1251'
-						, 'UTF-8'
-						,'CONFIG:' . preg_replace($rg, $rp, $config) . "<br>ENERGY: {$item['lower_level_energy']} - {$item['upper_level_energy']}<br>INTENSITY: {$item['INTENSITY']}<br>WAVELENGTH: {$item['WAVELENGTH']}<br>Переход: ".($test ? '' : 'не').'четный'
-					);
-					$value_mltrm = $item['lower_level_termprefix'] == $item['upper_level_termprefix'] ? $item['upper_level_termprefix'] * 1 : 'f';
-					$value_mltrm = ($value_mltrm > 5) ? 6 : $value_mltrm;
-
-					//        $arr_tmp['pointStyle'] = $pointStyle[$value_mltrm];
-					$arr_tmp['pointStyle'] = $value_mltrm;
-
-					$data_for_graph[] = $arr_tmp;
-
-					if($max_e < $item['upper_level_energy']){
-						$max_e = $item['upper_level_energy'];
-					}
-					if($min_e['l'] > $item['lower_level_energy']){
-						$min_e['l'] = $item['lower_level_energy'];
-					}
-					if($min_e['u'] > $item['upper_level_energy']){
-						$min_e['u'] = $item['upper_level_energy'];
-					}
-				}
-			}
-			//echo '<pre>'.print_r($data_for_graph[0], true).'</pre>';
-            //print_r(json_encode($data_for_graph));
-            $smarty->assign('dataline', json_encode($data_for_graph));
-			$smarty->assign('max_e', $max_e);
-			$smarty->assign('min_e', json_encode($min_e));
-
-
-
-            // берём json объект длин волн и отдаём его в смарти
-            $spectrum= new Spectrum();
-            if (isset($_REQUEST['auto'])){
-                $smarty->assign('auto', true);
-                $atomNext = new Atom;
-                $atomNext->LoadNext($element_id);
-                $atomNext_sys = $atomNext->GetAllProperties();
-                $smarty->assign('next_element_id', $atomNext_sys['ID']);
+            $atom->Load($element_id);
+            $atom_sys = $atom->GetAllProperties();
+            unset($atom_sys['SPECTRUM_IMG']);
+            foreach (array_keys($atom_sys) as $key) {
+                $atom_sys[$key] = iconv("Windows-1251", "UTF-8", $atom_sys[$key]);
             }
-            $smarty->assign('spectrum_json',$spectrum->getSpectraSVG($transitions,0,1599900000));
+            $smarty->assign('atom_json', json_encode($atom_sys, JSON_UNESCAPED_UNICODE));
+            $transition_list->LoadWithLevels($element_id);
+            $transitions = $transition_list->GetItemsArray();
+            $spectrum = new Spectrum();
 
-            $level_list = new LevelList;
-            $level_list->LoadBase($element_id);
-            $levels_array = $level_list->GetItemsArray();
-            $smarty->assign('base_level', $levels_array[0]['CONFIG']);
+            foreach ($transitions as &$transition) {
+                $transition['color'] = $spectrum->wavelength2RGB(($transition['WAVELENGTH']/10));
+            } unset($transition);
 
+            $smarty->assign('transitions_json',json_encode($transitions));
             //указываем имя шаблона и название страницы
             $page_type="view_cf.tpl";
-            $head="Spectrogram";
-            $title="Spectrogram";
-            $headline="Spectrogram";
+            $head="Kvantogram";
+            $title="Kvantogram";
+            $headline="Kvantogram";
             $bodyclass="cf";
             $header_type="header.tpl";
             $footer_type="footer.tpl";
