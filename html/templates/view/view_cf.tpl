@@ -74,7 +74,9 @@
 									<input type="radio" name="myRadios"  value="2" />[ıÂ]
 								</div>
 							</div>
-
+							<a id='compare' href='/{#$locale#}/compare/{#$layout_element_id#}'>{#$l10n.Compare#}</a>
+							<a id='circle' href='/{#$locale#}/spectrum/{#$layout_element_id#}'>{#$l10n.Regular_spectrum#}</a>
+							<a id='circle' href='/{#$locale#}/circle/{#$layout_element_id#}'>{#$l10n.Circle_spectrum#}</a>
 						</div>
 
 						<div id="canvas-holder" style="width: 300px;">
