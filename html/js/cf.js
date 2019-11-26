@@ -35,10 +35,10 @@ var atom,
     termLabel = [],
     maxVal = 0,
     IP = 0,
-    cm=true,
-    ev=false,
-    filter = false,
+    cm = true,
+    ev = false,
     max,
+    idx,
     icon = [];
 
 var labeleV = "[eV]",
@@ -150,7 +150,7 @@ function click_intens(){
         window.myScatter.update();
     }
     else {
-        let col = [];
+        var col = [];
         colorArr.forEach(function(item){
             let a = item.split('a');
             let b = a[1].split(',');
@@ -405,8 +405,8 @@ document.getElementById('resetZoom').addEventListener('click', function() {
     window.myScatter.update();
 });
 
-function resize(new_atom) {
-    if((new_atom == 1) || (filter == true)){
+function resize(click) {
+    if(click == 0){
         if(document.getElementById('fullScreen').value == 'Full screen') {
             let win_w, win_h, size;
             win_w = $(window).width();
@@ -435,7 +435,7 @@ function resize(new_atom) {
             graph(size, size);
         }
     }
-    else {
+    else if (click == 1){
         if(document.getElementById('fullScreen').value == 'Full screen') {
             let win_w, win_h, size;
             win_w = $(window).width();
@@ -483,8 +483,9 @@ for (var i = 0; i < rad.length; i++) {
                 item.y = item.y/(1.23977*Math.pow(10,-4));
                 term.x = item.x;
                 term.y = item.y;
-                let arr = scatterChartData.labels[i].split("(");
-                scatterChartData.labels[i] = arr[0] + "(" + term.x.toFixed(3) + ", " + term.y.toFixed(3) + ")";
+                let arr = termLabel[i].split("intensity:");
+                let arr1 = arr[1].split("(");
+                termLabel[i] = arr[0] + "intensity:" + arr1[0] + "(" + term.x.toFixed(3) + ", " + term.y.toFixed(3) + ")";
                 scatterChartData.datasets[0].data[i].x =item.x;
                 scatterChartData.datasets[0].data[i].y =item.y;
             });
@@ -550,8 +551,9 @@ for (var i = 0; i < rad.length; i++) {
                 item.y = item.y*1.23977*Math.pow(10,-4);
                 term.x = item.x;
                 term.y = item.y;
-                let arr = scatterChartData.labels[i].split("(");
-                scatterChartData.labels[i] = arr[0] + "(" + term.x.toFixed(3) + ", " + term.y.toFixed(3) + ")";
+                let arr = termLabel[i].split("intensity:");
+                let arr1 = arr[1].split("(");
+                termLabel[i] = arr[0] + "intensity:" + arr1[0] + "(" + term.x.toFixed(3) + ", " + term.y.toFixed(3) + ")";
                 scatterChartData.datasets[0].data[i].x =item.x;
                 scatterChartData.datasets[0].data[i].y =item.y;
             });
@@ -637,254 +639,273 @@ function updateChart(new_atom, min, max){
     eUpcheck = true;
     parity = false;
     eUp_eDcheck = false;
-    filter = false;
 
-    customTooltips = function (tooltip) {
-        var tooltipEl = document.getElementById('chartjs-tooltip');
+                    customTooltips = function (tooltip) {
+                        var tooltipEl = document.getElementById('chartjs-tooltip');
 
-        if (tooltip.opacity === 0) {
-            tooltipEl.style.opacity = 0;
-            return;
-        }
+                        if (tooltip.opacity === 0) {
+                            tooltipEl.style.opacity = 0;
+                            return;
+                        }
 
-        tooltipEl.classList.remove('above', 'below', 'no-transform');
-        if (tooltip.yAlign) {
-            tooltipEl.classList.add(tooltip.yAlign);
-        } else {
-            tooltipEl.classList.add('no-transform');
-        }
+                        tooltipEl.classList.remove('above', 'below', 'no-transform');
+                        if (tooltip.yAlign) {
+                            tooltipEl.classList.add(tooltip.yAlign);
+                        } else {
+                            tooltipEl.classList.add('no-transform');
+                        }
 
-        function getBody(bodyItem) {
-            return bodyItem.lines;
-        }
+                        function getBody(bodyItem) {
+                            return bodyItem.lines;
+                        }
 
-        if (tooltip.body) {
-            var titleLines = tooltip.title || [];
-            var bodyLines = tooltip.body.map(getBody);
+                        if (tooltip.body) {
+                            var titleLines = tooltip.title || [];
+                            var bodyLines = tooltip.body.map(getBody);
 
-            var innerHtml = '<thead>';
+                            var innerHtml = '<thead>';
 
-            titleLines.forEach(function (title) {
-                innerHtml += '<tr><th>' + title + '</th></tr>';
-            });
-            innerHtml += '</thead><tbody>';
+                            titleLines.forEach(function (title) {
+                                innerHtml += '<tr><th>' + title + '</th></tr>';
+                            });
+                            innerHtml += '</thead><tbody>';
 
-            bodyLines.forEach(function (body, i) {
-                var colors = tooltip.labelColors[i];
-                var style = 'background:' + colors.backgroundColor;
-                style += '; border-color:' + colors.borderColor;
-                style += '; border-width: 2px';
-                var span = '<span class="chartjs-tooltip-key" style="' + style + '"></span>';
-                innerHtml += '<tr><td>' + span + body + '</td></tr>';
-            });
-            innerHtml += '</tbody>';
+                            bodyLines.forEach(function (body, i) {
+                                var colors = tooltip.labelColors[i];
+                                var style = 'background:' + colors.backgroundColor;
+                                style += '; border-color:' + colors.borderColor;
+                                style += '; border-width: 2px';
+                                var span = '<span class="chartjs-tooltip-key" style="' + style + '"></span>';
+                                innerHtml += '<tr><td>' + span + body + '</td></tr>';
+                            });
+                            innerHtml += '</tbody>';
 
-            var tableRoot = tooltipEl.querySelector('table');
-            tableRoot.innerHTML = innerHtml;
-        }
-        var positionY = this._chart.canvas.offsetTop;
-        var positionX = this._chart.canvas.offsetLeft;
+                            var tableRoot = tooltipEl.querySelector('table');
+                            tableRoot.innerHTML = innerHtml;
+                        }
+                        var positionY = this._chart.canvas.offsetTop;
+                        var positionX = this._chart.canvas.offsetLeft;
 
-        tooltipEl.style.opacity = 1;
-        tooltipEl.style.left = positionX + tooltip.caretX + 'px';
-        tooltipEl.style.top = positionY + tooltip.caretY + 'px';
-        tooltipEl.style.fontFamily = tooltip._bodyFontFamily;
-        tooltipEl.style.fontSize = tooltip.bodyFontSize;
-        tooltipEl.style.fontStyle = tooltip._bodyFontStyle;
-        tooltipEl.style.padding = tooltip.yPadding + 'px ' + tooltip.xPadding + 'px';
-    };
+                        tooltipEl.style.opacity = 1;
+                        tooltipEl.style.left = positionX + tooltip.caretX + 'px';
+                        tooltipEl.style.top = positionY + tooltip.caretY + 'px';
+                        tooltipEl.style.fontFamily = tooltip._bodyFontFamily;
+                        tooltipEl.style.fontSize = tooltip.bodyFontSize;
+                        tooltipEl.style.fontStyle = tooltip._bodyFontStyle;
+                        tooltipEl.style.padding = tooltip.yPadding + 'px ' + tooltip.xPadding + 'px';
+                    };
 
-    if (((min == 0) && (max == 0))){
+                    if (((min == 0) && (max == 0))){
         transitions_json.forEach(function (transition) {
-            if (transition.ID_LOWER_LEVEL && transition.ID_UPPER_LEVEL) {
-                let pref,
-                    multCol = ({m: '', c: '', l: ''}),
-                    len = transition.WAVELENGTH,
-                    multUp,
-                    multLow;
+                            if (transition.ID_LOWER_LEVEL && transition.ID_UPPER_LEVEL) {
+                                let pref,
+                                    multCol = ({m: '', c: '', l: ''}),
+                                    len = transition.WAVELENGTH,
+                                    multUp,
+                                    multLow;
 
-                if ((transition.INTENSITY == null) || (transition.INTENSITY == 0))
-                    transition.INTENSITY = 0;
+                                if ((transition.INTENSITY == null) || (transition.INTENSITY == 0))
+                                    transition.INTENSITY = 0;
 
-                let x = transition.lower_level_energy,
-                    y = transition.upper_level_energy;
+                                let x = transition.lower_level_energy,
+                                    y = transition.upper_level_energy;
 
-                multLow = transition.lower_level_termprefix;
-                multUp = transition.upper_level_termprefix;
+                                multLow = transition.lower_level_termprefix;
+                                multUp = transition.upper_level_termprefix;
 
-                if (transition.lower_level_termprefix)
-                    pref = transition.lower_level_termprefix;
-                else
-                    pref = "";
+                                if (transition.lower_level_termprefix) pref = transition.lower_level_termprefix;
+                                else pref = "";
 
-                if (transition.lower_level_termmultiply == 0) {
-                    term.lt = "<span>" + transition.lower_level_config.replace(/@\{0\}/gi, "&deg;").replace(/@\{([^\}\{]*)\}/gi, "<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi, "<sub>$1</sub>").replace(/#/gi, "&deg;") + ": " + "</span>" + "<sup>" + pref + "</sup>" + "<span>" + transition.lower_level_termfirstpart + "</span>" + "<sup>" + transition.lower_level_termmultiply + "</sup>" + "<sub>" + transition.lower_level_j + "</sub>";
-                } else term.lt = "<span>" + transition.lower_level_config.replace(/@\{0\}/gi, "&deg;").replace(/@\{([^\}\{]*)\}/gi, "<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi, "<sub>$1</sub>").replace(/#/gi, "&deg;") + ": " + "</span>" + "<sup>" + pref + "</sup>" + "<span>" + transition.lower_level_termfirstpart + "</span>" + "<sub>" + transition.lower_level_j + "</sub>";
+                                let second = "";
+                                if((transition.lower_level_termsecondpart!=null) && (transition.lower_level_termsecondpart!=""))  second = transition.lower_level_termsecondpart;
 
-
-                let test = transition.upper_level_termmultiply;
-                if (transition.upper_level_termprefix) pref = transition.upper_level_termprefix;
-                else pref = "";
-                if (test === 0) {
-                    term.ut = "<span>" + transition.upper_level_config.replace(/@\{0\}/gi, "&deg;").replace(/@\{([^\}\{]*)\}/gi, "<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi, "<sub>$1</sub>").replace(/#/gi, "&deg;") + ": " + "</span>" + "<sup>" + pref + "</sup>" + "<span>" + transition.upper_level_termfirstpart + "</span>" + "<sup>" + transition.upper_level_termmultiply + "</sup>" + "<sub>" + transition.upper_level_j + "</sub>";
-                } else term.ut = "<span>" + transition.upper_level_config.replace(/@\{0\}/gi, "&deg;").replace(/@\{([^\}\{]*)\}/gi, "<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi, "<sub>$1</sub>").replace(/#/gi, "&deg;") + ": " + "</span>" + "<sup>" + pref + "</sup>" + "<span>" + transition.upper_level_termfirstpart + "</span>" + "<sub>" + transition.upper_level_j  + "</sub>";
+                                let temp;
+                                if((transition.lower_level_config!=null) && (transition.lower_level_config!=""))
+                                    temp = transition.lower_level_config.replace(/@\{0\}/gi, "&deg;").replace(/@\{([^\}\{]*)\}/gi, "<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi, "<sub>$1</sub>").replace(/#/gi, "&deg;");
+                                else  temp = "";
+                                if (transition.lower_level_termmultiply == 0) {
+                                    term.lt = "<span>" + temp + ": " + "<span>" + second + "</span>" +"</span>" + "<sup>" + pref + "</sup>" + "<span>" + transition.lower_level_termfirstpart + "</span>" + "<sup>" + transition.lower_level_termmultiply + "</sup>" + "<sub>" + transition.lower_level_j + "</sub>";
+                                } else term.lt = "<span>" + temp + ": " + "<span>" + second + "</span>" +"</span>" + "<sup>" + pref + "</sup>" + "<span>" + transition.lower_level_termfirstpart + "</span>" + "<sub>" + transition.lower_level_j + "</sub>";
 
 
-                if (multUp != multLow) {
-                    multCol.m = 0;
-                } else
-                    multCol.m = multLow;
-                multCol.l = len;
-                if ((transition.color.R == 255) && (transition.color.G == 255) &&(transition.color.B == 255)){
-                    transition.color.R = 0;
-                    transition.color.G = 0;
-                    transition.color.B = 0;
-                }
-                multCol.c = "rgba(" + transition.color.R + "," + transition.color.G + ","  + transition.color.B + ',';
-                markers.push(multCol);
+                                let test = transition.upper_level_termmultiply;
+                                if (transition.upper_level_termprefix) pref = transition.upper_level_termprefix;
+                                else pref = "";
+                                second = "";
+                                if((transition.upper_level_termsecondpart!=null) && (transition.upper_level_termsecondpart!=""))  second = transition.upper_level_termsecondpart;
+                                if((transition.upper_level_config!=null) && (transition.upper_level_config!=""))
+                                    temp = transition.upper_level_config.replace(/@\{0\}/gi, "&deg;").replace(/@\{([^\}\{]*)\}/gi, "<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi, "<sub>$1</sub>").replace(/#/gi, "&deg;");
+                                else  temp = "";
+                                if (test === 0) {
+                                    term.ut = "<span>" + temp + ": " + "<span>" + second + "</span>" +"</span>" + "<sup>" + pref + "</sup>" + "<span>" + transition.upper_level_termfirstpart + "</span>" + "<sup>" + transition.upper_level_termmultiply + "</sup>" + "<sub>" + transition.upper_level_j + "</sub>";
+                                } else term.ut = "<span>" + temp + ": " + "<span>" + second + "</span>" +"</span>" + "<sup>" + pref + "</sup>" + "<span>" + transition.upper_level_termfirstpart + "</span>" + "<sub>" + transition.upper_level_j  + "</sub>";
 
-                let point = {x: x, y: y, t: test};
-                term.x = point.x;
-                term.y = point.y;
-                termLabel.push(term.lt + "<span> - </span>" + term.ut + "<br>" + "wavelength [A]: " + len + "<br>" + "intensity: " + transition.INTENSITY + "<br>" + "(" + term.x + ", " + term.y + ")");
-                dataSpectr.push(point);
-                if (transition.INTENSITY == 0) intensArray.push(0);
-                else intensArray.push(Math.log10(transition.INTENSITY));
-            }
-        });
-    }
-    else{
+
+                                if (multUp != multLow) {
+                                    multCol.m = 0;
+                                } else
+                                    multCol.m = multLow;
+                                multCol.l = len;
+                                if ((transition.color.R == 255) && (transition.color.G == 255) &&(transition.color.B == 255)){
+                                    transition.color.R = 0;
+                                    transition.color.G = 0;
+                                    transition.color.B = 0;
+                                }
+                                multCol.c = "rgba(" + transition.color.R + "," + transition.color.G + ","  + transition.color.B + ',';
+                                markers.push(multCol);
+
+                                let point = {x: x, y: y, t: test};
+                                term.x = point.x;
+                                term.y = point.y;
+                                termLabel.push(term.lt + "<span> - </span>" + term.ut + "<br>" + "wavelength [?]: " + len + "<br>" + "intensity: " + transition.INTENSITY + "<br>" + "(" + term.x + ", " + term.y + ")");
+                                dataSpectr.push(point);
+                                if (transition.INTENSITY == 0) intensArray.push(0);
+                                else intensArray.push(Math.log10(transition.INTENSITY));
+                            }
+                        });
+                    }
+                    else{
         transitions_json.forEach(function (transition) {
-            if (transition.ID_LOWER_LEVEL && transition.ID_UPPER_LEVEL && (transition.WAVELENGTH > min) && (transition.WAVELENGTH < max)) {
-                let pref,
-                    multCol = ({m: '', c: '', l: ''}),
-                    len = transition.WAVELENGTH,
-                    multUp,
-                    multLow;
+                            if (transition.ID_LOWER_LEVEL && transition.ID_UPPER_LEVEL && (transition.WAVELENGTH > min) && (transition.WAVELENGTH < max)) {
+                                let pref,
+                                    multCol = ({m: '', c: '', l: ''}),
+                                    len = transition.WAVELENGTH,
+                                    multUp,
+                                    multLow;
 
-                if ((transition.INTENSITY == null) || (transition.INTENSITY == 0))
-                    transition.INTENSITY = 0;
+                                if ((transition.INTENSITY == null) || (transition.INTENSITY == 0))
+                                    transition.INTENSITY = 0;
 
-                let x = transition.lower_level_energy,
-                    y = transition.upper_level_energy;
+                                let x = transition.lower_level_energy,
+                                    y = transition.upper_level_energy;
 
-                multLow = transition.lower_level_termprefix;
-                multUp = transition.lower_level_termprefix;
+                                multLow = transition.lower_level_termprefix;
+                                multUp = transition.lower_level_termprefix;
 
-                if (transition.lower_level_termprefix)
-                    pref = transition.lower_level_termprefix;
-                else
-                    pref = "";
-
-                if (transition.lower_level_termmultiply == 0) {
-                    term.lt = "<span>" + transition.lower_level_config.replace(/@\{0\}/gi, "&deg;").replace(/@\{([^\}\{]*)\}/gi, "<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi, "<sub>$1</sub>").replace(/#/gi, "&deg;") + ": " + "</span>" + "<sup>" + pref + "</sup>" + "<span>" + transition.lower_level_termfirstpart + "</span>" + "<sup>" + transition.lower_level_termmultiply + "</sup>" + "<sub>" + transition.lower_level_j + "</sub>";
-                } else term.lt = "<span>" + transition.lower_level_config.replace(/@\{0\}/gi, "&deg;").replace(/@\{([^\}\{]*)\}/gi, "<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi, "<sub>$1</sub>").replace(/#/gi, "&deg;") + ": " + "</span>" + "<sup>" + pref + "</sup>" + "<span>" + transition.lower_level_termfirstpart + "</span>" + "<sub>" + transition.lower_level_j + "</sub>";
-
-
-                let test = transition.upper_level_termmultiply;
-                if (transition.upper_level_termprefix) pref = transition.upper_level_termprefix;
-                else pref = "";
-                if (test === 0) {
-                    term.ut = "<span>" + transition.upper_level_config.replace(/@\{0\}/gi, "&deg;").replace(/@\{([^\}\{]*)\}/gi, "<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi, "<sub>$1</sub>").replace(/#/gi, "&deg;") + ": " + "</span>" + "<sup>" + pref + "</sup>" + "<span>" + transition.upper_level_termfirstpart + "</span>" + "<sup>" + transition.upper_level_termmultiply + "</sup>" + "<sub>" + transition.upper_level_j + "</sub>";
-                } else term.ut = "<span>" + transition.upper_level_config.replace(/@\{0\}/gi, "&deg;").replace(/@\{([^\}\{]*)\}/gi, "<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi, "<sub>$1</sub>").replace(/#/gi, "&deg;") + ": " + "</span>" + "<sup>" + pref + "</sup>" + "<span>" + transition.upper_level_termfirstpart + "</span>" + "<sub>" + transition.upper_level_j  + "</sub>";
+                                if (transition.lower_level_termprefix)
+                                    pref = transition.lower_level_termprefix;
+                                else
+                                    pref = "";
+                                let second = "";
+                                if((transition.lower_level_termsecondpart!=null) && (transition.lower_level_termsecondpart!=""))  second = transition.lower_level_termsecondpart;
+                                let temp;
+                                if((transition.lower_level_config!=null) && (transition.lower_level_config!=""))
+                                    temp = transition.lower_level_config.replace(/@\{0\}/gi, "&deg;").replace(/@\{([^\}\{]*)\}/gi, "<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi, "<sub>$1</sub>").replace(/#/gi, "&deg;");
+                                else  temp = "";
+                                if (transition.lower_level_termmultiply == 0) {
+                                    term.lt = "<span>" + temp + ": " + "<span>" + second + "</span>" +"</span>" + "<sup>" + pref + "</sup>" + "<span>" + transition.lower_level_termfirstpart + "</span>" + "<sup>" + transition.lower_level_termmultiply + "</sup>" + "<sub>" + transition.lower_level_j + "</sub>";
+                                } else term.lt = "<span>" + temp + ": " + "<span>" + second + "</span>" +"</span>" + "<sup>" + pref + "</sup>" + "<span>" + transition.lower_level_termfirstpart + "</span>" + "<sub>" + transition.lower_level_j + "</sub>";
 
 
-                if (multUp != multLow) {
-                    multCol.m = 0;
-                } else
-                    multCol.m = multLow;
-                if ((transition.color.R == 255) && (transition.color.G == 255) &&(transition.color.B == 255)){
-                    transition.color.R = 0;
-                    transition.color.G = 0;
-                    transition.color.B = 0;
-                }
-                multCol.c = "rgba(" + transition.color.R + "," + transition.color.G + ","  + transition.color.B + ',';
-                multCol.l = len;
-                markers.push(multCol);
+                                let test = transition.upper_level_termmultiply;
+                                if (transition.upper_level_termprefix) pref = transition.upper_level_termprefix;
+                                else pref = "";
+                                second = "";
+                                if((transition.upper_level_termsecondpart!=null) && (transition.upper_level_termsecondpart!=""))  second = transition.upper_level_termsecondpart;
+                                if((transition.upper_level_config!=null) && (transition.upper_level_config!=""))
+                                    temp = transition.upper_level_config.replace(/@\{0\}/gi, "&deg;").replace(/@\{([^\}\{]*)\}/gi, "<sup>$1</sup>").replace(/~\{([^\}\{]*)\}/gi, "<sub>$1</sub>").replace(/#/gi, "&deg;");
+                                else  temp = "";
+                                if (test === 0) {
+                                    term.ut = "<span>" + temp + ": " + "<span>" + second + "</span>" +"</span>" + "<sup>" + pref + "</sup>" + "<span>" + transition.upper_level_termfirstpart + "</span>" + "<sup>" + transition.upper_level_termmultiply + "</sup>" + "<sub>" + transition.upper_level_j + "</sub>";
+                                } else term.ut = "<span>" + temp + ": " + "<span>" + second + "</span>" +"</span>" + "<sup>" + pref + "</sup>" + "<span>" + transition.upper_level_termfirstpart + "</span>" + "<sub>" + transition.upper_level_j  + "</sub>";
 
-                let point = {x: x, y: y, t: test};
-                term.x = point.x;
-                term.y = point.y;
-                termLabel.push(term.lt + "<span> - </span>" + term.ut + "<br>" + "wavelength [A]: " + len + "<br>" + "intensity: " + transition.INTENSITY + "<br>" + "(" + term.x + ", " + term.y + ")");
-                dataSpectr.push(point);
-                if (transition.INTENSITY == 0) intensArray.push(0);
-                else intensArray.push(Math.log10(transition.INTENSITY));
-            }
-        });
-    }
 
-    var maxItem = Math.max.apply(null, intensArray);
-    intensArray.forEach(function (item, i) {
-        intensArray[i] = item / maxItem;
-    });
+                                if (multUp != multLow) {
+                                    multCol.m = 0;
+                                } else
+                                    multCol.m = multLow;
+                                if ((transition.color.R == 255) && (transition.color.G == 255) &&(transition.color.B == 255)){
+                                    transition.color.R = 0;
+                                    transition.color.G = 0;
+                                    transition.color.B = 0;
+                                }
+                                multCol.c = "rgba(" + transition.color.R + "," + transition.color.G + ","  + transition.color.B + ',';
+                                multCol.l = len;
+                                markers.push(multCol);
 
-    intensArray.forEach(function (item, i) {
-        markers[i].c = markers[i].c + String(item) + ")";
-        colorArr.push(markers[i].c);
-    });
+                                let point = {x: x, y: y, t: test};
+                                term.x = point.x;
+                                term.y = point.y;
+                                termLabel.push(term.lt + "<span> - </span>" + term.ut + "<br>" + "wavelength [?]: " + len + "<br>" + "intensity: " + transition.INTENSITY + "<br>" + "(" + term.x + ", " + term.y + ")");
+                                dataSpectr.push(point);
+                                if (transition.INTENSITY == 0) intensArray.push(0);
+                                else intensArray.push(Math.log10(transition.INTENSITY));
+                            }
+                        });
+                    }
 
-    fill_icon(markers, icon, colorArr);
+                    var maxItem = Math.max.apply(null, intensArray);
+                    intensArray.forEach(function (item, i) {
+                        intensArray[i] = item / maxItem;
+                    });
 
-    maxVal = 0;
-    max = 0;
-    dataSpectr.forEach(function (item) {
-        if (maxVal <  item.x) maxVal = item.x;
-        if (max < item.y) max = item.y;
-    });
-    if (max < maxVal) max = maxVal;
+                    intensArray.forEach(function (item, i) {
+                        markers[i].c = markers[i].c + String(item) + ")";
+                        colorArr.push(markers[i].c);
+                    });
+
+                    fill_icon(markers, icon, colorArr);
+
+                    maxVal = 0;
+                    max = 0;
+                    dataSpectr.forEach(function (item) {
+                        if (maxVal <  item.x) maxVal = item.x;
+                        if (max < item.y) max = item.y;
+                    });
+                    if (max < maxVal) max = maxVal;
     IP = atom_json.IONIZATION_POTENCIAL;
 
-    scatterChartData = {
-        datasets: [{
-            pointBorderWidth: 1,
-            pointBackgroundColor: 'rgba(255, 255, 255, 0)',
-            pointBorderColor: colorArr,
-            pointRadius: 5,
-            data: dataSpectr,
-            pointStyle: icon
-        },{
-            pointBorderWidth: 0,
-            pointRadius: 0,
-            data: [{x: 0, y: 0}, {x: 0, y: 0}],
-            showLine: true,
-            fill: false,
-            borderColor: 'green',
-            borderWidth: 1,
-            pointHoverRadius: 0,
-            pointHitRadius: 0
-        },{
-            pointBorderWidth: 0,
-            pointRadius: 0,
-            data: [{x: maxVal, y: IP}, {x: 0, y: IP}],
-            showLine: true,
-            fill: false,
-            borderDash: [4, 4],
-            borderColor: 'black',
-            borderWidth: 1,
-            pointHoverRadius: 0,
-            pointHitRadius: 0
-        },{
-            pointBorderWidth: 0,
-            pointRadius: 0,
-            data: [{x: 0, y: 0}, {x: 0, y: 0}],
-            showLine: true,
-            fill: false,
-            borderDash: [4, 4],
-            borderColor: 'black',
-            borderWidth: 1,
-            pointHoverRadius: 0,
-            pointHitRadius: 0
-        }],
-        labels: termLabel,
-    };
+                    scatterChartData = {
+                        datasets: [{
+                            pointBorderWidth: 1,
+                            pointBackgroundColor: 'rgba(255, 255, 255, 0)',
+                            pointBorderColor: colorArr,
+                            pointRadius: 5,
+                            data: dataSpectr,
+                            pointStyle: icon
+                        },{
+                            pointBorderWidth: 0,
+                            pointRadius: 0,
+                            data: [{x: 0, y: 0}, {x: 0, y: 0}],
+                            showLine: true,
+                            fill: false,
+                            borderColor: 'green',
+                            borderWidth: 1,
+                            pointHoverRadius: 0,
+                            pointHitRadius: 0
+                        },{
+                            pointBorderWidth: 0,
+                            pointRadius: 0,
+                            data: [{x: maxVal, y: IP}, {x: 0, y: IP}],
+                            showLine: true,
+                            fill: false,
+                            borderDash: [4, 4],
+                            borderColor: 'black',
+                            borderWidth: 1,
+                            pointHoverRadius: 0,
+                            pointHitRadius: 0
+                        },{
+                            pointBorderWidth: 0,
+                            pointRadius: 0,
+                            data: [{x: 0, y: 0}, {x: 0, y: 0}],
+                            showLine: true,
+                            fill: false,
+                            borderDash: [4, 4],
+                            borderColor: 'black',
+                            borderWidth: 1,
+                            pointHoverRadius: 0,
+                            pointHitRadius: 0
+                        }],
+                        labels: termLabel,
+                    };
 
-    resize(new_atom);
+                    resize(0);
 
     window.myScatter.options.title.text = '';
-    myScatter.options.scales.xAxes[0].ticks.suggestedMax = max;
-    myScatter.options.scales.yAxes[0].ticks.suggestedMax = max;
+                    myScatter.options.scales.xAxes[0].ticks.suggestedMax = max;
+                    myScatter.options.scales.yAxes[0].ticks.suggestedMax = max;
 
-    window.myScatter.update();
+                    window.myScatter.update();
 }
 
 function fill_icon(markers, icon, col) {
@@ -970,7 +991,7 @@ function graph(h, w) {
             elements: {
                 line: {
                     tension: 0
-                }
+                },
             },
             responsive: false,
             bezierCurve: false,
@@ -992,10 +1013,10 @@ function graph(h, w) {
                 },
                 callbacks:{
                     label: function(tooltipItem, data) {
-                        var label = data.labels[tooltipItem.index] || '';
-                        return label;
+                        return data.labels[tooltipItem.index] || '';
                     },
                 },
+                intersect: true,
                 enabled: false,
                 displayColors: false,
                 mode: 'index',
@@ -1012,6 +1033,13 @@ function graph(h, w) {
                         beginAtZero: true,
                         maxRotation: 0,
                         minRotation: 0,
+                        callback: function(value) {
+                            if (value >= 0) {
+                                let t = value.toFixed(3);
+                                return Number(t);
+                            }
+                            else return "";
+                        },
                     },
                     scaleLabel: {
                         display: true,
@@ -1024,6 +1052,14 @@ function graph(h, w) {
                         beginAtZero: true,
                         maxRotation: 0,
                         minRotation: 0,
+                        callback: function(value) {
+                            let t;
+                            if (value >= 0) {
+                                t = value.toFixed(3);
+                                return Number(t);
+                            }
+                            else return "";
+                        },
                     },
                     scaleLabel: {
                         display: true,
@@ -1038,7 +1074,6 @@ function graph(h, w) {
 
 
 function show_selected(){
-    filter = true;
     let min = document.getElementById("min").value;
     let max = document.getElementById("max").value;
     updateChart(0, min, max);
@@ -1046,15 +1081,71 @@ function show_selected(){
 }
 
 function show_visible(){
-    filter = true;
     updateChart(0, 3800, 7600);
     click_intens();
 }
 
 function show_all(){
-    filter = true;
     updateChart(0, 0, 0);
     click_intens();
 }
 
 updateChart(1, 0, 0);
+
+document.getElementById('chartCont').addEventListener('click', function(evt) {
+    let point = myScatter.getElementAtEvent(evt)[0];
+    let nIcon = [],
+        col = [];
+    if (point) {
+        let er=0;
+        idx = point._index;
+        for(let i = 0; i<idx; i++) {
+            if (!transitions_json[i].ID_LOWER_LEVEL || !transitions_json[i].ID_UPPER_LEVEL) er++;
+        }
+        let hovered = transitions_json[idx + er];
+        er=0;
+        for(let i = 0; i<transitions_json.length; i++){
+            if (transitions_json[i].ID_LOWER_LEVEL && transitions_json[i].ID_UPPER_LEVEL) {
+                if ((hovered.lower_level_termprefix == transitions_json[i].lower_level_termprefix) &&
+                    (hovered.upper_level_termprefix == transitions_json[i].upper_level_termprefix) &&
+                    (hovered.lower_level_config == transitions_json[i].lower_level_config) &&
+                    (hovered.upper_level_config == transitions_json[i].upper_level_config) &&
+                    (hovered.lower_level_termfirstpart == transitions_json[i].lower_level_termfirstpart) &&
+                    (hovered.upper_level_termfirstpart == transitions_json[i].upper_level_termfirstpart) &&
+                    (hovered.lower_level_termmultiply == transitions_json[i].lower_level_termmultiply) &&
+                    (hovered.upper_level_termmultiply == transitions_json[i].upper_level_termmultiply) &&
+                    (hovered.lower_level_termsecondpart == transitions_json[i].lower_level_termsecondpart) &&
+                    (hovered.upper_level_termsecondpart == transitions_json[i].upper_level_termsecondpart)
+                )
+                {
+                    let item = colorArr[i-er];
+                    let b = item.split(',');
+                    col.push(b[0]+','+b[1]+','+b[2]+', 1.0)');
+                }
+                else{
+                    let item = colorArr[i-er];
+                    let b = item.split(',');
+                    col.push(b[0]+','+b[1]+','+b[2]+', 0.03)');
+                }
+            }
+            else er++;
+        }
+
+        fill_icon(markers, nIcon, col);
+        scatterChartData.datasets[0].pointStyle = nIcon;
+        scatterChartData.datasets[0].pointBorderColor = col;
+        window.myScatter.update();
+    }
+    else {
+        click_intens();
+    }
+});
+
+document.getElementById('chartCont').addEventListener('mousemove', function(evt) {
+    let point = myScatter.getElementAtEvent(evt)[0];
+    if (!point) {
+        if(!document.getElementById('chartjs-tooltip').hidden)
+            document.getElementById('chartjs-tooltip').hidden=true;
+    }
+    else document.getElementById('chartjs-tooltip').hidden=false;
+});
