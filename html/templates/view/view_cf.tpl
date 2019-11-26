@@ -94,7 +94,7 @@
                             {#/if#}
 
 						</script>
-						<script src="/js/cf.js"></script>
+						<script src="/js/cf.js?v2"></script>
 
 
 						{#else#}

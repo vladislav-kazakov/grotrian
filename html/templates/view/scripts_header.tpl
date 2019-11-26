@@ -33,7 +33,7 @@
 <link rel="stylesheet" type="text/css" href="/css/spectrum2.css?v2" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<script src="/js/cf/chart.js/dist/Chart.bundle.js"></script>
+<script src="/js/cf/chart.js/dist/Chart.bundle.js?v2"></script>
 <script src="/js/cf/hammer.min.js"></script>
 <script src="/js/cf/chartzoom/chartjs-plugin-zoom.js"></script>
 <link href="/css/cf.css" rel="stylesheet">
