@@ -1,4 +1,5 @@
 <?php
+header('Access-Control-Allow-Origin: *');
 $errors = array();
 if($_POST['ABBR'] == "")    $errors[] = "error!";
 if($_POST['IONIZATION'] == "")   $errors[] = "error!";
