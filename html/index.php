@@ -369,6 +369,12 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
             //$data = $spectrum->getSpectraSVG($transitions,0,1599900000);
             echo json_encode($transitions);
             break;
+        case "jsonlevels":
+            header('Content-Type: application/json');
+            $level_list->Load($element_id);
+            $levels = $level_list->GetItemsArray();
+            echo json_encode($levels);
+            break;
         case "spectrum": {
             $transition_list->LoadWithLevels($element_id);
             $transitions=$transition_list->GetItemsArray();
@@ -803,6 +809,7 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
 
 		switch ($pagetype) {
 			case 'json': break;
+            case 'jsonlevels': break;
 			case 'diagram':
 			case 'spectrum':
 			case 'compare':
