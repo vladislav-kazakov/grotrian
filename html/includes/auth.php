@@ -25,7 +25,8 @@ if(empty($_SESSION['login']) or
    $login != $_SESSION['login'] or  
    $passw != $_SESSION['passw']    )  
 
-{ header('location: /ru/login/');//bad auth!!
+{ header('location: /ru/login/');
+exit;//bad auth!!
 	//echo "bad auth!!";
 }  //else echo "good auth!!";
 ?>

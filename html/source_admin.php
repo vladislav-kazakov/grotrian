@@ -1,6 +1,7 @@
 <?
 header('Content-Type: text/html; charset=windows-1251');
 require_once("configure.php");
+require_once("includes/auth.php");
 require_once("includes/elementlist.php");
 require_once("includes/source.php");
 require_once("includes/sourcelist.php");

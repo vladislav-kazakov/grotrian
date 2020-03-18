@@ -1,5 +1,6 @@
 <?
 require_once("configure.php");
+require_once("includes/auth.php");
 require_once("includes/elementlist.php");
 require_once("includes/atom.php");
 
