@@ -39,45 +39,87 @@
 
                             </div>
 					    </div>
-
-						<div id="chartCont">
+					</div>
+						<div class="clear"> </div>
+						<div id="chartCont" class="chartCont">
 							<canvas id="canvas" width="600" height="600"></canvas>
 						</div>
 
-						<div id="container">
-
-							<br><div class='resize'>
-								<input type='button' id="resetZoom" value="Reset Zoom" class='bluebtn'>
-								<input type='button' id="fullScreen" value="Full screen" class='bluebtn' onclick="resize(0)">
-                                <input type="checkbox"  id="intens" value=1 onclick="click_intens()" checked>отображение интенсивности прозрачностью
-
-							</div>
-
-
-							<div id="scale">
-								<div class="radio_buttons">
-									<div>
-										<input type="radio" name="option" id="eUp" checked/>
-										<label for="eUp">y=E<sub>up</sub>, x=E<sub>d</sub></label>
-									</div>
-									<div>
-										<input type="radio" name="option" id="parity"/>
-										<label for="parity">parity_of_term</label>
-									</div>
-									<div>
-										<input type="radio" name="option" id="eUp_eD"/>
-										<label for="eUp_eD">y=E<sub>up</sub> - E<sub>d</sub>, x=E<sub>d</sub></label>
-									</div>
-								</div>
-								<div id ="myForm">
-									<input type="radio" name="myRadios"  value="1" checked/>[1/см]
-									<input type="radio" name="myRadios"  value="2" />[э¬]
+						<div class="tools">
+							<div class="nav">
+								<div id="chartZoom" class="chartZoom" >
+									<canvas id="zoom_chart" width="250" height="200"></canvas>
 								</div>
 							</div>
-							<a id='compare' href='/{#$locale#}/compare/{#$layout_element_id#}'>{#$l10n.Compare#}</a>
-							<a id='circle' href='/{#$locale#}/spectrum/{#$layout_element_id#}'>{#$l10n.Regular_spectrum#}</a>
-							<a id='circle' href='/{#$locale#}/circle/{#$layout_element_id#}'>{#$l10n.Circle_spectrum#}</a>
+							<div class="nav">
+								<table border="0">
+									<tbody>
+									<tr>
+										<td><b>lower level: </b></td>
+										<td id="low_l"></td>
+									</tr>
+									<tr>
+										<td><b>upper level: </b></td>
+										<td id="up_l"></td>
+									</tr>
+									</tbody>
+								</table>
+							</div>
+							<div id="first_cont">
+								<div class="nav">
+									<input type='button' id="resetZoom" value="Reset Zoom" >
+								</div>
+								<div class="nav">
+									<input type='button' id="fullScreen" value="Full screen" onclick="resize(1)">
+								</div>
+								<div class="nav">
+									<input type="radio" name="myRadios"  value="1" checked/>[1/cm]
+									<input type="radio" name="myRadios"  value="2" />[eV]
+								</div>
+							</div>
+							<div id="second_cont">
+								<div class="nav">
+									<div class="radio_buttons">
+										<div>
+											<input type="radio" name="option" id="eUp" checked>
+											<label for="eUp" >y=E<sub>up</sub>, x=E<sub>l</sub></label>
+										</div>
+										<div>
+											<input type="radio" name="option" id="parity"/>
+											<label for="parity">Parity of term</label>
+										</div>
+										<div>
+											<input type="radio" name="option" id="eUp_eD"/>
+											<label for="eUp_eD">y=E<sub>up</sub> - E<sub>l</sub>, x=E<sub>l</sub></label>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="nav">
+								<input type="checkbox"  id="intens" value=1 onclick="click_intens()" checked>display intensity by transparency
+							</div>
+							<div class="nav">
+								<input type="checkbox"  id="random" value=1 onclick="click_random()"> display multiplets
+							</div>
+							<div class="nav">
+								<table>
+									<tr>
+										<td>
+											Show Width:
+										</td>
+										<td>
+											<input type="radio" name="width" value="1"/>configuration<br>
+											<input type="radio" name="width" value="2"/>
+											configurations with atomic residues<br>
+											<input type="radio" name="width" value="3"/>terms<br>
+											<input type="radio" name="width" value="4" checked/>---<br>
+										</td>
+									</tr>
+								</table>
+							</div>
 						</div>
+
+
 
 						<div id="canvas-holder" style="width: 300px;">
 							<div id="chartjs-tooltip">
@@ -85,12 +127,25 @@
 							</div>
 						</div>
 
+						<div id="canvas-holder1" style="width: 300px;">
+							<div id="zoom-tooltip">
+								<table></table>
+							</div>
+						</div>
+
 						<script>
+                            var atom = {};
 							{#if ($atom_json) #}
 							var atom_json = {#$atom_json#};
+							atom.atom = atom_json;
 							{#/if#}
                             {#if ($transitions_json) #}
                             var transitions_json = {#$transitions_json#};
+                            atom.transitions = transitions_json;
+                            {#/if#}
+                            {#if ($levels_json) #}
+                            var levels_json = {#$levels_json#};
+                            atom.levels = levels_json;
                             {#/if#}
 
 						</script>
@@ -108,5 +163,4 @@
 						</script>
 						{#/if#}
 						{#/if#}
-					</div>
                     <div class="clear"> </div> <br><br><br><br>

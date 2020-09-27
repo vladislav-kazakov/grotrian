@@ -447,6 +447,7 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
                 $atom_sys[$key] = iconv("Windows-1251", "UTF-8", $atom_sys[$key]);
             }
             $smarty->assign('atom_json', json_encode($atom_sys, JSON_UNESCAPED_UNICODE));
+
             $transition_list->LoadWithLevels($element_id);
             $transitions = $transition_list->GetItemsArray();
             $spectrum = new Spectrum();
@@ -456,6 +457,11 @@ if (isset ($_REQUEST['pagetype']) && $_REQUEST['pagetype'] == "spectrumpng"){
             } unset($transition);
 
             $smarty->assign('transitions_json',json_encode($transitions));
+
+            $level_list->Load($element_id);
+            $levels = $level_list->GetItemsArray();
+            $smarty->assign('levels_json',json_encode($levels));
+
             //указываем имя шаблона и название страницы
             $page_type="view_cf.tpl";
             $head="Kvantogram";
