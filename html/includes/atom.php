@@ -70,7 +70,7 @@ SELECT TOP 1 ID FROM ATOMS WHERE ID_ELEMENT=".$element_id." ORDER BY CAST(IONIZA
 	function GetXML($atom_id)
 	{		
 		
-		$query = "SELECT [XML] FROM [Grotrian_v2].[dbo].[ATOMS] WHERE ID = ".$atom_id;	
+		$query = "SELECT [XML] FROM ATOMS WHERE ID = ".$atom_id;
 		$this->LoadFromSQL($query);
 	}
 

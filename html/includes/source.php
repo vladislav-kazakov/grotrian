@@ -67,7 +67,7 @@ class Source extends LocalList
 	function GetAutocompleteAuthors($q)
 	{	
 		$q = iconv("UTF-8", "Windows-1251", $q);	
-		$query = "SELECT TOP 1000 [NAME] FROM [Grotrian_v2].[dbo].[AUTHORS] WHERE NAME LIKE '".$q."%'";
+		$query = "SELECT TOP 1000 [NAME] FROM AUTHORS WHERE NAME LIKE '".$q."%'";
 		
 		$this->LoadFromSQL($query);
 	}	
