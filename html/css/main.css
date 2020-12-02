@@ -69,7 +69,8 @@ li.menu_elements,
 li.menu_levels,
 li.menu_transitions,
 li.menu_diagrams,
-li.menu_spectra
+li.menu_spectra,
+li.menu_settings
 {
 	padding: 0;
 }
@@ -612,7 +613,8 @@ padding:0;
 .spectra li.menu_spectra a,
 .spectrum li.menu_spectra a,
 .element li.menu_elements a,
-.elements li.menu_elements a
+.elements li.menu_elements a,
+.settings li.menu_settings a
 {
 background:none repeat scroll 0 0  #262726;
 color:#FFFFFF;
